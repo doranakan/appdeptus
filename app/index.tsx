@@ -1,5 +1,5 @@
-import { Box, Text } from '@gluestack-ui/themed';
-import { StyleSheet } from 'react-native';
+import { Box, Text } from '@gluestack-ui/themed'
+import { StyleSheet } from 'react-native'
 
 export default function Page() {
   return (
@@ -9,7 +9,7 @@ export default function Page() {
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
       </Box>
     </Box>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
     fontSize: 36,
     color: '#38434D',
   },
-});
+})
