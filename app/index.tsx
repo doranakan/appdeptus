@@ -1,11 +1,12 @@
-import { Button, ButtonText } from '@gluestack-ui/themed'
 import React, { useCallback } from 'react'
-import { Box, Text } from '@gluestack-ui/themed'
+import { Button, ButtonText, Box, Text } from '@gluestack-ui/themed'
 import { Link, useRouter } from 'expo-router'
 
 const Root = () => {
   const { replace } = useRouter()
-  const goToHome = useCallback(() => replace('/home'), [])
+  const goToHome = useCallback(() => {
+    replace('/home')
+  }, [replace])
 
   return (
     <Box alignItems='center' flex={1} justifyContent='center'>

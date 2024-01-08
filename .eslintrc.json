@@ -1,0 +1,136 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "standard-with-typescript",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest"
+  },
+  "plugins": ["react"],
+  "rules": {
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "types": {
+          "React.FC": "Useless and has some drawbacks, see https://github.com/facebook/create-react-app/pull/8177",
+          "React.FunctionComponent": "Useless and has some drawbacks, see https://github.com/facebook/create-react-app/pull/8177"
+        }
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-mixed-enums": "error",
+    "@typescript-eslint/no-shadow": "error",
+    "@typescript-eslint/no-unnecessary-condition": [
+      "error",
+      { "allowConstantLoopConditions": true }
+    ],
+    "@typescript-eslint/no-unsafe-enum-comparison": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "ignoreRestSiblings": true }
+    ],
+    "@typescript-eslint/promise-function-async": "error",
+    "@typescript-eslint/return-await": "error",
+    "@typescript-eslint/switch-exhaustiveness-check": [
+      "error",
+      { "requireDefaultForNonUnion": true }
+    ],
+    "camelcase": ["error", { "allow": ["^UNSAFE_"] }],
+    "curly": "error",
+    "no-console": "error",
+    "no-else-return": "error",
+    "no-fallthrough": "off",
+    "no-param-reassign": [
+      "error",
+      { "ignorePropertyModificationsFor": ["state"], "props": true }
+    ],
+    "no-promise-executor-return": "error",
+
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          {
+            "group": ["react-native-vector-icons*"],
+            "message": "Please use `@expo/vector-icons` instead."
+          }
+        ]
+      }
+    ],
+    "no-return-await": "off",
+    "no-shadow": "off",
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "no-unneeded-ternary": ["error", { "defaultAssignment": false }],
+    "no-void": ["error", { "allowAsStatement": true }],
+    "prefer-promise-reject-errors": "error",
+    "react-hooks/exhaustive-deps": "error",
+    // Enforce components to be written as an arrow function
+    "react/function-component-definition": [
+      "off",
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    // Disallow useless curly braces around props
+    "react/jsx-curly-brace-presence": "off",
+    // Enforce common handler names
+    "react/jsx-handler-names": "off",
+    // We are bad guys
+    "react/jsx-max-depth": ["error", { "max": 9 }],
+    // Allow functions inline declarations
+    "react/jsx-no-bind": ["error", { "allowArrowFunctions": true }],
+    // Allow conditional render with logic operators (&&, ||)
+    "react/jsx-no-leaked-render": "off",
+    // Enforce curly braces around children
+    "react/jsx-no-literals": "off",
+    // Allow uppercase and namespaced components
+    "react/jsx-pascal-case": [
+      "error",
+      { "allowAllCaps": true, "allowNamespace": true }
+    ],
+    // Allow props spreading
+    "react/jsx-props-no-spreading": "off",
+    // Enforce sorting props alphabetically
+    "react/jsx-sort-props": "off",
+    // Allow multiple stateless components in a file
+    "react/no-multi-comp": ["error", { "ignoreStateless": true }],
+    // Disallow usages of unsafe lifecycle methods
+    "react/no-unsafe": ["error", { "checkAliases": true }],
+    // Disallow not memoized nested components
+    "react/no-unstable-nested-components": "off",
+    // Allow non-readonly props
+    "react/prefer-read-only-props": "off",
+    // Disallow using class components
+    "react/prefer-stateless-function": "error",
+    // Check props types only when defined
+    "react/prop-types": ["error", { "skipUndeclared": true }],
+    "react/require-optimization": "off",
+    "react/static-property-placement": "off",
+    "require-atomic-updates": "error",
+    // ---
+    // * Disable checks for class components since they are disallowed
+    "react/jsx-sort-default-props": "off",
+    // ---
+    // ! Auto-fixable rules we could enable in the future
+    // Disallow passing style as a prop
+    "react/forbid-component-props": "off",
+    // ---
+    // React
+    // Once we migrate to ts we can remove js extension
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".js", ".tsx"] }
+    ],
+    // ! `void` generic argument is a common use case with Redux Toolkit
+    // See: https://github.com/typescript-eslint/typescript-eslint/issues/3612#issuecomment-1581513645
+    "@typescript-eslint/no-invalid-void-type": "off",
+    // Enforce not required props to have default values
+    "react/require-default-props": "off"
+  }
+}

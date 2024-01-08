@@ -1,8 +1,7 @@
+import React from 'react'
 import { config } from '@gluestack-ui/config'
 import { GluestackUIProvider } from '@gluestack-ui/themed'
-import { Slot, Stack } from 'expo-router'
-
-const shouldSignIn = true
+import { Stack } from 'expo-router'
 
 const ThemeProvider = () => (
   <GluestackUIProvider config={config}>

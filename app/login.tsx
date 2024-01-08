@@ -1,6 +1,5 @@
 import React from 'react'
-import { ButtonText } from '@gluestack-ui/themed'
-import { Box, Button, Text } from '@gluestack-ui/themed'
+import { Box, Text } from '@gluestack-ui/themed'
 
 const LoginRoute = () => (
   <Box alignItems='center' flex={1} justifyContent='center'>
