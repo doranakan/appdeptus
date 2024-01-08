@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "expo-app",
-    "slug": "expo-app",
+    "name": "appdeptus",
+    "slug": "appdeptus",
     "version": "1.0.0",
-    "scheme": "your-app-scheme",
+    "scheme": "com.appdeptus",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
