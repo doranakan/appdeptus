@@ -1,12 +1,6 @@
 import React from 'react'
-import { Box, Text } from '@gluestack-ui/themed'
+import { LoginScreen } from '../modules/root/screens'
 
-const LoginRoute = () => (
-  <Box alignItems='center' flex={1} justifyContent='center'>
-    <Box>
-      <Text>Login</Text>
-      <Text>This is the first page of your app.</Text>
-    </Box>
-  </Box>
-)
+const LoginRoute = () => <LoginScreen />
+
 export default LoginRoute

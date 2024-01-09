@@ -1,12 +1,6 @@
 import React from 'react'
-import { Box, Text } from '@gluestack-ui/themed'
+import { HomeScreen } from '../../modules/home/screens'
 
-const HomeRoute = () => (
-  <Box alignItems='center' flex={1} justifyContent='center'>
-    <Box>
-      <Text>Home</Text>
-    </Box>
-  </Box>
-)
+const HomeRoute = () => <HomeScreen />
 
 export default HomeRoute

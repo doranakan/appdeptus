@@ -3,17 +3,17 @@ import { config } from '@gluestack-ui/config'
 import { GluestackUIProvider } from '@gluestack-ui/themed'
 import { Stack } from 'expo-router'
 
-const ThemeProvider = () => (
+const App = () => (
   <GluestackUIProvider config={config}>
-    <AppLayout />
+    <RootLayout />
   </GluestackUIProvider>
 )
 
-const AppLayout = () => (
+const RootLayout = () => (
   <Stack initialRouteName='index' screenOptions={{ headerShown: false }}>
     <Stack.Screen name='index' />
     <Stack.Screen name='login' options={{ presentation: 'modal' }} />
   </Stack>
 )
 
-export default ThemeProvider
+export default App

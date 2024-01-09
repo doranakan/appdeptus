@@ -1,12 +1,6 @@
 import React from 'react'
-import { Box, Text } from '@gluestack-ui/themed'
+import { SettingsScreen } from '../../modules/settings/screens'
 
-const SettingsRoute = () => (
-  <Box alignItems='center' flex={1} justifyContent='center'>
-    <Box>
-      <Text>Settings</Text>
-    </Box>
-  </Box>
-)
+const SettingsRoute = () => <SettingsScreen />
 
 export default SettingsRoute
