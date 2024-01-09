@@ -1,13 +1,22 @@
 import React from 'react'
 import { config } from '@gluestack-ui/config'
 import { GluestackUIProvider } from '@gluestack-ui/themed'
-import { Stack } from 'expo-router'
+import { SplashScreen, Stack } from 'expo-router'
+import { useMount } from 'ahooks'
 
-const App = () => (
-  <GluestackUIProvider config={config}>
-    <RootLayout />
-  </GluestackUIProvider>
-)
+SplashScreen.preventAutoHideAsync()
+
+const App = () => {
+  useMount(() => {
+    SplashScreen.hideAsync()
+  })
+
+  return (
+    <GluestackUIProvider config={config}>
+      <RootLayout />
+    </GluestackUIProvider>
+  )
+}
 
 const RootLayout = () => (
   <Stack initialRouteName='index' screenOptions={{ headerShown: false }}>
