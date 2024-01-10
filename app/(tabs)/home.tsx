@@ -1,5 +1,5 @@
 import React from 'react'
-import { HomeScreen } from '../../modules/home/screens'
+import { HomeScreen } from 'appdeptus/modules/home/screens'
 
 const HomeRoute = () => <HomeScreen />
 

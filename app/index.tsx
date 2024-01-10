@@ -1,5 +1,5 @@
 import React from 'react'
-import { RootScreen } from '../modules/root/screens'
+import { RootScreen } from 'appdeptus/modules/root/screens'
 
 const RootRoute = () => <RootScreen />
 

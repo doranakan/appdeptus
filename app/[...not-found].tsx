@@ -1,5 +1,5 @@
 import React from 'react'
-import { NotFoundScreen } from '../modules/root/screens'
+import { NotFoundScreen } from 'appdeptus/modules/root/screens'
 
 const NotFoundRoute = () => <NotFoundScreen />
 

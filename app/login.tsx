@@ -1,5 +1,5 @@
 import React from 'react'
-import { LoginScreen } from '../modules/root/screens'
+import { LoginScreen } from 'appdeptus/modules/root/screens'
 
 const LoginRoute = () => <LoginScreen />
 

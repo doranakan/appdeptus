@@ -1,5 +1,5 @@
 import React from 'react'
-import { SettingsScreen } from '../../modules/settings/screens'
+import { SettingsScreen } from 'appdeptus/modules/settings/screens'
 
 const SettingsRoute = () => <SettingsScreen />
 
