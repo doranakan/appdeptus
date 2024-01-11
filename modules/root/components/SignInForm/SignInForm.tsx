@@ -1,7 +1,5 @@
 import {
   AtSignIcon,
-  Button,
-  ButtonText,
   Input,
   InputField,
   InputIcon,
@@ -14,6 +12,7 @@ import React, { useCallback, useState } from 'react'
 import { useRouter } from 'expo-router'
 import { supabase } from 'appdeptus/utils'
 import { useBoolean } from 'ahooks'
+import { Button } from 'appdeptus/components'
 
 const SignInForm = () => {
   const [email, setEmail] = useState('')
@@ -71,15 +70,7 @@ const SignInForm = () => {
         </InputSlot>
       </Input>
 
-      <Button
-        action={'primary'}
-        variant={'solid'}
-        size={'lg'}
-        isDisabled={isLoading}
-        onPress={signIn}
-      >
-        <ButtonText>Sign in</ButtonText>
-      </Button>
+      <Button isDisabled={isLoading} onPress={signIn} text='Sign in' />
 
       <Text color='$error500' size='lg'>
         {errorMessage}
