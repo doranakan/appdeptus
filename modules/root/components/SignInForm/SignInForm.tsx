@@ -1,6 +1,5 @@
 import {
   AtSignIcon,
-  Input,
   InputField,
   InputIcon,
   InputSlot,
@@ -12,7 +11,7 @@ import React, { useCallback, useState } from 'react'
 import { useRouter } from 'expo-router'
 import { supabase } from 'appdeptus/utils'
 import { useBoolean } from 'ahooks'
-import { Button } from 'appdeptus/components'
+import { Button, Input } from 'appdeptus/components'
 
 const SignInForm = () => {
   const [email, setEmail] = useState('')
@@ -43,32 +42,28 @@ const SignInForm = () => {
 
   return (
     <VStack space='md' w='$full'>
-      <Input size='xl' isInvalid={Boolean(errorMessage)}>
-        <InputField
-          onChange={(e) => {
-            setEmail(e.nativeEvent.text)
-          }}
-          placeholder='your@email.here'
-          textTransform='lowercase'
-        />
-        <InputSlot pr='$4'>
-          <InputIcon as={AtSignIcon} />
-        </InputSlot>
-      </Input>
+      <Input
+        Icon={AtSignIcon}
+        isInvalid={Boolean(errorMessage)}
+        onChange={(e) => {
+          setEmail(e.nativeEvent.text)
+        }}
+        placeholder='your@email.here'
+        textTransform='lowercase'
+        value={email}
+      />
 
-      <Input size='xl' isInvalid={Boolean(errorMessage)}>
-        <InputField
-          onChange={(e) => {
-            setPassword(e.nativeEvent.text)
-          }}
-          onSubmitEditing={signIn}
-          placeholder='Pa55w0rd!'
-          type='password'
-        />
-        <InputSlot pr='$4'>
-          <InputIcon as={LockIcon} />
-        </InputSlot>
-      </Input>
+      <Input
+        Icon={LockIcon}
+        isInvalid={Boolean(errorMessage)}
+        onChange={(e) => {
+          setPassword(e.nativeEvent.text)
+        }}
+        onSubmitEditing={signIn}
+        placeholder='Pa55w0rd!'
+        type='password'
+        value={password}
+      />
 
       <Button isDisabled={isLoading} onPress={signIn} text='Sign in' />
 
