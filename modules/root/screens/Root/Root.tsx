@@ -1,22 +1,15 @@
 import React from 'react'
-import { Button, ButtonText, Box, Text } from '@gluestack-ui/themed'
-import { Link } from 'expo-router'
+import { Box, Text, VStack } from '@gluestack-ui/themed'
+import { SignInForm } from '../../components'
 
 const RootScreen = () => (
-  <Box alignItems='center' flex={1} justifyContent='center'>
-    <Box rowGap='$4'>
-      <Text>Root</Text>
-      <Link href='/login' asChild>
-        <Button
-          action={'primary'}
-          variant={'solid'}
-          size={'sm'}
-          isDisabled={false}
-        >
-          <ButtonText>Login</ButtonText>
-        </Button>
-      </Link>
-    </Box>
+  <Box alignItems='center' flex={1} justifyContent='center' p='$8'>
+    <VStack rowGap='$4' w='$full'>
+      <Text fontWeight='$bold' size='xl'>
+        Sign In
+      </Text>
+      <SignInForm />
+    </VStack>
   </Box>
 )
 

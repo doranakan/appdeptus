@@ -63,7 +63,6 @@
       }
     ],
     "no-return-await": "off",
-    "no-shadow": "off",
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
     "no-unneeded-ternary": ["error", { "defaultAssignment": false }],
     "no-void": ["error", { "allowAsStatement": true }],
@@ -131,6 +130,7 @@
     // See: https://github.com/typescript-eslint/typescript-eslint/issues/3612#issuecomment-1581513645
     "@typescript-eslint/no-invalid-void-type": "off",
     // Enforce not required props to have default values
-    "react/require-default-props": "off"
+    "react/require-default-props": "off",
+    "@typescript-eslint/no-misused-promises": "off"
   }
 }

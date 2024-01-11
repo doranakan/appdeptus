@@ -1,15 +1,24 @@
 import React from 'react'
 import { config } from '@gluestack-ui/config'
 import { GluestackUIProvider } from '@gluestack-ui/themed'
-import { SplashScreen, Stack } from 'expo-router'
-import { useMount } from 'ahooks'
+import { SplashScreen, Stack, useRouter } from 'expo-router'
+import { useAsyncEffect } from 'ahooks'
+import { supabase } from 'appdeptus/utils'
 
 SplashScreen.preventAutoHideAsync()
 
 const App = () => {
-  useMount(() => {
-    SplashScreen.hideAsync()
-  })
+  const router = useRouter()
+
+  useAsyncEffect(async () => {
+    const { data } = await supabase.auth.getSession()
+
+    if (data.session !== null) {
+      router.replace('/home')
+    }
+
+    setTimeout(SplashScreen.hideAsync, 500)
+  }, [])
 
   return (
     <GluestackUIProvider config={config}>
@@ -21,7 +30,6 @@ const App = () => {
 const RootLayout = () => (
   <Stack initialRouteName='index' screenOptions={{ headerShown: false }}>
     <Stack.Screen name='index' />
-    <Stack.Screen name='login' options={{ presentation: 'modal' }} />
   </Stack>
 )
 
