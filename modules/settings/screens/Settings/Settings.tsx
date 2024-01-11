@@ -1,12 +1,38 @@
-import React from 'react'
-import { Box, Text } from '@gluestack-ui/themed'
+import React, { useCallback } from 'react'
+import { Box, Text, VStack } from '@gluestack-ui/themed'
+import { Button } from 'appdeptus/components'
+import { useRouter } from 'expo-router'
+import { supabase } from 'appdeptus/utils'
+import { useBoolean } from 'ahooks'
 
-const SettingsScreen = () => (
-  <Box alignItems='center' flex={1} justifyContent='center'>
-    <Box>
-      <Text>Settings</Text>
+const SettingsScreen = () => {
+  const router = useRouter()
+
+  const [isLoading, { setFalse: stopLoading, setTrue: startLoading }] =
+    useBoolean()
+
+  const signOut = useCallback(async () => {
+    startLoading()
+    const { error } = await supabase.auth.signOut()
+    stopLoading()
+
+    if (error) {
+      return
+    }
+
+    router.replace('/')
+  }, [])
+
+  return (
+    <Box alignItems='center' flex={1} justifyContent='center' p='$8'>
+      <VStack space='md' w='$full'>
+        <Text fontWeight='bold' size='xl'>
+          Settings
+        </Text>
+        <Button isDisabled={isLoading} onPress={signOut} text='Sign out' />
+      </VStack>
     </Box>
-  </Box>
-)
+  )
+}
 
 export default SettingsScreen
