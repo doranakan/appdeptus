@@ -30,6 +30,13 @@ const SettingsScreen = () => {
           Settings
         </Text>
         <Button isDisabled={isLoading} onPress={signOut} text='Sign out' />
+        {__DEV__ ? (
+          <Button
+            onPress={() => router.push('/_sitemap')}
+            text='Sitemap'
+            variant='outline'
+          />
+        ) : undefined}
       </VStack>
     </Box>
   )

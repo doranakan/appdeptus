@@ -1,12 +1,23 @@
 import React from 'react'
-import { Box, Text } from '@gluestack-ui/themed'
+import { Box, Text, VStack } from '@gluestack-ui/themed'
+import { Button } from 'appdeptus/components'
+import { useRouter } from 'expo-router'
 
-const HomeScreen = () => (
-  <Box alignItems='center' flex={1} justifyContent='center'>
-    <Box>
-      <Text>Home</Text>
+const HomeScreen = () => {
+  const router = useRouter()
+  return (
+    <Box alignItems='center' flex={1} justifyContent='center' p='$8'>
+      <VStack space='md' w='$full'>
+        <Text fontWeight='bold' size='xl'>
+          Home
+        </Text>
+        <Button
+          onPress={() => router.push('/home/army-builder')}
+          text='New army list'
+        />
+      </VStack>
     </Box>
-  </Box>
-)
+  )
+}
 
 export default HomeScreen

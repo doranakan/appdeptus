@@ -3,7 +3,7 @@ import { Tabs } from 'expo-router'
 import { GripVerticalIcon, SettingsIcon } from '@gluestack-ui/themed'
 
 const TabsLayout = () => (
-  <Tabs screenOptions={{ headerShown: false }}>
+  <Tabs screenOptions={{ headerShown: false }} initialRouteName='home'>
     <Tabs.Screen
       name='home'
       options={{

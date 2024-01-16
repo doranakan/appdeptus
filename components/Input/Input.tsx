@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   Input as GSInput,
-  Icon,
   InputField,
   InputIcon,
   InputSlot
