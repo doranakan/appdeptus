@@ -5,16 +5,16 @@ import { useGetFactionsQuery } from '../../api'
 import { Loading } from 'appdeptus/components'
 
 const FactionSelectionScreen = () => {
-  const { data } = useGetFactionsQuery()
+  const { data: factions } = useGetFactionsQuery()
 
-  if (!data) {
+  if (!factions) {
     return <Loading />
   }
 
   return (
     <Box alignItems='center' flex={1} justifyContent='center'>
       <Box gap='$4'>
-        {data.map((faction) => (
+        {factions.map((faction) => (
           <Link
             href={{
               params: {
