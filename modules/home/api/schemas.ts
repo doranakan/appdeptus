@@ -3,7 +3,7 @@ import { z } from 'zod'
 const codexesSchema = z.array(
   z.object({
     id: z.number(),
-    factionId: z.number(),
+    faction: z.number(),
     name: z.string()
   })
 )

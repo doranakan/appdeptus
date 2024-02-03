@@ -10,6 +10,10 @@ const ArmyBuilderLayout = () => (
       name='codex-selection'
       options={{ headerBackTitle: 'Back', title: 'Select codex' }}
     />
+    <Stack.Screen
+      name='unit-selection'
+      options={{ headerBackTitle: 'Back', title: 'Select units' }}
+    />
   </Stack>
 )
 
