@@ -32,7 +32,7 @@ const getCodexes = (builder: SupabaseEndpointBuilder) =>
         id: codex.id,
         name: codex.name,
         faction: factions.find((faction) => faction.id === codex.faction) ?? {
-          id: 0,
+          id: '',
           name: ''
         }
       }))

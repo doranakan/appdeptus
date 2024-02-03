@@ -1,7 +1,7 @@
 import { Faction } from './faction'
 
 type Codex = {
-  id: number
+  id: string
   faction: Faction
   name: string
 }
