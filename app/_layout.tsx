@@ -4,6 +4,8 @@ import { GluestackUIProvider } from '@gluestack-ui/themed'
 import { SplashScreen, Stack, useRouter } from 'expo-router'
 import { useAsyncEffect } from 'ahooks'
 import { supabase } from 'appdeptus/utils'
+import { Provider } from 'react-redux'
+import { store } from 'appdeptus/store'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -21,9 +23,11 @@ const App = () => {
   }, [])
 
   return (
-    <GluestackUIProvider config={config}>
-      <RootLayout />
-    </GluestackUIProvider>
+    <Provider store={store}>
+      <GluestackUIProvider config={config}>
+        <RootLayout />
+      </GluestackUIProvider>
+    </Provider>
   )
 }
 

@@ -16,6 +16,7 @@
     "@legendapp/motion": "^2.2.1",
     "@react-aria/checkbox": "^3.13.0",
     "@react-native-async-storage/async-storage": "1.21.0",
+    "@reduxjs/toolkit": "^2.1.0",
     "@supabase/supabase-js": "^2.39.3",
     "ahooks": "^3.7.10",
     "expo": "^50.0.0",
@@ -31,7 +32,8 @@
     "react-native-screens": "~3.29.0",
     "react-native-svg": "14.1.0",
     "react-native-url-polyfill": "^2.0.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "react-redux": "^9.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
