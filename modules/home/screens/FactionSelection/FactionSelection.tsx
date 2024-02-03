@@ -2,17 +2,13 @@ import React from 'react'
 import { Box, Text } from '@gluestack-ui/themed'
 import { Link } from 'expo-router'
 import { useGetFactionsQuery } from '../../api'
-import { ActivityIndicator } from 'react-native'
+import { Loading } from 'appdeptus/components'
 
 const FactionSelectionScreen = () => {
   const { data } = useGetFactionsQuery()
 
   if (!data) {
-    return (
-      <Box alignItems='center' flex={1} justifyContent='center'>
-        <ActivityIndicator />
-      </Box>
-    )
+    return <Loading />
   }
 
   return (
