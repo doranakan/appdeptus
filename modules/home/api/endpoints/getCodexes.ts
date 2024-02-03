@@ -16,28 +16,7 @@ const getCodexes = (builder: SupabaseEndpointBuilder) =>
         throw { error: codexesError }
       }
 
-      const { data: factionsData, error: facionsError } = await supabase
-        .from(Table.FACTIONS)
-        .select()
-
-      if (facionsError) {
-        throw { error: facionsError }
-      }
-
-      const factions = factionsSchema.parse(factionsData)
-
-      const rawCodexes = codexesSchema.parse(codexesData)
-
-      const codexes: Codex[] = rawCodexes.map((codex) => ({
-        id: codex.id,
-        name: codex.name,
-        faction: factions.find((faction) => faction.id === codex.faction) ?? {
-          id: '',
-          name: ''
-        }
-      }))
-
-      return { data: codexes }
+      return { data: codexesSchema.parse(codexesData) }
     }
   })
 
