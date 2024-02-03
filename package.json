@@ -24,6 +24,7 @@
     "expo-linking": "~6.2.2",
     "expo-router": "~3.4.6",
     "expo-status-bar": "~1.11.1",
+    "lodash": "^4.17.21",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.73.2",
@@ -39,6 +40,7 @@
   "devDependencies": {
     "@babel/core": "^7.20.0",
     "@expo/webpack-config": "~19.0.1",
+    "@types/lodash": "^4.14.202",
     "@types/react": "~18.2.45",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "eslint": "^8.56.0",
