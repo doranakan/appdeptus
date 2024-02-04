@@ -1,11 +1,14 @@
-import React from 'react'
-import { Box, Text } from '@gluestack-ui/themed'
-import { Link, useLocalSearchParams } from 'expo-router'
+import { FontAwesome5 } from '@expo/vector-icons'
+import { Box, Button, ButtonText, ScrollView } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { useGetCodexesQuery } from '../../api'
 import { Loading } from 'appdeptus/components'
+import { useLocalSearchParams, useRouter } from 'expo-router'
+import React from 'react'
+import { useGetCodexesQuery } from '../../api'
 
 const CodexSelectionScreen = () => {
+  const router = useRouter()
+
   const { factionId } = useLocalSearchParams<{ factionId: string }>()
 
   const { data: codexes } = useGetCodexesQuery(factionId ?? skipToken)
@@ -15,23 +18,42 @@ const CodexSelectionScreen = () => {
   }
 
   return (
-    <Box alignItems='center' flex={1} justifyContent='center'>
-      <Box gap='$4'>
+    <ScrollView>
+      <Box flex={1} gap='$4' p='$4'>
         {codexes.map((codex) => (
-          <Link
-            href={{
-              params: {
-                codexId: codex.id
-              },
-              pathname: 'home/army-builder/unit-selection'
-            }}
+          <Button
+            $active-bgColor='$light200'
+            backgroundColor='$white'
+            borderRadius='$md'
+            flex={1}
+            gap='$2'
+            justifyContent='flex-start'
             key={codex.id}
+            onPress={() =>
+              router.navigate({
+                params: {
+                  codexId: codex.id
+                },
+                pathname: '/home/army-builder/unit-selection'
+              })
+            }
+            size='lg'
           >
-            <Text>{codex.name}</Text>
-          </Link>
+            <ButtonText
+              color='$textDark700'
+              flex={1}
+              fontWeight='$bold'
+              textAlign='left'
+            >
+              {codex.name}
+            </ButtonText>
+            <ButtonText color='$textDark700'>
+              <FontAwesome5 name='chevron-right' />
+            </ButtonText>
+          </Button>
         ))}
       </Box>
-    </Box>
+    </ScrollView>
   )
 }
 export default CodexSelectionScreen
