@@ -7,52 +7,53 @@ import { useLocalSearchParams } from 'expo-router'
 import React, { useCallback } from 'react'
 import { FlatList, ListRenderItem } from 'react-native'
 import { useGetUnitsQuery } from '../../api'
-import { UnitListItem } from '../../components'
+import { UnitListHeader, UnitListItem } from '../../components'
 
 const UnitSelectionScreen = () => {
   const { codexId } = useLocalSearchParams<{ codexId: string }>()
 
   const { data: units } = useGetUnitsQuery(codexId ?? skipToken)
 
-  if (!units) {
+  const [armyList, { set, get }] = useMap<Unit['id'], Unit['tiers']>()
+
+  const renderItem = useCallback<ListRenderItem<Unit>>(
+    ({ item: unit }) => {
+      const tiers = get(unit.id) ?? []
+      return (
+        <UnitListItem
+          onPressAdd={() => {
+            set(unit.id, [...tiers, unit.tiers[0]])
+          }}
+          onEditConfigs={(configs) => {
+            set(unit.id, configs)
+          }}
+          selectedConfig={tiers}
+          unit={unit}
+        />
+      )
+    },
+    [armyList]
+  )
+
+  if (!units || !codexId) {
     return <Loading />
   }
 
-  return <UnitList units={units} />
-}
-
-const UnitList = ({ units }: UnitListProps) => {
-  const [armyList, { set, get }] = useMap<Unit['id'], number>()
-
-  const renderItem = useCallback<ListRenderItem<Unit>>(({ item: unit }) => {
-    const count = get(unit.id) ?? 0
-    return (
-      <UnitListItem
-        count={count}
-        onPressDec={() => {
-          set(unit.id, count - 1)
-        }}
-        onPressInc={() => {
-          set(unit.id, count + 1)
-        }}
-        unit={unit}
-      />
-    )
-  }, [])
-
   return (
-    <FlatList
-      data={units}
-      ItemSeparatorComponent={() => <Box height='$4' />}
-      keyExtractor={(unit) => unit.id}
-      renderItem={renderItem}
-      style={{ padding: 16 }}
-    />
+    <>
+      <UnitListHeader
+        armyList={Array.from(armyList.values()).flat()}
+        codexId={codexId}
+      />
+      <FlatList
+        data={units}
+        ItemSeparatorComponent={() => <Box height='$4' />}
+        keyExtractor={(unit) => unit.id}
+        renderItem={renderItem}
+        style={{ padding: 16 }}
+      />
+    </>
   )
-}
-
-type UnitListProps = {
-  units: Unit[]
 }
 
 export default UnitSelectionScreen
