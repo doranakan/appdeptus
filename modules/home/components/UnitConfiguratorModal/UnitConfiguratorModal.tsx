@@ -1,5 +1,5 @@
-import { Box, Button, ButtonIcon, Text, TrashIcon } from '@gluestack-ui/themed'
-import { Modal } from 'appdeptus/components'
+import { Box, Text } from '@gluestack-ui/themed'
+import { Button, Modal } from 'appdeptus/components'
 import { Unit } from 'appdeptus/models'
 import { pullAt } from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -34,15 +34,21 @@ const UnitConfiguratorModal = ({
 
   const renderItem = useCallback<ListRenderItem<Unit['tiers'][0]>>(
     ({ item: selectedConfig, index }) => (
-      <Box gap='$4' p='$4' shadowOpacity={0}>
+      <Box
+        backgroundColor='$backgroundLight0'
+        borderRadius='$md'
+        gap='$4'
+        p='$4'
+        shadowOpacity={0}
+      >
         <Text>{unit.name}</Text>
         <Box flexDirection='row' gap='$2'>
           <Button
             $active-bgColor='$red600'
             backgroundColor='$red500'
             borderColor='$red600'
-            borderRadius='$md'
             borderWidth='$1'
+            iconName='trash-alt'
             onPress={() => {
               pullAt(selectedConfigs, [index])
 
@@ -52,9 +58,7 @@ const UnitConfiguratorModal = ({
                 handleClose()
               }
             }}
-          >
-            <ButtonIcon as={TrashIcon} />
-          </Button>
+          />
           <TierSelector
             selectedTierIndex={unit.tiers.findIndex(
               (tier) => tier.id === selectedConfig.id

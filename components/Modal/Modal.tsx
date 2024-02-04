@@ -24,7 +24,7 @@ const Modal = ({ children, onPressClose, title, visible }: ModalProps) => {
         >
           <Box
             alignItems='center'
-            backgroundColor='$white'
+            backgroundColor='$backgroundLight0'
             borderBottomWidth='$1'
             borderColor='$light300'
             justifyContent='center'
@@ -34,7 +34,7 @@ const Modal = ({ children, onPressClose, title, visible }: ModalProps) => {
               {title}
             </Text>
             <Box alignItems='center' position='absolute' p='$4' right={0}>
-              <ButtonText color='$blue500' onPress={onPressClose}>
+              <ButtonText color='$info500' onPress={onPressClose}>
                 Close
               </ButtonText>
             </Box>

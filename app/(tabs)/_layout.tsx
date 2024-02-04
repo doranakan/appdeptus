@@ -1,8 +1,9 @@
-import React from 'react'
-import { Tabs, useRouter } from 'expo-router'
-import { GripVerticalIcon, SettingsIcon } from '@gluestack-ui/themed'
+import { FontAwesome5 } from '@expo/vector-icons'
+import { Text } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
 import { supabase } from 'appdeptus/utils'
+import { Tabs, useRouter } from 'expo-router'
+import React from 'react'
 
 const TabsLayout = () => {
   const router = useRouter()
@@ -22,8 +23,11 @@ const TabsLayout = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <GripVerticalIcon color={focused ? '$info500' : '$light400'} />
-          )
+            <Text color={focused ? '$info500' : '$light400'}>
+              <FontAwesome5 name='book-dead' size={18} />
+            </Text>
+          ),
+          title: 'Army builder'
         }}
       />
       <Tabs.Screen
@@ -31,8 +35,11 @@ const TabsLayout = () => {
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <SettingsIcon color={focused ? '$info500' : '$light400'} />
-          )
+            <Text color={focused ? '$info500' : '$light400'}>
+              <FontAwesome5 name='cogs' size={18} />
+            </Text>
+          ),
+          title: 'Settings'
         }}
       />
     </Tabs>

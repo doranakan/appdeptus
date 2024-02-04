@@ -1,7 +1,7 @@
-import React from 'react'
 import { Box, Text, VStack } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
 import { useRouter } from 'expo-router'
+import React from 'react'
 
 const HomeScreen = () => {
   const router = useRouter()
@@ -12,6 +12,7 @@ const HomeScreen = () => {
           Home
         </Text>
         <Button
+          iconName='list'
           onPress={() => router.push('/home/army-builder')}
           text='New army list'
         />

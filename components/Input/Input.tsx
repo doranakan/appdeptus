@@ -1,22 +1,25 @@
-import React from 'react'
+import { FontAwesome5 } from '@expo/vector-icons'
 import {
   Input as GSInput,
   InputField,
-  InputIcon,
-  InputSlot
+  InputSlot,
+  Text
 } from '@gluestack-ui/themed'
+import React from 'react'
 
 type InputProps = (typeof InputField)['defaultProps'] & {
-  Icon?: any
+  iconName?: string
   isInvalid?: boolean
 }
 
-const Input = ({ Icon, isInvalid, ...props }: InputProps) => (
-  <GSInput size='xl' isInvalid={isInvalid}>
+const Input = ({ iconName, isInvalid, ...props }: InputProps) => (
+  <GSInput size='md' isInvalid={isInvalid}>
     <InputField {...props} />
-    {Icon ? (
+    {iconName ? (
       <InputSlot pr='$4'>
-        <InputIcon as={Icon} />
+        <Text>
+          <FontAwesome5 name={iconName} size={16} />
+        </Text>
       </InputSlot>
     ) : undefined}
   </GSInput>

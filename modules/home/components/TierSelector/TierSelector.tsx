@@ -1,4 +1,5 @@
-import { Button, ButtonGroup, ButtonText } from '@gluestack-ui/themed'
+import { ButtonGroup } from '@gluestack-ui/themed'
+import { Button } from 'appdeptus/components'
 import { Unit } from 'appdeptus/models'
 import React from 'react'
 
@@ -16,18 +17,16 @@ const TierSelector = ({
   <ButtonGroup flex={1} gap='$2'>
     {tiers.map((tier, index) => (
       <Button
-        $active-bg={selectedTierIndex === index ? '$blue300' : '$blue400'}
-        backgroundColor={selectedTierIndex === index ? '$blue500' : '$blue300'}
-        borderColor='$blue500'
+        backgroundColor={selectedTierIndex === index ? '$info500' : '$info300'}
+        borderColor='$info500'
         borderWidth='$1'
         key={`${tier.id}-${index}`}
         flex={1}
         onPress={() => {
           onTierSelected(tier)
         }}
-      >
-        <ButtonText>{tier.points}</ButtonText>
-      </Button>
+        text={String(tier.points)}
+      />
     ))}
   </ButtonGroup>
 )

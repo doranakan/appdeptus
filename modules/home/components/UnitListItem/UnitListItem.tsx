@@ -1,13 +1,6 @@
-import {
-  AddIcon,
-  Box,
-  Button,
-  ButtonGroup,
-  ButtonIcon,
-  EditIcon,
-  Text
-} from '@gluestack-ui/themed'
+import { Box, ButtonGroup, Text } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
+import { Button } from 'appdeptus/components'
 import { Unit } from 'appdeptus/models'
 import React, { useCallback } from 'react'
 import UnitConfiguratorModal from '../UnitConfiguratorModal'
@@ -40,8 +33,8 @@ const UnitListItem = ({
   return (
     <>
       <Box
-        backgroundColor={count ? '$blue100' : '$white'}
-        borderColor={count ? '$blue500' : '$white'}
+        backgroundColor={count ? '$info100' : '$backgroundLight0'}
+        borderColor={count ? '$info500' : '$backgroundLight0'}
         borderRadius='$md'
         borderWidth='$1'
         gap='$4'
@@ -53,17 +46,23 @@ const UnitListItem = ({
           {unit.caption && <Text fontSize='$sm'>{` ${unit.caption}`}</Text>}
         </Text>
 
-        <ButtonGroup $disabled-bgColor='$blue300' flex={1}>
+        <ButtonGroup $disabled-bgColor='$info300' flex={1}>
           <Button
+            $active-bgColor='$info300'
+            backgroundColor='$info500'
+            flex={1}
+            iconName='plus-square'
             isDisabled={count >= unit.limit}
             onPress={onPressAdd}
+          />
+          <Button
+            $active-bgColor='$info300'
+            backgroundColor='$info500'
             flex={1}
-          >
-            <ButtonIcon as={AddIcon} />
-          </Button>
-          <Button isDisabled={!count} onPress={toggleConfigurator} flex={1}>
-            <ButtonIcon as={EditIcon} />
-          </Button>
+            iconName='edit'
+            isDisabled={!count}
+            onPress={toggleConfigurator}
+          />
           <Box alignItems='center' flex={1} justifyContent='center'>
             <Text fontWeight={count ? '$black' : '$medium'}>
               {count > 0 ? totalSelectedPoints : unit.tiers[0].points}

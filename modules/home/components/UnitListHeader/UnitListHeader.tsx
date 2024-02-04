@@ -1,11 +1,5 @@
-import {
-  Box,
-  Button,
-  ButtonIcon,
-  ButtonText,
-  CheckIcon,
-  Text
-} from '@gluestack-ui/themed'
+import { Box, Text } from '@gluestack-ui/themed'
+import { Button } from 'appdeptus/components'
 import { Unit } from 'appdeptus/models'
 import React, { useCallback, useMemo } from 'react'
 
@@ -30,7 +24,7 @@ const UnitListHeader = ({ armyList, codexId }: UnitListHeaderProps) => {
 
   return (
     <Box
-      backgroundColor='$white'
+      backgroundColor='$backgroundLight0'
       borderBottomColor='$light200'
       borderBottomWidth='$1'
       flexDirection='row'
@@ -42,10 +36,13 @@ const UnitListHeader = ({ armyList, codexId }: UnitListHeaderProps) => {
           <Text> total points</Text>
         </Text>
       </Box>
-      <Button onPress={createArmyList}>
-        <ButtonText>Create list </ButtonText>
-        <ButtonIcon as={CheckIcon} />
-      </Button>
+      <Button
+        flex={1}
+        iconName='clipboard-list'
+        isDisabled={!armyList.length}
+        onPress={createArmyList}
+        text='Create list'
+      />
     </Box>
   )
 }

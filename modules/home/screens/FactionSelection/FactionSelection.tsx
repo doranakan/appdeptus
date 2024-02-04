@@ -21,7 +21,7 @@ const FactionSelectionScreen = () => {
           <Box flexGrow={1} flexBasis='40%' height={150} key={faction.id}>
             <Pressable
               $active-bgColor='$light200'
-              backgroundColor='$white'
+              backgroundColor='$backgroundLight0'
               borderRadius='$md'
               alignItems='center'
               flex={1}
@@ -37,7 +37,7 @@ const FactionSelectionScreen = () => {
               }
               p='$4'
             >
-              <Text color='$blue500' size='xl'>
+              <Text color='$info500' size='xl'>
                 <FontAwesome5
                   name={factionIcons[faction.id] ?? 'home'}
                   size={24}

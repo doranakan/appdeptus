@@ -1,7 +1,6 @@
-import { FontAwesome5 } from '@expo/vector-icons'
-import { Box, Button, ButtonText, ScrollView } from '@gluestack-ui/themed'
+import { Box, ScrollView } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { Loading } from 'appdeptus/components'
+import { Button, Loading } from 'appdeptus/components'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import React from 'react'
 import { useGetCodexesQuery } from '../../api'
@@ -22,13 +21,9 @@ const CodexSelectionScreen = () => {
       <Box flex={1} gap='$4' p='$4'>
         {codexes.map((codex) => (
           <Button
-            $active-bgColor='$light200'
-            backgroundColor='$white'
-            borderRadius='$md'
             flex={1}
-            gap='$2'
-            justifyContent='flex-start'
             key={codex.id}
+            iconName='chevron-right'
             onPress={() =>
               router.navigate({
                 params: {
@@ -37,20 +32,8 @@ const CodexSelectionScreen = () => {
                 pathname: '/home/army-builder/unit-selection'
               })
             }
-            size='lg'
-          >
-            <ButtonText
-              color='$textDark700'
-              flex={1}
-              fontWeight='$bold'
-              textAlign='left'
-            >
-              {codex.name}
-            </ButtonText>
-            <ButtonText color='$textDark700'>
-              <FontAwesome5 name='chevron-right' />
-            </ButtonText>
-          </Button>
+            text={codex.name}
+          />
         ))}
       </Box>
     </ScrollView>

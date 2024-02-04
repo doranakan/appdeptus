@@ -1,17 +1,9 @@
-import {
-  AtSignIcon,
-  InputField,
-  InputIcon,
-  InputSlot,
-  LockIcon,
-  Text,
-  VStack
-} from '@gluestack-ui/themed'
-import React, { useCallback, useState } from 'react'
-import { useRouter } from 'expo-router'
-import { supabase } from 'appdeptus/utils'
+import { Text, VStack } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
 import { Button, Input } from 'appdeptus/components'
+import { supabase } from 'appdeptus/utils'
+import { useRouter } from 'expo-router'
+import React, { useCallback, useState } from 'react'
 
 const SignInForm = () => {
   const [email, setEmail] = useState('')
@@ -43,7 +35,7 @@ const SignInForm = () => {
   return (
     <VStack space='md' w='$full'>
       <Input
-        Icon={AtSignIcon}
+        iconName='envelope'
         isInvalid={Boolean(errorMessage)}
         onChange={(e) => {
           setEmail(e.nativeEvent.text)
@@ -54,7 +46,7 @@ const SignInForm = () => {
       />
 
       <Input
-        Icon={LockIcon}
+        iconName='key'
         isInvalid={Boolean(errorMessage)}
         onChange={(e) => {
           setPassword(e.nativeEvent.text)
