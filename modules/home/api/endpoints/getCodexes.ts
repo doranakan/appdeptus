@@ -1,13 +1,14 @@
 import { SupabaseEndpointBuilder } from 'appdeptus/api'
 import { Codex } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
-import { factionsSchema, codexesSchema } from '../schemas'
 import { Table } from 'appdeptus/utils/supabase'
+import { sortBy } from 'lodash'
+import { codexesSchema } from '../schemas'
 
 const getCodexes = (builder: SupabaseEndpointBuilder) =>
   builder.query<Codex[], string>({
     queryFn: async (factionId) => {
-      const { data: codexesData, error: codexesError } = await supabase
+      const { data, error: codexesError } = await supabase
         .from(Table.CODEXES)
         .select()
         .eq('faction', factionId)
@@ -16,7 +17,9 @@ const getCodexes = (builder: SupabaseEndpointBuilder) =>
         throw { error: codexesError }
       }
 
-      return { data: codexesSchema.parse(codexesData) }
+      const codexes = codexesSchema.parse(data)
+
+      return { data: sortBy(codexes, ({ name }) => name) }
     }
   })
 

@@ -2,6 +2,7 @@ import { SupabaseEndpointBuilder } from 'appdeptus/api'
 import { Unit } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
+import { sortBy } from 'lodash'
 import { tiersSchema, unitsSchema } from '../schemas'
 
 const getUnits = (builder: SupabaseEndpointBuilder) =>
@@ -38,15 +39,7 @@ const getUnits = (builder: SupabaseEndpointBuilder) =>
         }
       })
 
-      const sortedUnits = unitsWithTiers.sort((a, b) => {
-        if (a.name < b.name) {
-          return -1
-        }
-        if (a.name > b.name) {
-          return 1
-        }
-        return 0
-      })
+      const sortedUnits = sortBy(unitsWithTiers, ({ name }) => name)
 
       return { data: sortedUnits }
     }

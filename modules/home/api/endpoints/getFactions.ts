@@ -1,8 +1,9 @@
 import { SupabaseEndpointBuilder } from 'appdeptus/api'
 import { Faction } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
-import { factionsSchema } from '../schemas'
 import { Table } from 'appdeptus/utils/supabase'
+import { sortBy } from 'lodash'
+import { factionsSchema } from '../schemas'
 
 const getFactions = (builder: SupabaseEndpointBuilder) =>
   builder.query<Faction[], void>({
@@ -13,7 +14,9 @@ const getFactions = (builder: SupabaseEndpointBuilder) =>
         throw { error }
       }
 
-      return { data: factionsSchema.parse(data) }
+      const factions = factionsSchema.parse(data)
+
+      return { data: sortBy(factions, ({ name }) => name) }
     }
   })
 
