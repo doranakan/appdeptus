@@ -1,11 +1,15 @@
-import React from 'react'
 import { config } from '@gluestack-ui/config'
 import { GluestackUIProvider } from '@gluestack-ui/themed'
-import { SplashScreen, Stack, useRouter } from 'expo-router'
 import { useAsyncEffect } from 'ahooks'
-import { supabase } from 'appdeptus/utils'
-import { Provider } from 'react-redux'
 import { store } from 'appdeptus/store'
+import { supabase } from 'appdeptus/utils'
+import { SplashScreen, Stack, useRouter } from 'expo-router'
+import React from 'react'
+import {
+  SafeAreaProvider,
+  initialWindowMetrics
+} from 'react-native-safe-area-context'
+import { Provider } from 'react-redux'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -23,11 +27,13 @@ const App = () => {
   }, [])
 
   return (
-    <Provider store={store}>
-      <GluestackUIProvider config={config}>
-        <RootLayout />
-      </GluestackUIProvider>
-    </Provider>
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <Provider store={store}>
+        <GluestackUIProvider config={config}>
+          <RootLayout />
+        </GluestackUIProvider>
+      </Provider>
+    </SafeAreaProvider>
   )
 }
 
