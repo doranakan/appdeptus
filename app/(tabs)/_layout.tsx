@@ -17,14 +17,20 @@ const TabsLayout = () => {
   }, [])
 
   return (
-    <Tabs screenOptions={{ headerShown: false }} initialRouteName='home'>
+    <Tabs
+      screenOptions={{ headerShown: false }}
+      initialRouteName='home'
+    >
       <Tabs.Screen
         name='home'
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Text color={focused ? '$info500' : '$light400'}>
-              <FontAwesome5 name='book-dead' size={18} />
+              <FontAwesome5
+                name='book-dead'
+                size={18}
+              />
             </Text>
           ),
           title: 'Army builder'
@@ -36,7 +42,10 @@ const TabsLayout = () => {
           headerShown: false,
           tabBarIcon: ({ focused }) => (
             <Text color={focused ? '$info500' : '$light400'}>
-              <FontAwesome5 name='cogs' size={18} />
+              <FontAwesome5
+                name='cogs'
+                size={18}
+              />
             </Text>
           ),
           title: 'Settings'

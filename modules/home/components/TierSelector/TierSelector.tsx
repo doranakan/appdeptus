@@ -14,7 +14,10 @@ const TierSelector = ({
   onTierSelected,
   tiers
 }: TierSelectorProps): JSX.Element => (
-  <ButtonGroup flex={1} gap='$2'>
+  <ButtonGroup
+    flex={1}
+    gap='$2'
+  >
     {tiers.map((tier, index) => (
       <Button
         backgroundColor={selectedTierIndex === index ? '$info500' : '$info300'}

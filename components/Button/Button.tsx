@@ -31,13 +31,19 @@ const Button = ({
     {...props}
   >
     {text && (
-      <ButtonText flex={1} textAlign={iconName ? 'left' : 'center'}>
+      <ButtonText
+        flex={1}
+        textAlign={iconName ? 'left' : 'center'}
+      >
         {text}
       </ButtonText>
     )}
     {iconName && (
       <Text color={iconColor}>
-        <FontAwesome5 name={iconName} size={16} />
+        <FontAwesome5
+          name={iconName}
+          size={16}
+        />
       </Text>
     )}
   </GSButton>

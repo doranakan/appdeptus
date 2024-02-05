@@ -16,9 +16,20 @@ const FactionSelectionScreen = () => {
 
   return (
     <ScrollView>
-      <Box flex={1} flexWrap='wrap' flexDirection='row' gap='$4' p='$4'>
+      <Box
+        flex={1}
+        flexWrap='wrap'
+        flexDirection='row'
+        gap='$4'
+        p='$4'
+      >
         {factions.map((faction) => (
-          <Box flexGrow={1} flexBasis='40%' height={150} key={faction.id}>
+          <Box
+            flexGrow={1}
+            flexBasis='40%'
+            height={150}
+            key={faction.id}
+          >
             <Pressable
               $active-bgColor='$light200'
               backgroundColor='$backgroundLight0'
@@ -37,13 +48,19 @@ const FactionSelectionScreen = () => {
               }
               p='$4'
             >
-              <Text color='$info500' size='xl'>
+              <Text
+                color='$info500'
+                size='xl'
+              >
                 <FontAwesome5
                   name={factionIcons[faction.id] ?? 'home'}
                   size={24}
                 />
               </Text>
-              <Text fontWeight='$bold' textAlign='center'>
+              <Text
+                fontWeight='$bold'
+                textAlign='center'
+              >
                 {faction.name}
               </Text>
             </Pressable>

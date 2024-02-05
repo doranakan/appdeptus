@@ -42,7 +42,10 @@ const UnitConfiguratorModal = ({
         shadowOpacity={0}
       >
         <Text>{unit.name}</Text>
-        <Box flexDirection='row' gap='$2'>
+        <Box
+          flexDirection='row'
+          gap='$2'
+        >
           <Button
             $active-bgColor='$red600'
             backgroundColor='$red500'
@@ -82,8 +85,15 @@ const UnitConfiguratorModal = ({
   }
 
   return (
-    <Modal onPressClose={handleClose} title='Edit units' visible={visible}>
-      <Box p='$4' flex={1}>
+    <Modal
+      onPressClose={handleClose}
+      title='Edit units'
+      visible={visible}
+    >
+      <Box
+        p='$4'
+        flex={1}
+      >
         <FlatList
           data={selectedConfigs}
           ItemSeparatorComponent={() => <Box height='$4' />}

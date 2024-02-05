@@ -38,7 +38,10 @@ const App = () => {
 }
 
 const RootLayout = () => (
-  <Stack initialRouteName='index' screenOptions={{ headerShown: false }}>
+  <Stack
+    initialRouteName='index'
+    screenOptions={{ headerShown: false }}
+  >
     <Stack.Screen name='index' />
   </Stack>
 )

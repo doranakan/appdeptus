@@ -13,12 +13,18 @@ type InputProps = (typeof InputField)['defaultProps'] & {
 }
 
 const Input = ({ iconName, isInvalid, ...props }: InputProps) => (
-  <GSInput size='md' isInvalid={isInvalid}>
+  <GSInput
+    size='md'
+    isInvalid={isInvalid}
+  >
     <InputField {...props} />
     {iconName ? (
       <InputSlot pr='$4'>
         <Text>
-          <FontAwesome5 name={iconName} size={16} />
+          <FontAwesome5
+            name={iconName}
+            size={16}
+          />
         </Text>
       </InputSlot>
     ) : undefined}

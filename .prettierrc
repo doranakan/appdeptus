@@ -3,7 +3,7 @@
   "bracketSpacing": true,
   "endOfLine": "lf",
   "insertPragma": false,
-  "singleAttributePerLine": false,
+  "singleAttributePerLine": true,
   "bracketSameLine": false,
   "jsxBracketSameLine": false,
   "jsxSingleQuote": true,

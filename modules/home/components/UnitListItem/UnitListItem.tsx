@@ -46,7 +46,10 @@ const UnitListItem = ({
           {unit.caption && <Text fontSize='$sm'>{` ${unit.caption}`}</Text>}
         </Text>
 
-        <ButtonGroup $disabled-bgColor='$info300' flex={1}>
+        <ButtonGroup
+          $disabled-bgColor='$info300'
+          flex={1}
+        >
           <Button
             $active-bgColor='$info300'
             backgroundColor='$info500'
@@ -63,7 +66,11 @@ const UnitListItem = ({
             isDisabled={!count}
             onPress={toggleConfigurator}
           />
-          <Box alignItems='center' flex={1} justifyContent='center'>
+          <Box
+            alignItems='center'
+            flex={1}
+            justifyContent='center'
+          >
             <Text fontWeight={count ? '$black' : '$medium'}>
               {count > 0 ? totalSelectedPoints : unit.tiers[0].points}
             </Text>

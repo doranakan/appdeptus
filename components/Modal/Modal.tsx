@@ -13,8 +13,15 @@ const Modal = ({ children, onPressClose, title, visible }: ModalProps) => {
   const insets = useSafeAreaInsets()
 
   return (
-    <RNModal animationType='slide' transparent visible={visible}>
-      <Box flex={1} paddingTop={insets.top}>
+    <RNModal
+      animationType='slide'
+      transparent
+      visible={visible}
+    >
+      <Box
+        flex={1}
+        paddingTop={insets.top}
+      >
         <Box
           backgroundColor='$backgroundLight100'
           borderTopLeftRadius='$md'
@@ -30,16 +37,30 @@ const Modal = ({ children, onPressClose, title, visible }: ModalProps) => {
             justifyContent='center'
             p='$4'
           >
-            <Text color='$black' fontWeight='$semibold'>
+            <Text
+              color='$black'
+              fontWeight='$semibold'
+            >
               {title}
             </Text>
-            <Box alignItems='center' position='absolute' p='$4' right={0}>
-              <ButtonText color='$info500' onPress={onPressClose}>
+            <Box
+              alignItems='center'
+              position='absolute'
+              p='$4'
+              right={0}
+            >
+              <ButtonText
+                color='$info500'
+                onPress={onPressClose}
+              >
                 Close
               </ButtonText>
             </Box>
           </Box>
-          <Box pb={insets.bottom} flex={1}>
+          <Box
+            pb={insets.bottom}
+            flex={1}
+          >
             {children}
           </Box>
         </Box>

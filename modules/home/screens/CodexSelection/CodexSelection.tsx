@@ -18,7 +18,11 @@ const CodexSelectionScreen = () => {
 
   return (
     <ScrollView>
-      <Box flex={1} gap='$4' p='$4'>
+      <Box
+        flex={1}
+        gap='$4'
+        p='$4'
+      >
         {codexes.map((codex) => (
           <Button
             flex={1}

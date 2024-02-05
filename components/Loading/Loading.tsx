@@ -3,7 +3,11 @@ import React from 'react'
 import { ActivityIndicator } from 'react-native'
 
 const Loading = () => (
-  <Box alignItems='center' flex={1} justifyContent='center'>
+  <Box
+    alignItems='center'
+    flex={1}
+    justifyContent='center'
+  >
     <ActivityIndicator />
   </Box>
 )

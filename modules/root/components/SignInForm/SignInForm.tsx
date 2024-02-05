@@ -33,7 +33,10 @@ const SignInForm = () => {
   }, [email, password, router, startLoading, stopLoading])
 
   return (
-    <VStack space='md' w='$full'>
+    <VStack
+      space='md'
+      w='$full'
+    >
       <Input
         iconName='envelope'
         isInvalid={Boolean(errorMessage)}
@@ -57,9 +60,16 @@ const SignInForm = () => {
         value={password}
       />
 
-      <Button isDisabled={isLoading} onPress={signIn} text='Sign in' />
+      <Button
+        isDisabled={isLoading}
+        onPress={signIn}
+        text='Sign in'
+      />
 
-      <Text color='$error500' size='lg'>
+      <Text
+        color='$error500'
+        size='lg'
+      >
         {errorMessage}
       </Text>
     </VStack>

@@ -3,7 +3,12 @@ import { Svg, Path, Rect, Defs, LinearGradient, Stop } from 'react-native-svg'
 
 const YourSvgComponent = () => {
   return (
-    <Svg width='188' height='31' viewBox='0 0 188 31' fill='none'>
+    <Svg
+      width='188'
+      height='31'
+      viewBox='0 0 188 31'
+      fill='none'
+    >
       <Rect
         y='1.40527'
         width='27.9999'
@@ -41,7 +46,10 @@ const YourSvgComponent = () => {
           gradientUnits='userSpaceOnUse'
         >
           <Stop stop-color='#4AA9FF' />
-          <Stop offset='1' stop-color='#004282' />
+          <Stop
+            offset='1'
+            stop-color='#004282'
+          />
         </LinearGradient>
       </Defs>
     </Svg>

@@ -3,9 +3,20 @@ import { Link } from 'expo-router'
 import { Box, Text, VStack } from '@gluestack-ui/themed'
 
 const NotFoundScreen = () => (
-  <Box alignItems='center' flex={1} justifyContent='center' p='$8'>
-    <VStack space='md' w='$full'>
-      <Text fontWeight='bold' size='xl'>
+  <Box
+    alignItems='center'
+    flex={1}
+    justifyContent='center'
+    p='$8'
+  >
+    <VStack
+      space='md'
+      w='$full'
+    >
+      <Text
+        fontWeight='bold'
+        size='xl'
+      >
         Oh no!
       </Text>
 
@@ -14,7 +25,10 @@ const NotFoundScreen = () => (
       </Text>
 
       <Link href='/'>
-        <Text color='$info500' size='lg'>
+        <Text
+          color='$info500'
+          size='lg'
+        >
           Back to the Strategium
         </Text>
       </Link>

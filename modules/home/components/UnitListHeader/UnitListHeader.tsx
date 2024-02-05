@@ -30,7 +30,10 @@ const UnitListHeader = ({ armyList, codexId }: UnitListHeaderProps) => {
       flexDirection='row'
       p='$4'
     >
-      <Box justifyContent='center' flex={2}>
+      <Box
+        justifyContent='center'
+        flex={2}
+      >
         <Text fontSize='$3xl'>
           <Text fontWeight='$black'>{totalPoints}</Text>
           <Text> total points</Text>

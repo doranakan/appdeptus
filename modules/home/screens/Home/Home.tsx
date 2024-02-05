@@ -6,9 +6,20 @@ import React from 'react'
 const HomeScreen = () => {
   const router = useRouter()
   return (
-    <Box alignItems='center' flex={1} justifyContent='center' p='$8'>
-      <VStack space='md' w='$full'>
-        <Text fontWeight='bold' size='xl'>
+    <Box
+      alignItems='center'
+      flex={1}
+      justifyContent='center'
+      p='$8'
+    >
+      <VStack
+        space='md'
+        w='$full'
+      >
+        <Text
+          fontWeight='bold'
+          size='xl'
+        >
           Home
         </Text>
         <Button
