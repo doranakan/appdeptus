@@ -1,16 +1,13 @@
 import { Box, ScrollView } from '@gluestack-ui/themed'
-import { skipToken } from '@reduxjs/toolkit/query'
 import { Button, Loading } from 'appdeptus/components'
-import { useLocalSearchParams, useRouter } from 'expo-router'
+import { useRouter } from 'expo-router'
 import React from 'react'
 import { useGetCodexesQuery } from '../../api'
 
 const CodexSelectionScreen = () => {
   const router = useRouter()
 
-  const { factionId } = useLocalSearchParams<{ factionId: string }>()
-
-  const { data: codexes } = useGetCodexesQuery(factionId ?? skipToken)
+  const { data: codexes } = useGetCodexesQuery()
 
   if (!codexes) {
     return <Loading />

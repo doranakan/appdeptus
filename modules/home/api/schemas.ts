@@ -7,13 +7,6 @@ const codexesSchema = z.array(
   })
 )
 
-const factionsSchema = z.array(
-  z.object({
-    id: z.number().transform(String),
-    name: z.string()
-  })
-)
-
 const tiersSchema = z.array(
   z.object({
     id: z.number().transform(String),
@@ -32,4 +25,4 @@ const unitsSchema = z.array(
   })
 )
 
-export { codexesSchema, factionsSchema, tiersSchema, unitsSchema }
+export { codexesSchema, tiersSchema, unitsSchema }

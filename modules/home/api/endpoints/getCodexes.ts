@@ -6,12 +6,11 @@ import { sortBy } from 'lodash'
 import { codexesSchema } from '../schemas'
 
 const getCodexes = (builder: SupabaseEndpointBuilder) =>
-  builder.query<Codex[], string>({
-    queryFn: async (factionId) => {
+  builder.query<Codex[], void>({
+    queryFn: async () => {
       const { data, error: codexesError } = await supabase
         .from(Table.CODEXES)
         .select()
-        .eq('faction', factionId)
 
       if (codexesError) {
         throw { error: codexesError }
