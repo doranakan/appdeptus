@@ -1,7 +1,10 @@
-import { Box, ScrollView } from '@gluestack-ui/themed'
+import { Box, Text } from '@gluestack-ui/themed'
+import { TyranidsLogo } from 'appdeptus/assets/resources'
 import { Button, Loading } from 'appdeptus/components'
 import { useRouter } from 'expo-router'
 import React from 'react'
+import PagerView from 'react-native-pager-view'
+import { SvgXml } from 'react-native-svg'
 import { useGetCodexesQuery } from '../../api'
 
 const CodexSelectionScreen = () => {
@@ -14,30 +17,66 @@ const CodexSelectionScreen = () => {
   }
 
   return (
-    <ScrollView>
-      <Box
-        flex={1}
-        gap='$4'
-        p='$4'
-      >
+    <Box flex={1}>
+      <PagerView style={{ flex: 1 }}>
         {codexes.map((codex) => (
-          <Button
+          <Box
             flex={1}
             key={codex.id}
-            iconName='chevron-right'
-            onPress={() =>
-              router.navigate({
-                params: {
-                  codexId: codex.id
-                },
-                pathname: '/home/army-builder/unit-selection'
-              })
-            }
-            text={codex.name}
-          />
+            p='$4'
+          >
+            <Box
+              backgroundColor='$backgroundLight0'
+              borderRadius='$lg'
+              flex={1}
+              p='$4'
+            >
+              <Box alignItems='center'>
+                <Text
+                  fontWeight='$bold'
+                  size='md'
+                >
+                  Codex
+                </Text>
+                <Text
+                  fontWeight='$bold'
+                  size='3xl'
+                >
+                  {codex.name}
+                </Text>
+              </Box>
+              <Box
+                alignItems='center'
+                flex={1}
+                justifyContent='center'
+              >
+                <SvgXml
+                  xml={logos[codex.id]}
+                  height={200}
+                  width={200}
+                />
+              </Box>
+              <Button
+                onPress={() =>
+                  router.navigate({
+                    params: {
+                      codexId: codex.id
+                    },
+                    pathname: '/home/army-builder/unit-selection'
+                  })
+                }
+                text='Start'
+              />
+            </Box>
+          </Box>
         ))}
-      </Box>
-    </ScrollView>
+      </PagerView>
+    </Box>
   )
 }
+
+const logos: Record<string, string> = {
+  ['3']: TyranidsLogo
+}
+
 export default CodexSelectionScreen

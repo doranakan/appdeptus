@@ -4,7 +4,7 @@ const ArmyBuilderLayout = () => (
   <Stack>
     <Stack.Screen
       name='codex-selection'
-      options={{ headerBackTitle: 'Back', title: 'Select codex' }}
+      options={{ headerBackTitle: 'Back', title: 'New army list' }}
     />
     <Stack.Screen
       name='unit-selection'
