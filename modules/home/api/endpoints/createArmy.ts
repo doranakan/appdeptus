@@ -2,6 +2,7 @@ import { SupabaseEndpointBuilder, getUserId } from 'appdeptus/api'
 import { Unit, UnitTier } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
+import HomeApiTag from '../tags'
 
 type CreateArmyArgs = {
   name: string
@@ -10,7 +11,7 @@ type CreateArmyArgs = {
   units: Record<Unit['id'], UnitTier['id'][]>
 }
 
-const createArmy = (builder: SupabaseEndpointBuilder) =>
+const createArmy = (builder: SupabaseEndpointBuilder<HomeApiTag>) =>
   builder.mutation<null, CreateArmyArgs>({
     queryFn: async (army) => {
       const userId = await getUserId()
@@ -24,7 +25,8 @@ const createArmy = (builder: SupabaseEndpointBuilder) =>
       }
 
       return { data }
-    }
+    },
+    invalidatesTags: [HomeApiTag.ARMIES]
   })
 
 export default createArmy

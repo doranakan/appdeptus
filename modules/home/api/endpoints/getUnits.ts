@@ -4,8 +4,9 @@ import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
 import { tiersSchema, unitsSchema } from '../schemas'
+import HomeApiTag from '../tags'
 
-const getUnits = (builder: SupabaseEndpointBuilder) =>
+const getUnits = (builder: SupabaseEndpointBuilder<HomeApiTag>) =>
   builder.query<Unit[], string>({
     queryFn: async (codexId) => {
       const { data: unitsData, error: unitsError } = await supabase

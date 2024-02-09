@@ -3,10 +3,11 @@ import { Army } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { armiesSchema, codexesSchema } from '../schemas'
+import HomeApiTag from '../tags'
 
 type GetArmiesResponse = Omit<Army, 'units'>
 
-const getArmies = (builder: SupabaseEndpointBuilder) =>
+const getArmies = (builder: SupabaseEndpointBuilder<HomeApiTag>) =>
   builder.query<GetArmiesResponse[], void>({
     queryFn: async () => {
       const userId = await getUserId()
@@ -50,7 +51,8 @@ const getArmies = (builder: SupabaseEndpointBuilder) =>
       })
 
       return { data: armies }
-    }
+    },
+    providesTags: [HomeApiTag.ARMIES]
   })
 
 export default getArmies
