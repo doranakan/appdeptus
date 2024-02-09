@@ -14,7 +14,7 @@ const UnitSelectionScreen = () => {
 
   const { data: units } = useGetUnitsQuery(codexId ?? skipToken)
 
-  const [armyList, { set, get }] = useMap<Unit['id'], Unit['tiers']>()
+  const [army, { set, get }] = useMap<Unit['id'], Unit['tiers']>()
 
   const renderItem = useCallback<ListRenderItem<Unit>>(
     ({ item: unit }) => {
@@ -32,7 +32,7 @@ const UnitSelectionScreen = () => {
         />
       )
     },
-    [armyList]
+    [army]
   )
 
   if (!units || !codexId) {
@@ -42,7 +42,7 @@ const UnitSelectionScreen = () => {
   return (
     <>
       <UnitListHeader
-        armyList={Array.from(armyList.values()).flat()}
+        army={Object.fromEntries(army)}
         codexId={codexId}
       />
       <FlatList

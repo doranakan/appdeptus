@@ -1,5 +1,5 @@
 import homeApi from './api'
 
-const { useGetCodexesQuery, useGetUnitsQuery } = homeApi
+const { useCreateArmyMutation, useGetCodexesQuery, useGetUnitsQuery } = homeApi
 
-export { useGetCodexesQuery, useGetUnitsQuery }
+export { useCreateArmyMutation, useGetCodexesQuery, useGetUnitsQuery }

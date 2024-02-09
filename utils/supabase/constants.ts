@@ -1,4 +1,5 @@
 enum Table {
+  ARMIES = 'armies',
   CODEXES = 'codexes',
   FACTIONS = 'factions',
   UNITS = 'units',
