@@ -39,6 +39,7 @@ const Button = ({
       iconColor={iconColor}
       iconName={iconName}
       loading={loading}
+      size={size}
       text={text}
     />
   </GSButton>
@@ -48,6 +49,7 @@ type ButtonContentProps = {
   iconColor?: string
   iconName?: string
   loading?: boolean
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   text?: string
 }
 
@@ -55,6 +57,7 @@ const ButtonContent = ({
   iconColor,
   iconName,
   loading,
+  size,
   text
 }: ButtonContentProps) => {
   if (loading) {
@@ -71,15 +74,26 @@ const ButtonContent = ({
         </ButtonText>
       )}
       {iconName && (
-        <Text color={iconColor}>
+        <Text
+          color={iconColor}
+          size={size}
+        >
           <FontAwesome5
             name={iconName}
-            size={16}
+            size={iconSize[size]}
           />
         </Text>
       )}
     </>
   )
+}
+
+const iconSize: Record<string, number> = {
+  ['xs']: 10,
+  ['sm']: 13,
+  ['md']: 16,
+  ['lg']: 20,
+  ['xl']: 24
 }
 
 export default Button

@@ -1,10 +1,8 @@
 import { Box, Text } from '@gluestack-ui/themed'
-import { TyranidsLogo } from 'appdeptus/assets/resources'
-import { Button, Loading } from 'appdeptus/components'
+import { Button, CodexLogo, Loading } from 'appdeptus/components'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import PagerView from 'react-native-pager-view'
-import { SvgXml } from 'react-native-svg'
 import { useGetCodexesQuery } from '../../api'
 
 const CodexSelectionScreen = () => {
@@ -50,8 +48,8 @@ const CodexSelectionScreen = () => {
                 flex={1}
                 justifyContent='center'
               >
-                <SvgXml
-                  xml={logos[codex.id]}
+                <CodexLogo
+                  codexId={codex.id}
                   height={200}
                   width={200}
                 />
@@ -73,10 +71,6 @@ const CodexSelectionScreen = () => {
       </PagerView>
     </Box>
   )
-}
-
-const logos: Record<string, string> = {
-  ['3']: TyranidsLogo
 }
 
 export default CodexSelectionScreen

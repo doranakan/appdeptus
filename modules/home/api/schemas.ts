@@ -1,5 +1,15 @@
 import { z } from 'zod'
 
+const armySchema = z.object({
+  id: z.number().transform(String),
+  name: z.string(),
+  totalPoints: z.number(),
+  codex: z.number().transform(String),
+  units: z.record(z.string(), z.array(z.string()))
+})
+
+const armiesSchema = z.array(armySchema)
+
 const codexesSchema = z.array(
   z.object({
     id: z.number().transform(String),
@@ -25,4 +35,4 @@ const unitsSchema = z.array(
   })
 )
 
-export { codexesSchema, tiersSchema, unitsSchema }
+export { armiesSchema, codexesSchema, tiersSchema, unitsSchema }
