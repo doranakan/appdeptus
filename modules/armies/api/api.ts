@@ -1,5 +1,11 @@
 import { supabaseApi } from 'appdeptus/api'
-import { createArmy, getArmies, getCodexes, getCodexUnits } from './endpoints'
+import {
+  createArmy,
+  getArmies,
+  getArmy,
+  getCodexes,
+  getCodexUnits
+} from './endpoints'
 import ArmiesApiTag from './tags'
 
 const armiesApi = supabaseApi
@@ -10,6 +16,7 @@ const armiesApi = supabaseApi
     endpoints: (builder) => ({
       createArmy: createArmy(builder),
       getArmies: getArmies(builder),
+      getArmy: getArmy(builder),
       getCodexes: getCodexes(builder),
       getCodexUnits: getCodexUnits(builder)
     }),

@@ -61,7 +61,7 @@ const ButtonContent = ({
   text
 }: ButtonContentProps) => {
   if (loading) {
-    return <ActivityIndicator color={iconColor} />
+    return <ActivityIndicator color={'white'} />
   }
   return (
     <>
@@ -75,7 +75,7 @@ const ButtonContent = ({
       )}
       {iconName && (
         <Text
-          color={iconColor}
+          color={iconColor ?? '$textLight0'}
           size={size}
         >
           <FontAwesome5

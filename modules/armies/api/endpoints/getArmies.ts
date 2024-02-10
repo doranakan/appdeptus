@@ -2,7 +2,7 @@ import { SupabaseEndpointBuilder, getUserId } from 'appdeptus/api'
 import { Army } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import { armiesSchema, codexesSchema } from '../schemas'
+import { armiesSchema } from '../schemas'
 import ArmiesApiTag from '../tags'
 
 type GetArmiesResponse = Omit<Army, 'units'>
@@ -12,41 +12,26 @@ const getArmies = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
     queryFn: async () => {
       const userId = await getUserId()
 
-      const { data: rawArmies, error: armiesError } = await supabase
+      const { data, error } = await supabase
         .from(Table.ARMIES)
-        .select()
+        .select(
+          `
+          id, 
+          name, 
+          totalPoints, 
+          units,
+          codex!inner(
+            *
+          )
+        `
+        )
         .eq('userId', userId)
 
-      if (armiesError) {
-        throw { error: armiesError }
+      if (error) {
+        throw { error }
       }
 
-      const parsedArmies = armiesSchema.parse(rawArmies)
-
-      const { data, error: codexesError } = await supabase
-        .from(Table.CODEXES)
-        .select()
-
-      if (codexesError) {
-        throw { error: codexesError }
-      }
-
-      const codexes = codexesSchema.parse(data)
-
-      const armies = parsedArmies.map((army) => {
-        const codex = codexes.find((codex) => codex.id === army.codex)
-
-        if (!codex) {
-          throw { error: 'Unabled to find this army codex' }
-        }
-
-        return {
-          id: army.id,
-          codex,
-          name: army.name,
-          totalPoints: army.totalPoints
-        }
-      })
+      const armies = armiesSchema.parse(data)
 
       return { data: armies }
     },

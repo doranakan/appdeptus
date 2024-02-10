@@ -18,15 +18,19 @@ const getCodexUnits = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
         throw { error: unitsError }
       }
 
+      const units = unitsSchema.parse(mapNullToUndefined(unitsData))
+
       const { data: tiersData, error: tiersError } = await supabase
         .from(Table.UNIT_TIERS)
         .select()
+        .in(
+          'unit',
+          units.map(({ id }) => id)
+        )
 
       if (tiersError) {
         throw { error: tiersError }
       }
-
-      const units = unitsSchema.parse(mapNullToUndefined(unitsData))
 
       const tiers = tiersSchema.parse(tiersData)
 

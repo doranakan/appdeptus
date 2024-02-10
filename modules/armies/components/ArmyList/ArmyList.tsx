@@ -6,6 +6,7 @@ import {
   Text,
   VStack
 } from '@gluestack-ui/themed'
+import { Button } from 'appdeptus/components'
 import { Army } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import { FlatList, StyleSheet } from 'react-native'
@@ -17,24 +18,36 @@ type ArmyListProps = {
 const ArmyList = ({ armies }: ArmyListProps) => {
   const router = useRouter()
 
+  if (!armies.length) {
+    return (
+      <VStack
+        alignItems='center'
+        flex={1}
+        justifyContent='center'
+        gap={'$4'}
+        p='$4'
+      >
+        <Text textAlign='center'>😱 You have no armies!</Text>
+        <Button
+          onPress={() => router.push('armies/army-builder/codex-selection')}
+          text='Create your first army'
+        />
+      </VStack>
+    )
+  }
+
   return (
     <FlatList
       data={armies}
       ItemSeparatorComponent={() => <Box height='$4' />}
       keyExtractor={(item) => item.id}
+      ListFooterComponent={() => <Box height='$8' />}
       renderItem={({ item: army }) => (
         <Pressable
           backgroundColor='$backgroundLight0'
           borderRadius='$lg'
           flex={1}
-          onPress={() =>
-            router.push({
-              params: {
-                armyId: army.id
-              },
-              pathname: './army'
-            })
-          }
+          onPress={() => router.push(`./armies/${army.id}`)}
           p='$4'
         >
           <HStack

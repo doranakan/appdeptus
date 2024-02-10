@@ -1,5 +1,6 @@
 enum ArmiesApiTag {
-  ARMY_LIST = 'army_list'
+  ARMY_DETAIL = 'armyDetail',
+  ARMY_LIST = 'armyList'
 }
 
 export default ArmiesApiTag

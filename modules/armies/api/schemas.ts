@@ -1,21 +1,21 @@
 import { z } from 'zod'
 
+const codexSchema = z.object({
+  id: z.number().transform(String),
+  name: z.string()
+})
+
 const armySchema = z.object({
   id: z.number().transform(String),
   name: z.string(),
   totalPoints: z.number(),
-  codex: z.number().transform(String),
+  codex: codexSchema,
   units: z.record(z.string(), z.array(z.string()))
 })
 
-const armiesSchema = z.array(armySchema)
+const armiesSchema = z.array(armySchema.omit({ units: true }))
 
-const codexesSchema = z.array(
-  z.object({
-    id: z.number().transform(String),
-    name: z.string()
-  })
-)
+const codexesSchema = z.array(codexSchema)
 
 const tiersSchema = z.array(
   z.object({
@@ -35,4 +35,4 @@ const unitsSchema = z.array(
   })
 )
 
-export { armiesSchema, codexesSchema, tiersSchema, unitsSchema }
+export { armiesSchema, armySchema, codexesSchema, tiersSchema, unitsSchema }
