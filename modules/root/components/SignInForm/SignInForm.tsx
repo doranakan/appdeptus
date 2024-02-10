@@ -45,12 +45,13 @@ const SignInForm = () => {
         }}
         placeholder='your@email.here'
         textTransform='lowercase'
-        value={email}
+        value={email.toLowerCase()}
       />
 
       <Input
         iconName='key'
         isInvalid={Boolean(errorMessage)}
+        onEndEditing={signIn}
         onChange={(e) => {
           setPassword(e.nativeEvent.text)
         }}
@@ -58,10 +59,12 @@ const SignInForm = () => {
         placeholder='Pa55w0rd!'
         type='password'
         value={password}
+        clearButtonMode='while-editing'
       />
 
       <Button
         isDisabled={isLoading}
+        loading={isLoading}
         onPress={signIn}
         text='Sign in'
       />
