@@ -19,10 +19,10 @@ const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{ headerShown: false }}
-      initialRouteName='home'
+      initialRouteName='armies'
     >
       <Tabs.Screen
-        name='home'
+        name='armies'
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (

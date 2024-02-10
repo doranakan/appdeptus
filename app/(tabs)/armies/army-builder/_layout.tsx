@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router'
 
-const ArmyBuilderLayout = () => (
+const ArmiesLayout = () => (
   <Stack>
     <Stack.Screen
       name='codex-selection'
@@ -13,4 +13,4 @@ const ArmyBuilderLayout = () => (
   </Stack>
 )
 
-export default ArmyBuilderLayout
+export default ArmiesLayout

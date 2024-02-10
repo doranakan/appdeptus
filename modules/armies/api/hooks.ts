@@ -1,11 +1,11 @@
-import homeApi from './api'
+import armiesApi from './api'
 
 const {
   useCreateArmyMutation,
   useGetArmiesQuery,
   useGetCodexesQuery,
   useGetCodexUnitsQuery
-} = homeApi
+} = armiesApi
 
 export {
   useCreateArmyMutation,

@@ -5,7 +5,7 @@ import { Loading } from 'appdeptus/components'
 import { CodexUnit } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
 import React, { useCallback } from 'react'
-import { FlatList, ListRenderItem } from 'react-native'
+import { FlatList, ListRenderItem, StyleSheet } from 'react-native'
 import { useGetCodexUnitsQuery } from '../../api'
 import { UnitListHeader, UnitListItem } from '../../components'
 
@@ -50,10 +50,16 @@ const UnitSelectionScreen = () => {
         ItemSeparatorComponent={() => <Box height='$4' />}
         keyExtractor={(unit) => unit.id}
         renderItem={renderItem}
-        style={{ padding: 16 }}
+        style={styles.flex1}
       />
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  flex1: {
+    flex: 1
+  }
+})
 
 export default UnitSelectionScreen

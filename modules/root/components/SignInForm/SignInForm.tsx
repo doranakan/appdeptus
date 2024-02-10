@@ -29,7 +29,7 @@ const SignInForm = () => {
 
       return
     }
-    router.replace('/home')
+    router.replace('armies')
   }, [email, password, router, startLoading, stopLoading])
 
   return (

@@ -2,6 +2,7 @@ import { Box, Text } from '@gluestack-ui/themed'
 import { Button, CodexLogo, Loading } from 'appdeptus/components'
 import { useRouter } from 'expo-router'
 import React from 'react'
+import { StyleSheet } from 'react-native'
 import PagerView from 'react-native-pager-view'
 import { useGetCodexesQuery } from '../../api'
 
@@ -16,7 +17,7 @@ const CodexSelectionScreen = () => {
 
   return (
     <Box flex={1}>
-      <PagerView style={{ flex: 1 }}>
+      <PagerView style={styles.flex1}>
         {codexes.map((codex) => (
           <Box
             flex={1}
@@ -60,7 +61,7 @@ const CodexSelectionScreen = () => {
                     params: {
                       codexId: codex.id
                     },
-                    pathname: '/home/army-builder/unit-selection'
+                    pathname: './unit-selection'
                   })
                 }
                 text='Start'
@@ -72,5 +73,11 @@ const CodexSelectionScreen = () => {
     </Box>
   )
 }
+
+const styles = StyleSheet.create({
+  flex1: {
+    flex: 1
+  }
+})
 
 export default CodexSelectionScreen

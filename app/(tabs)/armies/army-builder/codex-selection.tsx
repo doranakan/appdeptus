@@ -1,5 +1,5 @@
+import { CodexSelectionScreen } from 'appdeptus/modules/armies/screens'
 import React from 'react'
-import { CodexSelectionScreen } from 'appdeptus/modules/home/screens'
 
 const CodexSelectionRoute = () => <CodexSelectionScreen />
 

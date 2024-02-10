@@ -1,10 +1,10 @@
 import { supabaseApi } from 'appdeptus/api'
 import { createArmy, getArmies, getCodexes, getCodexUnits } from './endpoints'
-import HomeApiTag from './tags'
+import ArmiesApiTag from './tags'
 
-const homeApi = supabaseApi
+const armiesApi = supabaseApi
   .enhanceEndpoints({
-    addTagTypes: [...Object.values(HomeApiTag)]
+    addTagTypes: [...Object.values(ArmiesApiTag)]
   })
   .injectEndpoints({
     endpoints: (builder) => ({
@@ -16,4 +16,4 @@ const homeApi = supabaseApi
     overrideExisting: true
   })
 
-export default homeApi
+export default armiesApi

@@ -1,17 +1,12 @@
 import { Codex } from './codex'
-import { CodexUnit } from './unit'
-import { UnitTier } from './unitTier'
+import { ArmyUnit } from './unit'
 
 type Army = {
   codex: Codex
   id: string
   name: string
   totalPoints: number
-  units: ChosenUnit[]
-}
-
-type ChosenUnit = Omit<CodexUnit, 'tiers'> & {
-  tier: UnitTier
+  units: ArmyUnit[]
 }
 
 export type { Army }

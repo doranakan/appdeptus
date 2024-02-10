@@ -61,7 +61,7 @@ const UnitListHeader = ({ army, codexId }: UnitListHeaderProps) => {
       title: 'All set ✅'
     })
 
-    router.navigate('home')
+    router.navigate('armies')
   }, [army])
 
   return (

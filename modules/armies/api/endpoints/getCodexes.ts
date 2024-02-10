@@ -4,9 +4,9 @@ import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
 import { codexesSchema } from '../schemas'
-import HomeApiTag from '../tags'
+import ArmiesApiTag from '../tags'
 
-const getCodexes = (builder: SupabaseEndpointBuilder<HomeApiTag>) =>
+const getCodexes = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
   builder.query<Codex[], void>({
     queryFn: async () => {
       const { data, error: codexesError } = await supabase

@@ -20,7 +20,7 @@ const App = () => {
     const { data } = await supabase.auth.getSession()
 
     if (data.session !== null) {
-      router.replace('/home')
+      router.replace('armies')
     }
 
     setTimeout(SplashScreen.hideAsync, 500)
