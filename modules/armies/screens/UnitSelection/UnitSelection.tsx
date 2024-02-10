@@ -48,17 +48,19 @@ const UnitSelectionScreen = () => {
       <FlatList
         data={units}
         ItemSeparatorComponent={() => <Box height='$4' />}
+        ListFooterComponent={() => <Box height='$8' />}
         keyExtractor={(unit) => unit.id}
         renderItem={renderItem}
-        style={styles.flex1}
+        style={styles.flatList}
       />
     </>
   )
 }
 
 const styles = StyleSheet.create({
-  flex1: {
-    flex: 1
+  flatList: {
+    flex: 1,
+    padding: 16
   }
 })
 
