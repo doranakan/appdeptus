@@ -4,12 +4,12 @@ const {
   useCreateArmyMutation,
   useGetArmiesQuery,
   useGetCodexesQuery,
-  useGetUnitsQuery
+  useGetCodexUnitsQuery
 } = homeApi
 
 export {
   useCreateArmyMutation,
   useGetArmiesQuery,
-  useGetCodexesQuery,
-  useGetUnitsQuery
+  useGetCodexUnitsQuery,
+  useGetCodexesQuery
 }

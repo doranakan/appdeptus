@@ -1,5 +1,5 @@
 import { Codex } from './codex'
-import { Unit } from './unit'
+import { CodexUnit } from './unit'
 import { UnitTier } from './unitTier'
 
 type Army = {
@@ -10,7 +10,7 @@ type Army = {
   units: ChosenUnit[]
 }
 
-type ChosenUnit = Omit<Unit, 'tiers'> & {
+type ChosenUnit = Omit<CodexUnit, 'tiers'> & {
   tier: UnitTier
 }
 

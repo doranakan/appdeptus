@@ -1,13 +1,13 @@
 import { SupabaseEndpointBuilder } from 'appdeptus/api'
-import { Unit } from 'appdeptus/models'
+import { CodexUnit } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
 import { tiersSchema, unitsSchema } from '../schemas'
 import HomeApiTag from '../tags'
 
-const getUnits = (builder: SupabaseEndpointBuilder<HomeApiTag>) =>
-  builder.query<Unit[], string>({
+const getCodexUnits = (builder: SupabaseEndpointBuilder<HomeApiTag>) =>
+  builder.query<CodexUnit[], string>({
     queryFn: async (codexId) => {
       const { data: unitsData, error: unitsError } = await supabase
         .from(Table.UNITS)
@@ -46,4 +46,4 @@ const getUnits = (builder: SupabaseEndpointBuilder<HomeApiTag>) =>
     }
   })
 
-export default getUnits
+export default getCodexUnits

@@ -1,15 +1,15 @@
 import { Box, Text } from '@gluestack-ui/themed'
 import { Button, Modal } from 'appdeptus/components'
-import { Unit } from 'appdeptus/models'
+import { CodexUnit } from 'appdeptus/models'
 import { pullAt } from 'lodash'
 import React, { useCallback, useEffect, useState } from 'react'
 import { FlatList, ListRenderItem } from 'react-native'
 import TierSelector from '../TierSelector'
 
 type UnitConfiguratorModalProps = {
-  onPressClose: (configs: Unit['tiers']) => void
-  configs: Unit['tiers']
-  unit: Unit
+  onPressClose: (configs: CodexUnit['tiers']) => void
+  configs: CodexUnit['tiers']
+  unit: CodexUnit
   visible: boolean
 }
 
@@ -32,7 +32,7 @@ const UnitConfiguratorModal = ({
     }
   }, [visible])
 
-  const renderItem = useCallback<ListRenderItem<Unit['tiers'][0]>>(
+  const renderItem = useCallback<ListRenderItem<CodexUnit['tiers'][0]>>(
     ({ item: selectedConfig, index }) => (
       <Box
         backgroundColor='$backgroundLight0'

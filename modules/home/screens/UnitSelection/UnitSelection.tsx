@@ -2,21 +2,21 @@ import { Box } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useMap } from 'ahooks'
 import { Loading } from 'appdeptus/components'
-import { Unit } from 'appdeptus/models'
+import { CodexUnit } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
 import React, { useCallback } from 'react'
 import { FlatList, ListRenderItem } from 'react-native'
-import { useGetUnitsQuery } from '../../api'
+import { useGetCodexUnitsQuery } from '../../api'
 import { UnitListHeader, UnitListItem } from '../../components'
 
 const UnitSelectionScreen = () => {
   const { codexId } = useLocalSearchParams<{ codexId: string }>()
 
-  const { data: units } = useGetUnitsQuery(codexId ?? skipToken)
+  const { data: units } = useGetCodexUnitsQuery(codexId ?? skipToken)
 
-  const [army, { set, get }] = useMap<Unit['id'], Unit['tiers']>()
+  const [army, { set, get }] = useMap<CodexUnit['id'], CodexUnit['tiers']>()
 
-  const renderItem = useCallback<ListRenderItem<Unit>>(
+  const renderItem = useCallback<ListRenderItem<CodexUnit>>(
     ({ item: unit }) => {
       const tiers = get(unit.id) ?? []
       return (

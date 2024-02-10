@@ -1,5 +1,5 @@
 import { supabaseApi } from 'appdeptus/api'
-import { createArmy, getArmies, getCodexes, getUnits } from './endpoints'
+import { createArmy, getArmies, getCodexes, getCodexUnits } from './endpoints'
 import HomeApiTag from './tags'
 
 const homeApi = supabaseApi
@@ -11,7 +11,7 @@ const homeApi = supabaseApi
       createArmy: createArmy(builder),
       getArmies: getArmies(builder),
       getCodexes: getCodexes(builder),
-      getUnits: getUnits(builder)
+      getCodexUnits: getCodexUnits(builder)
     }),
     overrideExisting: true
   })

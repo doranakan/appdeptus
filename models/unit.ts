@@ -1,6 +1,6 @@
 import { UnitTier } from './unitTier'
 
-type Unit = {
+type CodexUnit = {
   id: string
   name: string
   caption?: string
@@ -9,4 +9,4 @@ type Unit = {
   tiers: UnitTier[]
 }
 
-export type { Unit }
+export type { CodexUnit }

@@ -1,5 +1,5 @@
 import { SupabaseEndpointBuilder, getUserId } from 'appdeptus/api'
-import { Unit, UnitTier } from 'appdeptus/models'
+import { CodexUnit, UnitTier } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import HomeApiTag from '../tags'
@@ -8,7 +8,7 @@ type CreateArmyArgs = {
   name: string
   codex: string
   totalPoints: number
-  units: Record<Unit['id'], UnitTier['id'][]>
+  units: Record<CodexUnit['id'], UnitTier['id'][]>
 }
 
 const createArmy = (builder: SupabaseEndpointBuilder<HomeApiTag>) =>

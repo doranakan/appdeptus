@@ -1,15 +1,15 @@
 import { Box, ButtonGroup, Text } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
 import { Button } from 'appdeptus/components'
-import { Unit } from 'appdeptus/models'
+import { CodexUnit } from 'appdeptus/models'
 import React, { useCallback } from 'react'
 import UnitConfiguratorModal from '../UnitConfiguratorModal'
 
 type UnitListItemProps = {
   onPressAdd: () => void
-  onEditConfigs: (configs: Unit['tiers']) => void
-  selectedConfig: Unit['tiers']
-  unit: Unit
+  onEditConfigs: (configs: CodexUnit['tiers']) => void
+  selectedConfig: CodexUnit['tiers']
+  unit: CodexUnit
 }
 
 const UnitListItem = ({
@@ -25,7 +25,7 @@ const UnitListItem = ({
 
   const [configuratorVisible, { toggle: toggleConfigurator }] = useBoolean()
 
-  const closeConfigurator = useCallback((configs: Unit['tiers']) => {
+  const closeConfigurator = useCallback((configs: CodexUnit['tiers']) => {
     toggleConfigurator()
     onEditConfigs(configs)
   }, [])

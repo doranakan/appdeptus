@@ -1,12 +1,12 @@
 import { ButtonGroup } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
-import { Unit } from 'appdeptus/models'
+import { CodexUnit } from 'appdeptus/models'
 import React from 'react'
 
 type TierSelectorProps = {
   selectedTierIndex: number
-  onTierSelected: (tier: Unit['tiers'][0]) => void
-  tiers: Unit['tiers']
+  onTierSelected: (tier: CodexUnit['tiers'][0]) => void
+  tiers: CodexUnit['tiers']
 }
 
 const TierSelector = ({

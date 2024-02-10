@@ -1,12 +1,12 @@
 import { Box, Text } from '@gluestack-ui/themed'
 import { Button, useToast } from 'appdeptus/components'
-import { Unit } from 'appdeptus/models'
+import { CodexUnit } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import React, { useCallback, useMemo } from 'react'
 import { useCreateArmyMutation, useGetCodexesQuery } from '../../api'
 
 type UnitListHeaderProps = {
-  army: Record<Unit['id'], Unit['tiers']>
+  army: Record<CodexUnit['id'], CodexUnit['tiers']>
   codexId: string
 }
 
