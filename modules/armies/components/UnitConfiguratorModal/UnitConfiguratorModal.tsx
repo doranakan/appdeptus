@@ -1,88 +1,88 @@
-import { Box, Text } from '@gluestack-ui/themed'
-import { Button, Modal } from 'appdeptus/components'
-import { CodexUnit } from 'appdeptus/models'
+import { Box, Text, VStack } from '@gluestack-ui/themed'
+import { Button, Loading, Modal } from 'appdeptus/components'
+import { type CodexUnit, type UnitTier } from 'appdeptus/models'
 import { pullAt } from 'lodash'
-import React, { useCallback, useEffect, useState } from 'react'
-import { FlatList, ListRenderItem } from 'react-native'
-import TierSelector from '../TierSelector'
+import React, { useCallback, useState } from 'react'
+import { FlatList, StyleSheet, type ListRenderItem } from 'react-native'
+import { useGetUnitCompositionsQuery } from '../../api'
+import TierSelector from './TierSelector'
 
 type UnitConfiguratorModalProps = {
-  onPressClose: (configs: CodexUnit['tiers']) => void
-  configs: CodexUnit['tiers']
+  onPressClose: (selectedTiers: CodexUnit['tiers']) => void
+  selectedTiers: CodexUnit['tiers']
   unit: CodexUnit
   visible: boolean
 }
 
 const UnitConfiguratorModal = ({
   onPressClose,
-  configs,
+  selectedTiers,
   unit,
   visible
 }: UnitConfiguratorModalProps) => {
-  const [selectedConfigs, setSelectedConfigs] = useState(configs)
-
-  const handleClose = useCallback(
-    () => onPressClose(selectedConfigs),
-    [selectedConfigs]
+  const { data: unitCompositions } = useGetUnitCompositionsQuery(
+    unit.tiers.map(({ id }) => id)
   )
 
-  useEffect(() => {
-    if (visible) {
-      setSelectedConfigs([...configs])
-    }
-  }, [visible])
+  const [newTiers, setNewTiers] = useState(selectedTiers)
 
-  const renderItem = useCallback<ListRenderItem<CodexUnit['tiers'][0]>>(
-    ({ item: selectedConfig, index }) => (
-      <Box
-        backgroundColor='$backgroundLight0'
-        borderRadius='$md'
-        gap='$4'
-        p='$4'
-        shadowOpacity={0}
-      >
-        <Text>{unit.name}</Text>
-        <Box
-          flexDirection='row'
+  const handleClose = useCallback(() => {
+    onPressClose(newTiers)
+  }, [onPressClose, newTiers])
+
+  const renderItem = useCallback<ListRenderItem<UnitTier>>(
+    ({ item: tier, index }) => {
+      if (!unitCompositions) {
+        return <Loading />
+      }
+
+      return (
+        <VStack
+          backgroundColor='$backgroundLight0'
+          borderRadius='$md'
           gap='$2'
+          p='$4'
+          shadowOpacity={0}
         >
+          <Text fontWeight='$black'>{unit.name}</Text>
+          <TierSelector
+            onTierSelected={(selectedTier) => {
+              setNewTiers(() => {
+                newTiers[index] = selectedTier
+
+                return [...newTiers]
+              })
+            }}
+            selectedTierIndex={unit.tiers.findIndex(
+              (unitTier) => unitTier.id === tier.id
+            )}
+            unitCompositions={unitCompositions}
+            unitTiers={unit.tiers}
+          />
           <Button
             $active-bgColor='$red600'
             backgroundColor='$red500'
             borderColor='$red600'
             borderWidth='$1'
+            flex={1}
+            iconColor='red'
             iconName='trash-alt'
             onPress={() => {
-              pullAt(selectedConfigs, [index])
+              pullAt(newTiers, [index])
 
-              setSelectedConfigs([...selectedConfigs])
+              setNewTiers([...newTiers])
 
-              if (!selectedConfigs.length) {
+              if (newTiers.length === 0) {
                 handleClose()
               }
             }}
+            variant='outline'
           />
-          <TierSelector
-            selectedTierIndex={unit.tiers.findIndex(
-              (tier) => tier.id === selectedConfig.id
-            )}
-            onTierSelected={(selectedTier) => {
-              setSelectedConfigs(() => {
-                selectedConfigs[index] = selectedTier
-                return [...selectedConfigs]
-              })
-            }}
-            tiers={unit.tiers}
-          />
-        </Box>
-      </Box>
-    ),
-    [selectedConfigs.length]
+        </VStack>
+      )
+    },
+    [handleClose, newTiers, unit.name, unit.tiers, unitCompositions]
   )
-
-  if (!visible) {
-    return undefined
-  }
 
   return (
     <Modal
@@ -90,19 +90,23 @@ const UnitConfiguratorModal = ({
       title='Edit units'
       visible={visible}
     >
-      <Box
-        p='$4'
-        flex={1}
-      >
-        <FlatList
-          data={selectedConfigs}
-          ItemSeparatorComponent={() => <Box height='$4' />}
-          keyExtractor={(id, index) => `${id}-${index}`}
-          renderItem={renderItem}
-        />
-      </Box>
+      <FlatList
+        data={newTiers}
+        ItemSeparatorComponent={() => <Box height='$4' />}
+        ListFooterComponent={() => <Box height='$8' />}
+        keyExtractor={({ id }, index) => `${id}-${index}`}
+        renderItem={renderItem}
+        style={styles.flatList}
+      />
     </Modal>
   )
 }
+
+const styles = StyleSheet.create({
+  flatList: {
+    flex: 1,
+    padding: 16
+  }
+})
 
 export default UnitConfiguratorModal

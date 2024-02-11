@@ -1,5 +1,7 @@
 export * from './army'
 export * from './codex'
 export * from './faction'
+export * from './model'
 export * from './unit'
+export * from './unitComposition'
 export * from './unitTier'

@@ -1,1 +1,1 @@
-export { default } from './UnitConfiguratorModal'
+export { default } from './ModalWrapper'

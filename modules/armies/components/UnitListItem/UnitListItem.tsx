@@ -1,34 +1,37 @@
 import { Box, ButtonGroup, Text } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
 import { Button } from 'appdeptus/components'
-import { CodexUnit } from 'appdeptus/models'
+import { type CodexUnit } from 'appdeptus/models'
 import React, { useCallback } from 'react'
 import UnitConfiguratorModal from '../UnitConfiguratorModal'
 
 type UnitListItemProps = {
   onPressAdd: () => void
   onEditConfigs: (configs: CodexUnit['tiers']) => void
-  selectedConfig: CodexUnit['tiers']
+  selectedTiers: CodexUnit['tiers']
   unit: CodexUnit
 }
 
 const UnitListItem = ({
   onPressAdd,
   onEditConfigs,
-  selectedConfig,
+  selectedTiers,
   unit
 }: UnitListItemProps) => {
-  const count = selectedConfig.length
+  const count = selectedTiers.length
 
   let totalSelectedPoints = 0
-  selectedConfig.forEach((tier) => (totalSelectedPoints += tier.points))
+  selectedTiers.forEach((tier) => (totalSelectedPoints += tier.points))
 
   const [configuratorVisible, { toggle: toggleConfigurator }] = useBoolean()
 
-  const closeConfigurator = useCallback((configs: CodexUnit['tiers']) => {
-    toggleConfigurator()
-    onEditConfigs(configs)
-  }, [])
+  const closeConfigurator = useCallback(
+    (tiers: CodexUnit['tiers']) => {
+      toggleConfigurator()
+      onEditConfigs(tiers)
+    },
+    [onEditConfigs, toggleConfigurator]
+  )
 
   return (
     <>
@@ -79,7 +82,7 @@ const UnitListItem = ({
       </Box>
       <UnitConfiguratorModal
         onPressClose={closeConfigurator}
-        configs={selectedConfig}
+        selectedTiers={selectedTiers}
         unit={unit}
         visible={configuratorVisible}
       />

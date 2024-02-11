@@ -2,10 +2,10 @@ import { Box } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useMap } from 'ahooks'
 import { Loading } from 'appdeptus/components'
-import { CodexUnit } from 'appdeptus/models'
+import { type CodexUnit } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
 import React, { useCallback } from 'react'
-import { FlatList, ListRenderItem, StyleSheet } from 'react-native'
+import { FlatList, StyleSheet, type ListRenderItem } from 'react-native'
 import { useGetCodexUnitsQuery } from '../../api'
 import { UnitListHeader, UnitListItem } from '../../components'
 
@@ -27,12 +27,12 @@ const UnitSelectionScreen = () => {
           onEditConfigs={(configs) => {
             set(unit.id, configs)
           }}
-          selectedConfig={tiers}
+          selectedTiers={tiers}
           unit={unit}
         />
       )
     },
-    [army]
+    [get, set]
   )
 
   if (!units || !codexId) {
