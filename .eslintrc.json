@@ -1,4 +1,9 @@
 {
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "env": {
     "browser": true,
     "es2021": true
@@ -13,6 +18,20 @@
   },
   "plugins": ["react"],
   "rules": {
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "types": {
+          "React.FC": "Useless and has some drawbacks, see https://github.com/facebook/create-react-app/pull/8177",
+          "React.FunctionComponent": "Useless and has some drawbacks, see https://github.com/facebook/create-react-app/pull/8177"
+        }
+      }
+    ],
+    "@typescript-eslint/array-type": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "@typescript-eslint/no-throw-literal": "off",
+    "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-mixed-enums": "error",
     "@typescript-eslint/no-shadow": "error",
@@ -22,7 +41,7 @@
     ],
     "@typescript-eslint/no-unsafe-enum-comparison": "error",
     "@typescript-eslint/no-unused-vars": [
-      "warning",
+      "error",
       { "ignoreRestSiblings": true }
     ],
     "@typescript-eslint/promise-function-async": "error",
