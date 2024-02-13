@@ -1,10 +1,10 @@
-import { SupabaseEndpointBuilder } from 'appdeptus/api'
-import { CodexUnit } from 'appdeptus/models'
+import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CodexUnit } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
 import { tiersSchema, unitsSchema } from '../schemas'
-import ArmiesApiTag from '../tags'
+import type ArmiesApiTag from '../tags'
 
 const getCodexUnits = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
   builder.query<CodexUnit[], string>({

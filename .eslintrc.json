@@ -19,6 +19,7 @@
   "plugins": ["react"],
   "rules": {
     "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/ban-types": [
       "error",
       {

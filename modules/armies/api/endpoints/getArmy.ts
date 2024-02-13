@@ -1,5 +1,5 @@
-import { SupabaseEndpointBuilder } from 'appdeptus/api'
-import { Army } from 'appdeptus/models'
+import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type Army } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
@@ -24,7 +24,7 @@ const getArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
         )
         .eq('id', armyId)
 
-      if (armiesError || !rawArmies.length) {
+      if (armiesError ?? !rawArmies.length) {
         throw { error: armiesError ?? 'invalid Id' }
       }
 

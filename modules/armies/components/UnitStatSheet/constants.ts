@@ -1,0 +1,5 @@
+const STATSHEET_CELL_WIDTH = 30
+
+const STATS_CELL_NAMES = ['M', 'T', 'Sv', 'W', 'Ld', 'OC']
+
+export { STATSHEET_CELL_WIDTH, STATS_CELL_NAMES }

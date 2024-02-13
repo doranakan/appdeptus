@@ -1,9 +1,10 @@
-import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed'
+import { Box, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import {
   type CodexUnit,
   type UnitComposition,
   type UnitTier
 } from 'appdeptus/models'
+import UnitStatSheet from '../UnitStatSheet'
 
 type TierSelectorProps = {
   onTierSelected: (tier: CodexUnit['tiers'][0]) => void
@@ -48,31 +49,7 @@ const TierSelector = ({
               {`Tier ${tierIndex + 1} - ${tier.points} point`}
             </Text>
           </Box>
-          {unitCompositions[tier.id].map(({ count, model }, compIndex) => (
-            <HStack
-              alignItems='flex-end'
-              key={`${model.id}-${compIndex}`}
-              gap='$4'
-            >
-              <Text p='$1'>{`${count}x ${model.name}`}</Text>
-              <HStack
-                flex={1}
-                gap='$2'
-                justifyContent='flex-end'
-              >
-                {Object.entries(model.stats).map(([key, value]) => (
-                  <VStack
-                    gap='$1'
-                    key={key}
-                    p='$1'
-                  >
-                    <Text>{key}</Text>
-                    <Text fontWeight='$bold'>{value}</Text>
-                  </VStack>
-                ))}
-              </HStack>
-            </HStack>
-          ))}
+          <UnitStatSheet unitComposition={unitCompositions[tier.id]} />
         </Pressable>
       )
     })}

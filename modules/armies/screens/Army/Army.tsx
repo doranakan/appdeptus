@@ -1,9 +1,10 @@
-import { Badge, Box, HStack, Text, VStack } from '@gluestack-ui/themed'
+import { Badge, Box, Text, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { CodexLogo, Loading } from 'appdeptus/components'
 import { useLocalSearchParams } from 'expo-router'
 import { FlatList, StyleSheet } from 'react-native'
 import { useGetArmyQuery } from '../../api'
+import { ArmyItem } from '../../components'
 
 const ArmyScreen = () => {
   const { armyId } = useLocalSearchParams<{ armyId: string }>()
@@ -54,23 +55,7 @@ const ArmyScreen = () => {
         </VStack>
       )}
       ListFooterComponent={() => <Box height='$8' />}
-      renderItem={({ item: unit }) => (
-        <HStack
-          backgroundColor='$backgroundLight0'
-          borderRadius='$lg'
-          p='$4'
-        >
-          <Box flex={1}>
-            <Text>
-              <Text fontWeight='$black'>{unit.name}</Text>
-            </Text>
-            {unit.caption && <Text fontSize='$sm'>{unit.caption}</Text>}
-          </Box>
-          <Text fontWeight='bold'>
-            {unit.tier.points} <Text>points</Text>
-          </Text>
-        </HStack>
-      )}
+      renderItem={({ item: unit }) => <ArmyItem unit={unit} />}
       style={styles.flatList}
     />
   )

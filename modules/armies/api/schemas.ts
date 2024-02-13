@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { z } from 'zod'
 
 const idSchema = z.number().transform(String)
