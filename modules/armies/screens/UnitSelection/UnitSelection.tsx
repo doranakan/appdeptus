@@ -8,13 +8,21 @@ import React, { useCallback } from 'react'
 import { FlatList, StyleSheet, type ListRenderItem } from 'react-native'
 import { useGetCodexUnitsQuery } from '../../api'
 import { UnitListHeader, UnitListItem } from '../../components'
+import { usePreselectedTiers } from '../../hooks'
 
 const UnitSelectionScreen = () => {
-  const { codexId } = useLocalSearchParams<{ codexId: string }>()
+  const { armyId, codexId } = useLocalSearchParams<{
+    armyId: string
+    codexId: string
+  }>()
 
   const { data: units } = useGetCodexUnitsQuery(codexId ?? skipToken)
 
-  const [army, { set, get }] = useMap<CodexUnit['id'], CodexUnit['tiers']>()
+  const preselectedTiers = usePreselectedTiers(armyId)
+
+  const [newArmy, { set, get }] = useMap<CodexUnit['id'], CodexUnit['tiers']>(
+    preselectedTiers
+  )
 
   const renderItem = useCallback<ListRenderItem<CodexUnit>>(
     ({ item: unit }) => {
@@ -42,7 +50,8 @@ const UnitSelectionScreen = () => {
   return (
     <>
       <UnitListHeader
-        army={Object.fromEntries(army)}
+        army={Object.fromEntries(newArmy)}
+        armyId={armyId}
         codexId={codexId}
       />
       <FlatList

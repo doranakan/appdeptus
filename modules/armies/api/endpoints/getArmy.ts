@@ -15,7 +15,7 @@ const getArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
           `
           id, 
           name, 
-          totalPoints, 
+          total_points, 
           units,
           codex!inner(
             *
@@ -85,7 +85,18 @@ const getArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
         }
       }
     },
-    providesTags: [ArmiesApiTag.ARMY_DETAIL]
+    providesTags: (res) => {
+      if (!res) {
+        return []
+      }
+
+      return [
+        {
+          type: ArmiesApiTag.ARMY_DETAIL,
+          id: res.id
+        }
+      ]
+    }
   })
 
 export default getArmy

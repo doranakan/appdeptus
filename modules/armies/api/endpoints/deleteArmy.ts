@@ -3,7 +3,7 @@ import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import ArmiesApiTag from '../tags'
 
-const getArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
+const deleteArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
   builder.mutation<null, string>({
     queryFn: async (armyId) => {
       const { data, error } = await supabase
@@ -22,4 +22,4 @@ const getArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
     invalidatesTags: [ArmiesApiTag.ARMY_LIST]
   })
 
-export default getArmy
+export default deleteArmy

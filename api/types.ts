@@ -1,4 +1,4 @@
-import { EndpointBuilder, BaseQueryFn } from '@reduxjs/toolkit/query'
+import { type BaseQueryFn, type EndpointBuilder } from '@reduxjs/toolkit/query'
 
 type SupabaseEndpointBuilder<T extends string = never> = EndpointBuilder<
   BaseQueryFn,

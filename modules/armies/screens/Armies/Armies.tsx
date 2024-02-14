@@ -39,7 +39,9 @@ const ArmiesScreen = () => {
           <Button
             iconColor='$info500'
             iconName='plus-circle'
-            onPress={() => router.push('armies/army-builder/codex-selection')}
+            onPress={() => {
+              router.push('armies/army-builder/codex-selection')
+            }}
             size='xl'
             variant='link'
           />

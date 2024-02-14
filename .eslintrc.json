@@ -20,6 +20,7 @@
   "rules": {
     "multiline-ternary": "off",
     "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/indent": "off",
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/ban-types": [
       "error",

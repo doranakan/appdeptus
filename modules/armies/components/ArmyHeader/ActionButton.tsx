@@ -1,13 +1,13 @@
 import { FontAwesome5 } from '@expo/vector-icons'
 import { Pressable, Text } from '@gluestack-ui/themed'
 
-type MenuButtonProps = {
+type ButtonProps = {
   iconName: string
   onPress: () => void
   title: string
 }
 
-const MenuButton = ({ iconName, onPress, title }: MenuButtonProps) => (
+const ActionButton = ({ iconName, onPress, title }: ButtonProps) => (
   <Pressable
     alignItems='center'
     backgroundColor='$backgroundLight50'
@@ -35,4 +35,4 @@ const MenuButton = ({ iconName, onPress, title }: MenuButtonProps) => (
   </Pressable>
 )
 
-export default MenuButton
+export default ActionButton

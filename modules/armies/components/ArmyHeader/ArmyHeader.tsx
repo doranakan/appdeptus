@@ -1,8 +1,9 @@
 import { Badge, HStack, Text, VStack } from '@gluestack-ui/themed'
 import { CodexLogo } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
+import ActionButton from './ActionButton'
 import DeleteButton from './DeleteButton'
-import MenuButton from './MenuButton'
+import EditButton from './EditButton'
 
 type ArmyHeaderProps = {
   army: Army
@@ -41,13 +42,12 @@ const ArmyHeader = ({ army }: ArmyHeaderProps) => (
       </Text>
     </VStack>
     <HStack gap='$2'>
-      <MenuButton
-        iconName='wrench'
-        onPress={() => {}}
-        title='Edit'
+      <EditButton
+        armyId={army.id}
+        codexId={army.codex.id}
       />
       <DeleteButton armyId={army.id} />
-      <MenuButton
+      <ActionButton
         iconName='share-alt'
         onPress={() => {}}
         title='Share'

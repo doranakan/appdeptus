@@ -1,5 +1,5 @@
-import { SupabaseEndpointBuilder, getUserId } from 'appdeptus/api'
-import { Army } from 'appdeptus/models'
+import { getUserId, type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type Army } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { armiesSchema } from '../schemas'
@@ -18,14 +18,14 @@ const getArmies = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
           `
           id, 
           name, 
-          totalPoints, 
+          total_points, 
           units,
           codex!inner(
             *
           )
         `
         )
-        .eq('userId', userId)
+        .eq('user_id', userId)
 
       if (error) {
         throw { error }

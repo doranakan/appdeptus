@@ -4,7 +4,7 @@ import { type Army } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import { useCallback } from 'react'
 import { useDeleteArmyMutation } from '../../api'
-import MenuButton from './MenuButton'
+import ActionButton from './ActionButton'
 
 type DeleteButtonProps = {
   armyId: Army['id']
@@ -31,7 +31,7 @@ const DeleteButton = ({ armyId }: DeleteButtonProps) => {
 
     toast({
       description: 'Army deleted succesfully',
-      title: 'All set 🗑️'
+      title: 'Trashed 🗑️'
     })
 
     router.back()
@@ -39,7 +39,7 @@ const DeleteButton = ({ armyId }: DeleteButtonProps) => {
 
   return (
     <>
-      <MenuButton
+      <ActionButton
         iconName='trash-alt'
         onPress={showDialog}
         title='Delete'

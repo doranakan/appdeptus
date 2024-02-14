@@ -1,95 +1,28 @@
-import { Box, Text } from '@gluestack-ui/themed'
-import { Button, useToast } from 'appdeptus/components'
-import { CodexUnit } from 'appdeptus/models'
-import { useRouter } from 'expo-router'
-import React, { useCallback, useMemo } from 'react'
-import { useCreateArmyMutation, useGetCodexesQuery } from '../../api'
+import { type CodexUnit } from 'appdeptus/models'
+import CreateArmyHeader from './CreateArmyHeader'
+import UpdateArmyHeader from './UpdateArmyHeader'
 
 type UnitListHeaderProps = {
   army: Record<CodexUnit['id'], CodexUnit['tiers']>
+  armyId?: string
   codexId: string
 }
 
-const UnitListHeader = ({ army, codexId }: UnitListHeaderProps) => {
-  const totalPoints = useMemo(() => {
-    let total = 0
-    Object.values(army)
-      .flat()
-      .forEach(({ points }) => (total += points))
-
-    return total
-  }, [army])
-
-  const router = useRouter()
-
-  const { data: codexes } = useGetCodexesQuery()
-
-  const [createArmy, { isLoading }] = useCreateArmyMutation()
-
-  const toast = useToast()
-
-  const handleSubmit = useCallback(async () => {
-    const codexName = codexes?.find((codex) => codex.id === codexId)?.name
-
-    let units: Record<string, string[]> = {}
-
-    for (const unit of Object.entries(army)) {
-      const [unitId, tiers] = unit
-
-      const tierIds = tiers.map(({ id }) => id)
-      units[unitId] = tierIds
-    }
-
-    const res = await createArmy({
-      codex: codexId,
-      name: codexName ?? '',
-      totalPoints,
-      units
-    })
-
-    if ('error' in res) {
-      toast({
-        description: 'Astropathic communication interrupted',
-        title: 'Heresy 😱'
-      })
-
-      return
-    }
-
-    toast({
-      description: 'Your army has been created succesfully',
-      title: 'All set ✅'
-    })
-
-    router.navigate('armies')
-  }, [army])
-
-  return (
-    <Box
-      backgroundColor='$backgroundLight0'
-      borderBottomColor='$light200'
-      borderBottomWidth='$1'
-      flexDirection='row'
-      p='$4'
-    >
-      <Box
-        justifyContent='center'
-        flex={2}
-      >
-        <Text fontSize='$3xl'>
-          <Text fontWeight='$black'>{totalPoints}</Text>
-          <Text> total points</Text>
-        </Text>
-      </Box>
-      <Button
-        flex={1}
-        iconName='clipboard-list'
-        isDisabled={!totalPoints}
-        loading={isLoading}
-        onPress={handleSubmit}
-        text='Create army'
+const UnitListHeader = ({ army, armyId, codexId }: UnitListHeaderProps) => {
+  if (armyId) {
+    return (
+      <UpdateArmyHeader
+        army={army}
+        armyId={armyId}
+        codexId={codexId}
       />
-    </Box>
+    )
+  }
+  return (
+    <CreateArmyHeader
+      army={army}
+      codexId={codexId}
+    />
   )
 }
 
