@@ -1,4 +1,5 @@
 export { default as createArmy } from './createArmy'
+export { default as deleteArmy } from './deleteArmy'
 export { default as getArmies } from './getArmies'
 export { default as getArmy } from './getArmy'
 export { default as getCodexUnits } from './getCodexUnits'

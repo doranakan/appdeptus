@@ -1,3 +1,4 @@
+export { default as ArmyHeader } from './ArmyHeader'
 export { default as ArmyItem } from './ArmyItem'
 export { default as ArmyList } from './ArmyList'
 export { default as UnitConfiguratorModal } from './UnitConfiguratorModal'

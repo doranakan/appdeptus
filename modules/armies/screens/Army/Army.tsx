@@ -1,10 +1,10 @@
-import { Badge, Box, Text, VStack } from '@gluestack-ui/themed'
+import { Box } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { CodexLogo, Loading } from 'appdeptus/components'
+import { Loading } from 'appdeptus/components'
 import { useLocalSearchParams } from 'expo-router'
 import { FlatList, StyleSheet } from 'react-native'
 import { useGetArmyQuery } from '../../api'
-import { ArmyItem } from '../../components'
+import { ArmyHeader, ArmyItem } from '../../components'
 
 const ArmyScreen = () => {
   const { armyId } = useLocalSearchParams<{ armyId: string }>()
@@ -20,40 +20,7 @@ const ArmyScreen = () => {
       data={army.units}
       ItemSeparatorComponent={() => <Box h='$4' />}
       keyExtractor={({ id }, index) => `${id}-${index}`}
-      ListHeaderComponent={() => (
-        <VStack
-          alignItems='center'
-          backgroundColor='$backgroundLight0'
-          borderRadius='$lg'
-          mb='$4'
-          p='$4'
-        >
-          <CodexLogo
-            codexId={army.codex.id}
-            height={80}
-            width={80}
-          />
-          <VStack>
-            <Badge
-              borderRadius='$md'
-              variant='outline'
-            >
-              <Text size='sm'>{`Codex ${army.codex.name}`}</Text>
-            </Badge>
-            <Text
-              fontWeight='bold'
-              size='2xl'
-              textAlign='center'
-            >
-              {army.name}
-            </Text>
-            <Text textAlign='center'>
-              <Text fontWeight='bold'>{army.totalPoints} </Text>
-              points
-            </Text>
-          </VStack>
-        </VStack>
-      )}
+      ListHeaderComponent={() => <ArmyHeader army={army} />}
       ListFooterComponent={() => <Box height='$8' />}
       renderItem={({ item: unit }) => <ArmyItem unit={unit} />}
       style={styles.flatList}

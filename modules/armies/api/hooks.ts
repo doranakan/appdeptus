@@ -2,6 +2,7 @@ import armiesApi from './api'
 
 const {
   useCreateArmyMutation,
+  useDeleteArmyMutation,
   useGetArmiesQuery,
   useGetArmyQuery,
   useGetCodexesQuery,
@@ -12,6 +13,7 @@ const {
 
 export {
   useCreateArmyMutation,
+  useDeleteArmyMutation,
   useGetArmiesQuery,
   useGetArmyQuery,
   useGetCodexUnitsQuery,

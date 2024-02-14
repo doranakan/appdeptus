@@ -1,5 +1,5 @@
-import { SupabaseEndpointBuilder, getUserId } from 'appdeptus/api'
-import { CodexUnit, UnitTier } from 'appdeptus/models'
+import { getUserId, type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CodexUnit, type UnitTier } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import ArmiesApiTag from '../tags'
@@ -18,7 +18,7 @@ const createArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
 
       const { data, error: armiesError } = await supabase
         .from(Table.ARMIES)
-        .insert({ ...army, userId: userId })
+        .insert({ ...army, userId })
 
       if (armiesError) {
         throw { error: armiesError }

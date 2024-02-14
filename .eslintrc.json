@@ -18,6 +18,7 @@
   },
   "plugins": ["react"],
   "rules": {
+    "multiline-ternary": "off",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/naming-convention": "off",
     "@typescript-eslint/ban-types": [

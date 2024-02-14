@@ -1,6 +1,7 @@
 import { supabaseApi } from 'appdeptus/api'
 import {
   createArmy,
+  deleteArmy,
   getArmies,
   getArmy,
   getCodexes,
@@ -17,6 +18,7 @@ const armiesApi = supabaseApi
   .injectEndpoints({
     endpoints: (builder) => ({
       createArmy: createArmy(builder),
+      deleteArmy: deleteArmy(builder),
       getArmies: getArmies(builder),
       getArmy: getArmy(builder),
       getCodexes: getCodexes(builder),

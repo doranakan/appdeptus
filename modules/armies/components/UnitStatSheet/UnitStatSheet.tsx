@@ -11,9 +11,11 @@ type UnitStatSheetProps = {
 const UnitStatSheet = ({
   unitComposition
 }: UnitStatSheetProps): JSX.Element => (
-  <VStack>
-    <HStack flex={1}>
-      <Box flex={1} />
+  <VStack gap='$2'>
+    <HStack
+      alignSelf='flex-end'
+      flex={1}
+    >
       {STATS_CELL_NAMES.map((cellName, index) => (
         <Box
           alignItems='center'
@@ -28,7 +30,6 @@ const UnitStatSheet = ({
       <HStack
         key={model.id}
         gap='$2'
-        py='$1'
       >
         <Text
           numberOfLines={1}

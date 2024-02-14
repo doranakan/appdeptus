@@ -42,7 +42,7 @@ const useToast = () => {
           </Toast>
         )
       }),
-    []
+    [bottom, toast, width]
   )
 
   return show
