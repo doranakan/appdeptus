@@ -1,10 +1,12 @@
 {
-  "extends": "expo/tsconfig.base",
+  "extends": ["@tsconfig/strictest", "expo/tsconfig.base"],
   "compilerOptions": {
+    "checkJs": false,
     "strict": true,
     "baseUrl": ".",
     "paths": {
       "appdeptus/*": ["./*"]
-    }
+    },
+    "exactOptionalPropertyTypes": false
   }
 }

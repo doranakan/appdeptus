@@ -19,6 +19,7 @@
     "@react-native-async-storage/async-storage": "1.21.0",
     "@reduxjs/toolkit": "^2.1.0",
     "@supabase/supabase-js": "^2.39.3",
+    "@tsconfig/strictest": "^2.0.3",
     "@types/pluralize": "^0.0.33",
     "ahooks": "^3.7.10",
     "babel-plugin-inline-import": "^3.0.0",
