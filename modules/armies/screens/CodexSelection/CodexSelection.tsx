@@ -1,7 +1,6 @@
 import { Box, Text } from '@gluestack-ui/themed'
 import { Button, CodexLogo, Loading } from 'appdeptus/components'
 import { useRouter } from 'expo-router'
-import React from 'react'
 import { StyleSheet } from 'react-native'
 import PagerView from 'react-native-pager-view'
 import { useGetCodexesQuery } from '../../api'
@@ -56,14 +55,14 @@ const CodexSelectionScreen = () => {
                 />
               </Box>
               <Button
-                onPress={() =>
+                onPress={() => {
                   router.navigate({
                     params: {
                       codexId: codex.id
                     },
                     pathname: './unit-selection'
                   })
-                }
+                }}
                 text='Start'
               />
             </Box>

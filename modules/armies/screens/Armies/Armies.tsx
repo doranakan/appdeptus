@@ -1,7 +1,6 @@
 import { Box, HStack, Text } from '@gluestack-ui/themed'
 import { Button, Loading } from 'appdeptus/components'
 import { useRouter } from 'expo-router'
-import React from 'react'
 import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useGetArmiesQuery } from '../../api'

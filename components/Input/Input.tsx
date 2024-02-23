@@ -5,7 +5,6 @@ import {
   InputSlot,
   Text
 } from '@gluestack-ui/themed'
-import React from 'react'
 
 type InputProps = (typeof InputField)['defaultProps'] & {
   iconName?: string

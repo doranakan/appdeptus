@@ -1,5 +1,4 @@
-import React from 'react'
-import { Svg, Path, Rect, Defs, LinearGradient, Stop } from 'react-native-svg'
+import { Defs, LinearGradient, Path, Rect, Stop, Svg } from 'react-native-svg'
 
 const YourSvgComponent = () => {
   return (

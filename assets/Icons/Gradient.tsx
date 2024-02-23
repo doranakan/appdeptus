@@ -1,5 +1,4 @@
-import React from 'react'
-import { Svg, G, Ellipse, Defs, RadialGradient, Stop } from 'react-native-svg'
+import { Defs, Ellipse, G, RadialGradient, Stop, Svg } from 'react-native-svg'
 
 const SvgComponent = () => {
   return (

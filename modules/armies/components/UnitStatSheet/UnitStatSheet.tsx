@@ -1,7 +1,6 @@
 import { Box, HStack, Text, VStack } from '@gluestack-ui/themed'
 import { type UnitComposition } from 'appdeptus/models'
 import pluralize from 'pluralize'
-import React from 'react'
 import { STATSHEET_CELL_WIDTH, STATS_CELL_NAMES } from './constants'
 
 type UnitStatSheetProps = {

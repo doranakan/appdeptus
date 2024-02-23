@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, Text, VStack } from '@gluestack-ui/themed'
 import { SignInForm } from '../../components'
 

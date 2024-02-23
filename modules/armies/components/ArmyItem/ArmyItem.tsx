@@ -1,7 +1,6 @@
 import { HStack, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
 import { type ArmyUnit } from 'appdeptus/models'
-import React from 'react'
 import ArmyItemModal from '../ArmyItemModal'
 
 type ArmyItemProps = {

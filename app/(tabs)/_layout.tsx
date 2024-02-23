@@ -3,7 +3,6 @@ import { Text } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
 import { supabase } from 'appdeptus/utils'
 import { Tabs, useRouter } from 'expo-router'
-import React from 'react'
 
 const TabsLayout = () => {
   const router = useRouter()

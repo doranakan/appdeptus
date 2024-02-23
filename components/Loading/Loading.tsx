@@ -1,5 +1,4 @@
 import { Box } from '@gluestack-ui/themed'
-import React from 'react'
 import { ActivityIndicator } from 'react-native'
 
 const Loading = () => (

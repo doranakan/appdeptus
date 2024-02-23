@@ -1,6 +1,5 @@
 import { FontAwesome5 } from '@expo/vector-icons'
 import { ButtonText, Button as GSButton, Text } from '@gluestack-ui/themed'
-import React from 'react'
 import { ActivityIndicator } from 'react-native'
 
 type ButtonProps = (typeof GSButton)['defaultProps'] & {
@@ -89,11 +88,11 @@ const ButtonContent = ({
 }
 
 const iconSize: Record<string, number> = {
-  ['xs']: 10,
-  ['sm']: 13,
-  ['md']: 16,
-  ['lg']: 20,
-  ['xl']: 24
+  xs: 10,
+  sm: 13,
+  md: 16,
+  lg: 20,
+  xl: 24
 }
 
 export default Button

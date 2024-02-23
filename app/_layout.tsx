@@ -4,7 +4,6 @@ import { useAsyncEffect } from 'ahooks'
 import { store } from 'appdeptus/store'
 import { supabase } from 'appdeptus/utils'
 import { SplashScreen, Stack, useRouter } from 'expo-router'
-import React from 'react'
 import {
   SafeAreaProvider,
   initialWindowMetrics

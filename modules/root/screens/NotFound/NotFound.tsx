@@ -1,6 +1,5 @@
-import React from 'react'
-import { Link } from 'expo-router'
 import { Box, Text, VStack } from '@gluestack-ui/themed'
+import { Link } from 'expo-router'
 
 const NotFoundScreen = () => (
   <Box
