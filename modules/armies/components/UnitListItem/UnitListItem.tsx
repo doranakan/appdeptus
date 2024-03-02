@@ -1,37 +1,43 @@
 import { Box, ButtonGroup, Text } from '@gluestack-ui/themed'
-import { useBoolean } from 'ahooks'
 import { Button } from 'appdeptus/components'
-import { type CodexUnit } from 'appdeptus/models'
-import React, { useCallback } from 'react'
-import UnitConfiguratorModal from '../UnitConfiguratorModal'
+import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
+import { useRouter } from 'expo-router'
+import React, { useMemo } from 'react'
+import { useFieldArray, useFormContext } from 'react-hook-form'
 
 type UnitListItemProps = {
-  onPressAdd: () => void
-  onEditConfigs: (configs: CodexUnit['tiers']) => void
-  selectedTiers: CodexUnit['tiers']
+  codexId?: string
   unit: CodexUnit
+  unitIndex: number
 }
 
-const UnitListItem = ({
-  onPressAdd,
-  onEditConfigs,
-  selectedTiers,
-  unit
-}: UnitListItemProps) => {
-  const count = selectedTiers.length
+const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
+  const router = useRouter()
 
-  let totalSelectedPoints = 0
-  selectedTiers.forEach((tier) => (totalSelectedPoints += tier.points))
+  const { getValues, setValue } = useFormContext<ArmyForm>()
 
-  const [configuratorVisible, { toggle: toggleConfigurator }] = useBoolean()
+  const { append, fields } = useFieldArray<ArmyForm, 'choices', string>({
+    name: 'choices',
+    keyName: `${unit.id}-${unitIndex}`
+  })
 
-  const closeConfigurator = useCallback(
-    (tiers: CodexUnit['tiers']) => {
-      toggleConfigurator()
-      onEditConfigs(tiers)
-    },
-    [onEditConfigs, toggleConfigurator]
+  const choices = useMemo(
+    () => fields.filter(({ unit: unitId }) => unitId === unit.id),
+    [fields, unit.id]
   )
+
+  const count = choices.length
+
+  const points = useMemo(() => {
+    let points = 0
+    for (const choice of choices) {
+      const tier = unit.tiers.find((t) => t.id === choice.tier)
+      if (tier) {
+        points += tier.points
+      }
+    }
+    return points || unit.tiers[0]?.points
+  }, [choices, unit.tiers])
 
   return (
     <>
@@ -59,33 +65,46 @@ const UnitListItem = ({
             flex={1}
             iconName='plus-square'
             isDisabled={count >= unit.limit}
-            onPress={onPressAdd}
+            onPress={() => {
+              append({
+                options: [],
+                tier: unit.tiers[0]?.id ?? '',
+                unit: unit.id
+              })
+              const { totalPoints } = getValues()
+              setValue(
+                'totalPoints',
+                totalPoints + (unit.tiers[0]?.points ?? 0)
+              )
+            }}
           />
+
           <Button
             $active-bgColor='$info300'
             backgroundColor='$info500'
             flex={1}
             iconName='edit'
             isDisabled={!count}
-            onPress={toggleConfigurator}
+            onPress={() => {
+              router.push({
+                params: {
+                  codexId,
+                  unitIndex: String(unitIndex),
+                  unitId: unit.id
+                },
+                pathname: './tier-selection'
+              })
+            }}
           />
           <Box
             alignItems='center'
             flex={1}
             justifyContent='center'
           >
-            <Text fontWeight={count ? '$black' : '$medium'}>
-              {count > 0 ? totalSelectedPoints : unit.tiers[0].points}
-            </Text>
+            <Text fontWeight={count ? '$black' : '$medium'}>{points}</Text>
           </Box>
         </ButtonGroup>
       </Box>
-      <UnitConfiguratorModal
-        onPressClose={closeConfigurator}
-        selectedTiers={selectedTiers}
-        unit={unit}
-        visible={configuratorVisible}
-      />
     </>
   )
 }

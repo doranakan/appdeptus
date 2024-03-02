@@ -1,6 +1,5 @@
 import { Box } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { useMap } from 'ahooks'
 import { Loading } from 'appdeptus/components'
 import { type CodexUnit } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
@@ -8,7 +7,6 @@ import React, { useCallback } from 'react'
 import { FlatList, StyleSheet, type ListRenderItem } from 'react-native'
 import { useGetCodexUnitsQuery } from '../../api'
 import { UnitListHeader, UnitListItem } from '../../components'
-import { usePreselectedTiers } from '../../hooks'
 
 const UnitSelectionScreen = () => {
   const { armyId, codexId } = useLocalSearchParams<{
@@ -18,29 +16,17 @@ const UnitSelectionScreen = () => {
 
   const { data: units } = useGetCodexUnitsQuery(codexId ?? skipToken)
 
-  const preselectedTiers = usePreselectedTiers(armyId)
-
-  const [newArmy, { set, get }] = useMap<CodexUnit['id'], CodexUnit['tiers']>(
-    preselectedTiers
-  )
-
   const renderItem = useCallback<ListRenderItem<CodexUnit>>(
-    ({ item: unit }) => {
-      const tiers = get(unit.id) ?? []
+    ({ item: unit, index }) => {
       return (
         <UnitListItem
-          onPressAdd={() => {
-            set(unit.id, [...tiers, unit.tiers[0]])
-          }}
-          onEditConfigs={(configs) => {
-            set(unit.id, configs)
-          }}
-          selectedTiers={tiers}
+          codexId={codexId}
+          unitIndex={index}
           unit={unit}
         />
       )
     },
-    [get, set]
+    [codexId]
   )
 
   if (!units || !codexId) {
@@ -50,7 +36,6 @@ const UnitSelectionScreen = () => {
   return (
     <>
       <UnitListHeader
-        army={Object.fromEntries(newArmy)}
         armyId={armyId}
         codexId={codexId}
       />

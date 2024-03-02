@@ -1,5 +1,6 @@
 type UnitTier = {
   id: string
+  models: number
   points: number
 }
 

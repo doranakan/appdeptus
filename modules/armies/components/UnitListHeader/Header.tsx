@@ -1,11 +1,11 @@
 import { Box, Text } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
-import { type CodexUnit } from 'appdeptus/models'
-import React, { useCallback, useMemo } from 'react'
+import { type ArmyForm } from 'appdeptus/models'
+import React from 'react'
+import { useFormContext } from 'react-hook-form'
 import { useGetCodexesQuery } from '../../api'
 
 type UnitListHeaderProps = {
-  army: Record<CodexUnit['id'], CodexUnit['tiers']>
   codexId: string
   loading: boolean
   onSubmit: (args: {
@@ -13,42 +13,37 @@ type UnitListHeaderProps = {
     codexId: string
     name: string
     units: Record<string, string[]>
-  }) => void
+  }) => Promise<void>
   submitTitle: string
 }
 
 const UnitListHeader = ({
-  army,
   codexId,
   loading,
   onSubmit,
   submitTitle
 }: UnitListHeaderProps) => {
-  const totalPoints = useMemo(() => {
-    let total = 0
-    Object.values(army)
-      .flat()
-      .forEach(({ points }) => (total += points))
-
-    return total
-  }, [army])
-
   const { data: codexes } = useGetCodexesQuery()
 
-  const handleSubmit = useCallback(() => {
-    const name = codexes?.find((codex) => codex.id === codexId)?.name ?? ''
+  const { getValues } = useFormContext<ArmyForm>()
 
-    const units: Record<string, string[]> = {}
+  const { totalPoints } = getValues()
 
-    for (const unit of Object.entries(army)) {
-      const [unitId, tiers] = unit
+  // const handleSubmit = useCallback(async () => {
+  //   const name = codexes?.find((codex) => codex.id === codexId)?.name ?? ''
 
-      const tierIds = tiers.map(({ id }) => id)
-      units[unitId] = tierIds
-    }
+  //   const units: Record<string, string[]> = {}
 
-    onSubmit({ totalPoints, codexId, name, units })
-  }, [army, codexId, codexes, onSubmit, totalPoints])
+  //   for (const { unit } of Object.values(choices)) {
+  //     if (units[unit.id]) {
+  //       units[unit.id]?.push(unit.tier.id)
+  //     } else {
+  //       units[unit.id] = [unit.tier.id]
+  //     }
+  //   }
+
+  //   await onSubmit({ totalPoints, codexId, name, units })
+  // }, [choices, codexId, codexes, onSubmit, totalPoints])
 
   return (
     <Box
@@ -72,7 +67,7 @@ const UnitListHeader = ({
         iconName='clipboard-list'
         isDisabled={!totalPoints}
         loading={loading}
-        onPress={handleSubmit}
+        // onPress={handleSubmit}
         text={submitTitle}
       />
     </Box>

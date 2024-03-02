@@ -30,8 +30,9 @@ const codexesSchema = z.array(codexSchema)
 const tiersSchema = z.array(
   z.object({
     id: idSchema,
-    unit: idSchema,
-    points: z.number()
+    models: z.number(),
+    points: z.number(),
+    unit: idSchema
   })
 )
 

@@ -37,7 +37,7 @@ const getCodexUnits = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
       const unitsWithTiers = units.map((unit) => {
         const unitTiers = tiers
           .filter((tier) => tier.unit === unit.id)
-          .map((tier) => ({ id: tier.id, points: tier.points }))
+          .map(({ id, models, points }) => ({ id, models, points }))
         return {
           ...unit,
           tiers: unitTiers

@@ -16,6 +16,10 @@ const ArmiesLayout = () => {
           name='unit-selection'
           options={{ headerBackTitle: 'Back', title: 'Select units' }}
         />
+        <Stack.Screen
+          name='tier-selection'
+          options={{ headerBackTitle: 'Back', title: 'Customize choices' }}
+        />
       </Stack>
     </FormProvider>
   )
