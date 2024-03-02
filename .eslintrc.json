@@ -29,6 +29,8 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "multiline-ternary": "off",
+    "@typescript-eslint/indent": "off"
   }
 }
