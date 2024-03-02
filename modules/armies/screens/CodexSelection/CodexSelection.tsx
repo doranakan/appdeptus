@@ -1,6 +1,8 @@
 import { Box, Text } from '@gluestack-ui/themed'
 import { Button, CodexLogo, Loading } from 'appdeptus/components'
+import { type ArmyForm } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
+import { useFormContext } from 'react-hook-form'
 import { StyleSheet } from 'react-native'
 import PagerView from 'react-native-pager-view'
 import { useGetCodexesQuery } from '../../api'
@@ -9,6 +11,8 @@ const CodexSelectionScreen = () => {
   const router = useRouter()
 
   const { data: codexes } = useGetCodexesQuery()
+
+  const { reset } = useFormContext<ArmyForm>()
 
   if (!codexes) {
     return <Loading />
@@ -56,7 +60,14 @@ const CodexSelectionScreen = () => {
               </Box>
               <Button
                 onPress={() => {
-                  router.navigate({
+                  reset({
+                    units: [],
+                    name: 'New army',
+                    codexId: codex.id,
+                    totalPoints: 0
+                  })
+
+                  router.push({
                     params: {
                       codexId: codex.id
                     },

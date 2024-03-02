@@ -1,19 +1,12 @@
 /* eslint-disable camelcase */
 import { getUserId, type SupabaseEndpointBuilder } from 'appdeptus/api'
-import { type CodexUnit, type UnitTier } from 'appdeptus/models'
+import { type ArmyForm } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import ArmiesApiTag from '../tags'
 
-type CreateArmyArgs = {
-  name: string
-  codexId: string
-  totalPoints: number
-  units: Record<CodexUnit['id'], UnitTier['id'][]>
-}
-
 const createArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
-  builder.mutation<null, CreateArmyArgs>({
+  builder.mutation<null, ArmyForm>({
     queryFn: async ({ codexId, totalPoints, ...army }) => {
       const userId = await getUserId()
 

@@ -1,17 +1,15 @@
 import { useToast } from 'appdeptus/components'
-import { type CodexUnit } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import React, { useCallback } from 'react'
 import { useUpdateArmyMutation } from '../../api'
 import UnitListHeader from './Header'
 
 type UpdateArmyHeaderProps = {
-  army: Record<CodexUnit['id'], CodexUnit['tiers']>
   armyId: string
   codexId: string
 }
 
-const UpdateArmyHeader = ({ army, armyId, codexId }: UpdateArmyHeaderProps) => {
+const UpdateArmyHeader = ({ armyId, codexId }: UpdateArmyHeaderProps) => {
   const router = useRouter()
 
   const [updateArmy, { isLoading }] = useUpdateArmyMutation()
@@ -19,10 +17,7 @@ const UpdateArmyHeader = ({ army, armyId, codexId }: UpdateArmyHeaderProps) => {
   const toast = useToast()
 
   const handleSubmit = useCallback(
-    async ({
-      codexId: _,
-      ...args
-    }: {
+    async (args: {
       totalPoints: number
       codexId: string
       name: string
@@ -51,7 +46,6 @@ const UpdateArmyHeader = ({ army, armyId, codexId }: UpdateArmyHeaderProps) => {
 
   return (
     <UnitListHeader
-      army={army}
       codexId={codexId}
       loading={isLoading}
       onSubmit={handleSubmit}

@@ -1,4 +1,4 @@
-import { UnitTier } from './unitTier'
+import { type UnitTier } from './unitTier'
 
 type BaseUnit = {
   id: string

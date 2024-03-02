@@ -1,54 +1,38 @@
 import { Box, Text } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
-import { type CodexUnit } from 'appdeptus/models'
-import React, { useCallback, useMemo } from 'react'
-import { useGetCodexesQuery } from '../../api'
+import { type ArmyForm } from 'appdeptus/models'
+import React, { useMemo } from 'react'
+import { useFormContext } from 'react-hook-form'
+import { useGetCodexUnitsQuery } from '../../api'
 
 type UnitListHeaderProps = {
-  army: Record<CodexUnit['id'], CodexUnit['tiers']>
   codexId: string
   loading: boolean
-  onSubmit: (args: {
-    totalPoints: number
-    codexId: string
-    name: string
-    units: Record<string, string[]>
-  }) => void
+  onSubmit: () => void
   submitTitle: string
 }
 
 const UnitListHeader = ({
-  army,
   codexId,
   loading,
   onSubmit,
   submitTitle
 }: UnitListHeaderProps) => {
+  const { watch } = useFormContext<ArmyForm>()
+
+  const { data } = useGetCodexUnitsQuery(codexId)
+
+  const units = watch('units')
+
   const totalPoints = useMemo(() => {
-    let total = 0
-    Object.values(army)
-      .flat()
-      .forEach(({ points }) => (total += points))
-
-    return total
-  }, [army])
-
-  const { data: codexes } = useGetCodexesQuery()
-
-  const handleSubmit = useCallback(() => {
-    const name = codexes?.find((codex) => codex.id === codexId)?.name ?? ''
-
-    const units: Record<string, string[]> = {}
-
-    for (const unit of Object.entries(army)) {
-      const [unitId, tiers] = unit
-
-      const tierIds = tiers.map(({ id }) => id)
-      units[unitId] = tierIds
+    let points = 0
+    for (const { unit, tier } of units) {
+      points +=
+        data?.find(({ id }) => id === unit)?.tiers.find(({ id }) => id === tier)
+          ?.points ?? 0
     }
-
-    onSubmit({ totalPoints, codexId, name, units })
-  }, [army, codexId, codexes, onSubmit, totalPoints])
+    return points
+  }, [data, units])
 
   return (
     <Box
@@ -72,7 +56,7 @@ const UnitListHeader = ({
         iconName='clipboard-list'
         isDisabled={!totalPoints}
         loading={loading}
-        onPress={handleSubmit}
+        onPress={onSubmit}
         text={submitTitle}
       />
     </Box>
