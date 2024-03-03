@@ -2,7 +2,7 @@ import { Box, ScrollView } from '@gluestack-ui/themed'
 import { Loading, Modal } from 'appdeptus/components'
 import { type ArmyUnit } from 'appdeptus/models'
 import { useGetUnitCompositionQuery } from '../../api'
-import UnitStatSheet from '../UnitStatSheet'
+import UnitStatSheet from '../StatSheet'
 
 type ArmyItemModalProps = {
   unit: ArmyUnit

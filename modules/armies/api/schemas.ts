@@ -82,7 +82,7 @@ const unitOptionsSchema = z.array(
     id: idSchema,
     count: z.number().optional(),
     unit_composition: idSchema,
-    unit_wargear: z.number().optional().transform(String),
+    unit_wargear: z.number().transform(String).optional(),
     weapons: z.array(z.number().transform(String))
   })
 )

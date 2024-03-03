@@ -27,7 +27,7 @@ const TierSelectionScreen = () => {
     }
   })
 
-  const { fields, update } = useFieldArray<ArmyForm>({
+  const { fields, update } = useFieldArray<ArmyForm, 'choices'>({
     name: 'choices'
   })
 
@@ -45,7 +45,7 @@ const TierSelectionScreen = () => {
       gap='$4'
       p='$4'
     >
-      {choices.map(({ id, tier: selectedTierId }, choiceIndex) => (
+      {choices.map(({ id: choiceId, tier: selectedTierId }, choiceIndex) => (
         <VStack
           backgroundColor='$backgroundLight0'
           borderRadius='$lg'
@@ -75,7 +75,9 @@ const TierSelectionScreen = () => {
                   text={`${tier.models} ${pluralize('model', tier.models)}`}
                   onPress={() => {
                     update(
-                      fields.findIndex(({ id: fieldId }) => fieldId === id),
+                      fields.findIndex(
+                        ({ id: fieldId }) => fieldId === choiceId
+                      ),
                       {
                         options: [],
                         tier: tier.id,
@@ -90,10 +92,14 @@ const TierSelectionScreen = () => {
           <Button
             onPress={() => {
               router.push({
+                params: {
+                  choiceIndex: fields.findIndex(({ id }) => id === choiceId),
+                  tierId: selectedTierId
+                },
                 pathname: './option-selection'
               })
             }}
-            text='Options'
+            text='Customize'
             variant='outline'
           />
         </VStack>

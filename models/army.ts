@@ -1,7 +1,7 @@
 import { type Codex } from './codex'
 import { type ArmyUnit, type CodexUnit } from './unit'
 import { type UnitTier } from './unitTier'
-import { type CodexOption } from './weapon'
+import { type CodexOption, type Weapon } from './weapon'
 
 type Army = {
   codex: Codex
@@ -17,7 +17,10 @@ type ArmyForm = {
   choices: {
     unit: CodexUnit['id']
     tier: UnitTier['id']
-    options: CodexOption['id'][]
+    options: {
+      optionId: CodexOption['id']
+      weaponId: Weapon['id']
+    }[]
   }[]
   totalPoints: number
 }

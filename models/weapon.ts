@@ -14,7 +14,7 @@ type Weapon = {
 
 type BaseOption = {
   id: string
-  replaces: Weapon['id']
+  replaces?: Weapon['id']
 }
 
 type CodexOption = BaseOption & {
