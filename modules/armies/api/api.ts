@@ -7,7 +7,7 @@ import {
   getCodexes,
   getCodexUnits,
   getUnitComposition,
-  getUnitCompositions,
+  getUnitOptions,
   updateArmy
 } from './endpoints'
 import ArmiesApiTag from './tags'
@@ -25,7 +25,7 @@ const armiesApi = supabaseApi
       getCodexes: getCodexes(builder),
       getCodexUnits: getCodexUnits(builder),
       getUnitComposition: getUnitComposition(builder),
-      getUnitCompositions: getUnitCompositions(builder),
+      getUnitOptions: getUnitOptions(builder),
       updateArmy: updateArmy(builder)
     }),
     overrideExisting: true
