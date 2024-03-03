@@ -14,13 +14,12 @@ type UnitListItemProps = {
 const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
   const router = useRouter()
 
-  const { getValues, setValue, watch } = useFormContext<ArmyForm>()
-
   const { append } = useFieldArray<ArmyForm, 'units', string>({
     name: 'units',
     keyName: `${unit.id}-${unitIndex}`
   })
 
+  const { watch } = useFormContext<ArmyForm>()
   const allunits = watch('units')
 
   const units = useMemo(
@@ -73,19 +72,14 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
                 tier: unit.tiers[0]?.id ?? '',
                 unit: unit.id
               })
-              const { totalPoints } = getValues()
-              setValue(
-                'totalPoints',
-                totalPoints + (unit.tiers[0]?.points ?? 0)
-              )
             }}
+            text='Add'
           />
 
           <Button
             $active-bgColor='$info300'
             backgroundColor='$info500'
             flex={1}
-            iconName='edit'
             isDisabled={!count}
             onPress={() => {
               router.push({
@@ -97,6 +91,7 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
                 pathname: './tier-selection'
               })
             }}
+            text='Edit'
           />
           <Box
             alignItems='center'

@@ -6,7 +6,11 @@ import { useFormContext } from 'react-hook-form'
 import { useCreateArmyMutation } from '../../api'
 import UnitListHeader from './Header'
 
-const CreateArmyHeader = () => {
+type CreateArmyHeaderProps = {
+  codexId: string
+}
+
+const CreateArmyHeader = ({ codexId }: CreateArmyHeaderProps) => {
   const router = useRouter()
 
   const [createArmy, { isLoading }] = useCreateArmyMutation()
@@ -36,6 +40,7 @@ const CreateArmyHeader = () => {
 
   return (
     <UnitListHeader
+      codexId={codexId}
       loading={isLoading}
       onSubmit={handleSubmit}
       submitTitle='Create army'
