@@ -15,7 +15,7 @@ const UnitListHeader = ({ armyId, codexId }: UnitListHeaderProps) => {
       />
     )
   }
-  return <CreateArmyHeader codexId={codexId} />
+  return <CreateArmyHeader />
 }
 
 export default UnitListHeader

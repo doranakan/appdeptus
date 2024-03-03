@@ -1,51 +1,41 @@
 import { useToast } from 'appdeptus/components'
+import { type ArmyForm } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import React, { useCallback } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { useCreateArmyMutation } from '../../api'
 import UnitListHeader from './Header'
 
-type CreateArmyHeaderProps = {
-  codexId: string
-}
-
-const CreateArmyHeader = ({ codexId }: CreateArmyHeaderProps) => {
+const CreateArmyHeader = () => {
   const router = useRouter()
 
   const [createArmy, { isLoading }] = useCreateArmyMutation()
 
   const toast = useToast()
 
-  const handleSubmit = useCallback(
-    async (args: {
-      totalPoints: number
-      codexId: string
-      name: string
-      units: Record<string, string[]>
-    }) => {
-      const res = await createArmy(args)
+  const { getValues } = useFormContext<ArmyForm>()
 
-      if ('error' in res) {
-        toast({
-          description: 'Astropathic communication interrupted',
-          title: 'Heresy 😱'
-        })
+  const handleSubmit = useCallback(async () => {
+    const res = await createArmy(getValues())
 
-        return
-      }
-
+    if ('error' in res) {
       toast({
-        description: 'Army created succesfully',
-        title: 'All set ✅'
+        description: 'Astropathic communication interrupted',
+        title: 'Heresy 😱'
       })
+      return
+    }
 
-      router.navigate('armies')
-    },
-    [createArmy, router, toast]
-  )
+    toast({
+      description: 'Army created succesfully',
+      title: 'All set ✅'
+    })
+
+    router.navigate('armies')
+  }, [createArmy, getValues, router, toast])
 
   return (
     <UnitListHeader
-      codexId={codexId}
       loading={isLoading}
       onSubmit={handleSubmit}
       submitTitle='Create army'
