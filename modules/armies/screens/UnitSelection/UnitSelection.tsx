@@ -6,7 +6,8 @@ import { useLocalSearchParams } from 'expo-router'
 import React, { useCallback } from 'react'
 import { FlatList, StyleSheet, type ListRenderItem } from 'react-native'
 import { useGetCodexUnitsQuery } from '../../api'
-import { UnitListHeader, UnitListItem } from '../../components'
+import { UnitListHeader } from '../../components'
+import UnitListItem from './UnitListItem'
 
 const UnitSelectionScreen = () => {
   const { armyId, codexId } = useLocalSearchParams<{
