@@ -27,11 +27,11 @@ const TierSelectionScreen = () => {
     }
   })
 
-  const { fields, update } = useFieldArray<ArmyForm, 'choices'>({
-    name: 'choices'
+  const { fields, update } = useFieldArray<ArmyForm, 'units'>({
+    name: 'units'
   })
 
-  const choices = useMemo(
+  const units = useMemo(
     () => fields.filter(({ unit: unitId }) => unitId === unit?.id),
     [fields, unit]
   )
@@ -45,7 +45,7 @@ const TierSelectionScreen = () => {
       gap='$4'
       p='$4'
     >
-      {choices.map(({ id: choiceId, tier: selectedTierId }, choiceIndex) => (
+      {units.map(({ id: choiceId, tier: selectedTierId }, choiceIndex) => (
         <VStack
           backgroundColor='$backgroundLight0'
           borderRadius='$lg'

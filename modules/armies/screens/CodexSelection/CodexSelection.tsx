@@ -61,7 +61,7 @@ const CodexSelectionScreen = () => {
               <Button
                 onPress={() => {
                   reset({
-                    choices: [],
+                    units: [],
                     name: 'New army',
                     codexId: codex.id,
                     totalPoints: 0

@@ -18,7 +18,7 @@ const ArmiesLayout = () => {
         />
         <Stack.Screen
           name='tier-selection'
-          options={{ headerBackTitle: 'Back', title: 'Customize choices' }}
+          options={{ headerBackTitle: 'Back', title: 'Customize units' }}
         />
         <Stack.Screen
           name='option-selection'

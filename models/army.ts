@@ -14,7 +14,7 @@ type Army = {
 type ArmyForm = {
   name: string
   codexId: Codex['id']
-  choices: {
+  units: {
     unit: CodexUnit['id']
     tier: UnitTier['id']
     options: {

@@ -14,30 +14,32 @@ type UnitListItemProps = {
 const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
   const router = useRouter()
 
-  const { getValues, setValue } = useFormContext<ArmyForm>()
+  const { getValues, setValue, watch } = useFormContext<ArmyForm>()
 
-  const { append, fields } = useFieldArray<ArmyForm, 'choices', string>({
-    name: 'choices',
+  const { append } = useFieldArray<ArmyForm, 'units', string>({
+    name: 'units',
     keyName: `${unit.id}-${unitIndex}`
   })
 
-  const choices = useMemo(
-    () => fields.filter(({ unit: unitId }) => unitId === unit.id),
-    [fields, unit.id]
+  const allunits = watch('units')
+
+  const units = useMemo(
+    () => allunits.filter(({ unit: unitId }) => unitId === unit.id),
+    [allunits, unit.id]
   )
 
-  const count = choices.length
+  const count = units.length
 
   const points = useMemo(() => {
     let points = 0
-    for (const choice of choices) {
+    for (const choice of units) {
       const tier = unit.tiers.find((t) => t.id === choice.tier)
       if (tier) {
         points += tier.points
       }
     }
     return points || unit.tiers[0]?.points
-  }, [choices, unit.tiers])
+  }, [units, unit.tiers])
 
   return (
     <>

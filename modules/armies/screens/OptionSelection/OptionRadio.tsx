@@ -23,10 +23,10 @@ const OptionRadio = ({
   weapons
 }: OptionRadioProps) => {
   const { fields, append, update, remove } = useFieldArray<
-    ArmyForm['choices'][0],
+    ArmyForm['units'][0],
     'options'
   >({
-    name: `choices.${choiceIndex}.options` as 'options'
+    name: `units.${choiceIndex}.options` as 'options'
   })
 
   const selectedValue = useMemo(

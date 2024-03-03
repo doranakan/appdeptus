@@ -5,7 +5,7 @@ import { type ArmyForm, type Model, type Wargear } from 'appdeptus/models'
 import { compact, times } from 'lodash'
 import pluralize from 'pluralize'
 import { useMemo } from 'react'
-import { useFieldArray } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { StatSheet, WeaponList } from '../../components'
 import OptionRadio from './OptionRadio'
 
@@ -27,9 +27,9 @@ const OptionItem = ({
 
   const { baseWargear, options } = wargear
 
-  const { fields } = useFieldArray<ArmyForm['choices'][0], 'options'>({
-    name: `choices.${choiceIndex}.options` as 'options'
-  })
+  const { watch } = useFormContext<ArmyForm>()
+
+  const units = watch('units')[choiceIndex]?.options
 
   const weapons = useMemo(
     () => baseWargear.map(({ weapon }) => weapon),
@@ -37,17 +37,17 @@ const OptionItem = ({
   )
 
   const optionalWeapons = useMemo(() => {
-    if (!options) {
+    if (!options || !units) {
       return undefined
     }
     return compact(
-      fields.map(({ optionId, weaponId }) =>
+      units.map(({ optionId, weaponId }) =>
         options
           .find(({ id }) => id === optionId)
           ?.weapons.find(({ id }) => id === weaponId)
       )
     )
-  }, [fields, options])
+  }, [units, options])
 
   return (
     <>
