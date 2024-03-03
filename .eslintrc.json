@@ -31,6 +31,7 @@
     "@typescript-eslint/consistent-type-definitions": "off",
     "react/react-in-jsx-scope": "off",
     "multiline-ternary": "off",
-    "@typescript-eslint/indent": "off"
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/no-misused-promises": "off"
   }
 }
