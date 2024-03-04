@@ -38,7 +38,8 @@ const OptionRadio = ({
 
   return (
     <RadioGroup
-      value={values}
+      backgroundColor='$backgroundLight100'
+      borderRadius='$md'
       onChange={(weaponId: string) => {
         const optionIndex = fields.findIndex(
           ({ optionId: optId }) => optId === optionId
@@ -54,6 +55,8 @@ const OptionRadio = ({
         }
         setValues(weaponId)
       }}
+      p='$2'
+      value={values}
     >
       <VStack space='sm'>
         <Radio value=''>
@@ -67,7 +70,10 @@ const OptionRadio = ({
             key={weaponId}
             value={weaponId}
           >
-            <RadioIndicator mr='$2'>
+            <RadioIndicator
+              backgroundColor='$white'
+              mr='$2'
+            >
               <RadioIcon as={CircleIcon} />
             </RadioIndicator>
             <RadioLabel>{name}</RadioLabel>
