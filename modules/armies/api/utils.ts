@@ -8,9 +8,9 @@ const parseWeapon = (weapon: z.infer<typeof weaponSchema>): Weapon => {
   return {
     id,
     name,
-    type: range ? 'ranged' : 'melee',
+    type: range?.length ? 'ranged' : 'melee',
     stats: {
-      range: range ?? 'melee',
+      range: range?.length ? range : '-',
       bsWs: bs_ws,
       ...weaponStats
     }
