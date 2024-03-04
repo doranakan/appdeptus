@@ -10,11 +10,22 @@ const codexSchema = z.object({
 
 const armySchema = z
   .object({
+    codex: codexSchema,
     id: idSchema,
     name: z.string(),
-    total_points: z.number(),
-    codex: codexSchema,
-    units: z.record(z.string(), z.array(z.string()))
+    units: z.array(
+      z.object({
+        unit: z.string(),
+        tier: z.string(),
+        options: z.array(
+          z.object({
+            optionId: z.string(),
+            weaponId: z.string()
+          })
+        )
+      })
+    ),
+    total_points: z.number()
   })
   .transform(({ total_points, ...rest }) => ({
     ...rest,
