@@ -1,5 +1,5 @@
-import { Box, ButtonText, Text } from '@gluestack-ui/themed'
-import React, { PropsWithChildren } from 'react'
+import { Box, ButtonText, ScrollView, Text } from '@gluestack-ui/themed'
+import { type PropsWithChildren } from 'react'
 import { Modal as RNModal } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -57,12 +57,10 @@ const Modal = ({ children, onPressClose, title, visible }: ModalProps) => {
               </ButtonText>
             </Box>
           </Box>
-          <Box
-            pb={insets.bottom}
-            flex={1}
-          >
+          <ScrollView flex={1}>
             {children}
-          </Box>
+            <Box h={insets.bottom} />
+          </ScrollView>
         </Box>
       </Box>
     </RNModal>
