@@ -1,11 +1,12 @@
 import { Box } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Loading } from 'appdeptus/components'
-import { type CodexUnit } from 'appdeptus/models'
+import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { FlatList, StyleSheet, type ListRenderItem } from 'react-native'
-import { useGetCodexUnitsQuery } from '../../api'
+import { useGetArmyToEditQuery, useGetCodexUnitsQuery } from '../../api'
 import { UnitListHeader } from '../../components'
 import UnitListItem from './UnitListItem'
 
@@ -14,6 +15,10 @@ const UnitSelectionScreen = () => {
     armyId: string
     codexId: string
   }>()
+
+  const { data: armyToEdit, isFetching } = useGetArmyToEditQuery(
+    armyId ?? skipToken
+  )
 
   const { data: units } = useGetCodexUnitsQuery(codexId ?? skipToken)
 
@@ -30,7 +35,15 @@ const UnitSelectionScreen = () => {
     [codexId]
   )
 
-  if (!units || !codexId) {
+  const { reset } = useFormContext<ArmyForm>()
+
+  useEffect(() => {
+    if (armyToEdit) {
+      reset(armyToEdit)
+    }
+  }, [armyToEdit, reset])
+
+  if (!units || !codexId || isFetching) {
     return <Loading />
   }
 

@@ -1,6 +1,8 @@
 import { useToast } from 'appdeptus/components'
+import { type ArmyForm } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import React, { useCallback } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { useUpdateArmyMutation } from '../../api'
 import UnitListHeader from './Header'
 
@@ -16,33 +18,27 @@ const UpdateArmyHeader = ({ armyId, codexId }: UpdateArmyHeaderProps) => {
 
   const toast = useToast()
 
-  const handleSubmit = useCallback(
-    async (args: {
-      totalPoints: number
-      codexId: string
-      name: string
-      units: Record<string, string[]>
-    }) => {
-      const res = await updateArmy({ ...args, armyId })
+  const { getValues } = useFormContext<ArmyForm>()
 
-      if ('error' in res) {
-        toast({
-          description: 'Astropathic communication interrupted',
-          title: 'Heresy 😱'
-        })
+  const handleSubmit = useCallback(async () => {
+    const res = await updateArmy({ ...getValues(), armyId })
 
-        return
-      }
-
+    if ('error' in res) {
       toast({
-        description: 'Army updated succesfully',
-        title: 'All good ✅'
+        description: 'Astropathic communication interrupted',
+        title: 'Heresy 😱'
       })
 
-      router.back()
-    },
-    [armyId, router, toast, updateArmy]
-  )
+      return
+    }
+
+    toast({
+      description: 'Army updated succesfully',
+      title: 'All good ✅'
+    })
+
+    router.back()
+  }, [armyId, getValues, router, toast, updateArmy])
 
   return (
     <UnitListHeader

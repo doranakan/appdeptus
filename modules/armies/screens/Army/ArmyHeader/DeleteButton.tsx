@@ -3,7 +3,7 @@ import { Dialog, useToast } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import { useCallback } from 'react'
-import { useDeleteArmyMutation } from '../../api'
+import { useDeleteArmyMutation } from '../../../api'
 import ActionButton from './ActionButton'
 
 type DeleteButtonProps = {

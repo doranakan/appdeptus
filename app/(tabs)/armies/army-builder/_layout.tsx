@@ -3,7 +3,14 @@ import { Stack } from 'expo-router'
 import { FormProvider, useForm } from 'react-hook-form'
 
 const ArmiesLayout = () => {
-  const methods = useForm<ArmyForm>()
+  const methods = useForm<ArmyForm>({
+    defaultValues: {
+      codexId: '',
+      name: '',
+      totalPoints: 0,
+      units: []
+    }
+  })
 
   return (
     <FormProvider {...methods}>

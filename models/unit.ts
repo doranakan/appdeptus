@@ -1,4 +1,5 @@
 import { type UnitTier } from './unitTier'
+import { type OptionalWeapon, type Weapon } from './weapon'
 
 type BaseUnit = {
   id: string
@@ -9,6 +10,10 @@ type BaseUnit = {
 
 type ArmyUnit = BaseUnit & {
   tier: UnitTier
+  options: {
+    id: OptionalWeapon['id']
+    weapon: Weapon
+  }[]
 }
 
 type CodexUnit = BaseUnit & {

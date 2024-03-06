@@ -4,7 +4,8 @@ import { Loading } from 'appdeptus/components'
 import { useLocalSearchParams } from 'expo-router'
 import { FlatList, StyleSheet } from 'react-native'
 import { useGetArmyQuery } from '../../api'
-import { ArmyHeader, ArmyItem } from '../../components'
+import ArmyHeader from './ArmyHeader'
+import ArmyItem from './ArmyItem'
 
 const ArmyScreen = () => {
   const { armyId } = useLocalSearchParams<{ armyId: string }>()

@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useGetArmiesQuery } from '../../api'
-import { ArmyList } from '../../components'
+import ArmyList from './ArmyList'
 
 const ArmiesScreen = () => {
   const router = useRouter()
