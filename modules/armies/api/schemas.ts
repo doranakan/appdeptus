@@ -8,9 +8,8 @@ const codexSchema = z.object({
   name: z.string()
 })
 
-const armySchema = z
+const baseArmySchema = z
   .object({
-    codex: codexSchema,
     id: idSchema,
     name: z.string(),
     units: z.array(
@@ -31,6 +30,18 @@ const armySchema = z
     ...rest,
     totalPoints: total_points
   }))
+
+const armySchema = z
+  .object({
+    codex: codexSchema
+  })
+  .and(baseArmySchema)
+
+const armyToEditSchema = z
+  .object({
+    codex: idSchema
+  })
+  .and(baseArmySchema)
 
 const armiesSchema = z.array(
   armySchema.transform(({ units: _, ...rest }) => rest)
@@ -111,6 +122,7 @@ const weaponsSchema = z.array(weaponSchema)
 export {
   armiesSchema,
   armySchema,
+  armyToEditSchema,
   codexesSchema,
   tiersSchema,
   unitCompositionsSchema,
