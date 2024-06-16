@@ -53,7 +53,6 @@ const OptionItem = ({
     <>
       <VStack
         backgroundColor='$backgroundLight0'
-        borderRadius='$lg'
         gap='$2'
         p='$4'
       >
@@ -84,7 +83,6 @@ const OptionItem = ({
             {options.map(({ id, weapons, count, replaces }) => (
               <VStack
                 backgroundColor='$backgroundLight0'
-                borderRadius='$lg'
                 key={id}
                 p='$4'
                 gap='$2'

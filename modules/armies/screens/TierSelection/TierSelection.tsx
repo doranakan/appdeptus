@@ -57,7 +57,6 @@ const TierSelectionScreen = () => {
         return (
           <VStack
             backgroundColor='$backgroundLight0'
-            borderRadius='$lg'
             key={`${unit.name}-${choiceIndex}`}
             gap='$2'
             p='$4'
@@ -74,7 +73,7 @@ const TierSelectionScreen = () => {
                 return (
                   <Button
                     backgroundColor={
-                      tier.id === selectedTierId ? '$info500' : '$info300'
+                      tier.id === selectedTierId ? '$primary500' : '$primary300'
                     }
                     flex={1}
                     key={tier.points}
@@ -95,8 +94,8 @@ const TierSelectionScreen = () => {
                 )
               })}
               <Button
-                $active-bg='$red600'
-                backgroundColor='$red500'
+                $active-bg='$primary800'
+                backgroundColor='$primary700'
                 iconName='trash'
                 onPress={() => {
                   remove(

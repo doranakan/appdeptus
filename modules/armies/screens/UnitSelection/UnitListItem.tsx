@@ -43,9 +43,8 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
   return (
     <>
       <Box
-        backgroundColor={count ? '$info100' : '$backgroundLight0'}
-        borderColor={count ? '$info500' : '$backgroundLight0'}
-        borderRadius='$md'
+        backgroundColor={count ? '$primary100' : '$backgroundLight0'}
+        borderColor={count ? '$primary500' : '$backgroundLight0'}
         borderWidth='$1'
         gap='$4'
         p='$4'
@@ -57,12 +56,12 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
         </Text>
 
         <ButtonGroup
-          $disabled-bgColor='$info300'
+          $disabled-bgColor='$primary300'
           flex={1}
         >
           <Button
-            $active-bgColor='$info300'
-            backgroundColor='$info500'
+            $active-bgColor='$primary300'
+            backgroundColor='$primary500'
             flex={1}
             iconName='plus-square'
             isDisabled={count >= unit.limit}
@@ -77,8 +76,8 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
           />
 
           <Button
-            $active-bgColor='$info300'
-            backgroundColor='$info500'
+            $active-bgColor='$primary300'
+            backgroundColor='$primary500'
             flex={1}
             isDisabled={!count}
             onPress={() => {

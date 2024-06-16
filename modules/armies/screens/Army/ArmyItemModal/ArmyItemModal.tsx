@@ -62,7 +62,6 @@ const ModalContent = ({ unit }: ModalContentProps) => {
         {models.map(({ count, model, baseWargear, options }, index) => (
           <VStack
             backgroundColor='$backgroundLight0'
-            borderRadius='$md'
             gap='$2'
             key={`${model.id}-${index}`}
             p='$4'
@@ -77,7 +76,6 @@ const ModalContent = ({ unit }: ModalContentProps) => {
             </Text>
             <VStack
               backgroundColor='$backgroundLight100'
-              borderRadius='$md'
               gap='$2'
               px='$4'
               py='$2'

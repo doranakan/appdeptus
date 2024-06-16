@@ -15,7 +15,6 @@ const ArmyItem = ({ unit }: ArmyItemProps): JSX.Element => {
     <>
       <Pressable
         backgroundColor='$backgroundLight0'
-        borderRadius='$lg'
         onPress={toggle}
         p='$4'
       >

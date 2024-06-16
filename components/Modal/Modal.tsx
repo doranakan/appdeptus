@@ -50,7 +50,7 @@ const Modal = ({ children, onPressClose, title, visible }: ModalProps) => {
               right={0}
             >
               <ButtonText
-                color='$info500'
+                color='$primary500'
                 onPress={onPressClose}
               >
                 Close

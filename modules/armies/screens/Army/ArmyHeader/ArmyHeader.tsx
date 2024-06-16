@@ -12,7 +12,6 @@ type ArmyHeaderProps = {
 const ArmyHeader = ({ army }: ArmyHeaderProps) => (
   <VStack
     backgroundColor='$backgroundLight0'
-    borderRadius='$lg'
     gap='$4'
     mb='$4'
     p='$4'
@@ -24,7 +23,8 @@ const ArmyHeader = ({ army }: ArmyHeaderProps) => (
         width={80}
       />
       <Badge
-        borderRadius='$md'
+        backgroundColor='$primary50'
+        borderColor='$primary200'
         variant='outline'
       >
         <Text size='sm'>{`Codex ${army.codex.name}`}</Text>

@@ -10,10 +10,10 @@ type ButtonProps = (typeof GSButton)['defaultProps'] & {
 }
 
 const Button = ({
-  '$active-bgColor': activeBgColor = '$info300',
-  '$disabled-bgColor': disabledBgColor = '$info400',
+  '$active-bgColor': activeBgColor = '$primary300',
+  '$disabled-bgColor': disabledBgColor = '$primary400',
   action = 'primary',
-  backgroundColor = '$info500',
+  backgroundColor = '$primary500',
   iconColor = '$textLight0',
   iconName,
   isDisabled,
@@ -28,8 +28,9 @@ const Button = ({
     $disabled-bgColor={disabledBgColor}
     action={action}
     backgroundColor={variant === 'solid' ? backgroundColor : undefined}
+    borderRadius={0}
     isDisabled={isDisabled || loading}
-    gap={'$2'}
+    gap='$2'
     size={size}
     variant={variant}
     {...props}

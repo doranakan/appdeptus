@@ -11,7 +11,6 @@ const ActionButton = ({ iconName, onPress, title }: ButtonProps) => (
   <Pressable
     alignItems='center'
     backgroundColor='$backgroundLight50'
-    borderRadius='$2xl'
     flex={1}
     justifyContent='center'
     onPress={onPress}

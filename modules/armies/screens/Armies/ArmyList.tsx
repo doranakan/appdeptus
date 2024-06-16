@@ -47,10 +47,9 @@ const ArmyList = ({ armies }: ArmyListProps) => {
       renderItem={({ item: army }) => (
         <Pressable
           backgroundColor='$backgroundLight0'
-          borderRadius='$lg'
           flex={1}
           onPress={() => {
-            router.push(`./armies/${army.id}`)
+            router.push(`armies/${army.id}`)
           }}
           p='$4'
         >
@@ -61,7 +60,8 @@ const ArmyList = ({ armies }: ArmyListProps) => {
             <VStack gap='$1'>
               <Text fontWeight='bold'>{army.name}</Text>
               <Badge
-                borderRadius='$md'
+                backgroundColor='$primary50'
+                borderColor='$primary200'
                 variant='outline'
               >
                 <Text size='sm'>{`Codex ${army.codex.name}`}</Text>
