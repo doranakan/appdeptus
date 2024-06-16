@@ -39,7 +39,6 @@ const OptionRadio = ({
   return (
     <RadioGroup
       backgroundColor='$backgroundLight100'
-      borderRadius='$md'
       onChange={(weaponId: string) => {
         const optionIndex = fields.findIndex(
           ({ optionId: optId }) => optId === optionId

@@ -1,5 +1,10 @@
 import { FontAwesome5 } from '@expo/vector-icons'
-import { ButtonText, Button as GSButton, Text } from '@gluestack-ui/themed'
+import {
+  ButtonText,
+  Button as GSButton,
+  HStack,
+  Text
+} from '@gluestack-ui/themed'
 import { ActivityIndicator } from 'react-native'
 
 type ButtonProps = (typeof GSButton)['defaultProps'] & {
@@ -10,10 +15,10 @@ type ButtonProps = (typeof GSButton)['defaultProps'] & {
 }
 
 const Button = ({
-  '$active-bgColor': activeBgColor = '$info300',
-  '$disabled-bgColor': disabledBgColor = '$info400',
+  '$active-bgColor': activeBgColor = '$primary300',
+  '$disabled-bgColor': disabledBgColor = '$primary400',
   action = 'primary',
-  backgroundColor = '$info500',
+  backgroundColor = '$primary500',
   iconColor = '$textLight0',
   iconName,
   isDisabled,
@@ -28,8 +33,9 @@ const Button = ({
     $disabled-bgColor={disabledBgColor}
     action={action}
     backgroundColor={variant === 'solid' ? backgroundColor : undefined}
-    isDisabled={isDisabled || loading}
-    gap={'$2'}
+    borderRadius={0}
+    isDisabled={isDisabled ?? loading}
+    gap='$2'
     size={size}
     variant={variant}
     {...props}
@@ -63,7 +69,7 @@ const ButtonContent = ({
     return <ActivityIndicator color={'white'} />
   }
   return (
-    <>
+    <HStack gap='$1'>
       {text && (
         <ButtonText
           flex={1}
@@ -83,7 +89,7 @@ const ButtonContent = ({
           />
         </Text>
       )}
-    </>
+    </HStack>
   )
 }
 

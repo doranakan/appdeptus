@@ -54,7 +54,6 @@ const WeaponStats = ({ weapons }: WeaponStatsProps) => {
           </HStack>
           <HStack
             backgroundColor='$backgroundLight0'
-            borderRadius='$md'
             justifyContent='space-between'
           >
             {Object.entries(stats).map(([key, val], index) => (

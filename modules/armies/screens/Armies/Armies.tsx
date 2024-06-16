@@ -36,7 +36,7 @@ const ArmiesScreen = () => {
             Appdeptus
           </Text>
           <Button
-            iconColor='$info500'
+            iconColor='$primary500'
             iconName='plus-circle'
             onPress={() => {
               router.push('armies/army-builder/codex-selection')

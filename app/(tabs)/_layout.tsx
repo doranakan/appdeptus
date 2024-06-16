@@ -1,8 +1,18 @@
 import { FontAwesome5 } from '@expo/vector-icons'
-import { Text } from '@gluestack-ui/themed'
+import { Text, VStack } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
+import { config } from 'appdeptus/designSystem'
 import { supabase } from 'appdeptus/utils'
 import { Tabs, useRouter } from 'expo-router'
+
+const tabBarBaseOptions = {
+  headerShown: false,
+  tabBarShowLabel: false,
+  tabBarStyle: {
+    backgroundColor: config.tokens.colors.blueGray800,
+    padding: 8
+  }
+}
 
 const TabsLayout = () => {
   const router = useRouter()
@@ -23,35 +33,69 @@ const TabsLayout = () => {
       <Tabs.Screen
         name='armies'
         options={{
-          headerShown: false,
+          ...tabBarBaseOptions,
           tabBarIcon: ({ focused }) => (
-            <Text color={focused ? '$info500' : '$light400'}>
-              <FontAwesome5
-                name='book-dead'
-                size={18}
-              />
-            </Text>
-          ),
-          title: 'Army builder'
+            <TabBarItem
+              focused={focused}
+              iconName='book-dead'
+              title='Build'
+            />
+          )
+        }}
+      />
+      <Tabs.Screen
+        name='play'
+        options={{
+          ...tabBarBaseOptions,
+          tabBarIcon: ({ focused }) => (
+            <TabBarItem
+              focused={focused}
+              iconName='dice'
+              title='Play'
+            />
+          )
         }}
       />
       <Tabs.Screen
         name='settings'
         options={{
-          headerShown: false,
+          ...tabBarBaseOptions,
           tabBarIcon: ({ focused }) => (
-            <Text color={focused ? '$info500' : '$light400'}>
-              <FontAwesome5
-                name='cogs'
-                size={18}
-              />
-            </Text>
-          ),
-          title: 'Settings'
+            <TabBarItem
+              focused={focused}
+              iconName='cogs'
+              title='Settings'
+            />
+          )
         }}
       />
     </Tabs>
   )
 }
+
+const TabBarItem = ({
+  focused,
+  iconName,
+  title
+}: {
+  focused: boolean
+  iconName: string
+  title: string
+}) => (
+  <VStack alignItems='center'>
+    <Text color={focused ? '$white' : '$light400'}>
+      <FontAwesome5
+        name={iconName}
+        size={18}
+      />
+    </Text>
+    <Text
+      color={focused ? '$white' : '$light400'}
+      size='xs'
+    >
+      {title}
+    </Text>
+  </VStack>
+)
 
 export default TabsLayout

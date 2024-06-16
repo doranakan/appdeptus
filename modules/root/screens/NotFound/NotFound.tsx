@@ -25,7 +25,7 @@ const NotFoundScreen = () => (
 
       <Link href='/'>
         <Text
-          color='$info500'
+          color='$primary500'
           size='lg'
         >
           Back to the Strategium

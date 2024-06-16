@@ -13,6 +13,7 @@ type InputProps = (typeof InputField)['defaultProps'] & {
 
 const Input = ({ iconName, isInvalid, ...props }: InputProps) => (
   <GSInput
+    borderRadius={0}
     size='md'
     isInvalid={isInvalid}
   >
