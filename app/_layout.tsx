@@ -1,6 +1,6 @@
-import { config } from '@gluestack-ui/config'
 import { GluestackUIProvider } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
+import { config } from 'appdeptus/designSystem'
 import { store } from 'appdeptus/store'
 import { supabase } from 'appdeptus/utils'
 import { SplashScreen, Stack, useRouter } from 'expo-router'
