@@ -1,6 +1,6 @@
 import { Text, VStack } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
-import { Button, Modal } from 'appdeptus/components'
+import { Button, Card, Modal } from 'appdeptus/components'
 import { type ArmyForm, type Model, type Wargear } from 'appdeptus/models'
 import { compact, times } from 'lodash'
 import pluralize from 'pluralize'
@@ -51,11 +51,7 @@ const OptionItem = ({
 
   return (
     <>
-      <VStack
-        backgroundColor='$backgroundLight0'
-        gap='$2'
-        p='$4'
-      >
+      <Card gap='$2'>
         <Text fontWeight='$bold'>{`${count} ${pluralize(model.name, count)}`}</Text>
         <StatSheet model={model} />
         <WeaponList
@@ -65,11 +61,12 @@ const OptionItem = ({
 
         {options ? (
           <Button
+            backgroundColor='$blueGray500'
             onPress={openModal}
             text='Options'
           />
         ) : undefined}
-      </VStack>
+      </Card>
       {options ? (
         <Modal
           onPressClose={closeModal}

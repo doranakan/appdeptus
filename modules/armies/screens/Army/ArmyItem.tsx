@@ -1,5 +1,6 @@
 import { HStack, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
+import { Card } from 'appdeptus/components'
 import { type ArmyUnit } from 'appdeptus/models'
 import pluralize from 'pluralize'
 import ArmyItemModal from './ArmyItemModal'
@@ -13,28 +14,26 @@ const ArmyItem = ({ unit }: ArmyItemProps): JSX.Element => {
 
   return (
     <>
-      <Pressable
-        backgroundColor='$backgroundLight0'
-        onPress={toggle}
-        p='$4'
-      >
-        <HStack justifyContent='space-between'>
-          <VStack>
-            <Text>
-              <Text fontWeight='$black'>{unit.name}</Text>
+      <Pressable onPress={toggle}>
+        <Card justifyContent='space-between'>
+          <HStack justifyContent='space-between'>
+            <VStack>
+              <Text>
+                <Text fontWeight='$black'>{unit.name}</Text>
+              </Text>
+              {unit.caption && <Text size='xs'>{unit.caption}</Text>}
+            </VStack>
+            <Text fontWeight='bold'>
+              {unit.tier.points} <Text>points</Text>
             </Text>
-            {unit.caption && <Text size='xs'>{unit.caption}</Text>}
-          </VStack>
-          <Text fontWeight='bold'>
-            {unit.tier.points} <Text>points</Text>
+          </HStack>
+          <Text
+            size='xs'
+            fontWeight='bold'
+          >
+            {`${unit.tier.models} ${pluralize('model', unit.tier.models)}`}
           </Text>
-        </HStack>
-        <Text
-          size='xs'
-          fontWeight='bold'
-        >
-          {`${unit.tier.models} ${pluralize('model', unit.tier.models)}`}
-        </Text>
+        </Card>
       </Pressable>
       <ArmyItemModal
         onPressClose={toggle}

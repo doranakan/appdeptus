@@ -1,5 +1,5 @@
 import { Box, ButtonGroup, Text } from '@gluestack-ui/themed'
-import { Button } from 'appdeptus/components'
+import { Button, Card } from 'appdeptus/components'
 import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import React, { useMemo } from 'react'
@@ -41,67 +41,65 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
   }, [units, unit.tiers])
 
   return (
-    <>
-      <Box
-        backgroundColor={count ? '$primary100' : '$backgroundLight0'}
-        borderColor={count ? '$primary500' : '$backgroundLight0'}
-        borderWidth='$1'
-        gap='$4'
-        p='$4'
-        shadowOpacity={0}
-      >
-        <Text>
-          <Text fontWeight='$black'>{unit.name}</Text>
-          {unit.caption && <Text fontSize='$sm'>{` ${unit.caption}`}</Text>}
-        </Text>
+    <Card
+      backgroundColor={count ? '$blueGray300' : '$blueGray200'}
+      borderColor={count ? '$blueGray500' : '$blueGray400'}
+      borderWidth='$1'
+      gap='$4'
+      p='$4'
+      shadowOpacity={0}
+    >
+      <Text>
+        <Text fontWeight='$black'>{unit.name}</Text>
+        {unit.caption && <Text fontSize='$sm'>{` ${unit.caption}`}</Text>}
+      </Text>
 
-        <ButtonGroup
-          $disabled-bgColor='$primary300'
+      <ButtonGroup flex={1}>
+        <Button
+          $active-bgColor='$blueGray500'
+          $disabled-bgColor='$blueGray500'
+          backgroundColor='$blueGray800'
           flex={1}
-        >
-          <Button
-            $active-bgColor='$primary300'
-            backgroundColor='$primary500'
-            flex={1}
-            iconName='plus-square'
-            isDisabled={count >= unit.limit}
-            onPress={() => {
-              append({
-                options: [],
-                tier: unit.tiers[0]?.id ?? '',
-                unit: unit.id
-              })
-            }}
-            text='Add'
-          />
+          iconName='plus-square'
+          isDisabled={count >= unit.limit}
+          onPress={() => {
+            append({
+              options: [],
+              tier: unit.tiers[0]?.id ?? '',
+              unit: unit.id
+            })
+          }}
+          text='Add'
+        />
 
-          <Button
-            $active-bgColor='$primary300'
-            backgroundColor='$primary500'
-            flex={1}
-            isDisabled={!count}
-            onPress={() => {
-              router.push({
-                params: {
-                  codexId,
-                  unitIndex: String(unitIndex),
-                  unitId: unit.id
-                },
-                pathname: './tier-selection'
-              })
-            }}
-            text='Edit'
-          />
-          <Box
-            alignItems='center'
-            flex={1}
-            justifyContent='center'
-          >
-            <Text fontWeight={count ? '$black' : '$medium'}>{points}</Text>
-          </Box>
-        </ButtonGroup>
-      </Box>
-    </>
+        <Button
+          $active-bgColor='$blueGray300'
+          $disabled-bgColor='$blueGray500'
+          backgroundColor='$blueGray500'
+          flex={1}
+          iconName='edit'
+          isDisabled={!count}
+          onPress={() => {
+            router.push({
+              params: {
+                codexId,
+                unitIndex: String(unitIndex),
+                unitId: unit.id
+              },
+              pathname: './tier-selection'
+            })
+          }}
+          text='Edit'
+        />
+        <Box
+          alignItems='center'
+          flex={1}
+          justifyContent='center'
+        >
+          <Text fontWeight={count ? '$black' : '$medium'}>{points}</Text>
+        </Box>
+      </ButtonGroup>
+    </Card>
   )
 }
 

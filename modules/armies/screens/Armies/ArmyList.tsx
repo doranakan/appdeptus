@@ -6,7 +6,7 @@ import {
   Text,
   VStack
 } from '@gluestack-ui/themed'
-import { Button } from 'appdeptus/components'
+import { Button, Card } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import { FlatList, StyleSheet } from 'react-native'
@@ -46,34 +46,34 @@ const ArmyList = ({ armies }: ArmyListProps) => {
       ListFooterComponent={() => <Box height='$8' />}
       renderItem={({ item: army }) => (
         <Pressable
-          backgroundColor='$backgroundLight0'
           flex={1}
           onPress={() => {
             router.push(`armies/${army.id}`)
           }}
-          p='$4'
         >
-          <HStack
+          <Card
             flex={1}
             justifyContent='space-between'
           >
             <VStack gap='$1'>
               <Text fontWeight='bold'>{army.name}</Text>
-              <Badge
-                backgroundColor='$primary50'
-                borderColor='$primary200'
-                variant='outline'
-              >
-                <Text size='sm'>{`Codex ${army.codex.name}`}</Text>
-              </Badge>
+              <HStack gap='$2'>
+                <Badge
+                  backgroundColor='$primary50'
+                  borderColor='$primary200'
+                  variant='outline'
+                >
+                  <Text size='sm'>{`Codex ${army.codex.name}`}</Text>
+                </Badge>
+                <Text
+                  fontWeight='bold'
+                  textAlign='right'
+                >
+                  {army.totalPoints} points
+                </Text>
+              </HStack>
             </VStack>
-            <Text
-              fontWeight='bold'
-              textAlign='right'
-            >
-              {army.totalPoints} points
-            </Text>
-          </HStack>
+          </Card>
         </Pressable>
       )}
       style={styles.flex1}
