@@ -29,7 +29,6 @@ const CodexSelectionScreen = () => {
           >
             <Box
               backgroundColor='$backgroundLight0'
-              borderRadius='$lg'
               flex={1}
               p='$4'
             >

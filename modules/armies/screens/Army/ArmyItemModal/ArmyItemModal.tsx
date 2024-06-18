@@ -1,5 +1,5 @@
 import { ScrollView, Text, VStack } from '@gluestack-ui/themed'
-import { Loading, Modal } from 'appdeptus/components'
+import { Card, Loading, Modal } from 'appdeptus/components'
 import { type ArmyUnit } from 'appdeptus/models'
 import { uniqBy } from 'lodash'
 import pluralize from 'pluralize'
@@ -60,12 +60,9 @@ const ModalContent = ({ unit }: ModalContentProps) => {
         p='$4'
       >
         {models.map(({ count, model, baseWargear, options }, index) => (
-          <VStack
-            backgroundColor='$backgroundLight0'
-            borderRadius='$md'
+          <Card
             gap='$2'
             key={`${model.id}-${index}`}
-            p='$4'
           >
             <Text fontWeight='$bold'>{`${count} ${pluralize(model.name, count)}`}</Text>
             <StatSheet model={model} />
@@ -76,8 +73,9 @@ const ModalContent = ({ unit }: ModalContentProps) => {
               Wargear
             </Text>
             <VStack
-              backgroundColor='$backgroundLight100'
-              borderRadius='$md'
+              backgroundColor='$blueGray100'
+              borderColor='$blueGray300'
+              borderWidth='$1'
               gap='$2'
               px='$4'
               py='$2'
@@ -92,7 +90,7 @@ const ModalContent = ({ unit }: ModalContentProps) => {
                 ]}
               />
             </VStack>
-          </VStack>
+          </Card>
         ))}
       </VStack>
     </ScrollView>

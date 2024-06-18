@@ -1,6 +1,6 @@
 import { HStack, Text, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { Button, Loading } from 'appdeptus/components'
+import { Button, Card, Loading } from 'appdeptus/components'
 import { type ArmyForm } from 'appdeptus/models'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import pluralize from 'pluralize'
@@ -55,12 +55,9 @@ const TierSelectionScreen = () => {
         const tierPoints =
           unit.tiers.find(({ id }) => id === selectedTierId)?.points ?? 0
         return (
-          <VStack
-            backgroundColor='$backgroundLight0'
-            borderRadius='$lg'
+          <Card
             key={`${unit.name}-${choiceIndex}`}
             gap='$2'
-            p='$4'
           >
             <HStack justifyContent='space-between'>
               <VStack>
@@ -74,7 +71,9 @@ const TierSelectionScreen = () => {
                 return (
                   <Button
                     backgroundColor={
-                      tier.id === selectedTierId ? '$info500' : '$info300'
+                      tier.id === selectedTierId
+                        ? '$blueGray600'
+                        : '$blueGray500'
                     }
                     flex={1}
                     key={tier.points}
@@ -95,8 +94,6 @@ const TierSelectionScreen = () => {
                 )
               })}
               <Button
-                $active-bg='$red600'
-                backgroundColor='$red500'
                 iconName='trash'
                 onPress={() => {
                   remove(
@@ -106,6 +103,7 @@ const TierSelectionScreen = () => {
               />
             </HStack>
             <Button
+              borderColor='$blueGray500'
               onPress={() => {
                 router.push({
                   params: {
@@ -118,7 +116,7 @@ const TierSelectionScreen = () => {
               text='Customize'
               variant='outline'
             />
-          </VStack>
+          </Card>
         )
       })}
     </VStack>

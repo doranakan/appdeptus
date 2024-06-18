@@ -1,12 +1,12 @@
 import { Stack } from 'expo-router'
 
-const ArmyLayout = () => (
+const PlayLayout = () => (
   <Stack>
     <Stack.Screen
       name='index'
-      options={{ title: 'Army detail' }}
+      options={{ headerShown: false }}
     />
   </Stack>
 )
 
-export default ArmyLayout
+export default PlayLayout
