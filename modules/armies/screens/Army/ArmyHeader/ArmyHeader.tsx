@@ -18,6 +18,7 @@ const ArmyHeader = ({ army }: ArmyHeaderProps) => (
     <VStack alignItems='center'>
       <ArmyIcon
         codexName={army.codex.name}
+        color='primary500'
         h={80}
         w={80}
       />
