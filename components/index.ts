@@ -1,3 +1,4 @@
+export { default as ArmyIcon } from './ArmyIcon'
 export { default as Button } from './Button'
 export { default as Card } from './Card'
 export { default as CodexLogo } from './CodexLogo'
