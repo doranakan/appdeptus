@@ -1,5 +1,5 @@
-import { Badge, Box, HStack, Pressable, VStack } from '@gluestack-ui/themed'
-import { Button, Card } from 'appdeptus/components'
+import { Box, HStack, Pressable, VStack } from '@gluestack-ui/themed'
+import { ArmyIcon, Button, Card } from 'appdeptus/components'
 import { Heading, Text } from 'appdeptus/designSystem'
 import { type Army } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
@@ -51,14 +51,22 @@ const ArmyList = ({ armies }: ArmyListProps) => {
           >
             <VStack gap='$1'>
               <Heading>{army.name}</Heading>
-              <HStack gap='$2'>
-                <Badge
-                  backgroundColor='$primary50'
-                  borderColor='$primary200'
-                  variant='outline'
+              <HStack
+                alignItems='center'
+                gap='$2'
+              >
+                <HStack
+                  alignItems='center'
+                  gap='$1'
                 >
-                  <Text size='sm'>{`Codex ${army.codex.name}`}</Text>
-                </Badge>
+                  <ArmyIcon
+                    color='primary500'
+                    codexName={army.codex.name}
+                    h={18}
+                    w={18}
+                  />
+                  <Text size='sm'>{army.codex.name}</Text>
+                </HStack>
                 <Text
                   fontWeight='bold'
                   textAlign='right'
