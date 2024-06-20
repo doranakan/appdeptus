@@ -1,11 +1,12 @@
 /* eslint-disable camelcase */
+import { CodexName } from 'appdeptus/models'
 import { z } from 'zod'
 
 const idSchema = z.number().transform(String)
 
 const codexSchema = z.object({
   id: idSchema,
-  name: z.string()
+  name: z.nativeEnum(CodexName)
 })
 
 const baseArmySchema = z
