@@ -1,8 +1,9 @@
-import { Box, HStack, Pressable, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, Icon, Pressable, VStack } from '@gluestack-ui/themed'
 import { ArmyIcon, Button, Card } from 'appdeptus/components'
 import { Heading, Text } from 'appdeptus/designSystem'
 import { type Army } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
+import { Blinds } from 'lucide-react-native'
 import { FlatList, StyleSheet } from 'react-native'
 
 type ArmyListProps = {
@@ -53,7 +54,7 @@ const ArmyList = ({ armies }: ArmyListProps) => {
               <Heading>{army.name}</Heading>
               <HStack
                 alignItems='center'
-                gap='$2'
+                gap='$4'
               >
                 <HStack
                   alignItems='center'
@@ -67,12 +68,22 @@ const ArmyList = ({ armies }: ArmyListProps) => {
                   />
                   <Text size='sm'>{army.codex.name}</Text>
                 </HStack>
-                <Text
-                  fontWeight='bold'
-                  textAlign='right'
+                <HStack
+                  alignItems='center'
+                  gap='$1'
                 >
-                  {army.totalPoints} points
-                </Text>
+                  <Icon
+                    as={Blinds}
+                    h={18}
+                    w={18}
+                  />
+                  <Text
+                    fontWeight='bold'
+                    textAlign='right'
+                  >
+                    {army.totalPoints} points
+                  </Text>
+                </HStack>
               </HStack>
             </VStack>
           </Card>

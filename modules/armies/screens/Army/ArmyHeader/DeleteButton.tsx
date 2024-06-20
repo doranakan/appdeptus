@@ -2,6 +2,7 @@ import { useBoolean } from 'ahooks'
 import { Dialog, useToast } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
+import { Trash2 } from 'lucide-react-native'
 import { useCallback } from 'react'
 import { useDeleteArmyMutation } from '../../../api'
 import ActionButton from './ActionButton'
@@ -40,7 +41,7 @@ const DeleteButton = ({ armyId }: DeleteButtonProps) => {
   return (
     <>
       <ActionButton
-        iconName='trash-alt'
+        Icon={Trash2}
         onPress={showDialog}
         title='Delete'
       />

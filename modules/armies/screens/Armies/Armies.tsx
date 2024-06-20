@@ -2,6 +2,7 @@ import { Box, HStack } from '@gluestack-ui/themed'
 import { Button, Loading } from 'appdeptus/components'
 import { Heading } from 'appdeptus/designSystem'
 import { useRouter } from 'expo-router'
+import { Plus } from 'lucide-react-native'
 import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useGetArmiesQuery } from '../../api'
@@ -33,8 +34,7 @@ const ArmiesScreen = () => {
           <Heading size='3xl'>Appdeptus</Heading>
           <Button
             borderRadius='$full'
-            iconName='plus'
-            iconSize={24}
+            Icon={Plus}
             onPress={() => {
               router.push('armies/army-builder/codex-selection')
             }}

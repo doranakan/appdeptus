@@ -1,14 +1,14 @@
-import { FontAwesome5 } from '@expo/vector-icons'
-import { Pressable } from '@gluestack-ui/themed'
+import { Icon as GSIcon, Pressable } from '@gluestack-ui/themed'
 import { Text } from 'appdeptus/designSystem'
+import { type LucideIcon } from 'lucide-react-native'
 
 type ButtonProps = {
-  iconName: string
+  Icon: LucideIcon
   onPress: () => void
   title: string
 }
 
-const ActionButton = ({ iconName, onPress, title }: ButtonProps) => (
+const ActionButton = ({ Icon, onPress, title }: ButtonProps) => (
   <Pressable
     alignItems='center'
     backgroundColor='$backgroundLight50'
@@ -19,15 +19,12 @@ const ActionButton = ({ iconName, onPress, title }: ButtonProps) => (
     onPress={onPress}
     p='$4'
   >
-    <Text
+    <GSIcon
+      as={Icon}
       color='$light500'
-      size='2xl'
-    >
-      <FontAwesome5
-        name={iconName}
-        size={24}
-      />
-    </Text>
+      size='xl'
+    />
+
     <Text
       color='$light500'
       size='md'

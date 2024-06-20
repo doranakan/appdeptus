@@ -1,16 +1,16 @@
-import { FontAwesome5 } from '@expo/vector-icons'
-import { VStack } from '@gluestack-ui/themed'
+import { Icon as GSIcon, VStack } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
 import { Text, config } from 'appdeptus/designSystem'
 import { supabase } from 'appdeptus/utils'
 import { Tabs, useRouter } from 'expo-router'
+import { Dices, Settings, Shield, type LucideIcon } from 'lucide-react-native'
+import React from 'react'
 
 const tabBarBaseOptions = {
   headerShown: false,
   tabBarShowLabel: false,
   tabBarStyle: {
-    backgroundColor: config.tokens.colors.blueGray800,
-    padding: 8
+    backgroundColor: config.tokens.colors.blueGray800
   }
 }
 
@@ -37,7 +37,7 @@ const TabsLayout = () => {
           tabBarIcon: ({ focused }) => (
             <TabBarItem
               focused={focused}
-              iconName='book-dead'
+              Icon={Shield}
               title='Build'
             />
           )
@@ -50,7 +50,7 @@ const TabsLayout = () => {
           tabBarIcon: ({ focused }) => (
             <TabBarItem
               focused={focused}
-              iconName='dice'
+              Icon={Dices}
               title='Play'
             />
           )
@@ -63,7 +63,7 @@ const TabsLayout = () => {
           tabBarIcon: ({ focused }) => (
             <TabBarItem
               focused={focused}
-              iconName='cogs'
+              Icon={Settings}
               title='Settings'
             />
           )
@@ -75,20 +75,20 @@ const TabsLayout = () => {
 
 const TabBarItem = ({
   focused,
-  iconName,
+  Icon,
   title
 }: {
   focused: boolean
-  iconName: string
+  Icon: LucideIcon
   title: string
 }) => (
   <VStack alignItems='center'>
-    <Text color={focused ? '$white' : '$light400'}>
-      <FontAwesome5
-        name={iconName}
-        size={18}
-      />
-    </Text>
+    <GSIcon
+      as={Icon}
+      color={focused ? '$white' : '$light400'}
+      size='xs'
+    />
+
     <Text
       color={focused ? '$white' : '$light400'}
       size='xs'

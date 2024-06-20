@@ -1,40 +1,27 @@
-import { FontAwesome5 } from '@expo/vector-icons'
+import { Icon as GSIcon } from '@gluestack-ui/themed'
 import { ButtonText, Button as DSButton } from 'appdeptus/designSystem'
+import { type LucideIcon } from 'lucide-react-native'
+import React from 'react'
 
 type ButtonProps = (typeof DSButton)['defaultProps'] & {
   iconSize?: number
-  iconName?: string
-  loading?: boolean
+  Icon?: LucideIcon
   text?: string
 }
 
-const Button = ({
-  loading,
-  iconName,
-  iconSize = 18,
-  size,
-  text,
-  ...props
-}: ButtonProps) => (
+const Button = ({ Icon, iconSize = 18, size, text, ...props }: ButtonProps) => (
   <DSButton
     gap='$1'
     {...props}
   >
-    {text && (
-      <ButtonText
-        size={size}
-        textAlign={iconName ? 'left' : 'center'}
-      >
-        {text}
-      </ButtonText>
-    )}
-    {iconName && (
-      <ButtonText size={size}>
-        <FontAwesome5
-          name={iconName}
-          size={iconSize}
-        />
-      </ButtonText>
+    {text && <ButtonText size={size}>{text}</ButtonText>}
+    {Icon && (
+      <GSIcon
+        as={Icon}
+        color={'white'}
+        h={iconSize}
+        w={iconSize}
+      />
     )}
   </DSButton>
 )
