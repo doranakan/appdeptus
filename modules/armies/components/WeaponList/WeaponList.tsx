@@ -1,4 +1,5 @@
-import { Text, VStack } from '@gluestack-ui/themed'
+import { VStack } from '@gluestack-ui/themed'
+import { Text } from 'appdeptus/designSystem'
 import { type Weapon } from 'appdeptus/models'
 import { useMemo } from 'react'
 

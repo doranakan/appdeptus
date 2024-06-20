@@ -1,5 +1,6 @@
-import { Box, Text } from '@gluestack-ui/themed'
+import { Box } from '@gluestack-ui/themed'
 import { Button, CodexLogo, Loading } from 'appdeptus/components'
+import { Heading } from 'appdeptus/designSystem'
 import { type ArmyForm } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import { useFormContext } from 'react-hook-form'
@@ -33,18 +34,8 @@ const CodexSelectionScreen = () => {
               p='$4'
             >
               <Box alignItems='center'>
-                <Text
-                  fontWeight='$bold'
-                  size='md'
-                >
-                  Codex
-                </Text>
-                <Text
-                  fontWeight='$bold'
-                  size='3xl'
-                >
-                  {codex.name}
-                </Text>
+                <Heading size='md'>Codex</Heading>
+                <Heading size='3xl'>{codex.name}</Heading>
               </Box>
               <Box
                 alignItems='center'

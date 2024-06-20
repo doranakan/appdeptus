@@ -1,5 +1,6 @@
-import { Badge, HStack, Text, VStack } from '@gluestack-ui/themed'
+import { Badge, HStack, VStack } from '@gluestack-ui/themed'
 import { Card, CodexLogo } from 'appdeptus/components'
+import { Heading, Text } from 'appdeptus/designSystem'
 import { type Army } from 'appdeptus/models'
 import ActionButton from './ActionButton'
 import DeleteButton from './DeleteButton'
@@ -27,13 +28,12 @@ const ArmyHeader = ({ army }: ArmyHeaderProps) => (
       >
         <Text size='sm'>{`Codex ${army.codex.name}`}</Text>
       </Badge>
-      <Text
-        fontWeight='bold'
+      <Heading
         size='2xl'
         textAlign='center'
       >
         {army.name}
-      </Text>
+      </Heading>
       <Text textAlign='center'>
         <Text fontWeight='bold'>{army.totalPoints} </Text>
         points

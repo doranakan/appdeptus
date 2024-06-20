@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react'
-import { Box, Text, VStack } from '@gluestack-ui/themed'
-import { Button } from 'appdeptus/components'
-import { useRouter } from 'expo-router'
-import { supabase } from 'appdeptus/utils'
+import { Box, VStack } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
+import { Button } from 'appdeptus/components'
+import { Text } from 'appdeptus/designSystem'
+import { supabase } from 'appdeptus/utils'
+import { useRouter } from 'expo-router'
+import React, { useCallback } from 'react'
 
 const SettingsScreen = () => {
   const router = useRouter()
@@ -47,7 +48,9 @@ const SettingsScreen = () => {
         />
         {__DEV__ ? (
           <Button
-            onPress={() => router.push('/_sitemap')}
+            onPress={() => {
+              router.push('/_sitemap')
+            }}
             text='Sitemap'
             variant='outline'
           />

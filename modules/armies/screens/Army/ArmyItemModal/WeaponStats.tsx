@@ -1,4 +1,5 @@
-import { Box, HStack, Text, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, VStack } from '@gluestack-ui/themed'
+import { Text } from 'appdeptus/designSystem'
 import { type Weapon } from 'appdeptus/models'
 import { uniq } from 'lodash'
 import { useMemo } from 'react'

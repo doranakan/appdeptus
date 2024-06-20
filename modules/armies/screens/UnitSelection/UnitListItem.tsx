@@ -1,5 +1,6 @@
-import { Box, ButtonGroup, Text } from '@gluestack-ui/themed'
+import { Box, ButtonGroup } from '@gluestack-ui/themed'
 import { Button, Card } from 'appdeptus/components'
+import { Heading, Text } from 'appdeptus/designSystem'
 import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import React, { useMemo } from 'react'
@@ -50,7 +51,7 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
       shadowOpacity={0}
     >
       <Text>
-        <Text fontWeight='$black'>{unit.name}</Text>
+        <Heading>{unit.name}</Heading>
         {unit.caption && <Text fontSize='$sm'>{` ${unit.caption}`}</Text>}
       </Text>
 

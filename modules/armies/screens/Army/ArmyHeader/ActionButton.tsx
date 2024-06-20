@@ -1,5 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons'
-import { Pressable, Text } from '@gluestack-ui/themed'
+import { Pressable } from '@gluestack-ui/themed'
+import { Text } from 'appdeptus/designSystem'
 
 type ButtonProps = {
   iconName: string

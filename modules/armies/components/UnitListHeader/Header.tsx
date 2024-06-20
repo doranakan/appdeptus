@@ -1,5 +1,6 @@
-import { Box, Text } from '@gluestack-ui/themed'
+import { Box } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
+import { Text } from 'appdeptus/designSystem'
 import { type ArmyForm } from 'appdeptus/models'
 import React, { useEffect, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'

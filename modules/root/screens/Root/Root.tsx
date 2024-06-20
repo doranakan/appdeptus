@@ -1,4 +1,5 @@
-import { Box, Text, VStack } from '@gluestack-ui/themed'
+import { Box, VStack } from '@gluestack-ui/themed'
+import { Heading } from 'appdeptus/designSystem'
 import { SignInForm } from '../../components'
 
 const RootScreen = () => (
@@ -12,12 +13,7 @@ const RootScreen = () => (
       rowGap='$4'
       w='$full'
     >
-      <Text
-        fontWeight='$bold'
-        size='xl'
-      >
-        Sign In
-      </Text>
+      <Heading size='xl'>Sign In</Heading>
       <SignInForm />
     </VStack>
   </Box>
