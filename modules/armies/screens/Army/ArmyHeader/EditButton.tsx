@@ -1,4 +1,5 @@
 import { useRouter } from 'expo-router'
+import { Wrench } from 'lucide-react-native'
 import ActionButton from './ActionButton'
 
 type EditButtonProps = {
@@ -11,7 +12,7 @@ const EditButton = ({ armyId, codexId }: EditButtonProps) => {
 
   return (
     <ActionButton
-      iconName='wrench'
+      Icon={Wrench}
       onPress={() => {
         router.navigate({
           params: { armyId, codexId },

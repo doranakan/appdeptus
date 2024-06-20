@@ -4,6 +4,7 @@ import { Button, Input } from 'appdeptus/components'
 import { Text } from 'appdeptus/designSystem'
 import { supabase } from 'appdeptus/utils'
 import { useRouter } from 'expo-router'
+import { AtSign, KeySquare } from 'lucide-react-native'
 import React, { useCallback, useState } from 'react'
 
 const SignInForm = () => {
@@ -39,7 +40,7 @@ const SignInForm = () => {
       w='$full'
     >
       <Input
-        iconName='envelope'
+        Icon={AtSign}
         isInvalid={Boolean(errorMessage)}
         onChange={(e) => {
           setEmail(e.nativeEvent.text)
@@ -50,7 +51,7 @@ const SignInForm = () => {
       />
 
       <Input
-        iconName='key'
+        Icon={KeySquare}
         isInvalid={Boolean(errorMessage)}
         onEndEditing={signIn}
         onChange={(e) => {
