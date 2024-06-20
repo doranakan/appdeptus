@@ -12,7 +12,6 @@
     "@expo-google-fonts/grenze": "^0.2.3",
     "@expo-google-fonts/noto-serif": "^0.2.3",
     "@expo/html-elements": "^0.9.1",
-    "@expo/vector-icons": "^14.0.0",
     "@gluestack-style/react": "^1.0.45",
     "@gluestack-ui/config": "^1.1.2",
     "@gluestack-ui/themed": "^1.1.3",
