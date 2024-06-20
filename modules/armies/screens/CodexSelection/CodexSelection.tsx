@@ -1,5 +1,5 @@
 import { Box } from '@gluestack-ui/themed'
-import { Button, CodexLogo, Loading } from 'appdeptus/components'
+import { ArmyIcon, Button, Loading } from 'appdeptus/components'
 import { Heading } from 'appdeptus/designSystem'
 import { type ArmyForm } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
@@ -42,10 +42,10 @@ const CodexSelectionScreen = () => {
                 flex={1}
                 justifyContent='center'
               >
-                <CodexLogo
-                  codexId={codex.id}
-                  height={200}
-                  width={200}
+                <ArmyIcon
+                  codexName={codex.name}
+                  h={200}
+                  w={200}
                 />
               </Box>
               <Button
