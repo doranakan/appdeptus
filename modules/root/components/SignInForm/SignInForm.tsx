@@ -1,6 +1,7 @@
-import { Text, VStack } from '@gluestack-ui/themed'
+import { VStack } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
 import { Button, Input } from 'appdeptus/components'
+import { Text } from 'appdeptus/designSystem'
 import { supabase } from 'appdeptus/utils'
 import { useRouter } from 'expo-router'
 import React, { useCallback, useState } from 'react'

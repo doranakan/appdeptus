@@ -11,9 +11,9 @@ import {
   ButtonText,
   CloseIcon,
   Heading,
-  Icon,
-  Text
+  Icon
 } from '@gluestack-ui/themed'
+import { Text } from 'appdeptus/designSystem'
 import { noop } from 'lodash'
 import { ActivityIndicator } from 'react-native'
 

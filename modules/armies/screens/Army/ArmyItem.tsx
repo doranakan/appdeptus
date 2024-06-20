@@ -1,6 +1,7 @@
-import { HStack, Pressable, Text, VStack } from '@gluestack-ui/themed'
+import { HStack, Pressable, VStack } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
 import { Card } from 'appdeptus/components'
+import { Heading, Text } from 'appdeptus/designSystem'
 import { type ArmyUnit } from 'appdeptus/models'
 import pluralize from 'pluralize'
 import ArmyItemModal from './ArmyItemModal'
@@ -16,10 +17,13 @@ const ArmyItem = ({ unit }: ArmyItemProps): JSX.Element => {
     <>
       <Pressable onPress={toggle}>
         <Card justifyContent='space-between'>
-          <HStack justifyContent='space-between'>
+          <HStack
+            alignItems='center'
+            justifyContent='space-between'
+          >
             <VStack>
               <Text>
-                <Text fontWeight='$black'>{unit.name}</Text>
+                <Heading>{unit.name}</Heading>
               </Text>
               {unit.caption && <Text size='xs'>{unit.caption}</Text>}
             </VStack>

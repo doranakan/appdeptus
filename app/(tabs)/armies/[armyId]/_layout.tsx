@@ -4,7 +4,9 @@ const ArmyLayout = () => (
   <Stack>
     <Stack.Screen
       name='index'
-      options={{ title: 'Army detail' }}
+      options={{
+        title: 'Army detail'
+      }}
     />
   </Stack>
 )

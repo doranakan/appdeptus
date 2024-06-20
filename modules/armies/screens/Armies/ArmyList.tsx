@@ -1,12 +1,6 @@
-import {
-  Badge,
-  Box,
-  HStack,
-  Pressable,
-  Text,
-  VStack
-} from '@gluestack-ui/themed'
+import { Badge, Box, HStack, Pressable, VStack } from '@gluestack-ui/themed'
 import { Button, Card } from 'appdeptus/components'
+import { Heading, Text } from 'appdeptus/designSystem'
 import { type Army } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import { FlatList, StyleSheet } from 'react-native'
@@ -56,7 +50,7 @@ const ArmyList = ({ armies }: ArmyListProps) => {
             justifyContent='space-between'
           >
             <VStack gap='$1'>
-              <Text fontWeight='bold'>{army.name}</Text>
+              <Heading>{army.name}</Heading>
               <HStack gap='$2'>
                 <Badge
                   backgroundColor='$primary50'

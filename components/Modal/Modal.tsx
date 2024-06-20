@@ -1,4 +1,5 @@
-import { Box, ButtonText, ScrollView, Text } from '@gluestack-ui/themed'
+import { Box, ButtonText, ScrollView } from '@gluestack-ui/themed'
+import { Heading } from 'appdeptus/designSystem'
 import { type PropsWithChildren } from 'react'
 import { Modal as RNModal } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -37,12 +38,7 @@ const Modal = ({ children, onPressClose, title, visible }: ModalProps) => {
             justifyContent='center'
             p='$4'
           >
-            <Text
-              color='$black'
-              fontWeight='$semibold'
-            >
-              {title}
-            </Text>
+            <Heading>{title}</Heading>
             <Box
               alignItems='center'
               position='absolute'

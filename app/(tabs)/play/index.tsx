@@ -1,4 +1,5 @@
-import { Text, VStack } from '@gluestack-ui/themed'
+import { VStack } from '@gluestack-ui/themed'
+import { Text } from 'appdeptus/designSystem'
 
 const PlayRoute = () => (
   <VStack

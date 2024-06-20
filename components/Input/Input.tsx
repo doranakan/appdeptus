@@ -1,10 +1,6 @@
 import { FontAwesome5 } from '@expo/vector-icons'
-import {
-  Input as GSInput,
-  InputField,
-  InputSlot,
-  Text
-} from '@gluestack-ui/themed'
+import { Input as GSInput, InputField, InputSlot } from '@gluestack-ui/themed'
+import { Text } from 'appdeptus/designSystem'
 
 type InputProps = (typeof InputField)['defaultProps'] & {
   iconName?: string

@@ -1,4 +1,5 @@
-import { Box, HStack, Text, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, VStack } from '@gluestack-ui/themed'
+import { Text } from 'appdeptus/designSystem'
 import { type Model } from 'appdeptus/models'
 import { STATSHEET_CELL_WIDTH, STATS_CELL_NAMES } from './constants'
 

@@ -1,7 +1,7 @@
 import { FontAwesome5 } from '@expo/vector-icons'
-import { Text, VStack } from '@gluestack-ui/themed'
+import { VStack } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
-import { config } from 'appdeptus/designSystem'
+import { Text, config } from 'appdeptus/designSystem'
 import { supabase } from 'appdeptus/utils'
 import { Tabs, useRouter } from 'expo-router'
 

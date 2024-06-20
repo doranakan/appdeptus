@@ -1,6 +1,7 @@
-import { HStack, Text, VStack } from '@gluestack-ui/themed'
+import { HStack, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Button, Card, Loading } from 'appdeptus/components'
+import { Heading, Text } from 'appdeptus/designSystem'
 import { type ArmyForm } from 'appdeptus/models'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import pluralize from 'pluralize'
@@ -61,7 +62,7 @@ const TierSelectionScreen = () => {
           >
             <HStack justifyContent='space-between'>
               <VStack>
-                <Text fontWeight='$bold'>{unit.name}</Text>
+                <Heading>{unit.name}</Heading>
                 <Text size='xs'>{unit.caption}</Text>
               </VStack>
               <Text fontWeight='$bold'>{`${tierPoints} points`}</Text>

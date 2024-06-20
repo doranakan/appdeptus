@@ -1,5 +1,6 @@
-import { Box, HStack, Text } from '@gluestack-ui/themed'
+import { Box, HStack } from '@gluestack-ui/themed'
 import { Button, Loading } from 'appdeptus/components'
+import { Heading } from 'appdeptus/designSystem'
 import { useRouter } from 'expo-router'
 import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -29,20 +30,14 @@ const ArmiesScreen = () => {
           alignItems='center'
           justifyContent='space-between'
         >
-          <Text
-            fontWeight='$bold'
-            size='3xl'
-          >
-            Appdeptus
-          </Text>
+          <Heading size='3xl'>Appdeptus</Heading>
           <Button
-            iconColor='$primary500'
-            iconName='plus-circle'
+            borderRadius='$full'
+            iconName='plus'
+            iconSize={24}
             onPress={() => {
               router.push('armies/army-builder/codex-selection')
             }}
-            size='xl'
-            variant='link'
           />
         </HStack>
         <ArmyList armies={data} />
