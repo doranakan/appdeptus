@@ -74,8 +74,8 @@ const ModalContent = ({ unit }: ModalContentProps) => {
               Wargear
             </Text>
             <VStack
-              backgroundColor='$blueGray100'
-              borderColor='$blueGray300'
+              backgroundColor='$secondary100'
+              borderColor='$secondary300'
               borderWidth='$1'
               gap='$2'
               px='$4'

@@ -3,6 +3,7 @@ import { Button, Card } from 'appdeptus/components'
 import { Heading, Text } from 'appdeptus/designSystem'
 import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
+import { Edit, Plus } from 'lucide-react-native'
 import React, { useMemo } from 'react'
 import { useFieldArray, useFormContext } from 'react-hook-form'
 
@@ -43,11 +44,10 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
 
   return (
     <Card
-      backgroundColor={count ? '$blueGray300' : '$blueGray200'}
-      borderColor={count ? '$blueGray500' : '$blueGray400'}
+      backgroundColor={count ? '$secondary200' : '$secondary100'}
+      borderColor={count ? '$secondary300' : '$secondary200'}
       borderWidth='$1'
       gap='$4'
-      p='$4'
       shadowOpacity={0}
     >
       <Text>
@@ -57,11 +57,11 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
 
       <ButtonGroup flex={1}>
         <Button
-          $active-bgColor='$blueGray500'
-          $disabled-bgColor='$blueGray500'
-          backgroundColor='$blueGray800'
+          $active-bgColor='$secondary500'
+          $disabled-bgColor='$secondary500'
+          backgroundColor='$secondary500'
           flex={1}
-          iconName='plus-square'
+          Icon={Plus}
           isDisabled={count >= unit.limit}
           onPress={() => {
             append({
@@ -74,11 +74,11 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
         />
 
         <Button
-          $active-bgColor='$blueGray300'
-          $disabled-bgColor='$blueGray500'
-          backgroundColor='$blueGray500'
+          $active-bgColor='$secondary300'
+          $disabled-bgColor='$secondary500'
+          backgroundColor='$secondary300'
           flex={1}
-          iconName='edit'
+          Icon={Edit}
           isDisabled={!count}
           onPress={() => {
             router.push({

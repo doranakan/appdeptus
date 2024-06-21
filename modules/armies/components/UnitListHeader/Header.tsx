@@ -2,6 +2,7 @@ import { Box } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
 import { Text } from 'appdeptus/designSystem'
 import { type ArmyForm } from 'appdeptus/models'
+import { ClipboardCheck } from 'lucide-react-native'
 import React, { useEffect, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useGetCodexUnitsQuery } from '../../api'
@@ -59,9 +60,8 @@ const UnitListHeader = ({
       </Box>
       <Button
         flex={1}
-        iconName='clipboard-list'
+        Icon={ClipboardCheck}
         isDisabled={!totalPoints}
-        loading={loading}
         onPress={onSubmit}
         text={submitTitle}
       />
