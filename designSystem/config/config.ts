@@ -15,7 +15,18 @@ const config = createConfig(
         primary700: '#83162E',
         primary800: '#570F1F',
         primary900: '#2C070F',
-        primary950: '#160408'
+        primary950: '#160408',
+        secondary50: '#E4E9F1',
+        secondary100: '#C9D3E4',
+        secondary200: '#8FA4C6',
+        secondary300: '#5979AB',
+        secondary400: '#3A5073',
+        secondary500: '#1E293B',
+        secondary600: '#18212F',
+        secondary700: '#131A25',
+        secondary800: '#0C1018',
+        secondary900: '#07090E',
+        secondary950: '#030507'
       }
     }
   } as const)
