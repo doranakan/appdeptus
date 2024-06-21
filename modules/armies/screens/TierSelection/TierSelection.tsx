@@ -4,6 +4,7 @@ import { Button, Card, Loading } from 'appdeptus/components'
 import { Heading, Text } from 'appdeptus/designSystem'
 import { type ArmyForm } from 'appdeptus/models'
 import { useLocalSearchParams, useRouter } from 'expo-router'
+import { Trash2 } from 'lucide-react-native'
 import pluralize from 'pluralize'
 import { useEffect, useMemo } from 'react'
 import { useFieldArray } from 'react-hook-form'
@@ -73,8 +74,8 @@ const TierSelectionScreen = () => {
                   <Button
                     backgroundColor={
                       tier.id === selectedTierId
-                        ? '$blueGray600'
-                        : '$blueGray500'
+                        ? '$secondary500'
+                        : '$secondary300'
                     }
                     flex={1}
                     key={tier.points}
@@ -95,7 +96,7 @@ const TierSelectionScreen = () => {
                 )
               })}
               <Button
-                iconName='trash'
+                Icon={Trash2}
                 onPress={() => {
                   remove(
                     fields.findIndex(({ id: fieldId }) => fieldId === choiceId)
@@ -104,7 +105,7 @@ const TierSelectionScreen = () => {
               />
             </HStack>
             <Button
-              borderColor='$blueGray500'
+              borderColor='$secondary500'
               onPress={() => {
                 router.push({
                   params: {

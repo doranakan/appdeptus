@@ -10,7 +10,7 @@ const tabBarBaseOptions = {
   headerShown: false,
   tabBarShowLabel: false,
   tabBarStyle: {
-    backgroundColor: config.tokens.colors.blueGray800
+    backgroundColor: config.tokens.colors.secondary500
   }
 }
 

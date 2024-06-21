@@ -62,7 +62,7 @@ const OptionItem = ({
 
         {options ? (
           <Button
-            backgroundColor='$blueGray500'
+            backgroundColor='$secondary500'
             onPress={openModal}
             text='Options'
           />

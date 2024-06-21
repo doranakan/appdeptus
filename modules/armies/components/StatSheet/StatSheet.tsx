@@ -9,8 +9,8 @@ type StatSheetProps = {
 
 const StatSheet = ({ model }: StatSheetProps): JSX.Element => (
   <VStack
-    backgroundColor='$blueGray100'
-    borderColor='$blueGray300'
+    backgroundColor='$secondary100'
+    borderColor='$secondary300'
     borderWidth='$1'
     px='$4'
     py='$2'

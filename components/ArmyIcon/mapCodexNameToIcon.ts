@@ -25,7 +25,7 @@ import {
   thousandSonsIcon,
   tyranidsIcon,
   worldEatersIcon
-} from 'appdeptus/assets/Icons'
+} from 'appdeptus/assets'
 import { CodexName } from 'appdeptus/models'
 
 const mapCodexNameToIcon = {

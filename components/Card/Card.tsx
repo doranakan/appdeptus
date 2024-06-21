@@ -5,8 +5,8 @@ type CardProps = (typeof HStack)['defaultProps']
 
 const Card = ({ children, ...props }: PropsWithChildren<CardProps>) => (
   <VStack
-    backgroundColor='$blueGray200'
-    borderColor='$blueGray400'
+    backgroundColor='$secondary100'
+    borderColor='$secondary200'
     borderWidth='$1'
     p='$2'
     {...props}
