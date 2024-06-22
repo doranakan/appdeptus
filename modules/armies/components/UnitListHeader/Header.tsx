@@ -58,8 +58,8 @@ const UnitListHeader = ({
         </Text>
       </Box>
       <Button
-        action='positive'
         disabled={!totalPoints}
+        loading={loading}
         flex={1}
         Icon={ClipboardCheck}
         onPress={onSubmit}
