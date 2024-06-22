@@ -1,16 +1,27 @@
 import { Box, Heading, HStack, VStack } from '@gluestack-ui/themed'
 import { BackgroundImage, Button, Loading } from 'appdeptus/components'
-import { useRouter } from 'expo-router'
+import { setColorMode } from 'appdeptus/designSystem'
+import { useFocusEffect, useRouter } from 'expo-router'
 import { Plus } from 'lucide-react-native'
+import { useCallback } from 'react'
 import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useDispatch } from 'react-redux'
 import { useGetArmiesQuery } from '../../api'
 import ArmyList from './ArmyList'
 
 const ArmiesScreen = () => {
+  const dispatch = useDispatch()
+
   const router = useRouter()
 
   const { data } = useGetArmiesQuery()
+
+  useFocusEffect(
+    useCallback(() => {
+      dispatch(setColorMode('light'))
+    }, [dispatch])
+  )
 
   if (!data) {
     return <Loading />

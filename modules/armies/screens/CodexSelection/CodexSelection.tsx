@@ -15,18 +15,24 @@ import {
   Card,
   Loading
 } from 'appdeptus/components'
+import { config, setColorMode, useColorMode } from 'appdeptus/designSystem'
 import { CodexName, type ArmyForm } from 'appdeptus/models'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { useRouter } from 'expo-router'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
 import { SvgXml } from 'react-native-svg'
+import { useDispatch } from 'react-redux'
 import { useGetCodexesQuery } from '../../api'
 
 const AVAILABLED_ARMIES = [CodexName.TYRANIDS]
 
 const CodexSelectionScreen = () => {
+  const dispatch = useDispatch()
+
+  const colorMode = useColorMode()
+
   const router = useRouter()
 
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -50,6 +56,12 @@ const CodexSelectionScreen = () => {
       pathname: './unit-selection'
     })
   }, [reset, router, selectedCodex])
+
+  useEffect(() => {
+    if (selectedCodex) {
+      dispatch(setColorMode(selectedCodex.name))
+    }
+  }, [codexes, dispatch, selectedCodex])
 
   if (!codexes || !selectedCodex) {
     return <Loading />
@@ -130,7 +142,14 @@ const CodexSelectionScreen = () => {
             }
           >
             <LinearGradient
-              colors={['$primary500', '$secondary500']}
+              colors={[
+                colorMode === 'light'
+                  ? config.tokens.colors.primary500
+                  : config.themes[colorMode].colors.primary500,
+                colorMode === 'light'
+                  ? config.tokens.colors.secondary500
+                  : config.themes[colorMode].colors.secondary500
+              ]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               as={ExpoLinearGradient}
@@ -153,6 +172,7 @@ const CodexSelectionScreen = () => {
                 <Pressable
                   onPress={() => {
                     setSelectedIndex(index)
+                    dispatch(setColorMode(item.name))
                   }}
                   ml={index === 0 ? '$4' : 0}
                   mr={index === codexes.length - 1 ? '$4' : 0}

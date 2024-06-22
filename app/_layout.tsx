@@ -5,7 +5,7 @@ import {
 } from '@expo-google-fonts/noto-serif'
 import { GluestackUIProvider } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
-import { config } from 'appdeptus/designSystem'
+import { config, selectColorMode } from 'appdeptus/designSystem'
 import { store } from 'appdeptus/store'
 import { supabase } from 'appdeptus/utils'
 import { SplashScreen, Stack, useRouter } from 'expo-router'
@@ -13,7 +13,7 @@ import {
   SafeAreaProvider,
   initialWindowMetrics
 } from 'react-native-safe-area-context'
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 SplashScreen.preventAutoHideAsync()
@@ -42,21 +42,28 @@ const App = () => {
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <Provider store={store}>
-        <GluestackUIProvider config={config}>
-          <RootLayout />
-        </GluestackUIProvider>
+        <RootLayout />
       </Provider>
     </SafeAreaProvider>
   )
 }
 
-const RootLayout = () => (
-  <Stack
-    initialRouteName='index'
-    screenOptions={{ headerShown: false }}
-  >
-    <Stack.Screen name='index' />
-  </Stack>
-)
+const RootLayout = () => {
+  const colorMode = useSelector(selectColorMode)
+
+  return (
+    <GluestackUIProvider
+      config={config}
+      colorMode={colorMode}
+    >
+      <Stack
+        initialRouteName='index'
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name='index' />
+      </Stack>
+    </GluestackUIProvider>
+  )
+}
 
 export default App

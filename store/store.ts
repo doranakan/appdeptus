@@ -1,10 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { supabaseApi } from 'appdeptus/api'
+import {
+  supabaseApi,
+  supabaseApiReducer,
+  supabaseApiReducerPath
+} from 'appdeptus/api'
+import {
+  designSystemReducer,
+  designSystemReducerPath
+} from 'appdeptus/designSystem'
 
 const store = configureStore({
   reducer: {
-    [supabaseApi.reducerPath]: supabaseApi.reducer
+    [designSystemReducerPath]: designSystemReducer,
+    [supabaseApiReducerPath]: supabaseApiReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(supabaseApi.middleware)

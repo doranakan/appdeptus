@@ -6,4 +6,9 @@ const supabaseApi = createApi({
   endpoints: () => ({})
 })
 
+const reducer = supabaseApi.reducer
+const reducerPath = supabaseApi.reducerPath
+
+export { reducer, reducerPath }
+
 export default supabaseApi

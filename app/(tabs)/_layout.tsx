@@ -1,21 +1,29 @@
 import { Icon as GSIcon, Text, VStack } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
-import { config } from 'appdeptus/designSystem'
+import { config, useColorMode } from 'appdeptus/designSystem'
 import { supabase } from 'appdeptus/utils'
 import { Tabs, useRouter } from 'expo-router'
 import { Dices, Settings, Shield, type LucideIcon } from 'lucide-react-native'
-import React from 'react'
-
-const tabBarBaseOptions = {
-  headerShown: false,
-  tabBarShowLabel: false,
-  tabBarStyle: {
-    backgroundColor: config.tokens.colors.secondary700
-  }
-}
+import React, { useMemo } from 'react'
 
 const TabsLayout = () => {
   const router = useRouter()
+
+  const colorMode = useColorMode()
+
+  const tabBarBaseOptions = useMemo(
+    () => ({
+      headerShown: false,
+      tabBarShowLabel: false,
+      tabBarStyle: {
+        backgroundColor:
+          colorMode === 'light'
+            ? config.tokens.colors.secondary700
+            : config.themes[colorMode].colors.secondary700
+      }
+    }),
+    [colorMode]
+  )
 
   useAsyncEffect(async () => {
     const { data } = await supabase.auth.getSession()

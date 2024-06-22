@@ -1,9 +1,10 @@
 import { type ArmyForm } from 'appdeptus/models'
 import { Stack } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
 import { FormProvider, useForm } from 'react-hook-form'
 
 const ArmiesLayout = () => {
-  const methods = useForm<ArmyForm>({
+  const form = useForm<ArmyForm>({
     defaultValues: {
       codexId: '',
       name: '',
@@ -13,7 +14,8 @@ const ArmiesLayout = () => {
   })
 
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...form}>
+      <StatusBar style='light' />
       <Stack>
         <Stack.Screen
           name='codex-selection'
