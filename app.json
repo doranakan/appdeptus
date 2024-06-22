@@ -2,7 +2,7 @@
   "expo": {
     "name": "appdeptus",
     "slug": "appdeptus",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "scheme": "com.appdeptus",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
