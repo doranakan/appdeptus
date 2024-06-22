@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#252933"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.appdeptus"
@@ -32,7 +30,40 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-asset",
+        {
+          "assets": [
+            "./assets/resources/adepta-sororitas-bkg.png",
+            "./assets/resources/adeptus-astartes-bkg.png",
+            "./assets/resources/adeptus-mechanicus-bkg.png",
+            "./assets/resources/aeldari-bkg.png",
+            "./assets/resources/army-builder-bkg.png",
+            "./assets/resources/astra-militarum-bkg.png",
+            "./assets/resources/black-templars-bkg.png",
+            "./assets/resources/blood-angels-bkg.png",
+            "./assets/resources/blood-ravens-bkg.png",
+            "./assets/resources/chaos-daemons-bkg.png",
+            "./assets/resources/chaos-space-marines-bkg.png",
+            "./assets/resources/dark-angels-bkg.png",
+            "./assets/resources/death-guard-bkg.png",
+            "./assets/resources/deathwatch-bkg.png",
+            "./assets/resources/drukhari-bkg.png",
+            "./assets/resources/genestealer-cults-bkg.png",
+            "./assets/resources/grey-knights-bkg.png",
+            "./assets/resources/imperial-fists-bkg.png",
+            "./assets/resources/inquisition-bkg.png",
+            "./assets/resources/necrons-bkg.png",
+            "./assets/resources/orks-bkg.png",
+            "./assets/resources/space-wolves-bkg.png",
+            "./assets/resources/tau-bkg.png",
+            "./assets/resources/thousand-sons-bkg.png",
+            "./assets/resources/tyranids-bkg.png",
+            "./assets/resources/world-eaters-bkg.png"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "tsconfigPaths": true

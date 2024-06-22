@@ -13,7 +13,6 @@ import {
   deathGuardIcon,
   deathwatchIcon,
   drukhariIcon,
-  emperorsChildrenIcon,
   genestealerCultsIcon,
   greyKnightsIcon,
   imperialFistsIcon,
@@ -43,7 +42,6 @@ const mapCodexNameToIcon = {
   [CodexName.DEATH_GUARD]: deathGuardIcon,
   [CodexName.DEATHWATCH]: deathwatchIcon,
   [CodexName.DRUKHARI]: drukhariIcon,
-  [CodexName.EMPERORS_CHILDREN]: emperorsChildrenIcon,
   [CodexName.GENESTEALER_CULTS]: genestealerCultsIcon,
   [CodexName.GREY_KNIGHTS]: greyKnightsIcon,
   [CodexName.IMPERIAL_FISTS]: imperialFistsIcon,
@@ -57,4 +55,4 @@ const mapCodexNameToIcon = {
   [CodexName.WORLD_EATERS]: worldEatersIcon
 } as const
 
-export { mapCodexNameToIcon }
+export default mapCodexNameToIcon

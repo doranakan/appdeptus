@@ -13,7 +13,6 @@ enum CodexName {
   DEATH_GUARD = 'Death Guard',
   DEATHWATCH = 'Deathwatch',
   DRUKHARI = 'Drukhari',
-  EMPERORS_CHILDREN = 'Emperors Children',
   GENESTEALER_CULTS = 'Genestealer Cults',
   GREY_KNIGHTS = 'Grey Knights',
   IMPERIAL_FISTS = 'Imperial Fists',

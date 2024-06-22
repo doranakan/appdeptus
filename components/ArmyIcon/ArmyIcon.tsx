@@ -2,7 +2,7 @@ import { Box } from '@gluestack-ui/themed'
 import { config } from 'appdeptus/designSystem'
 import { type CodexName } from 'appdeptus/models'
 import { SvgXml } from 'react-native-svg'
-import { mapCodexNameToIcon } from './mapCodexNameToIcon'
+import mapCodexNameToIcon from './mapCodexNameToIcon'
 
 type ArmyIconProps = {
   codexName: CodexName

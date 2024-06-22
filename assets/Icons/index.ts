@@ -12,7 +12,6 @@ import darkAngelsIcon from './dark-angels.svg'
 import deathGuardIcon from './death-guard.svg'
 import deathwatchIcon from './deathwatch.svg'
 import drukhariIcon from './drukhari.svg'
-import emperorsChildrenIcon from './emperors-children.svg'
 import genestealerCultsIcon from './genestealer-cults.svg'
 import greyKnightsIcon from './grey-knights.svg'
 import imperialFistsIcon from './imperial-fists.svg'
@@ -40,7 +39,6 @@ export {
   deathGuardIcon,
   deathwatchIcon,
   drukhariIcon,
-  emperorsChildrenIcon,
   genestealerCultsIcon,
   greyKnightsIcon,
   imperialFistsIcon,
