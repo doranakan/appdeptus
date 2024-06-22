@@ -8,6 +8,7 @@ import bloodAngelsIcon from './blood-angels.svg'
 import bloodRavensIcon from './blood-ravens.svg'
 import chaosDaemonsIcon from './chaos-daemons.svg'
 import chaosSpaceMarinesIcon from './chaos-space-marines.svg'
+import codexSelectionMask from './codex-selection.svg'
 import darkAngelsIcon from './dark-angels.svg'
 import deathGuardIcon from './death-guard.svg'
 import deathwatchIcon from './deathwatch.svg'
@@ -35,6 +36,7 @@ export {
   bloodRavensIcon,
   chaosDaemonsIcon,
   chaosSpaceMarinesIcon,
+  codexSelectionMask,
   darkAngelsIcon,
   deathGuardIcon,
   deathwatchIcon,
