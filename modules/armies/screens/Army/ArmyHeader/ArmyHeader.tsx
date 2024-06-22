@@ -11,41 +11,40 @@ type ArmyHeaderProps = {
 }
 
 const ArmyHeader = ({ army }: ArmyHeaderProps) => (
-  <Card
-    gap='$4'
-    mb='$4'
-  >
-    <VStack alignItems='center'>
-      <ArmyIcon
-        codexName={army.codex.name}
-        color='primary500'
-        h={80}
-        w={80}
-      />
-      <Heading
-        size='2xl'
-        textAlign='center'
-      >
-        {army.name}
-      </Heading>
-      <Text textAlign='center'>
-        <Text fontWeight='bold'>{army.totalPoints} </Text>
-        points
-      </Text>
-    </VStack>
-    <HStack gap='$2'>
-      <EditButton
-        armyId={army.id}
-        codexId={army.codex.id}
-      />
-      <DeleteButton armyId={army.id} />
-      <ActionButton
-        Icon={Share2}
-        onPress={() => {}}
-        title='Share'
-      />
-    </HStack>
-  </Card>
+  <VStack mb='$4'>
+    <Card gap='$4'>
+      <VStack alignItems='center'>
+        <ArmyIcon
+          codexName={army.codex.name}
+          color='primary500'
+          h={80}
+          w={80}
+        />
+        <Heading
+          size='2xl'
+          textAlign='center'
+        >
+          {army.name}
+        </Heading>
+        <Text textAlign='center'>
+          <Text fontWeight='bold'>{army.totalPoints} </Text>
+          points
+        </Text>
+      </VStack>
+      <HStack gap='$2'>
+        <EditButton
+          armyId={army.id}
+          codexId={army.codex.id}
+        />
+        <DeleteButton armyId={army.id} />
+        <ActionButton
+          Icon={Share2}
+          onPress={() => {}}
+          title='Share'
+        />
+      </HStack>
+    </Card>
+  </VStack>
 )
 
 export default ArmyHeader
