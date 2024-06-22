@@ -158,9 +158,11 @@ const CodexSelectionScreen = () => {
                   mr={index === codexes.length - 1 ? '$4' : 0}
                 >
                   <Card
-                    gradient={selectedIndex === index ? 'primary' : 'secondary'}
+                    gradient={
+                      selectedCodex.id === item.id ? 'primary' : 'secondary'
+                    }
                     alignItems='center'
-                    bg='$white'
+                    bg={selectedCodex.id === item.id ? '$primary50' : '$white'}
                     h={90}
                     justifyContent='center'
                     key={item.id}
