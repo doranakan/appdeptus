@@ -1,4 +1,4 @@
-import { Box, ButtonGroup, Heading, Text } from '@gluestack-ui/themed'
+import { Box, ButtonGroup, HStack, Heading, Text } from '@gluestack-ui/themed'
 import { Button, Card } from 'appdeptus/components'
 import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
@@ -43,16 +43,22 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
 
   return (
     <Card
-      backgroundColor={count ? '$secondary200' : '$secondary100'}
-      borderColor={count ? '$secondary300' : '$secondary200'}
-      borderWidth='$1'
+      gradient={count ? 'primary' : 'secondary'}
       gap='$4'
       shadowOpacity={0}
     >
-      <Text>
-        <Heading>{unit.name}</Heading>
-        {unit.caption && <Text fontSize='$sm'>{` ${unit.caption}`}</Text>}
-      </Text>
+      <HStack justifyContent='space-between'>
+        <Text>
+          <Heading>{unit.name}</Heading>
+          {unit.caption && <Text fontSize='$sm'>{` ${unit.caption}`}</Text>}
+        </Text>
+        <Box
+          alignItems='center'
+          justifyContent='center'
+        >
+          <Text fontWeight={count ? '$bold' : '$normal'}>{points} points</Text>
+        </Box>
+      </HStack>
 
       <ButtonGroup flex={1}>
         <Button
@@ -87,13 +93,6 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
           }}
           text='Edit'
         />
-        <Box
-          alignItems='center'
-          flex={1}
-          justifyContent='center'
-        >
-          <Text fontWeight={count ? '$black' : '$medium'}>{points}</Text>
-        </Box>
       </ButtonGroup>
     </Card>
   )
