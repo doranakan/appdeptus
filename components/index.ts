@@ -1,4 +1,6 @@
+export { default as ArmyBackgroundImage } from './ArmyBackgroundImage'
 export { default as ArmyIcon } from './ArmyIcon'
+export { default as BackgroundImage } from './BackgroundImage'
 export { default as Button } from './Button'
 export { default as Card } from './Card'
 export { default as Dialog } from './Dialog'
