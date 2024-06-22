@@ -45,9 +45,9 @@ const Dialog = ({
     onClose={loading ? noop : onClose}
   >
     <AlertDialogBackdrop />
-    <AlertDialogContent>
+    <AlertDialogContent borderRadius='$none'>
       <AlertDialogHeader>
-        <Heading size='lg'>{title}</Heading>
+        <Heading>{title}</Heading>
         <AlertDialogCloseButton>
           <Icon as={CloseIcon} />
         </AlertDialogCloseButton>
@@ -58,17 +58,14 @@ const Dialog = ({
       <AlertDialogFooter>
         <ButtonGroup space='lg'>
           <Button
-            isDisabled={loading}
-            variant='outline'
-            action='secondary'
+            action='negative'
+            disabled={loading}
             onPress={loading ? noop : onPressCancel}
           >
             <ButtonText>{cancelTitle ?? 'Cancel'}</ButtonText>
           </Button>
           <Button
-            isDisabled={loading}
-            bg='$error600'
-            action='negative'
+            disabled={loading}
             onPress={loading ? noop : onPressConfirm}
           >
             {loading ? (

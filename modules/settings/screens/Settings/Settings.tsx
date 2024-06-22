@@ -41,7 +41,7 @@ const SettingsScreen = () => {
           Settings
         </Text>
         <Button
-          isDisabled={isLoading}
+          disabled={isLoading}
           onPress={signOut}
           text='Sign out'
         />

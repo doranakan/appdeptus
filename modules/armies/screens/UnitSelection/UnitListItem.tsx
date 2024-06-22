@@ -63,9 +63,9 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
       <ButtonGroup flex={1}>
         <Button
           action='secondary'
+          disabled={count >= unit.limit}
           flex={1}
           Icon={Plus}
-          isDisabled={count >= unit.limit}
           onPress={() => {
             append({
               options: [],
@@ -78,9 +78,9 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
 
         <Button
           action='negative'
+          disabled={!count}
           flex={1}
           Icon={Edit}
-          isDisabled={!count}
           onPress={() => {
             router.push({
               params: {

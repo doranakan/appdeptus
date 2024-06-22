@@ -12,7 +12,7 @@ const SignInForm = () => {
 
   const [errorMessage, setErrorMessage] = useState('')
 
-  const [isLoading, { setFalse: stopLoading, setTrue: startLoading }] =
+  const [loading, { setFalse: stopLoading, setTrue: startLoading }] =
     useBoolean()
 
   const router = useRouter()
@@ -64,8 +64,7 @@ const SignInForm = () => {
       />
 
       <Button
-        isDisabled={isLoading}
-        loading={isLoading}
+        loading={loading}
         onPress={signIn}
         text='Sign in'
       />

@@ -80,7 +80,19 @@ const config = createConfig(
         secondary700: '#222F44',
         secondary800: '#18212F',
         secondary900: '#0C1018',
-        secondary950: '#05070A'
+        secondary950: '#05070A',
+
+        success50: '#EDF3E7',
+        success100: '#DEE9D3',
+        success200: '#BBD1A3',
+        success300: '#9ABB77',
+        success400: '#79A04F',
+        success500: '#577339',
+        success600: '#465C2E',
+        success700: '#344422',
+        success800: '#222C16',
+        success900: '#12180C',
+        success950: '#080A05'
       }
     }
   } as const)

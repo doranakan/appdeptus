@@ -58,9 +58,10 @@ const UnitListHeader = ({
         </Text>
       </Box>
       <Button
+        action='positive'
+        disabled={!totalPoints}
         flex={1}
         Icon={ClipboardCheck}
-        isDisabled={!totalPoints}
         onPress={onSubmit}
         text={submitTitle}
       />
