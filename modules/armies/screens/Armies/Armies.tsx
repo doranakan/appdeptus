@@ -1,6 +1,5 @@
-import { Box, HStack, Image, VStack } from '@gluestack-ui/themed'
-import { armyBuilderBackground } from 'appdeptus/assets'
-import { Button, Loading } from 'appdeptus/components'
+import { Box, HStack, VStack } from '@gluestack-ui/themed'
+import { BackgroundImage, Button, Loading } from 'appdeptus/components'
 import { Heading } from 'appdeptus/designSystem'
 import { useRouter } from 'expo-router'
 import { Plus } from 'lucide-react-native'
@@ -20,12 +19,9 @@ const ArmiesScreen = () => {
 
   return (
     <VStack flex={1}>
-      <Image
-        alt=''
-        w='$full'
-        h='$full'
-        source={armyBuilderBackground}
-        opacity='$50'
+      <BackgroundImage
+        source='army-builder-bkg'
+        opacity={0.5}
       />
       <SafeAreaView
         edges={['top']}
