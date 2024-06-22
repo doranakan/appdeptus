@@ -1,6 +1,5 @@
-import { HStack, VStack } from '@gluestack-ui/themed'
+import { HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
 import { ArmyIcon, Card } from 'appdeptus/components'
-import { Heading, Text } from 'appdeptus/designSystem'
 import { type Army } from 'appdeptus/models'
 import { Share2 } from 'lucide-react-native'
 import ActionButton from './ActionButton'

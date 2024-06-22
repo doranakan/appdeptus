@@ -1,6 +1,5 @@
-import { Box } from '@gluestack-ui/themed'
+import { Box, Text } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
-import { Text } from 'appdeptus/designSystem'
 import { type ArmyForm } from 'appdeptus/models'
 import { ClipboardCheck } from 'lucide-react-native'
 import React, { useEffect, useMemo } from 'react'

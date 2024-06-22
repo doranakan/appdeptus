@@ -1,6 +1,5 @@
-import { Box, ButtonGroup } from '@gluestack-ui/themed'
+import { Box, ButtonGroup, Heading, Text } from '@gluestack-ui/themed'
 import { Button, Card } from 'appdeptus/components'
-import { Heading, Text } from 'appdeptus/designSystem'
 import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import { Edit, Plus } from 'lucide-react-native'
@@ -57,9 +56,7 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
 
       <ButtonGroup flex={1}>
         <Button
-          $active-bgColor='$secondary500'
-          $disabled-bgColor='$secondary500'
-          backgroundColor='$secondary500'
+          action='secondary'
           flex={1}
           Icon={Plus}
           isDisabled={count >= unit.limit}
@@ -74,9 +71,7 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
         />
 
         <Button
-          $active-bgColor='$secondary300'
-          $disabled-bgColor='$secondary500'
-          backgroundColor='$secondary300'
+          action='negative'
           flex={1}
           Icon={Edit}
           isDisabled={!count}

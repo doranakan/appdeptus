@@ -1,6 +1,5 @@
-import { Box, HStack, VStack } from '@gluestack-ui/themed'
+import { Box, Heading, HStack, VStack } from '@gluestack-ui/themed'
 import { BackgroundImage, Button, Loading } from 'appdeptus/components'
-import { Heading } from 'appdeptus/designSystem'
 import { useRouter } from 'expo-router'
 import { Plus } from 'lucide-react-native'
 import { StyleSheet } from 'react-native'

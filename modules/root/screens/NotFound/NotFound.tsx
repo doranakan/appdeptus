@@ -1,5 +1,4 @@
-import { Box, VStack } from '@gluestack-ui/themed'
-import { Text } from 'appdeptus/designSystem'
+import { Box, Text, VStack } from '@gluestack-ui/themed'
 import { Link } from 'expo-router'
 
 const NotFoundScreen = () => (

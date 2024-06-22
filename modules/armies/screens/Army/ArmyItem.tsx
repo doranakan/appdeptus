@@ -1,7 +1,6 @@
-import { HStack, Pressable, VStack } from '@gluestack-ui/themed'
+import { HStack, Heading, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
 import { Card } from 'appdeptus/components'
-import { Heading, Text } from 'appdeptus/designSystem'
 import { type ArmyUnit } from 'appdeptus/models'
 import pluralize from 'pluralize'
 import ArmyItemModal from './ArmyItemModal'

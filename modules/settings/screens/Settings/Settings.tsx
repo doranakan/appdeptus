@@ -1,7 +1,6 @@
-import { Box, VStack } from '@gluestack-ui/themed'
+import { Box, Text, VStack } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
 import { Button } from 'appdeptus/components'
-import { Text } from 'appdeptus/designSystem'
 import { supabase } from 'appdeptus/utils'
 import { useRouter } from 'expo-router'
 import React, { useCallback } from 'react'

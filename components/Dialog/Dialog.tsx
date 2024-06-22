@@ -11,9 +11,9 @@ import {
   ButtonText,
   CloseIcon,
   Heading,
-  Icon
+  Icon,
+  Text
 } from '@gluestack-ui/themed'
-import { Text } from 'appdeptus/designSystem'
 import { noop } from 'lodash'
 import { ActivityIndicator } from 'react-native'
 
@@ -58,7 +58,7 @@ const Dialog = ({
       <AlertDialogFooter>
         <ButtonGroup space='lg'>
           <Button
-            disabled={loading}
+            isDisabled={loading}
             variant='outline'
             action='secondary'
             onPress={loading ? noop : onPressCancel}
@@ -66,7 +66,7 @@ const Dialog = ({
             <ButtonText>{cancelTitle ?? 'Cancel'}</ButtonText>
           </Button>
           <Button
-            disabled={loading}
+            isDisabled={loading}
             bg='$error600'
             action='negative'
             onPress={loading ? noop : onPressConfirm}

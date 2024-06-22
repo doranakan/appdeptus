@@ -1,5 +1,4 @@
-import { Icon as GSIcon, Pressable } from '@gluestack-ui/themed'
-import { Text } from 'appdeptus/designSystem'
+import { Icon as GSIcon, Pressable, Text } from '@gluestack-ui/themed'
 import { type LucideIcon } from 'lucide-react-native'
 
 type ButtonProps = {

@@ -1,6 +1,5 @@
-import { ScrollView, VStack } from '@gluestack-ui/themed'
+import { ScrollView, Text, VStack } from '@gluestack-ui/themed'
 import { Card, Loading, Modal } from 'appdeptus/components'
-import { Text } from 'appdeptus/designSystem'
 import { type ArmyUnit } from 'appdeptus/models'
 import { uniqBy } from 'lodash'
 import pluralize from 'pluralize'

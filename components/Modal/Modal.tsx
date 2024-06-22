@@ -1,5 +1,4 @@
-import { Box, ButtonText, ScrollView } from '@gluestack-ui/themed'
-import { Heading } from 'appdeptus/designSystem'
+import { Box, ButtonText, Heading, ScrollView } from '@gluestack-ui/themed'
 import { type PropsWithChildren } from 'react'
 import { Modal as RNModal } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'

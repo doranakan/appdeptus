@@ -1,6 +1,13 @@
-import { Box, HStack, Icon, Pressable, VStack } from '@gluestack-ui/themed'
+import {
+  Box,
+  HStack,
+  Heading,
+  Icon,
+  Pressable,
+  Text,
+  VStack
+} from '@gluestack-ui/themed'
 import { ArmyIcon, Button, Card } from 'appdeptus/components'
-import { Heading, Text } from 'appdeptus/designSystem'
 import { type Army } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import { Blinds } from 'lucide-react-native'

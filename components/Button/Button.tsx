@@ -1,16 +1,19 @@
-import { Icon as GSIcon } from '@gluestack-ui/themed'
-import { ButtonText, Button as DSButton } from 'appdeptus/designSystem'
+import {
+  ButtonText,
+  Button as GSButton,
+  Icon as GSIcon
+} from '@gluestack-ui/themed'
 import { type LucideIcon } from 'lucide-react-native'
-import React from 'react'
+import React, { type ComponentProps } from 'react'
 
-type ButtonProps = (typeof DSButton)['defaultProps'] & {
+type ButtonProps = ComponentProps<typeof GSButton> & {
   iconSize?: number
   Icon?: LucideIcon
   text?: string
 }
 
 const Button = ({ Icon, iconSize = 18, size, text, ...props }: ButtonProps) => (
-  <DSButton
+  <GSButton
     gap='$1'
     {...props}
   >
@@ -23,7 +26,7 @@ const Button = ({ Icon, iconSize = 18, size, text, ...props }: ButtonProps) => (
         w={iconSize}
       />
     )}
-  </DSButton>
+  </GSButton>
 )
 
 export default Button

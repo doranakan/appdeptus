@@ -1,7 +1,6 @@
-import { VStack } from '@gluestack-ui/themed'
+import { Text, VStack } from '@gluestack-ui/themed'
 import { useBoolean } from 'ahooks'
 import { Button, Card, Modal } from 'appdeptus/components'
-import { Text } from 'appdeptus/designSystem'
 import { type ArmyForm, type Model, type Wargear } from 'appdeptus/models'
 import { compact, times } from 'lodash'
 import pluralize from 'pluralize'

@@ -1,7 +1,6 @@
-import { HStack, VStack } from '@gluestack-ui/themed'
+import { HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Button, Card, Loading } from 'appdeptus/components'
-import { Heading, Text } from 'appdeptus/designSystem'
 import { type ArmyForm } from 'appdeptus/models'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Trash2 } from 'lucide-react-native'
@@ -72,10 +71,8 @@ const TierSelectionScreen = () => {
               {unit.tiers.map((tier) => {
                 return (
                   <Button
-                    backgroundColor={
-                      tier.id === selectedTierId
-                        ? '$secondary500'
-                        : '$secondary300'
+                    action={
+                      tier.id === selectedTierId ? 'secondary' : 'negative'
                     }
                     flex={1}
                     key={tier.points}
@@ -105,7 +102,7 @@ const TierSelectionScreen = () => {
               />
             </HStack>
             <Button
-              borderColor='$secondary500'
+              action='secondary'
               onPress={() => {
                 router.push({
                   params: {

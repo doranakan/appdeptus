@@ -1,6 +1,6 @@
-import { Icon as GSIcon, VStack } from '@gluestack-ui/themed'
+import { Icon as GSIcon, Text, VStack } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
-import { Text, config } from 'appdeptus/designSystem'
+import { config } from 'appdeptus/designSystem'
 import { supabase } from 'appdeptus/utils'
 import { Tabs, useRouter } from 'expo-router'
 import { Dices, Settings, Shield, type LucideIcon } from 'lucide-react-native'
@@ -10,7 +10,7 @@ const tabBarBaseOptions = {
   headerShown: false,
   tabBarShowLabel: false,
   tabBarStyle: {
-    backgroundColor: config.tokens.colors.secondary500
+    backgroundColor: config.tokens.colors.secondary700
   }
 }
 

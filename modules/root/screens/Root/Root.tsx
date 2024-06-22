@@ -1,5 +1,4 @@
-import { Box, VStack } from '@gluestack-ui/themed'
-import { Heading } from 'appdeptus/designSystem'
+import { Box, Heading, VStack } from '@gluestack-ui/themed'
 import { SignInForm } from '../../components'
 
 const RootScreen = () => (
