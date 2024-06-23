@@ -1,6 +1,5 @@
 import {
   Box,
-  Heading,
   LinearGradient,
   Pressable,
   Text,
@@ -15,7 +14,7 @@ import {
   Card,
   Loading
 } from 'appdeptus/components'
-import { config, setColorMode, useColorMode } from 'appdeptus/designSystem'
+import { setColorMode, useColorMode } from 'appdeptus/designSystem'
 import { CodexName, type ArmyForm } from 'appdeptus/models'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { useRouter } from 'expo-router'
@@ -25,6 +24,7 @@ import { FlatList } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { useDispatch } from 'react-redux'
 import { useGetCodexesQuery } from '../../api'
+import GradientHeading from './GradientHeading'
 
 const AVAILABLED_ARMIES = [CodexName.TYRANIDS]
 
@@ -107,7 +107,18 @@ const CodexSelectionScreen = () => {
               </Box>
             }
           >
-            <ArmyBackgroundImage codexName={selectedCodex.name} />
+            <Box
+              bg='$black'
+              h='$full'
+              w='$full'
+            />
+            <Box
+              position='absolute'
+              h='$full'
+              w='$full'
+            >
+              <ArmyBackgroundImage codexName={selectedCodex.name} />
+            </Box>
           </MaskedView>
         </VStack>
         <VStack
@@ -128,37 +139,9 @@ const CodexSelectionScreen = () => {
               Codex
             </Text>
           </Box>
-
-          <MaskedView
-            style={{ flexDirection: 'row', height: 50 }}
-            maskElement={
-              <Heading
-                alignSelf='center'
-                size='4xl'
-                lineHeight='$5xl'
-              >
-                {selectedCodex.name}
-              </Heading>
-            }
-          >
-            <LinearGradient
-              colors={[
-                colorMode === 'light'
-                  ? config.tokens.colors.primary500
-                  : config.themes[colorMode].colors.primary500,
-                colorMode === 'light'
-                  ? config.tokens.colors.secondary500
-                  : config.themes[colorMode].colors.secondary500
-              ]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-              as={ExpoLinearGradient}
-              style={{
-                height: 50,
-                width: '100%'
-              }}
-            />
-          </MaskedView>
+          <GradientHeading colorMode={colorMode}>
+            {selectedCodex.name}
+          </GradientHeading>
         </VStack>
         <VStack>
           <Box h={92}>
