@@ -1,14 +1,16 @@
 import { LinearGradient, VStack, type HStack } from '@gluestack-ui/themed'
 import { config, useColorMode } from 'appdeptus/designSystem'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
+import { MotiView } from 'moti'
 import { useMemo, type PropsWithChildren } from 'react'
 
 type CardProps = (typeof HStack)['defaultProps'] & {
+  animated?: boolean
   gradient?: 'primary' | 'secondary'
 }
 
 const Card = ({
-  children,
+  animated,
   gradient = 'secondary',
   ...props
 }: PropsWithChildren<CardProps>) => {
@@ -35,15 +37,41 @@ const Card = ({
       end={1}
       as={ExpoLinearGradient}
     >
-      <VStack
-        bg='$secondary100'
-        p='$2'
-        {...props}
-      >
-        {children}
-      </VStack>
+      {animated ? (
+        <MotiView
+          animate={{
+            backgroundColor:
+              colorMode === 'light'
+                ? config.tokens.colors.secondary100
+                : config.themes[colorMode].colors.secondary100
+          }}
+          transition={{
+            duration: 500
+          }}
+        >
+          <Content
+            {...props}
+            bg='$transparent'
+          />
+        </MotiView>
+      ) : (
+        <Content {...props} />
+      )}
     </LinearGradient>
   )
 }
+
+const Content = ({
+  children,
+  ...props
+}: Omit<CardProps, 'gradient' | 'animated'>) => (
+  <VStack
+    bg='$secondary100'
+    p='$2'
+    {...props}
+  >
+    {children}
+  </VStack>
+)
 
 export default Card

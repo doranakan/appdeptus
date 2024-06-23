@@ -54,6 +54,7 @@ const ArmyList = ({ armies }: ArmyListProps) => {
           }}
         >
           <Card
+            animated
             flex={1}
             justifyContent='space-between'
           >

@@ -12,7 +12,10 @@ type ArmyHeaderProps = {
 
 const ArmyHeader = ({ army }: ArmyHeaderProps) => (
   <VStack mb='$4'>
-    <Card gap='$4'>
+    <Card
+      animated
+      gap='$4'
+    >
       <VStack alignItems='center'>
         <ArmyIcon
           codexName={army.codex.name}
