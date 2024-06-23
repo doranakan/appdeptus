@@ -38,6 +38,7 @@
     "expo-router": "~3.5.14",
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "^3.0.6",
+    "hermes-engine": "^0.5.2-rc1",
     "lodash": "^4.17.21",
     "lucide-react-native": "^0.395.0",
     "moti": "^0.29.0",
