@@ -39,6 +39,7 @@
     "expo-system-ui": "^3.0.6",
     "lodash": "^4.17.21",
     "lucide-react-native": "^0.395.0",
+    "moti": "^0.29.0",
     "pluralize": "^8.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
