@@ -1,5 +1,5 @@
 import { type CodexName } from 'appdeptus/models'
-import BackgroundImage from '../BackgroundImage'
+import AnimatedBackgroundImage from '../AnimatedBackgroundImage'
 import mapCodexNameToBackground from './mapCodexNameToBackground'
 
 type ArmyBackgroundImageProps = {
@@ -11,7 +11,7 @@ const ArmyBackgroundImage = ({
   codexName,
   opacity
 }: ArmyBackgroundImageProps) => (
-  <BackgroundImage
+  <AnimatedBackgroundImage
     source={mapCodexNameToBackground[codexName]}
     opacity={opacity}
   />
