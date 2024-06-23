@@ -1,3 +1,4 @@
+export { default as AnimatedBackgroundImage } from './AnimatedBackgroundImage'
 export { default as ArmyBackgroundImage } from './ArmyBackgroundImage'
 export { default as ArmyIcon } from './ArmyIcon'
 export { default as BackgroundImage } from './BackgroundImage'

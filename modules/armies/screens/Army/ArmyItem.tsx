@@ -15,7 +15,10 @@ const ArmyItem = ({ unit }: ArmyItemProps): JSX.Element => {
   return (
     <>
       <Pressable onPress={toggle}>
-        <Card justifyContent='space-between'>
+        <Card
+          animated
+          justifyContent='space-between'
+        >
           <HStack
             alignItems='center'
             justifyContent='space-between'

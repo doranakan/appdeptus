@@ -4,26 +4,20 @@ import { config, useColorMode } from 'appdeptus/designSystem'
 import { supabase } from 'appdeptus/utils'
 import { Tabs, useRouter } from 'expo-router'
 import { Dices, Settings, Shield, type LucideIcon } from 'lucide-react-native'
-import React, { useMemo } from 'react'
+import { MotiView } from 'moti'
+import React from 'react'
 
+const tabBarBaseOptions = {
+  headerShown: false,
+  tabBarShowLabel: false,
+  tabBarStyle: {
+    backgroundColor: 'transparent'
+  }
+}
 const TabsLayout = () => {
   const router = useRouter()
 
   const colorMode = useColorMode()
-
-  const tabBarBaseOptions = useMemo(
-    () => ({
-      headerShown: false,
-      tabBarShowLabel: false,
-      tabBarStyle: {
-        backgroundColor:
-          colorMode === 'light'
-            ? config.tokens.colors.secondary700
-            : config.themes[colorMode].colors.secondary700
-      }
-    }),
-    [colorMode]
-  )
 
   useAsyncEffect(async () => {
     const { data } = await supabase.auth.getSession()
@@ -34,50 +28,73 @@ const TabsLayout = () => {
   }, [])
 
   return (
-    <Tabs
-      screenOptions={{ headerShown: false }}
-      initialRouteName='armies'
+    <VStack
+      flex={1}
+      justifyContent='flex-end'
     >
-      <Tabs.Screen
-        name='armies'
-        options={{
-          ...tabBarBaseOptions,
-          tabBarIcon: ({ focused }) => (
-            <TabBarItem
-              focused={focused}
-              Icon={Shield}
-              title='Build'
-            />
-          )
+      <MotiView
+        animate={{
+          backgroundColor:
+            colorMode === 'light'
+              ? config.tokens.colors.secondary700
+              : config.themes[colorMode].colors.secondary700
         }}
-      />
-      <Tabs.Screen
-        name='play'
-        options={{
-          ...tabBarBaseOptions,
-          tabBarIcon: ({ focused }) => (
-            <TabBarItem
-              focused={focused}
-              Icon={Dices}
-              title='Play'
-            />
-          )
+        transition={{
+          duration: 500
         }}
+        style={{ height: '100%' }}
       />
-      <Tabs.Screen
-        name='settings'
-        options={{
-          ...tabBarBaseOptions,
-          tabBarIcon: ({ focused }) => (
-            <TabBarItem
-              focused={focused}
-              Icon={Settings}
-              title='Settings'
-            />
-          )
-        }}
-      />
-    </Tabs>
+      <VStack
+        h='$full'
+        position='absolute'
+        w='$full'
+      >
+        <Tabs
+          screenOptions={{ headerShown: false }}
+          initialRouteName='armies'
+        >
+          <Tabs.Screen
+            name='armies'
+            options={{
+              ...tabBarBaseOptions,
+              tabBarIcon: ({ focused }) => (
+                <TabBarItem
+                  focused={focused}
+                  Icon={Shield}
+                  title='Build'
+                />
+              )
+            }}
+          />
+          <Tabs.Screen
+            name='play'
+            options={{
+              ...tabBarBaseOptions,
+              tabBarIcon: ({ focused }) => (
+                <TabBarItem
+                  focused={focused}
+                  Icon={Dices}
+                  title='Play'
+                />
+              )
+            }}
+          />
+          <Tabs.Screen
+            name='settings'
+            options={{
+              ...tabBarBaseOptions,
+              tabBarIcon: ({ focused }) => (
+                <TabBarItem
+                  focused={focused}
+                  Icon={Settings}
+                  title='Settings'
+                />
+              )
+            }}
+          />
+        </Tabs>
+      </VStack>
+    </VStack>
   )
 }
 

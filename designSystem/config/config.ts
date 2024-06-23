@@ -1,3 +1,5 @@
+import { AnimationResolver } from '@gluestack-style/animation-resolver'
+import { MotiAnimationDriver } from '@gluestack-style/moti-animation-driver'
 import { createConfig } from '@gluestack-style/react'
 import { config as GSConfig } from '@gluestack-ui/config'
 import { CodexName } from 'appdeptus/models'
@@ -5,7 +7,7 @@ import { merge } from 'lodash'
 
 const config = createConfig(
   merge(GSConfig, {
-    // ------------------ COMPONENTS 🪛🔧🧰
+    // ------------------ COMPONENTS 🧰
     components: {
       Button: {
         theme: {
@@ -56,6 +58,8 @@ const config = createConfig(
         }
       }
     },
+    // ------------------ PLUGINS 💽
+    plugins: [new AnimationResolver(MotiAnimationDriver)],
     // ------------------ BASE TOKENS 🟥🟩🟦
     tokens: {
       colors: {

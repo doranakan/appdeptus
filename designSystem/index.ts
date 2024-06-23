@@ -5,3 +5,4 @@ export {
   reducer as designSystemReducer,
   reducerPath as designSystemReducerPath
 } from './store'
+export * from './types'
