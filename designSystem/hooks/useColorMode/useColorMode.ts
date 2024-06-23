@@ -1,6 +1,6 @@
 import { useColorMode as useGSColorMode } from '@gluestack-style/react'
-import { type CodexName } from 'appdeptus/models'
+import { type ColorMode } from 'appdeptus/designSystem/types'
 
 const useColorMode = useGSColorMode
 
-export default useColorMode as () => 'light' | CodexName
+export default useColorMode as () => ColorMode
