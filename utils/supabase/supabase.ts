@@ -1,11 +1,12 @@
-import 'react-native-url-polyfill/auto'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createClient } from '@supabase/supabase-js'
-import { SUPABASE_ANON_KEY, SUPABASE_URL } from 'appdeptus/appConfig.json'
+import 'react-native-url-polyfill/auto'
 
-const supabaseAnonKey = SUPABASE_ANON_KEY
-const supabaseUrl = SUPABASE_URL
+const supabaseAnonKey = process.env['EXPO_PUBLIC_SUPABASE_ANON_KEY']
+const supabaseUrl = process.env['EXPO_PUBLIC_SUPABASE_URL']
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
     storage: AsyncStorage,

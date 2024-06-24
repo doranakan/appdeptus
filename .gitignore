@@ -1,5 +1,5 @@
-node_modules
+.env
 .expo
-appConfig.json
-ios
 android
+ios
+node_modules
