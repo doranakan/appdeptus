@@ -5,15 +5,18 @@ import mapCodexNameToBackground from './mapCodexNameToBackground'
 type ArmyBackgroundImageProps = {
   codexName: CodexName
   opacity?: number
+  duration?: number
+  exitScale?: number
+  fromScale?: number
 }
 
 const ArmyBackgroundImage = ({
   codexName,
-  opacity
+  ...props
 }: ArmyBackgroundImageProps) => (
   <AnimatedBackgroundImage
     source={mapCodexNameToBackground[codexName]}
-    opacity={opacity}
+    {...props}
   />
 )
 

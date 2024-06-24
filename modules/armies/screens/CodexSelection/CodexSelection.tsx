@@ -72,6 +72,9 @@ const CodexSelectionScreen = () => {
       <ArmyBackgroundImage
         codexName={selectedCodex.name}
         opacity={0.2}
+        duration={200}
+        fromScale={1.1}
+        exitScale={1.5}
       />
       <Box
         h='$full'
