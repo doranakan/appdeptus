@@ -1,4 +1,4 @@
-import { Box, HStack, Text, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
 import { type Model } from 'appdeptus/models'
 import { STATSHEET_CELL_WIDTH, STATS_CELL_NAMES } from './constants'
 
@@ -7,14 +7,8 @@ type StatSheetProps = {
 }
 
 const StatSheet = ({ model }: StatSheetProps): JSX.Element => (
-  <VStack
-    backgroundColor='$secondary100'
-    borderColor='$secondary300'
-    borderWidth='$1'
-    px='$4'
-    py='$2'
-  >
-    <HStack justifyContent='space-between'>
+  <VStack gap='$1'>
+    <HStack justifyContent='space-evenly'>
       {STATS_CELL_NAMES.map((cellName, index) => (
         <Box
           alignItems='center'
@@ -22,6 +16,7 @@ const StatSheet = ({ model }: StatSheetProps): JSX.Element => (
           width={STATSHEET_CELL_WIDTH}
         >
           <Text
+            color='$white'
             fontWeight='$bold'
             size='sm'
           >
@@ -31,14 +26,19 @@ const StatSheet = ({ model }: StatSheetProps): JSX.Element => (
       ))}
     </HStack>
 
-    <HStack justifyContent='space-between'>
+    <HStack justifyContent='space-evenly'>
       {Array.from(Object.values(model.stats)).map((stat, index) => (
         <Box
           alignItems='center'
+          bg='$white'
+          borderColor='$secondary600'
+          borderWidth='$1'
+          height={STATSHEET_CELL_WIDTH}
           key={`${stat}-${index}`}
+          justifyContent='center'
           width={STATSHEET_CELL_WIDTH}
         >
-          <Text size='sm'>{stat}</Text>
+          <Heading size='md'>{`${stat}${Object.keys(model.stats)[index] === 'sv' || Object.keys(model.stats)[index] === 'ld' ? '+' : ''}`}</Heading>
         </Box>
       ))}
     </HStack>
