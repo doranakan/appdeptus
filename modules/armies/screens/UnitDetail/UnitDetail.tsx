@@ -4,17 +4,34 @@ import { Card, Loading, Modal } from 'appdeptus/components'
 import { useLocalSearchParams } from 'expo-router'
 import { uniqBy } from 'lodash'
 import pluralize from 'pluralize'
-import { useGetUnitOptionsQuery } from '../../api'
+import { useGetArmyQuery, useGetUnitOptionsQuery } from '../../api'
 import StatSheet from '../../components/StatSheet'
 import WeaponStats from './WeaponStats'
 
 const UnitDetail = () => {
-  const { tierId } = useLocalSearchParams<{ tierId: string }>()
+  const { armyId, tierId, unitId } = useLocalSearchParams<{
+    armyId: string
+    tierId: string
+    unitId: string
+  }>()
 
-  console.log({ tierId })
+  const { unit } = useGetArmyQuery(armyId ?? skipToken, {
+    selectFromResult: ({ data, ...rest }) => {
+      if (!data) {
+        return { unit: undefined }
+      }
+
+      const unit = data.units.find(({ id }) => unitId === id)
+
+      return {
+        unit,
+        ...rest
+      }
+    }
+  })
 
   const { models } = useGetUnitOptionsQuery(tierId ?? skipToken, {
-    selectFromResult: ({ data }) => {
+    selectFromResult: ({ data, ...rest }) => {
       if (!data) {
         return { models: undefined }
       }
@@ -25,23 +42,24 @@ const UnitDetail = () => {
       }))
 
       return {
-        models
+        models,
+        ...rest
       }
     }
   })
 
-  if (!models) {
+  if (!unit || !models) {
     return <Loading />
   }
 
   return (
-    <Modal title=''>
+    <Modal title={`Unit: ${unit.name}`}>
       <ScrollView flex={1}>
         <VStack
           gap='$4'
           p='$4'
         >
-          {models.map(({ count, model, baseWargear, options }, index) => (
+          {models.map(({ count, model, baseWargear }, index) => (
             <Card
               bg='$secondary50'
               gap='$4'
@@ -89,9 +107,7 @@ const UnitDetail = () => {
                 weapons={[
                   ...baseWargear.map(({ weapon }) => weapon),
                   ...uniqBy(
-                    options
-                      ?.map(({ weapons }) => weapons)
-                      .flatMap((weapon) => weapon),
+                    unit.options?.map(({ weapon }) => weapon),
                     'id'
                   )
                 ].filter(({ type }) => type === 'ranged')}
@@ -101,9 +117,7 @@ const UnitDetail = () => {
                 weapons={[
                   ...baseWargear.map(({ weapon }) => weapon),
                   ...uniqBy(
-                    options
-                      ?.map(({ weapons }) => weapons)
-                      .flatMap((weapon) => weapon),
+                    unit.options?.map(({ weapon }) => weapon),
                     'id'
                   )
                 ].filter(({ type }) => type === 'melee')}

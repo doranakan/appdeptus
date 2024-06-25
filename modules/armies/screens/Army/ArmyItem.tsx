@@ -5,12 +5,19 @@ import { Link } from 'expo-router'
 import pluralize from 'pluralize'
 
 type ArmyItemProps = {
+  armyId: string
   unit: ArmyUnit
 }
 
-const ArmyItem = ({ unit }: ArmyItemProps): JSX.Element => (
+const ArmyItem = ({ armyId, unit }: ArmyItemProps): JSX.Element => (
   <Link
-    href={`./${unit.tier.id}`}
+    href={{
+      params: {
+        tierId: unit.tier.id,
+        unitId: unit.id
+      },
+      pathname: `./${armyId}`
+    }}
     asChild
   >
     <Pressable>

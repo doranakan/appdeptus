@@ -34,7 +34,12 @@ const ArmyScreen = () => {
       keyExtractor={({ id }, index) => `${id}-${index}`}
       ListHeaderComponent={() => <ArmyHeader army={army} />}
       ListFooterComponent={() => <Box height='$8' />}
-      renderItem={({ item: unit }) => <ArmyItem unit={unit} />}
+      renderItem={({ item: unit }) => (
+        <ArmyItem
+          armyId={army.id}
+          unit={unit}
+        />
+      )}
       style={styles.flatList}
     />
   )
