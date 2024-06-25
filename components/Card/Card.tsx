@@ -33,8 +33,8 @@ const Card = ({
     <LinearGradient
       p={1}
       colors={colors}
-      start={0}
-      end={1}
+      start={[1, 0]}
+      end={[0, 1]}
       as={ExpoLinearGradient}
     >
       {animated ? (
@@ -42,7 +42,7 @@ const Card = ({
           animate={{
             backgroundColor:
               colorMode === 'light'
-                ? config.tokens.colors.secondary100
+                ? config.tokens.colors.secondary50
                 : config.themes[colorMode].colors.secondary100
           }}
           transition={{
