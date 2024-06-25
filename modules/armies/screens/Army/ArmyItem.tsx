@@ -1,53 +1,46 @@
 import { HStack, Heading, Pressable, Text, VStack } from '@gluestack-ui/themed'
-import { useBoolean } from 'ahooks'
 import { Card } from 'appdeptus/components'
 import { type ArmyUnit } from 'appdeptus/models'
+import { Link } from 'expo-router'
 import pluralize from 'pluralize'
-import ArmyItemModal from './ArmyItemModal'
 
 type ArmyItemProps = {
   unit: ArmyUnit
 }
 
-const ArmyItem = ({ unit }: ArmyItemProps): JSX.Element => {
-  const [visible, { toggle }] = useBoolean()
-
-  return (
-    <>
-      <Pressable onPress={toggle}>
-        <Card
-          animated
+const ArmyItem = ({ unit }: ArmyItemProps): JSX.Element => (
+  <Link
+    href={`./${unit.tier.id}`}
+    asChild
+  >
+    <Pressable>
+      <Card
+        animated
+        justifyContent='space-between'
+      >
+        <HStack
+          alignItems='center'
           justifyContent='space-between'
         >
-          <HStack
-            alignItems='center'
-            justifyContent='space-between'
-          >
-            <VStack>
-              <Text>
-                <Heading>{unit.name}</Heading>
-              </Text>
-              {unit.caption && <Text size='xs'>{unit.caption}</Text>}
-            </VStack>
-            <Text fontWeight='bold'>
-              {unit.tier.points} <Text>points</Text>
+          <VStack>
+            <Text>
+              <Heading>{unit.name}</Heading>
             </Text>
-          </HStack>
-          <Text
-            size='xs'
-            fontWeight='bold'
-          >
-            {`${unit.tier.models} ${pluralize('model', unit.tier.models)}`}
+            {unit.caption && <Text size='xs'>{unit.caption}</Text>}
+          </VStack>
+          <Text fontWeight='bold'>
+            {unit.tier.points} <Text>points</Text>
           </Text>
-        </Card>
-      </Pressable>
-      <ArmyItemModal
-        onPressClose={toggle}
-        visible={visible}
-        unit={unit}
-      />
-    </>
-  )
-}
+        </HStack>
+        <Text
+          size='xs'
+          fontWeight='bold'
+        >
+          {`${unit.tier.models} ${pluralize('model', unit.tier.models)}`}
+        </Text>
+      </Card>
+    </Pressable>
+  </Link>
+)
 
 export default ArmyItem
