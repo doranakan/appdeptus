@@ -1,64 +1,59 @@
-import { Box, ButtonText, Heading, ScrollView } from '@gluestack-ui/themed'
+import {
+  Box,
+  HStack,
+  Heading,
+  Icon,
+  Pressable,
+  ScrollView,
+  VStack
+} from '@gluestack-ui/themed'
+import { Link } from 'expo-router'
+import { X } from 'lucide-react-native'
 import { type PropsWithChildren } from 'react'
-import { Modal as RNModal } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type ModalProps = PropsWithChildren<{
-  onPressClose: () => void
+  onPressClose?: () => void
   title: string
-  visible: boolean
 }>
 
-const Modal = ({ children, onPressClose, title, visible }: ModalProps) => {
+const Modal = ({ children, onPressClose, title }: ModalProps) => {
   const insets = useSafeAreaInsets()
 
   return (
-    <RNModal
-      animationType='slide'
-      transparent
-      visible={visible}
-    >
-      <Box
+    <VStack flex={1}>
+      <VStack
+        backgroundColor='$backgroundLight100'
         flex={1}
-        paddingTop={insets.top}
       >
-        <Box
-          backgroundColor='$backgroundLight100'
-          borderTopLeftRadius='$md'
-          borderTopRightRadius='$md'
-          flex={1}
-          softShadow='4'
+        <HStack
+          backgroundColor='$secondary100'
+          justifyContent='space-between'
+          paddingTop={insets.top}
+          pb='$4'
+          px='$4'
         >
-          <Box
-            alignItems='center'
-            backgroundColor='$backgroundLight0'
-            borderBottomWidth='$1'
-            borderColor='$light300'
-            justifyContent='center'
-            p='$4'
-          >
-            <Heading>{title}</Heading>
-            <Box
-              alignItems='center'
-              position='absolute'
-              p='$4'
-              right={0}
+          <Heading>{title}</Heading>
+          <Box>
+            <Link
+              href='../'
+              asChild
             >
-              <ButtonText
-                color='$primary500'
+              <Pressable
+                hitSlop={16}
                 onPress={onPressClose}
               >
-                Close
-              </ButtonText>
-            </Box>
+                <Icon as={X} />
+              </Pressable>
+            </Link>
           </Box>
-          <ScrollView flex={1}>
-            {children}
-            <Box h={insets.bottom} />
-          </ScrollView>
-        </Box>
-      </Box>
-    </RNModal>
+        </HStack>
+        <ScrollView flex={1}>
+          {children}
+          <Box h={insets.bottom} />
+        </ScrollView>
+      </VStack>
+    </VStack>
   )
 }
 
