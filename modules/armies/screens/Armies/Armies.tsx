@@ -2,6 +2,7 @@ import { Box, Heading, HStack, VStack } from '@gluestack-ui/themed'
 import { BackgroundImage, Button, Loading } from 'appdeptus/components'
 import { setColorMode } from 'appdeptus/designSystem'
 import { useFocusEffect, useRouter } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
 import { Plus } from 'lucide-react-native'
 import { useCallback } from 'react'
 import { StyleSheet } from 'react-native'
@@ -29,6 +30,10 @@ const ArmiesScreen = () => {
 
   return (
     <VStack flex={1}>
+      <StatusBar
+        animated
+        style='dark'
+      />
       <BackgroundImage
         source='army-builder-bkg'
         opacity={0.5}
