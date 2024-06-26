@@ -6,7 +6,7 @@ import {
 import { GluestackUIProvider } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
 import { config, selectColorMode } from 'appdeptus/designSystem'
-import { store } from 'appdeptus/store'
+import { persistor, store } from 'appdeptus/store'
 import { supabase } from 'appdeptus/utils'
 import { SplashScreen, Stack, useRouter } from 'expo-router'
 import {
@@ -14,6 +14,7 @@ import {
   initialWindowMetrics
 } from 'react-native-safe-area-context'
 import { Provider, useSelector } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 SplashScreen.preventAutoHideAsync()
@@ -42,7 +43,12 @@ const App = () => {
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
       <Provider store={store}>
-        <RootLayout />
+        <PersistGate
+          loading={null}
+          persistor={persistor}
+        >
+          <RootLayout />
+        </PersistGate>
       </Provider>
     </SafeAreaProvider>
   )
