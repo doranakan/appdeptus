@@ -1,4 +1,7 @@
+import { type Action } from '@reduxjs/toolkit'
+import { type RootState } from 'appdeptus/store/types'
 import { supabase } from 'appdeptus/utils'
+import { REHYDRATE } from 'redux-persist'
 
 const getUserId = async () => {
   const { data, error } = await supabase.auth.getUser()
@@ -10,4 +13,12 @@ const getUserId = async () => {
   return data.user.id
 }
 
-export { getUserId }
+const isHydrateAction = (
+  action: Action
+): action is Action<typeof REHYDRATE> & {
+  key: string
+  payload: RootState
+  err: unknown
+} => action.type === REHYDRATE
+
+export { getUserId, isHydrateAction }
