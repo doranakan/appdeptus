@@ -35,7 +35,7 @@ const ArmiesScreen = () => {
         style='dark'
       />
       <BackgroundImage
-        source='army-builder-bkg'
+        source='armybuilder'
         opacity={0.5}
       />
       <SafeAreaView
