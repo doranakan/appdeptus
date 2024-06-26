@@ -4,12 +4,12 @@ import { type ArmyUnit } from 'appdeptus/models'
 import { Link } from 'expo-router'
 import pluralize from 'pluralize'
 
-type ArmyItemProps = {
+type ItemProps = {
   armyId: string
   unit: ArmyUnit
 }
 
-const ArmyItem = ({ armyId, unit }: ArmyItemProps): JSX.Element => (
+const Item = ({ armyId, unit }: ItemProps): JSX.Element => (
   <Link
     href={{
       params: {
@@ -20,7 +20,7 @@ const ArmyItem = ({ armyId, unit }: ArmyItemProps): JSX.Element => (
     }}
     asChild
   >
-    <Pressable>
+    <Pressable opacity={0.9}>
       <Card
         animated
         justifyContent='space-between'
@@ -50,4 +50,4 @@ const ArmyItem = ({ armyId, unit }: ArmyItemProps): JSX.Element => (
   </Link>
 )
 
-export default ArmyItem
+export default Item
