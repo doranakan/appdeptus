@@ -11,7 +11,8 @@ const tabBarBaseOptions = {
   headerShown: false,
   tabBarShowLabel: false,
   tabBarStyle: {
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    elevation: 0
   }
 }
 const TabsLayout = () => {
@@ -42,58 +43,52 @@ const TabsLayout = () => {
         transition={{
           duration: 500
         }}
-        style={{ height: '100%' }}
+        style={{ height: '100%', width: '100%', position: 'absolute' }}
       />
-      <VStack
-        h='$full'
-        position='absolute'
-        w='$full'
+      <Tabs
+        screenOptions={{ headerShown: false }}
+        initialRouteName='armies'
       >
-        <Tabs
-          screenOptions={{ headerShown: false }}
-          initialRouteName='armies'
-        >
-          <Tabs.Screen
-            name='armies'
-            options={{
-              ...tabBarBaseOptions,
-              tabBarIcon: ({ focused }) => (
-                <TabBarItem
-                  focused={focused}
-                  Icon={Shield}
-                  title='Build'
-                />
-              )
-            }}
-          />
-          <Tabs.Screen
-            name='play'
-            options={{
-              ...tabBarBaseOptions,
-              tabBarIcon: ({ focused }) => (
-                <TabBarItem
-                  focused={focused}
-                  Icon={Dices}
-                  title='Play'
-                />
-              )
-            }}
-          />
-          <Tabs.Screen
-            name='settings'
-            options={{
-              ...tabBarBaseOptions,
-              tabBarIcon: ({ focused }) => (
-                <TabBarItem
-                  focused={focused}
-                  Icon={Settings}
-                  title='Settings'
-                />
-              )
-            }}
-          />
-        </Tabs>
-      </VStack>
+        <Tabs.Screen
+          name='armies'
+          options={{
+            ...tabBarBaseOptions,
+            tabBarIcon: ({ focused }) => (
+              <TabBarItem
+                focused={focused}
+                Icon={Shield}
+                title='Build'
+              />
+            )
+          }}
+        />
+        <Tabs.Screen
+          name='play'
+          options={{
+            ...tabBarBaseOptions,
+            tabBarIcon: ({ focused }) => (
+              <TabBarItem
+                focused={focused}
+                Icon={Dices}
+                title='Play'
+              />
+            )
+          }}
+        />
+        <Tabs.Screen
+          name='settings'
+          options={{
+            ...tabBarBaseOptions,
+            tabBarIcon: ({ focused }) => (
+              <TabBarItem
+                focused={focused}
+                Icon={Settings}
+                title='Settings'
+              />
+            )
+          }}
+        />
+      </Tabs>
     </VStack>
   )
 }
