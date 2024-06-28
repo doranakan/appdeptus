@@ -1,6 +1,7 @@
+// /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { AnimationResolver } from '@gluestack-style/animation-resolver'
 import { MotiAnimationDriver } from '@gluestack-style/moti-animation-driver'
-import { createConfig } from '@gluestack-style/react'
+import { FontResolver, createConfig } from '@gluestack-style/react'
 import { config as GSConfig } from '@gluestack-ui/config'
 import { CodexName } from 'appdeptus/models'
 import { merge } from 'lodash'
@@ -59,9 +60,40 @@ const config = createConfig(
       }
     },
     // ------------------ PLUGINS 💽
-    plugins: [new AnimationResolver(MotiAnimationDriver)],
+    plugins: [
+      new AnimationResolver(MotiAnimationDriver),
+      new FontResolver({
+        mapFonts: (style: {
+          fontWeight?: string
+          fontStyle?: string
+          fontFamily: string
+        }) => {
+          if (style.fontFamily === 'Grenze') {
+            style.fontWeight = undefined
+            style.fontStyle = undefined
+            style.fontFamily = 'Grenze_700Bold'
+          }
+          if (style.fontFamily === 'NotoSerif') {
+            if (style.fontWeight === '400') {
+              style.fontWeight = undefined
+              style.fontStyle = undefined
+              style.fontFamily = 'NotoSerif_400Regular'
+            } else {
+              style.fontWeight = undefined
+              style.fontStyle = undefined
+              style.fontFamily = 'NotoSerif_700Bold'
+            }
+          }
+        }
+      })
+    ],
     // ------------------ BASE TOKENS 🟥🟩🟦
     tokens: {
+      fonts: {
+        heading: 'Grenze',
+        body: 'NotoSerif',
+        mono: undefined
+      },
       colors: {
         primary50: '#FBE9ED',
         primary100: '#F8D3DB',
