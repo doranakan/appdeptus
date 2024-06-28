@@ -39,7 +39,7 @@ const CodexSelectionScreen = () => {
 
   const { data: codexes } = useGetCodexesQuery()
 
-  const { reset } = useFormContext<ArmyForm>()
+  const { reset, setValue } = useFormContext<ArmyForm>()
 
   const selectedCodex = useMemo(
     () => codexes?.[selectedIndex],
@@ -49,13 +49,15 @@ const CodexSelectionScreen = () => {
   const startBuilding = useCallback(() => {
     reset()
 
+    setValue('codexId', selectedCodex?.id ?? '')
+
     router.push({
       params: {
         codexId: selectedCodex?.id
       },
       pathname: './unit-selection'
     })
-  }, [reset, router, selectedCodex])
+  }, [reset, router, selectedCodex?.id, setValue])
 
   useEffect(() => {
     if (selectedCodex) {
