@@ -53,7 +53,7 @@ const UnitListHeader = ({
         flex={2}
       >
         <Text fontSize='$3xl'>
-          <Text fontWeight='$black'>{totalPoints}</Text>
+          <Text fontWeight='$bold'>{totalPoints}</Text>
           <Text> total points</Text>
         </Text>
       </Box>
