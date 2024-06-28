@@ -17,7 +17,7 @@ const config = createConfig(
           _text: {
             fontFamily: 'NotoSerif'
           },
-          borderRadius: '$0',
+          borderRadius: '$none',
           variants: {
             action: {
               negative: {
