@@ -1,14 +1,11 @@
 import { type CodexName } from 'appdeptus/models'
 import { StatusBar } from 'expo-status-bar'
-import AnimatedBackgroundImage from '../AnimatedBackgroundImage'
+import BackgroundImage from '../BackgroundImage'
 import mapCodexNameToBackground from './mapCodexNameToBackground'
 
 type ArmyBackgroundImageProps = {
   codexName: CodexName
   opacity?: number
-  duration?: number
-  exitScale?: number
-  fromScale?: number
 }
 
 const ArmyBackgroundImage = ({
@@ -16,11 +13,8 @@ const ArmyBackgroundImage = ({
   ...props
 }: ArmyBackgroundImageProps) => (
   <>
-    <StatusBar
-      animated
-      style='light'
-    />
-    <AnimatedBackgroundImage
+    <StatusBar style='light' />
+    <BackgroundImage
       source={mapCodexNameToBackground[codexName]}
       {...props}
     />

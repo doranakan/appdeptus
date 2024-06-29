@@ -7,7 +7,7 @@ import {
   VStack
 } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { ArmyBackgroundImage, Loading } from 'appdeptus/components'
+import { AnimatedArmyBackgroundImage, Loading } from 'appdeptus/components'
 import { config, setColorMode, useColorMode } from 'appdeptus/designSystem'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { Link, useLocalSearchParams } from 'expo-router'
@@ -84,7 +84,7 @@ const ArmyScreen = () => {
         position='absolute'
         width='$full'
       >
-        <ArmyBackgroundImage
+        <AnimatedArmyBackgroundImage
           codexName={army.codex.name}
           duration={200}
           fromScale={1.1}

@@ -8,7 +8,7 @@ import {
 import MaskedView from '@react-native-masked-view/masked-view'
 import { codexSelectionMask } from 'appdeptus/assets'
 import {
-  ArmyBackgroundImage,
+  AnimatedArmyBackgroundImage,
   ArmyIcon,
   Button,
   Card,
@@ -71,7 +71,7 @@ const CodexSelectionScreen = () => {
 
   return (
     <VStack>
-      <ArmyBackgroundImage
+      <AnimatedArmyBackgroundImage
         codexName={selectedCodex.name}
         opacity={0.2}
         duration={200}
@@ -122,7 +122,7 @@ const CodexSelectionScreen = () => {
               h='$full'
               w='$full'
             >
-              <ArmyBackgroundImage codexName={selectedCodex.name} />
+              <AnimatedArmyBackgroundImage codexName={selectedCodex.name} />
             </Box>
           </MaskedView>
         </VStack>
