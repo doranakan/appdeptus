@@ -124,6 +124,7 @@ export {
   armiesSchema,
   armySchema,
   armyToEditSchema,
+  codexSchema,
   codexesSchema,
   tiersSchema,
   unitCompositionsSchema,
