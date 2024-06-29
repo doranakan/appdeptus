@@ -1,14 +1,17 @@
-import { Box } from '@gluestack-ui/themed'
+import { Box, HStack, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Loading } from 'appdeptus/components'
-import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
+import { type ArmyForm } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
-import React, { useCallback, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { FlatList, StyleSheet, type ListRenderItem } from 'react-native'
-import { useGetArmyToEditQuery, useGetCodexUnitsQuery } from '../../api'
-import { UnitListHeader } from '../../components'
-import UnitListItem from './UnitListItem'
+import {
+  useGetArmyToEditQuery,
+  useGetCodexQuery,
+  useGetCodexUnitsQuery
+} from '../../api'
+import { CodexCoverImage, UnitListHeader } from '../../components'
+import UnitList from './UnitList'
 
 const UnitSelectionScreen = () => {
   const { armyId, codexId } = useLocalSearchParams<{
@@ -20,20 +23,9 @@ const UnitSelectionScreen = () => {
     armyId ?? skipToken
   )
 
-  const { data: units } = useGetCodexUnitsQuery(codexId ?? skipToken)
+  const { data: codex } = useGetCodexQuery(codexId ?? skipToken)
 
-  const renderItem = useCallback<ListRenderItem<CodexUnit>>(
-    ({ item: unit, index }) => {
-      return (
-        <UnitListItem
-          codexId={codexId}
-          unitIndex={index}
-          unit={unit}
-        />
-      )
-    },
-    [codexId]
-  )
+  const { data: units } = useGetCodexUnitsQuery(codexId ?? skipToken)
 
   const { reset } = useFormContext<ArmyForm>()
 
@@ -43,33 +35,45 @@ const UnitSelectionScreen = () => {
     }
   }, [armyToEdit, reset])
 
-  if (!units || !codexId || isFetching) {
+  if (!codex || !units || !codexId || isFetching) {
     return <Loading />
   }
 
   return (
-    <>
-      <UnitListHeader
-        armyId={armyId}
-        codexId={codexId}
-      />
-      <FlatList
-        data={units}
-        ItemSeparatorComponent={() => <Box height='$4' />}
-        ListFooterComponent={() => <Box height='$8' />}
-        keyExtractor={(unit) => unit.id}
-        renderItem={renderItem}
-        style={styles.flatList}
-      />
-    </>
+    <VStack flex={1}>
+      <CodexCoverImage codexName={codex.name} />
+      <VStack
+        flex={1}
+        h='$full'
+        position='absolute'
+        w='$full'
+      >
+        <HStack flex={1}>
+          <VStack
+            h='$full'
+            px='$4'
+            w='$12'
+          >
+            <Box
+              bgColor='$secondary700'
+              h='$full'
+              w='$full'
+            />
+          </VStack>
+          <VStack flex={1}>
+            <UnitListHeader
+              armyId={armyId}
+              codexId={codexId}
+            />
+            <UnitList
+              codexId={codex.id}
+              units={units}
+            />
+          </VStack>
+        </HStack>
+      </VStack>
+    </VStack>
   )
 }
-
-const styles = StyleSheet.create({
-  flatList: {
-    flex: 1,
-    padding: 16
-  }
-})
 
 export default UnitSelectionScreen

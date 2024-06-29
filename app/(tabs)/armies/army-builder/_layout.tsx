@@ -16,14 +16,16 @@ const ArmiesLayout = () => {
   return (
     <FormProvider {...form}>
       <StatusBar style='light' />
-      <Stack>
+      <Stack screenOptions={{ animation: 'fade' }}>
         <Stack.Screen
           name='codex-selection'
           options={{ headerShown: false }}
         />
         <Stack.Screen
           name='unit-selection'
-          options={{ headerBackTitle: 'Back', title: 'Select units' }}
+          options={{
+            headerShown: false
+          }}
         />
         <Stack.Screen
           name='tier-selection'

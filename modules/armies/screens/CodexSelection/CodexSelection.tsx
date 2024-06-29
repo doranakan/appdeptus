@@ -1,10 +1,4 @@
-import {
-  Box,
-  LinearGradient,
-  Pressable,
-  Text,
-  VStack
-} from '@gluestack-ui/themed'
+import { Box, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import MaskedView from '@react-native-masked-view/masked-view'
 import { codexSelectionMask } from 'appdeptus/assets'
 import {
@@ -16,7 +10,6 @@ import {
 } from 'appdeptus/components'
 import { setColorMode, useColorMode } from 'appdeptus/designSystem'
 import { CodexName, type ArmyForm } from 'appdeptus/models'
-import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { useRouter } from 'expo-router'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -24,6 +17,7 @@ import { FlatList } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { useDispatch } from 'react-redux'
 import { useGetCodexesQuery } from '../../api'
+import { CodexCoverImage } from '../../components'
 import GradientHeading from './GradientHeading'
 
 const AVAILABLED_ARMIES = [CodexName.TYRANIDS]
@@ -71,29 +65,10 @@ const CodexSelectionScreen = () => {
 
   return (
     <VStack>
-      <AnimatedArmyBackgroundImage
+      <CodexCoverImage
+        animated
         codexName={selectedCodex.name}
-        opacity={0.2}
-        duration={200}
-        fromScale={1.1}
-        exitScale={1.5}
       />
-      <Box
-        h='$full'
-        position='absolute'
-        w='$full'
-      >
-        <LinearGradient
-          colors={['$white', 'rgba(255,255,255,0)']}
-          start={0}
-          end={1}
-          as={ExpoLinearGradient}
-          style={{
-            height: '100%',
-            width: '100%'
-          }}
-        />
-      </Box>
       <VStack
         h='$full'
         position='absolute'

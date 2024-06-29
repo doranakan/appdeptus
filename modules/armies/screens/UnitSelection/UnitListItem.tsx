@@ -1,51 +1,36 @@
-import { Box, ButtonGroup, HStack, Heading, Text } from '@gluestack-ui/themed'
+import { Box, HStack, Heading, Text } from '@gluestack-ui/themed'
 import { Button, Card } from 'appdeptus/components'
 import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
-import { useRouter } from 'expo-router'
+import { router } from 'expo-router'
 import { Edit, Plus } from 'lucide-react-native'
-import React, { useMemo } from 'react'
-import { useFieldArray, useFormContext } from 'react-hook-form'
+import React from 'react'
+import { useFieldArray } from 'react-hook-form'
 
 type UnitListItemProps = {
-  codexId?: string
+  count: number
+  points: number
   unit: CodexUnit
   unitIndex: number
+
+  codexId?: string
 }
 
-const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
-  const router = useRouter()
-
+const UnitListItem = ({
+  count,
+  points,
+  unit,
+  unitIndex,
+  codexId
+}: UnitListItemProps) => {
   const { append } = useFieldArray<ArmyForm, 'units', string>({
     name: 'units',
     keyName: `${unit.id}-${unitIndex}`
   })
 
-  const { watch } = useFormContext<ArmyForm>()
-  const allunits = watch('units')
-
-  const units = useMemo(
-    () => allunits.filter(({ unit: unitId }) => unitId === unit.id),
-    [allunits, unit.id]
-  )
-
-  const count = units.length
-
-  const points = useMemo(() => {
-    let points = 0
-    for (const choice of units) {
-      const tier = unit.tiers.find((t) => t.id === choice.tier)
-      if (tier) {
-        points += tier.points
-      }
-    }
-    return points || unit.tiers[0]?.points
-  }, [units, unit.tiers])
-
   return (
     <Card
-      gradient={count ? 'primary' : 'secondary'}
       gap='$4'
-      shadowOpacity={0}
+      opacity={count ? 1 : 0.7}
     >
       <HStack justifyContent='space-between'>
         <Text>
@@ -60,7 +45,10 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
         </Box>
       </HStack>
 
-      <ButtonGroup flex={1}>
+      <HStack
+        flex={1}
+        gap='$2'
+      >
         <Button
           action='secondary'
           disabled={count >= unit.limit}
@@ -93,9 +81,9 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
           }}
           text='Edit'
         />
-      </ButtonGroup>
+      </HStack>
     </Card>
   )
 }
 
-export default UnitListItem
+export default React.memo(UnitListItem)
