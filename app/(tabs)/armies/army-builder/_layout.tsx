@@ -1,6 +1,5 @@
 import { type ArmyForm } from 'appdeptus/models'
 import { Stack } from 'expo-router'
-import { StatusBar } from 'expo-status-bar'
 import { FormProvider, useForm } from 'react-hook-form'
 
 const ArmiesLayout = () => {
@@ -15,7 +14,6 @@ const ArmiesLayout = () => {
 
   return (
     <FormProvider {...form}>
-      <StatusBar style='light' />
       <Stack screenOptions={{ animation: 'fade' }}>
         <Stack.Screen
           name='codex-selection'

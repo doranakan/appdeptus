@@ -11,6 +11,7 @@ import {
 import { setColorMode, useColorMode } from 'appdeptus/designSystem'
 import { CodexName, type ArmyForm } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
@@ -65,6 +66,10 @@ const CodexSelectionScreen = () => {
 
   return (
     <VStack>
+      <StatusBar
+        animated
+        style='light'
+      />
       <CodexCoverImage
         animated
         codexName={selectedCodex.name}

@@ -8,10 +8,9 @@ import UnitListHeader from './Header'
 
 type UpdateArmyHeaderProps = {
   armyId: string
-  codexId: string
 }
 
-const UpdateArmyHeader = ({ armyId, codexId }: UpdateArmyHeaderProps) => {
+const UpdateArmyHeader = ({ armyId }: UpdateArmyHeaderProps) => {
   const router = useRouter()
 
   const [updateArmy, { isLoading }] = useUpdateArmyMutation()
@@ -42,7 +41,6 @@ const UpdateArmyHeader = ({ armyId, codexId }: UpdateArmyHeaderProps) => {
 
   return (
     <UnitListHeader
-      codexId={codexId}
       loading={isLoading}
       onSubmit={handleSubmit}
       submitTitle='Save changes'

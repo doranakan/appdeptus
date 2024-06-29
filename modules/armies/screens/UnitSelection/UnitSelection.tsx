@@ -3,8 +3,10 @@ import { skipToken } from '@reduxjs/toolkit/query'
 import { Loading } from 'appdeptus/components'
 import { type ArmyForm } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
 import React, { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import {
   useGetArmyToEditQuery,
   useGetCodexQuery,
@@ -18,6 +20,8 @@ const UnitSelectionScreen = () => {
     armyId: string
     codexId: string
   }>()
+
+  const insets = useSafeAreaInsets()
 
   const { data: armyToEdit, isFetching } = useGetArmyToEditQuery(
     armyId ?? skipToken
@@ -41,37 +45,41 @@ const UnitSelectionScreen = () => {
 
   return (
     <VStack flex={1}>
-      <CodexCoverImage codexName={codex.name} />
+      <StatusBar
+        animated
+        style='dark'
+      />
       <VStack
-        flex={1}
         h='$full'
         position='absolute'
         w='$full'
       >
-        <HStack flex={1}>
-          <VStack
-            h='$full'
-            px='$4'
-            w='$12'
-          >
-            <Box
-              bgColor='$secondary700'
-              h='$full'
-              w='$full'
-            />
-          </VStack>
-          <VStack flex={1}>
-            <UnitListHeader
-              armyId={armyId}
-              codexId={codexId}
-            />
-            <UnitList
-              codexId={codex.id}
-              units={units}
-            />
-          </VStack>
-        </HStack>
+        <CodexCoverImage codexName={codex.name} />
       </VStack>
+      <HStack flex={1}>
+        <VStack
+          alignItems='center'
+          h='$full'
+          mt={insets.top + 16}
+          w='$16'
+        >
+          <Box
+            bgColor='$secondary700'
+            h='$full'
+            w='$8'
+          />
+        </VStack>
+        <VStack flex={1}>
+          <UnitListHeader
+            armyId={armyId}
+            codex={codex}
+          />
+          <UnitList
+            codexId={codex.id}
+            units={units}
+          />
+        </VStack>
+      </HStack>
     </VStack>
   )
 }
