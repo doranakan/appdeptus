@@ -3,6 +3,7 @@ import { Image } from 'expo-image'
 import { AnimatePresence, motify } from 'moti'
 
 type AnimatedBackgroundImageProps = {
+  delay?: number
   duration?: number
   exitScale?: number
   fromScale?: number
@@ -13,6 +14,7 @@ type AnimatedBackgroundImageProps = {
 const AnimatedImage = motify(Image)()
 
 const AnimatedBackgroundImage = ({
+  delay = 0,
   duration = 150,
   exitScale = 0.9,
   fromScale = 1.1,
@@ -43,12 +45,13 @@ const AnimatedBackgroundImage = ({
           width: '100%'
         }}
         exitTransition={{
-          type: 'timing',
-          duration
+          duration,
+          type: 'timing'
         }}
         transition={{
-          type: 'timing',
-          duration
+          delay,
+          duration,
+          type: 'timing'
         }}
         key={source}
         source={source}
