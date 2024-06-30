@@ -1,3 +1,4 @@
+export { default as ArmyCoverImage } from './ArmyCoverImage'
 export { default as CodexCoverImage } from './CodexCoverImage'
 export { default as StatSheet } from './StatSheet'
 export { default as UnitCard } from './UnitCard'

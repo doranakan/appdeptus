@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, Heading, VStack } from '@gluestack-ui/themed'
 import { BackgroundImage, Button, Loading } from 'appdeptus/components'
 import { setColorMode } from 'appdeptus/designSystem'
 import { useFocusEffect, useRouter } from 'expo-router'
@@ -51,7 +51,13 @@ const ArmiesScreen = () => {
             alignItems='center'
             justifyContent='space-between'
           >
-            <Heading size='3xl'>Your armies</Heading>
+            <Heading
+              fontFamily='$mono'
+              textTransform='capitalize'
+              size='4xl'
+            >
+              Your armies
+            </Heading>
             <Button
               borderRadius='$full'
               Icon={Plus}

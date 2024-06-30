@@ -1,4 +1,4 @@
-import { Box, Pressable, Text, VStack } from '@gluestack-ui/themed'
+import { Box, Heading, Pressable, VStack } from '@gluestack-ui/themed'
 import MaskedView from '@react-native-masked-view/masked-view'
 import { codexSelectionMask } from 'appdeptus/assets'
 import {
@@ -6,6 +6,7 @@ import {
   ArmyIcon,
   Button,
   Card,
+  GradientHeading,
   Loading
 } from 'appdeptus/components'
 import { setColorMode, useColorMode } from 'appdeptus/designSystem'
@@ -20,7 +21,6 @@ import { SvgXml } from 'react-native-svg'
 import { useDispatch } from 'react-redux'
 import { useGetCodexesQuery } from '../../api'
 import { CodexCoverImage } from '../../components'
-import GradientHeading from './GradientHeading'
 
 const AVAILABLED_ARMIES = [CodexName.TYRANIDS]
 
@@ -121,16 +121,16 @@ const CodexSelectionScreen = () => {
             borderWidth='$1'
             px='$8'
           >
-            <Text
+            <Heading
+              letterSpacing='$xl'
+              lineHeight='$xl'
               size='xl'
               textTransform='uppercase'
             >
               Codex
-            </Text>
+            </Heading>
           </Box>
-          <GradientHeading colorMode={colorMode}>
-            {selectedCodex.name}
-          </GradientHeading>
+          <GradientHeading>{selectedCodex.name}</GradientHeading>
         </VStack>
         <VStack>
           <Box h={92}>

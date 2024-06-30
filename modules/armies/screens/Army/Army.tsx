@@ -122,7 +122,7 @@ const ArmyScreen = () => {
         borderColor='$primary800'
         gap='$8'
         justifyContent='flex-end'
-        opacity={0.8}
+        opacity={0.6}
         pb='$4'
         pt={insets.top}
         px='$4'
