@@ -67,6 +67,13 @@ const config = createConfig({
         borderRadius: '$none'
       }
     },
+    InputField: {
+      ...GSConfig.components.InputField,
+      theme: {
+        ...GSConfig.components.InputField.theme,
+        fontFamily: '$body'
+      }
+    },
     Pressable: {
       ...GSConfig.components.Pressable,
       theme: {

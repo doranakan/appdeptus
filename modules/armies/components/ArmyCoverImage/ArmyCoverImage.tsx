@@ -1,15 +1,15 @@
 import { LinearGradient, VStack } from '@gluestack-ui/themed'
 import { AnimatedArmyBackgroundImage } from 'appdeptus/components'
 import { config, useColorMode } from 'appdeptus/designSystem'
-import { type Army } from 'appdeptus/models'
+import { type CodexName } from 'appdeptus/models'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { MotiView } from 'moti'
 
 type ArmyCoverImageProps = {
-  army: Army
+  codexName: CodexName
 }
 
-const ArmyCoverImage = ({ army }: ArmyCoverImageProps) => {
+const ArmyCoverImage = ({ codexName }: ArmyCoverImageProps) => {
   const colorMode = useColorMode()
   return (
     <VStack
@@ -18,7 +18,7 @@ const ArmyCoverImage = ({ army }: ArmyCoverImageProps) => {
       width='$full'
     >
       <AnimatedArmyBackgroundImage
-        codexName={army.codex.name}
+        codexName={codexName}
         duration={200}
         fromScale={1.1}
         opacity={0.3}
