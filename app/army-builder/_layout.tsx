@@ -14,7 +14,7 @@ const ArmiesLayout = () => {
 
   return (
     <FormProvider {...form}>
-      <Stack screenOptions={{ animation: 'fade' }}>
+      <Stack>
         <Stack.Screen
           name='codex-selection'
           options={{ headerShown: false }}
