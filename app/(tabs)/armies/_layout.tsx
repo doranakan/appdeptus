@@ -1,4 +1,5 @@
 import { Stack } from 'expo-router'
+import { Platform } from 'react-native'
 
 const ArmiesLayout = () => (
   <Stack screenOptions={{ headerShown: false }}>
@@ -12,8 +13,9 @@ const ArmiesLayout = () => (
     <Stack.Screen
       name='[armyId]/[...unitDetail]'
       options={{
-        gestureEnabled: false,
-        animation: 'fade_from_bottom'
+        animation: Platform.OS === 'android' ? 'slide_from_bottom' : undefined,
+        presentation: Platform.OS === 'ios' ? 'modal' : undefined,
+        fullScreenGestureEnabled: true
       }}
     />
   </Stack>

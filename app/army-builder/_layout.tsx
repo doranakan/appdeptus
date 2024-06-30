@@ -1,6 +1,7 @@
 import { type ArmyForm } from 'appdeptus/models'
 import { Stack } from 'expo-router'
 import { FormProvider, useForm } from 'react-hook-form'
+import { Platform } from 'react-native'
 
 const ArmiesLayout = () => {
   const form = useForm<ArmyForm>({
@@ -27,7 +28,13 @@ const ArmiesLayout = () => {
         />
         <Stack.Screen
           name='tier-selection'
-          options={{ headerBackTitle: 'Back', title: 'Customize units' }}
+          options={{
+            animation:
+              Platform.OS === 'android' ? 'slide_from_bottom' : undefined,
+            presentation: Platform.OS === 'ios' ? 'modal' : undefined,
+            fullScreenGestureEnabled: true,
+            headerShown: false
+          }}
         />
         <Stack.Screen
           name='option-selection'
