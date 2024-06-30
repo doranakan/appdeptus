@@ -1,12 +1,12 @@
 import { Box } from '@gluestack-ui/themed'
-import { config, useColorMode } from 'appdeptus/designSystem'
+import { config, useColorMode, type Colors } from 'appdeptus/designSystem'
 import { type CodexName } from 'appdeptus/models'
 import { SvgXml } from 'react-native-svg'
 import mapCodexNameToIcon from './mapCodexNameToIcon'
 
 type ArmyIconProps = {
   codexName: CodexName
-  color?: keyof typeof config.tokens.colors
+  color?: Colors
   flex?: number
   h?: number
   w?: number
