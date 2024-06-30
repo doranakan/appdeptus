@@ -22,37 +22,39 @@ const Modal = ({ children, onPressClose, title }: ModalProps) => {
 
   return (
     <VStack flex={1}>
-      <VStack
-        backgroundColor='$backgroundLight100'
-        flex={1}
+      <HStack
+        alignItems='center'
+        bg='$primary700'
+        borderColor='$primary800'
+        borderBottomWidth='$1'
+        justifyContent='space-between'
+        opacity='$60'
+        paddingTop={insets.top}
+        pb='$4'
+        px='$4'
       >
-        <HStack
-          backgroundColor='$secondary100'
-          justifyContent='space-between'
-          paddingTop={insets.top}
-          pb='$4'
-          px='$4'
-        >
-          <Heading>{title}</Heading>
-          <Box>
-            <Link
-              href='../'
-              asChild
+        <Heading color='$white'>{title}</Heading>
+        <VStack>
+          <Link
+            href='../'
+            asChild
+          >
+            <Pressable
+              hitSlop={16}
+              onPress={onPressClose}
             >
-              <Pressable
-                hitSlop={16}
-                onPress={onPressClose}
-              >
-                <Icon as={X} />
-              </Pressable>
-            </Link>
-          </Box>
-        </HStack>
-        <ScrollView flex={1}>
-          {children}
-          <Box h={insets.bottom} />
-        </ScrollView>
-      </VStack>
+              <Icon
+                as={X}
+                color='$white'
+              />
+            </Pressable>
+          </Link>
+        </VStack>
+      </HStack>
+      <ScrollView flex={1}>
+        {children}
+        <Box h={insets.bottom} />
+      </ScrollView>
     </VStack>
   )
 }

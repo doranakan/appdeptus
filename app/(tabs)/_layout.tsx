@@ -1,4 +1,4 @@
-import { Icon as GSIcon, Text, VStack } from '@gluestack-ui/themed'
+import { Icon as GSIcon, Heading, VStack } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
 import { config, useColorMode } from 'appdeptus/designSystem'
 import { supabase } from 'appdeptus/utils'
@@ -102,19 +102,23 @@ const TabBarItem = ({
   Icon: LucideIcon
   title: string
 }) => (
-  <VStack alignItems='center'>
+  <VStack
+    alignItems='center'
+    gap='$1'
+  >
     <GSIcon
       as={Icon}
       color={focused ? '$white' : '$light400'}
       size='xs'
     />
 
-    <Text
+    <Heading
       color={focused ? '$white' : '$light400'}
       size='xs'
+      fontSize='$xs'
     >
       {title}
-    </Text>
+    </Heading>
   </VStack>
 )
 

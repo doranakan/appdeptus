@@ -41,9 +41,9 @@ const UnitListHeader = ({
               <InputField
                 {...props}
                 onChangeText={onChange}
-                fontFamily='Grenze'
+                fontFamily='AmericanText'
                 placeholder='Army name'
-                size='2xl'
+                size='3xl'
               />
             </Input>
           )}

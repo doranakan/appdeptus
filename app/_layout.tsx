@@ -1,9 +1,11 @@
-import { Grenze_700Bold, useFonts } from '@expo-google-fonts/grenze'
 import {
   NotoSerif_400Regular,
-  NotoSerif_700Bold
+  NotoSerif_700Bold,
+  useFonts
 } from '@expo-google-fonts/noto-serif'
+import { RobotoCondensed_700Bold } from '@expo-google-fonts/roboto-condensed'
 import { useAsyncEffect } from 'ahooks'
+import { AmericanText } from 'appdeptus/assets'
 import { ThemeProvider, config, selectColorMode } from 'appdeptus/designSystem'
 import { store } from 'appdeptus/store'
 import { supabase } from 'appdeptus/utils'
@@ -21,9 +23,10 @@ const App = () => {
   const router = useRouter()
 
   const [fontLoaded] = useFonts({
-    Grenze_700Bold,
+    AmericanText,
     NotoSerif_400Regular,
-    NotoSerif_700Bold
+    NotoSerif_700Bold,
+    RobotoCondensed_700Bold
   })
 
   useAsyncEffect(async () => {

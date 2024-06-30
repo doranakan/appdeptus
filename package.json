@@ -9,8 +9,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@expo-google-fonts/grenze": "^0.2.3",
     "@expo-google-fonts/noto-serif": "^0.2.3",
+    "@expo-google-fonts/roboto-condensed": "^0.2.3",
     "@expo/html-elements": "^0.9.1",
     "@gluestack-style/animation-resolver": "^1.0.4",
     "@gluestack-style/moti-animation-driver": "^1.0.2",

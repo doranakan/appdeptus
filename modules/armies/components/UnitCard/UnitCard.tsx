@@ -45,7 +45,7 @@ const UnitCard = ({
       >
         <Text>{subtitle}</Text>
         <Text
-          bold
+          fontFamily='$heading'
           textTransform='uppercase'
         >
           {points} pts
