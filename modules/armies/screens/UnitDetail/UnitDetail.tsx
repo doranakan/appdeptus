@@ -56,7 +56,7 @@ const UnitDetail = () => {
 
   return (
     <>
-      <ArmyCoverImage army={army} />
+      <ArmyCoverImage codexName={army.codex.name} />
       <Modal title={`Unit: ${unit.name}`}>
         <ScrollView flex={1}>
           <VStack
