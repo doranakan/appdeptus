@@ -23,15 +23,16 @@
   },
   "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "@typescript-eslint/naming-convention": "off",
-    "@typescript-eslint/no-throw-literal": "off",
-    "@typescript-eslint/strict-boolean-expressions": "off",
-    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/array-type": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
-    "react/react-in-jsx-scope": "off",
-    "multiline-ternary": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/indent": "off",
-    "@typescript-eslint/no-misused-promises": "off"
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/no-invalid-void-type": "off",
+    "@typescript-eslint/no-misused-promises": "off",
+    "@typescript-eslint/no-throw-literal": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    "multiline-ternary": "off",
+    "react/react-in-jsx-scope": "off"
   }
 }
