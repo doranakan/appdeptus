@@ -4,12 +4,12 @@ import {
   useFonts
 } from '@expo-google-fonts/noto-serif'
 import { RobotoCondensed_700Bold } from '@expo-google-fonts/roboto-condensed'
-import { useAsyncEffect } from 'ahooks'
 import { AmericanText } from 'appdeptus/assets'
 import { ThemeProvider, config, selectColorMode } from 'appdeptus/designSystem'
+import { useGetSessionQuery } from 'appdeptus/modules/root/api'
 import { store } from 'appdeptus/store'
-import { supabase } from 'appdeptus/utils'
-import { SplashScreen, Stack, useRouter } from 'expo-router'
+import { SplashScreen, Stack, router } from 'expo-router'
+import { useEffect } from 'react'
 import {
   SafeAreaProvider,
   initialWindowMetrics
@@ -19,8 +19,16 @@ import { Provider, useSelector } from 'react-redux'
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 SplashScreen.preventAutoHideAsync()
 
-const App = () => {
-  const router = useRouter()
+const App = () => (
+  <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+    <Provider store={store}>
+      <RootLayout />
+    </Provider>
+  </SafeAreaProvider>
+)
+
+const RootLayout = () => {
+  const { data } = useGetSessionQuery()
 
   const [fontLoaded] = useFonts({
     AmericanText,
@@ -29,29 +37,14 @@ const App = () => {
     RobotoCondensed_700Bold
   })
 
-  useAsyncEffect(async () => {
-    const { data } = await supabase.auth.getSession()
+  const colorMode = useSelector(selectColorMode)
 
-    if (data.session !== null) {
+  useEffect(() => {
+    if (data && fontLoaded) {
       router.replace('armies')
-    }
-
-    if (fontLoaded) {
       setTimeout(SplashScreen.hideAsync, 500)
     }
-  }, [fontLoaded])
-
-  return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <Provider store={store}>
-        <RootLayout />
-      </Provider>
-    </SafeAreaProvider>
-  )
-}
-
-const RootLayout = () => {
-  const colorMode = useSelector(selectColorMode)
+  }, [data, fontLoaded])
 
   return (
     <ThemeProvider
