@@ -28,7 +28,7 @@ const App = () => (
 )
 
 const RootLayout = () => {
-  const { data } = useGetSessionQuery()
+  const { data: session } = useGetSessionQuery()
 
   const [fontLoaded] = useFonts({
     AmericanText,
@@ -41,12 +41,21 @@ const RootLayout = () => {
 
   useEffect(() => {
     if (fontLoaded) {
-      if (data) {
-        router.replace('armies')
-      }
       setTimeout(SplashScreen.hideAsync, 500)
     }
-  }, [data, fontLoaded])
+  }, [fontLoaded])
+
+  useEffect(() => {
+    switch (true) {
+      case !!session: {
+        router.replace('armies')
+        return
+      }
+      case !session: {
+        router.replace('/')
+      }
+    }
+  }, [session])
 
   return (
     <ThemeProvider

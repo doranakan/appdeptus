@@ -1,8 +1,6 @@
 import { Icon as GSIcon, Heading, VStack } from '@gluestack-ui/themed'
-import { useAsyncEffect } from 'ahooks'
 import { config, useColorMode } from 'appdeptus/designSystem'
-import { supabase } from 'appdeptus/utils'
-import { Tabs, useRouter } from 'expo-router'
+import { Tabs } from 'expo-router'
 import { Dices, Settings, Shield, type LucideIcon } from 'lucide-react-native'
 import { MotiView } from 'moti'
 import React from 'react'
@@ -16,17 +14,7 @@ const tabBarBaseOptions = {
   }
 }
 const TabsLayout = () => {
-  const router = useRouter()
-
   const colorMode = useColorMode()
-
-  useAsyncEffect(async () => {
-    const { data } = await supabase.auth.getSession()
-
-    if (data.session === null) {
-      router.replace('/')
-    }
-  }, [])
 
   return (
     <VStack
