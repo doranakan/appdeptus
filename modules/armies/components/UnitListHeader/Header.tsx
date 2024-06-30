@@ -21,6 +21,7 @@ const UnitListHeader = ({
 
   const { control, watch } = useFormContext<ArmyForm>()
 
+  const name = watch('name')
   const units = watch('units')
 
   return (
@@ -51,7 +52,7 @@ const UnitListHeader = ({
       </VStack>
 
       <Button
-        disabled={!units.length}
+        disabled={!units.length || !name.length}
         loading={loading}
         Icon={ClipboardCheck}
         onPress={onSubmit}
