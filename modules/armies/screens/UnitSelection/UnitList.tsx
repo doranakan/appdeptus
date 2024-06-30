@@ -3,6 +3,7 @@ import { type ArmyForm, type Codex, type CodexUnit } from 'appdeptus/models'
 import { useCallback } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList, StyleSheet, type ListRenderItem } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import UnitListItem from './UnitListItem'
 
 type UnitListProps = {
@@ -11,6 +12,8 @@ type UnitListProps = {
 }
 
 const UnitList = ({ codexId, units }: UnitListProps) => {
+  const insets = useSafeAreaInsets()
+
   const { watch } = useFormContext<ArmyForm>()
   const selectedUnits = watch('units')
 
@@ -45,7 +48,7 @@ const UnitList = ({ codexId, units }: UnitListProps) => {
     <FlatList
       data={units}
       ItemSeparatorComponent={() => <Box height='$4' />}
-      ListFooterComponent={() => <Box height='$8' />}
+      ListFooterComponent={() => <Box height={insets.bottom + 16} />}
       keyExtractor={(unit) => unit.id}
       renderItem={renderItem}
       style={styles.flatList}

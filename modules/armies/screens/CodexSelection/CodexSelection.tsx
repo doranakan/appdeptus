@@ -15,6 +15,7 @@ import { StatusBar } from 'expo-status-bar'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import { useDispatch } from 'react-redux'
 import { useGetCodexesQuery } from '../../api'
@@ -24,6 +25,8 @@ import GradientHeading from './GradientHeading'
 const AVAILABLED_ARMIES = [CodexName.TYRANIDS]
 
 const CodexSelectionScreen = () => {
+  const insets = useSafeAreaInsets()
+
   const dispatch = useDispatch()
 
   const colorMode = useColorMode()
@@ -76,6 +79,7 @@ const CodexSelectionScreen = () => {
       />
       <VStack
         h='$full'
+        pb={insets.bottom}
         position='absolute'
         w='$full'
       >

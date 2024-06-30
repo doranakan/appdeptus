@@ -4,12 +4,6 @@ const ArmiesLayout = () => (
   <Stack screenOptions={{ headerShown: false }}>
     <Stack.Screen name='index' />
     <Stack.Screen
-      name='army-builder'
-      options={{
-        animation: 'fade'
-      }}
-    />
-    <Stack.Screen
       name='[armyId]/index'
       options={{
         animation: 'fade'

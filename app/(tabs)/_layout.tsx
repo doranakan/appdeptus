@@ -57,7 +57,7 @@ const TabsLayout = () => {
               <TabBarItem
                 focused={focused}
                 Icon={Shield}
-                title='Build'
+                title='Armies'
               />
             )
           }}
@@ -70,7 +70,7 @@ const TabsLayout = () => {
               <TabBarItem
                 focused={focused}
                 Icon={Dices}
-                title='Play'
+                title='Games'
               />
             )
           }}

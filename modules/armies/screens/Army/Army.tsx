@@ -132,7 +132,7 @@ const ArmyScreen = () => {
           asChild
           href={{
             params: { armyId: army.id, codexId: army.codex.id },
-            pathname: '../army-builder/unit-selection'
+            pathname: 'army-builder/unit-selection'
           }}
         >
           <Pressable>
