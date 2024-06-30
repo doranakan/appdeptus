@@ -1,71 +1,64 @@
-import { Box, Text } from '@gluestack-ui/themed'
+import { Input, InputField, VStack } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
 import { type ArmyForm } from 'appdeptus/models'
 import { ClipboardCheck } from 'lucide-react-native'
-import React, { useEffect, useMemo } from 'react'
-import { useFormContext } from 'react-hook-form'
-import { useGetCodexUnitsQuery } from '../../api'
+import React from 'react'
+import { Controller, useFormContext } from 'react-hook-form'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type UnitListHeaderProps = {
-  codexId: string
   loading: boolean
   onSubmit: () => void
   submitTitle: string
 }
 
 const UnitListHeader = ({
-  codexId,
   loading,
   onSubmit,
   submitTitle
 }: UnitListHeaderProps) => {
-  const { data } = useGetCodexUnitsQuery(codexId)
+  const insets = useSafeAreaInsets()
 
-  const { setValue, watch } = useFormContext<ArmyForm>()
+  const { control, watch } = useFormContext<ArmyForm>()
 
+  const name = watch('name')
   const units = watch('units')
 
-  const totalPoints = useMemo(() => {
-    let points = 0
-    for (const { unit, tier } of units) {
-      points +=
-        data?.find(({ id }) => id === unit)?.tiers.find(({ id }) => id === tier)
-          ?.points ?? 0
-    }
-
-    return points
-  }, [data, units])
-
-  useEffect(() => {
-    setValue('totalPoints', totalPoints)
-  }, [setValue, totalPoints])
-
   return (
-    <Box
-      backgroundColor='$backgroundLight0'
-      borderBottomColor='$light200'
-      borderBottomWidth='$1'
-      flexDirection='row'
-      p='$4'
+    <VStack
+      pb='$4'
+      pt={insets.top}
+      pr='$4'
     >
-      <Box
-        justifyContent='center'
-        flex={2}
-      >
-        <Text fontSize='$3xl'>
-          <Text fontWeight='$bold'>{totalPoints}</Text>
-          <Text> total points</Text>
-        </Text>
-      </Box>
+      <VStack>
+        <Controller
+          control={control}
+          rules={{
+            maxLength: 25
+          }}
+          render={({ field: { onChange, ...props } }) => (
+            <Input borderWidth='$0'>
+              <InputField
+                {...props}
+                onChangeText={onChange}
+                fontFamily='Grenze'
+                placeholder='Army name'
+                size='2xl'
+              />
+            </Input>
+          )}
+          name='name'
+        />
+      </VStack>
+
       <Button
-        disabled={!totalPoints}
+        disabled={!units.length || !name.length}
         loading={loading}
-        flex={1}
         Icon={ClipboardCheck}
         onPress={onSubmit}
         text={submitTitle}
       />
-    </Box>
+    </VStack>
   )
 }
 

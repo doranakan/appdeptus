@@ -1,6 +1,6 @@
-import { HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
+import { HStack, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { Button, Card, Loading } from 'appdeptus/components'
+import { Button, Loading } from 'appdeptus/components'
 import { type ArmyForm } from 'appdeptus/models'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Trash2 } from 'lucide-react-native'
@@ -8,6 +8,7 @@ import pluralize from 'pluralize'
 import { useEffect, useMemo } from 'react'
 import { useFieldArray } from 'react-hook-form'
 import { useGetCodexUnitsQuery } from '../../api'
+import { UnitCard } from '../../components'
 
 const TierSelectionScreen = () => {
   const router = useRouter()
@@ -56,17 +57,13 @@ const TierSelectionScreen = () => {
         const tierPoints =
           unit.tiers.find(({ id }) => id === selectedTierId)?.points ?? 0
         return (
-          <Card
+          <UnitCard
+            caption={unit.caption}
+            name={unit.name}
+            points={tierPoints}
+            subtitle={''}
             key={`${unit.name}-${choiceIndex}`}
-            gap='$2'
           >
-            <HStack justifyContent='space-between'>
-              <VStack>
-                <Heading>{unit.name}</Heading>
-                <Text size='xs'>{unit.caption}</Text>
-              </VStack>
-              <Text fontWeight='$bold'>{`${tierPoints} points`}</Text>
-            </HStack>
             <HStack gap='$2'>
               {unit.tiers.map((tier) => {
                 return (
@@ -101,21 +98,7 @@ const TierSelectionScreen = () => {
                 }}
               />
             </HStack>
-            <Button
-              action='secondary'
-              onPress={() => {
-                router.push({
-                  params: {
-                    choiceIndex: fields.findIndex(({ id }) => id === choiceId),
-                    tierId: selectedTierId
-                  },
-                  pathname: './option-selection'
-                })
-              }}
-              text='Customize'
-              variant='outline'
-            />
-          </Card>
+          </UnitCard>
         )
       })}
     </VStack>

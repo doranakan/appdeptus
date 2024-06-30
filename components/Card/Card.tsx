@@ -12,6 +12,7 @@ type CardProps = (typeof HStack)['defaultProps'] & {
 const Card = ({
   animated,
   gradient = 'secondary',
+  opacity,
   ...props
 }: PropsWithChildren<CardProps>) => {
   const colorMode = useColorMode()
@@ -23,41 +24,43 @@ const Card = ({
         : config.themes[colorMode].colors
 
     return [
-      color[`${gradient}200`],
       color[`${gradient}400`],
+      color[`${gradient}200`],
       color[`${gradient}100`]
     ]
   }, [colorMode, gradient])
 
   return (
-    <LinearGradient
-      p={1}
-      colors={colors}
-      start={[1, 0]}
-      end={[0, 1]}
-      as={ExpoLinearGradient}
-    >
-      {animated ? (
-        <MotiView
-          animate={{
-            backgroundColor:
-              colorMode === 'light'
-                ? config.tokens.colors.secondary50
-                : config.themes[colorMode].colors.secondary100
-          }}
-          transition={{
-            duration: 500
-          }}
-        >
-          <Content
-            {...props}
-            bg='$transparent'
-          />
-        </MotiView>
-      ) : (
-        <Content {...props} />
-      )}
-    </LinearGradient>
+    <VStack opacity={opacity}>
+      <LinearGradient
+        p={1}
+        colors={colors}
+        start={0.2}
+        end={1}
+        as={ExpoLinearGradient}
+      >
+        {animated ? (
+          <MotiView
+            animate={{
+              backgroundColor:
+                colorMode === 'light'
+                  ? config.tokens.colors.secondary50
+                  : config.themes[colorMode].colors.secondary100
+            }}
+            transition={{
+              duration: 500
+            }}
+          >
+            <Content
+              {...props}
+              bg='$transparent'
+            />
+          </MotiView>
+        ) : (
+          <Content {...props} />
+        )}
+      </LinearGradient>
+    </VStack>
   )
 }
 

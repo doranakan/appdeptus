@@ -3,9 +3,8 @@ import {
   NotoSerif_400Regular,
   NotoSerif_700Bold
 } from '@expo-google-fonts/noto-serif'
-import { GluestackUIProvider } from '@gluestack-ui/themed'
 import { useAsyncEffect } from 'ahooks'
-import { config, selectColorMode } from 'appdeptus/designSystem'
+import { ThemeProvider, config, selectColorMode } from 'appdeptus/designSystem'
 import { persistor, store } from 'appdeptus/store'
 import { supabase } from 'appdeptus/utils'
 import { SplashScreen, Stack, useRouter } from 'expo-router'
@@ -58,7 +57,7 @@ const RootLayout = () => {
   const colorMode = useSelector(selectColorMode)
 
   return (
-    <GluestackUIProvider
+    <ThemeProvider
       config={config}
       colorMode={colorMode}
     >
@@ -68,7 +67,7 @@ const RootLayout = () => {
       >
         <Stack.Screen name='index' />
       </Stack>
-    </GluestackUIProvider>
+    </ThemeProvider>
   )
 }
 

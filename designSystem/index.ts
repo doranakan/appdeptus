@@ -1,3 +1,4 @@
+export * from './components'
 export { default as config } from './config'
 export * from './hooks'
 export * from './store'
