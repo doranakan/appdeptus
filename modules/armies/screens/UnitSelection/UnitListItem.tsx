@@ -1,68 +1,48 @@
-import { Box, ButtonGroup, HStack, Heading, Text } from '@gluestack-ui/themed'
-import { Button, Card } from 'appdeptus/components'
+import { HStack } from '@gluestack-ui/themed'
+import { Button } from 'appdeptus/components'
 import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
-import { useRouter } from 'expo-router'
+import { router } from 'expo-router'
 import { Edit, Plus } from 'lucide-react-native'
-import React, { useMemo } from 'react'
-import { useFieldArray, useFormContext } from 'react-hook-form'
+import React from 'react'
+import { useFieldArray } from 'react-hook-form'
+import { UnitCard } from '../../components'
 
 type UnitListItemProps = {
-  codexId?: string
+  count: number
+  points: number
   unit: CodexUnit
   unitIndex: number
+
+  codexId?: string
 }
 
-const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
-  const router = useRouter()
-
+const UnitListItem = ({
+  count,
+  points,
+  unit,
+  unitIndex,
+  codexId
+}: UnitListItemProps) => {
   const { append } = useFieldArray<ArmyForm, 'units', string>({
     name: 'units',
     keyName: `${unit.id}-${unitIndex}`
   })
 
-  const { watch } = useFormContext<ArmyForm>()
-  const allunits = watch('units')
-
-  const units = useMemo(
-    () => allunits.filter(({ unit: unitId }) => unitId === unit.id),
-    [allunits, unit.id]
-  )
-
-  const count = units.length
-
-  const points = useMemo(() => {
-    let points = 0
-    for (const choice of units) {
-      const tier = unit.tiers.find((t) => t.id === choice.tier)
-      if (tier) {
-        points += tier.points
-      }
-    }
-    return points || unit.tiers[0]?.points
-  }, [units, unit.tiers])
-
   return (
-    <Card
-      gradient={count ? 'primary' : 'secondary'}
-      gap='$4'
-      shadowOpacity={0}
+    <UnitCard
+      bg={count ? '$secondary100' : '$secondary50'}
+      caption={unit.caption}
+      name={unit.name}
+      opacity={count ? 1 : 0.8}
+      points={count ? points : unit.tiers[0]?.points ?? 0}
+      subtitle={`${count} / ${unit.limit}`}
     >
-      <HStack justifyContent='space-between'>
-        <Text>
-          <Heading>{unit.name}</Heading>
-          {unit.caption && <Text fontSize='$sm'>{` ${unit.caption}`}</Text>}
-        </Text>
-        <Box
-          alignItems='center'
-          justifyContent='center'
-        >
-          <Text fontWeight={count ? '$bold' : '$normal'}>{points} points</Text>
-        </Box>
-      </HStack>
-
-      <ButtonGroup flex={1}>
+      <HStack
+        flex={1}
+        gap='$2'
+      >
         <Button
-          action='secondary'
+          action={'secondary'}
           disabled={count >= unit.limit}
           flex={1}
           Icon={Plus}
@@ -76,26 +56,28 @@ const UnitListItem = ({ codexId, unit, unitIndex }: UnitListItemProps) => {
           text='Add'
         />
 
-        <Button
-          action='negative'
-          disabled={!count}
-          flex={1}
-          Icon={Edit}
-          onPress={() => {
-            router.push({
-              params: {
-                codexId,
-                unitIndex: String(unitIndex),
-                unitId: unit.id
-              },
-              pathname: './tier-selection'
-            })
-          }}
-          text='Edit'
-        />
-      </ButtonGroup>
-    </Card>
+        {count ? (
+          <Button
+            action='negative'
+            bg={count ? '$secondary300' : '$secondary200'}
+            disabled={!count}
+            flex={1}
+            Icon={Edit}
+            onPress={() => {
+              router.push({
+                params: {
+                  codexId,
+                  unitIndex: String(unitIndex),
+                  unitId: unit.id
+                },
+                pathname: './tier-selection'
+              })
+            }}
+            text='Edit'
+          />
+        ) : undefined}
+      </HStack>
+    </UnitCard>
   )
 }
-
-export default UnitListItem
+export default React.memo(UnitListItem)

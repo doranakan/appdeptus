@@ -43,6 +43,11 @@ const config = createConfig(
           fontFamily: 'Grenze'
         }
       },
+      Input: {
+        theme: {
+          borderRadius: '$none'
+        }
+      },
       Pressable: {
         theme: {
           ':active': {

@@ -56,7 +56,7 @@ const ArmiesScreen = () => {
               borderRadius='$full'
               Icon={Plus}
               onPress={() => {
-                router.push('armies/army-builder/codex-selection')
+                router.push('army-builder/codex-selection')
               }}
             />
           </HStack>

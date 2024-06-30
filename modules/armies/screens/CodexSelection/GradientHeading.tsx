@@ -16,11 +16,10 @@ const GradientHeading = ({
   children
 }: PropsWithChildren<GradientHeadingProps>) => (
   <MaskedView
-    style={{ flexDirection: 'row', width: '100%', height: 55 }}
+    style={{ flexDirection: 'row', width: '100%', height: 65 }}
     maskElement={
       <AnimatePresence>
         <AnimatedHeading
-          alignSelf='center'
           from={{
             opacity: 0
           }}
@@ -31,7 +30,6 @@ const GradientHeading = ({
             opacity: 0
           }}
           key={children as string}
-          size='4xl'
           transition={{
             duration: 100,
             type: 'timing'
@@ -40,6 +38,8 @@ const GradientHeading = ({
             duration: 100,
             type: 'timing'
           }}
+          alignSelf='center'
+          size='4xl'
           position='absolute'
         >
           {children}

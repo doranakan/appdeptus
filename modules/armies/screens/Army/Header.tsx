@@ -1,6 +1,6 @@
 import { Box, Heading, Text, VStack } from '@gluestack-ui/themed'
 import MaskedView from '@react-native-masked-view/masked-view'
-import { ArmyBackgroundImage, ArmyIcon } from 'appdeptus/components'
+import { AnimatedArmyBackgroundImage, ArmyIcon } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { MotiView } from 'moti'
 
@@ -39,7 +39,7 @@ const Header = ({ army }: HeaderProps) => (
           position='absolute'
           w='$full'
         ></Box>
-        <ArmyBackgroundImage
+        <AnimatedArmyBackgroundImage
           codexName={army.codex.name}
           opacity={0.8}
         />
