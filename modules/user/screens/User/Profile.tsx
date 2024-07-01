@@ -1,22 +1,15 @@
 import { Box, HStack, Heading, Spinner, VStack } from '@gluestack-ui/themed'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useGetUserProfileQuery } from '../../api'
 
 const UserProfile = () => {
   const { data } = useGetUserProfileQuery()
-
-  const insets = useSafeAreaInsets()
 
   if (!data) {
     return <Spinner />
   }
 
   return (
-    <VStack
-      px={'$4'}
-      pt={insets.top}
-      flex={1}
-    >
+    <VStack p={'$4'}>
       <HStack
         alignItems='center'
         gap='$2'
