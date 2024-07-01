@@ -63,7 +63,7 @@ const UnitDetail = () => {
             gap='$4'
             p='$4'
           >
-            {models.map(({ count, model, baseWargear }, index) => (
+            {models.map(({ count, model, baseWargear, options }, index) => (
               <Card
                 bg='$secondary50'
                 gap='$4'
@@ -109,22 +109,26 @@ const UnitDetail = () => {
                 <WeaponStats
                   type='ranged'
                   weapons={[
-                    ...baseWargear.map(({ weapon }) => weapon),
                     ...uniqBy(
-                      unit.options?.map(({ weapon }) => weapon),
+                      [
+                        ...baseWargear.map(({ weapon }) => weapon),
+                        ...(options?.flatMap(({ weapons }) => weapons) ?? [])
+                      ].filter(({ type }) => type === 'ranged'),
                       'id'
                     )
-                  ].filter(({ type }) => type === 'ranged')}
+                  ]}
                 />
                 <WeaponStats
                   type='melee'
                   weapons={[
-                    ...baseWargear.map(({ weapon }) => weapon),
                     ...uniqBy(
-                      unit.options?.map(({ weapon }) => weapon),
+                      [
+                        ...baseWargear.map(({ weapon }) => weapon),
+                        ...(options?.flatMap(({ weapons }) => weapons) ?? [])
+                      ].filter(({ type }) => type === 'melee'),
                       'id'
                     )
-                  ].filter(({ type }) => type === 'melee')}
+                  ]}
                 />
               </Card>
             ))}
