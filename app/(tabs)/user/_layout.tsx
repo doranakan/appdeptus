@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router'
 
-const SettingsLayout = () => (
+const UserLayout = () => (
   <Stack>
     <Stack.Screen
       name='index'
@@ -9,4 +9,4 @@ const SettingsLayout = () => (
   </Stack>
 )
 
-export default SettingsLayout
+export default UserLayout
