@@ -28,7 +28,7 @@ const App = () => (
 )
 
 const RootLayout = () => {
-  const { data: session } = useGetSessionQuery()
+  const { data: session, isFetching, isUninitialized } = useGetSessionQuery()
 
   const [fontLoaded] = useFonts({
     AmericanText,
@@ -47,6 +47,9 @@ const RootLayout = () => {
 
   useEffect(() => {
     switch (true) {
+      case isFetching || isUninitialized: {
+        return
+      }
       case !!session: {
         router.replace('armies')
         return
@@ -55,7 +58,7 @@ const RootLayout = () => {
         router.replace('/')
       }
     }
-  }, [session])
+  }, [isFetching, isUninitialized, session])
 
   return (
     <ThemeProvider
