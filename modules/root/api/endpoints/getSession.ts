@@ -5,13 +5,17 @@ import { supabase } from 'appdeptus/utils'
 const getSession = (builder: SupabaseEndpointBuilder) =>
   builder.query<Session | null, void>({
     queryFn: async () => {
-      const { data, error } = await supabase.auth.getSession()
+      try {
+        const { data, error } = await supabase.auth.getSession()
 
-      if (error) {
-        throw { error }
+        if (error) {
+          return { error }
+        }
+
+        return { data: data.session }
+      } catch (error) {
+        return { error }
       }
-
-      return { data: data.session }
     }
   })
 

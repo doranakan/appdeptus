@@ -1,13 +1,17 @@
 import { supabase } from 'appdeptus/utils'
 
 const getUserId = async () => {
-  const { data, error } = await supabase.auth.getUser()
+  try {
+    const { data, error } = await supabase.auth.getUser()
 
-  if (error) {
-    throw { error }
+    if (error) {
+      return { error }
+    }
+
+    return data.user.id
+  } catch (error) {
+    return { error }
   }
-
-  return data.user.id
 }
 
 export { getUserId }

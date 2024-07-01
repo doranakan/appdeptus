@@ -20,110 +20,118 @@ type UnitOption = Composition & Wargear
 const getUnitOptions = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
   builder.query<UnitOption[], string>({
     queryFn: async (tierId) => {
-      const { data: unitComposition } = await unitCompositionQuery(tierId)
+      try {
+        const { data: unitComposition } = await unitCompositionQuery(tierId)
 
-      const compositionIds = unitComposition.map(({ id }) => id)
+        const compositionIds = unitComposition?.map(({ id }) => id)
 
-      const { data: wargears, error: wargearsError } = await supabase
-        .from(Table.UNIT_WARGEARS)
-        .select(
-          `
+        if (!compositionIds) {
+          return { error: `corrupted data: invalid tierId ${tierId}` }
+        }
+
+        const { data: wargears, error: wargearsError } = await supabase
+          .from(Table.UNIT_WARGEARS)
+          .select(
+            `
           id,
           unit_composition,
           weapon!inner(
             *
           )
         `
-        )
-        .in('unit_composition', compositionIds)
-
-      if (wargearsError) {
-        throw { error: wargearsError }
-      }
-
-      const wargearWeapons = groupBy(
-        wargearWeaponsSchema.parse(mapNullToUndefined(wargears)),
-        'unit_composition'
-      )
-
-      const { data: rawOptions, error: optionsError } = await supabase
-        .from(Table.UNIT_OPTIONS)
-        .select()
-        .in('unit_composition', compositionIds)
-
-      if (optionsError) {
-        throw { error: optionsError }
-      }
-
-      const unitOptions = unitOptionsSchema.parse(
-        mapNullToUndefined(rawOptions)
-      )
-
-      const weaponIds = uniq(unitOptions.map(({ weapons }) => weapons).flat())
-
-      const { data: tierWeapons, error: weaponsError } = await supabase
-        .from(Table.WEAPONS)
-        .select()
-        .in('id', weaponIds)
-
-      if (weaponsError) {
-        throw { error: weaponsError }
-      }
-
-      const allWeapons = weaponsSchema.parse(mapNullToUndefined(tierWeapons))
-
-      const optionalWeapons = groupBy(
-        unitOptions.map(({ weapons: ids, ...rest }) => {
-          const weapons = compact(
-            ids.map((id) =>
-              allWeapons.find(({ id: weaponId }) => weaponId === id)
-            )
           )
+          .in('unit_composition', compositionIds)
 
-          return {
-            ...rest,
-            weapons
-          }
-        }),
-        'unit_composition'
-      )
-
-      const options = unitComposition.map<UnitOption>(
-        ({ model, count, id: compositionId }) => {
-          const { id: modelId, name: modelName, stats } = model
-
-          const modelWargear = wargearWeapons[compositionId]
-
-          const baseWargear =
-            modelWargear?.map(({ id, weapon }) => ({
-              id,
-              weapon: parseWeapon(weapon)
-            })) ?? []
-
-          const unitTierOptionalWeapons = optionalWeapons[compositionId]
-
-          const options = unitTierOptionalWeapons?.map(
-            ({ unit_wargear: replaces, weapons, ...rest }) => ({
-              ...rest,
-              replaces,
-              weapons: weapons.map(parseWeapon)
-            })
-          )
-
-          return {
-            count,
-            model: {
-              id: modelId,
-              name: modelName,
-              stats
-            },
-            baseWargear,
-            options
-          }
+        if (wargearsError) {
+          return { error: wargearsError }
         }
-      )
 
-      return { data: options }
+        const wargearWeapons = groupBy(
+          wargearWeaponsSchema.parse(mapNullToUndefined(wargears)),
+          'unit_composition'
+        )
+
+        const { data: rawOptions, error: optionsError } = await supabase
+          .from(Table.UNIT_OPTIONS)
+          .select()
+          .in('unit_composition', compositionIds)
+
+        if (optionsError) {
+          return { error: optionsError }
+        }
+
+        const unitOptions = unitOptionsSchema.parse(
+          mapNullToUndefined(rawOptions)
+        )
+
+        const weaponIds = uniq(unitOptions.map(({ weapons }) => weapons).flat())
+
+        const { data: tierWeapons, error: weaponsError } = await supabase
+          .from(Table.WEAPONS)
+          .select()
+          .in('id', weaponIds)
+
+        if (weaponsError) {
+          return { error: weaponsError }
+        }
+
+        const allWeapons = weaponsSchema.parse(mapNullToUndefined(tierWeapons))
+
+        const optionalWeapons = groupBy(
+          unitOptions.map(({ weapons: ids, ...rest }) => {
+            const weapons = compact(
+              ids.map((id) =>
+                allWeapons.find(({ id: weaponId }) => weaponId === id)
+              )
+            )
+
+            return {
+              ...rest,
+              weapons
+            }
+          }),
+          'unit_composition'
+        )
+
+        const options = unitComposition?.map<UnitOption>(
+          ({ model, count, id: compositionId }) => {
+            const { id: modelId, name: modelName, stats } = model
+
+            const modelWargear = wargearWeapons[compositionId]
+
+            const baseWargear =
+              modelWargear?.map(({ id, weapon }) => ({
+                id,
+                weapon: parseWeapon(weapon)
+              })) ?? []
+
+            const unitTierOptionalWeapons = optionalWeapons[compositionId]
+
+            const options = unitTierOptionalWeapons?.map(
+              ({ unit_wargear: replaces, weapons, ...rest }) => ({
+                ...rest,
+                replaces,
+                weapons: weapons.map(parseWeapon)
+              })
+            )
+
+            return {
+              count,
+              model: {
+                id: modelId,
+                name: modelName,
+                stats
+              },
+              baseWargear,
+              options
+            }
+          }
+        )
+
+        return { data: options }
+      } catch (error) {
+        return { error }
+      }
     }
   })
 

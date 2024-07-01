@@ -12,21 +12,25 @@ type UpdateArmyArgs = {
 const updateArmy = (builder: SupabaseEndpointBuilder<string>) =>
   builder.mutation<null, UpdateArmyArgs>({
     queryFn: async ({ armyId, totalPoints, codexId, ...restArgs }) => {
-      const { data, error } = await supabase
-        .from(Table.ARMIES)
-        .update({
-          ...restArgs,
-          total_points: totalPoints,
-          codex: codexId
-        })
-        .eq('id', armyId)
+      try {
+        const { data, error } = await supabase
+          .from(Table.ARMIES)
+          .update({
+            ...restArgs,
+            total_points: totalPoints,
+            codex: codexId
+          })
+          .eq('id', armyId)
 
-      if (error) {
-        throw { error }
-      }
+        if (error) {
+          return { error }
+        }
 
-      return {
-        data
+        return {
+          data
+        }
+      } catch (error) {
+        return { error }
       }
     },
     invalidatesTags: (_res, error, { armyId }) => {
