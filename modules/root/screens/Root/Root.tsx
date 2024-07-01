@@ -2,17 +2,16 @@ import {
   Box,
   Heading,
   KeyboardAvoidingView,
-  LinearGradient,
   Text,
   VStack
 } from '@gluestack-ui/themed'
 import {
   AnimatedBackgroundImage,
   BackgroundImage,
-  Card
+  Card,
+  LinearGradient
 } from 'appdeptus/components'
 import { config } from 'appdeptus/designSystem'
-import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { StatusBar } from 'expo-status-bar'
 import { MotiView } from 'moti'
 import { useWindowDimensions } from 'react-native'
@@ -74,13 +73,6 @@ const Background = () => (
               'rgba(0,0,0,0.2)',
               config.tokens.colors.secondary700
             ]}
-            start={0}
-            end={1}
-            as={ExpoLinearGradient}
-            style={{
-              height: '100%',
-              width: '100%'
-            }}
           />
         </MotiView>
       </VStack>
@@ -148,13 +140,6 @@ const Splash = () => {
             'rgba(0,0,0,0)',
             'rgba(0,0,0,0)'
           ]}
-          start={0}
-          end={1}
-          as={ExpoLinearGradient}
-          style={{
-            height: '100%',
-            width: '100%'
-          }}
         />
       </MotiView>
     </>

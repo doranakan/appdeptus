@@ -1,10 +1,10 @@
-import { Box, LinearGradient } from '@gluestack-ui/themed'
+import { Box } from '@gluestack-ui/themed'
 import {
   AnimatedArmyBackgroundImage,
-  ArmyBackgroundImage
+  ArmyBackgroundImage,
+  LinearGradient
 } from 'appdeptus/components'
 import { type CodexName } from 'appdeptus/models'
-import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 
 type CodexCoverImageProps = {
   codexName: CodexName
@@ -33,16 +33,7 @@ const CodexCoverImage = ({ codexName, animated }: CodexCoverImageProps) => (
       position='absolute'
       w='$full'
     >
-      <LinearGradient
-        colors={['$white', 'rgba(255,255,255,0)']}
-        start={0}
-        end={1}
-        as={ExpoLinearGradient}
-        style={{
-          height: '100%',
-          width: '100%'
-        }}
-      />
+      <LinearGradient colors={['$white', 'rgba(255,255,255,0)']} />
     </Box>
   </>
 )
