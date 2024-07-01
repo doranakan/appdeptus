@@ -6,16 +6,20 @@ import { supabase } from 'appdeptus/utils'
 const signIn = (builder: SupabaseEndpointBuilder) =>
   builder.mutation<AuthTokenResponsePassword['data'], SignInForm>({
     queryFn: async ({ email, password }) => {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password
-      })
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password
+        })
 
-      if (error) {
-        throw { error }
+        if (error) {
+          return { error }
+        }
+
+        return { data }
+      } catch (error) {
+        return { error }
       }
-
-      return { data }
     }
   })
 

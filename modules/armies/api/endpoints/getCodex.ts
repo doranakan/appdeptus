@@ -8,18 +8,22 @@ import type ArmiesApiTag from '../tags'
 const getCodex = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
   builder.query<Codex, string>({
     queryFn: async (codexId) => {
-      const { data, error: codexError } = await supabase
-        .from(Table.CODEXES)
-        .select()
-        .eq('id', codexId)
+      try {
+        const { data, error: codexError } = await supabase
+          .from(Table.CODEXES)
+          .select()
+          .eq('id', codexId)
 
-      if (codexError) {
-        throw { error: codexError }
+        if (codexError) {
+          return { error: codexError }
+        }
+
+        const codex = codexSchema.parse(data[0])
+
+        return { data: codex }
+      } catch (error) {
+        return { error }
       }
-
-      const codex = codexSchema.parse(data[0])
-
-      return { data: codex }
     }
   })
 

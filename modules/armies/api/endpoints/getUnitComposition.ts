@@ -6,10 +6,11 @@ import { unitCompositionsSchema } from '../schemas'
 import type ArmiesApiTag from '../tags'
 
 const unitCompositionQuery = async (tierId: string) => {
-  const { data, error } = await supabase
-    .from(Table.UNIT_COMPOSITIONS)
-    .select(
-      `
+  try {
+    const { data, error } = await supabase
+      .from(Table.UNIT_COMPOSITIONS)
+      .select(
+        `
           id,
           unit_tier,
           count,
@@ -17,32 +18,35 @@ const unitCompositionQuery = async (tierId: string) => {
             *
           )
         `
-    )
-    .eq('unit_tier', tierId)
+      )
+      .eq('unit_tier', tierId)
 
-  if (error) {
-    throw { error }
-  }
+    if (error) {
+      return { error }
+    }
 
-  const rawUnitComposition = unitCompositionsSchema.parse(data)
+    const rawUnitComposition = unitCompositionsSchema.parse(data)
 
-  const unitComposition = rawUnitComposition.map<UnitComposition[0]>(
-    ({ model, unit_tier, ...rest }) => {
-      const { id, name, ...stats } = model
+    const unitComposition = rawUnitComposition.map<UnitComposition[0]>(
+      ({ model, unit_tier, ...rest }) => {
+        const { id, name, ...stats } = model
 
-      return {
-        ...rest,
-        tierId: unit_tier,
-        model: {
-          id,
-          name,
-          stats
+        return {
+          ...rest,
+          tierId: unit_tier,
+          model: {
+            id,
+            name,
+            stats
+          }
         }
       }
-    }
-  )
+    )
 
-  return { data: unitComposition }
+    return { data: unitComposition }
+  } catch (error) {
+    return { error }
+  }
 }
 
 const getUnitComposition = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>

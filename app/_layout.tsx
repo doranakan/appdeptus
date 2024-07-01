@@ -41,7 +41,7 @@ const RootLayout = () => {
 
   useEffect(() => {
     if (fontLoaded) {
-      setTimeout(SplashScreen.hideAsync, 500)
+      setTimeout(SplashScreen.hideAsync, 700)
     }
   }, [fontLoaded])
 

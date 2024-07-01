@@ -8,22 +8,26 @@ import ArmiesApiTag from '../tags'
 const createArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
   builder.mutation<null, ArmyForm>({
     queryFn: async ({ codexId, totalPoints, ...army }) => {
-      const userId = await getUserId()
+      try {
+        const userId = await getUserId()
 
-      const { data, error: armiesError } = await supabase
-        .from(Table.ARMIES)
-        .insert({
-          ...army,
-          codex: codexId,
-          total_points: totalPoints,
-          user_id: userId
-        })
+        const { data, error: armiesError } = await supabase
+          .from(Table.ARMIES)
+          .insert({
+            ...army,
+            codex: codexId,
+            total_points: totalPoints,
+            user_id: userId
+          })
 
-      if (armiesError) {
-        throw { error: armiesError }
+        if (armiesError) {
+          return { error: armiesError }
+        }
+
+        return { data }
+      } catch (error) {
+        return { error }
       }
-
-      return { data }
     },
     invalidatesTags: [ArmiesApiTag.ARMY_LIST]
   })

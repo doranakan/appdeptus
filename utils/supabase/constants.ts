@@ -8,6 +8,7 @@ enum Table {
   UNIT_OPTIONS = 'unit_options',
   UNIT_TIERS = 'unit_tiers',
   UNIT_WARGEARS = 'unit_wargears',
+  USERS = 'users',
   WEAPONS = 'weapons'
 }
 

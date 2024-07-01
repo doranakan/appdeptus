@@ -9,44 +9,48 @@ import type ArmiesApiTag from '../tags'
 const getCodexUnits = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
   builder.query<CodexUnit[], string>({
     queryFn: async (codexId) => {
-      const { data: unitsData, error: unitsError } = await supabase
-        .from(Table.UNITS)
-        .select()
-        .eq('codex', codexId)
+      try {
+        const { data: unitsData, error: unitsError } = await supabase
+          .from(Table.UNITS)
+          .select()
+          .eq('codex', codexId)
 
-      if (unitsError) {
-        throw { error: unitsError }
-      }
-
-      const units = unitsSchema.parse(mapNullToUndefined(unitsData))
-
-      const { data: tiersData, error: tiersError } = await supabase
-        .from(Table.UNIT_TIERS)
-        .select()
-        .in(
-          'unit',
-          units.map(({ id }) => id)
-        )
-
-      if (tiersError) {
-        throw { error: tiersError }
-      }
-
-      const tiers = tiersSchema.parse(tiersData)
-
-      const unitsWithTiers = units.map((unit) => {
-        const unitTiers = tiers
-          .filter((tier) => tier.unit === unit.id)
-          .map(({ id, models, points }) => ({ id, models, points }))
-        return {
-          ...unit,
-          tiers: unitTiers
+        if (unitsError) {
+          return { error: unitsError }
         }
-      })
 
-      const sortedUnits = sortBy(unitsWithTiers, ({ name }) => name)
+        const units = unitsSchema.parse(mapNullToUndefined(unitsData))
 
-      return { data: sortedUnits }
+        const { data: tiersData, error: tiersError } = await supabase
+          .from(Table.UNIT_TIERS)
+          .select()
+          .in(
+            'unit',
+            units.map(({ id }) => id)
+          )
+
+        if (tiersError) {
+          return { error: tiersError }
+        }
+
+        const tiers = tiersSchema.parse(tiersData)
+
+        const unitsWithTiers = units.map((unit) => {
+          const unitTiers = tiers
+            .filter((tier) => tier.unit === unit.id)
+            .map(({ id, models, points }) => ({ id, models, points }))
+          return {
+            ...unit,
+            tiers: unitTiers
+          }
+        })
+
+        const sortedUnits = sortBy(unitsWithTiers, ({ name }) => name)
+
+        return { data: sortedUnits }
+      } catch (error) {
+        return { error }
+      }
     }
   })
 

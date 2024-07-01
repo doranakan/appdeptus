@@ -6,17 +6,21 @@ import ArmiesApiTag from '../tags'
 const deleteArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
   builder.mutation<null, string>({
     queryFn: async (armyId) => {
-      const { data, error } = await supabase
-        .from(Table.ARMIES)
-        .delete()
-        .eq('id', armyId)
+      try {
+        const { data, error } = await supabase
+          .from(Table.ARMIES)
+          .delete()
+          .eq('id', armyId)
 
-      if (error) {
-        throw { error }
-      }
+        if (error) {
+          return { error }
+        }
 
-      return {
-        data
+        return {
+          data
+        }
+      } catch (error) {
+        return { error }
       }
     },
     invalidatesTags: [ArmiesApiTag.ARMY_LIST]

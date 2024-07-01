@@ -10,12 +10,13 @@ type GetArmiesResponse = Omit<Army, 'units'>
 const getArmies = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
   builder.query<GetArmiesResponse[], void>({
     queryFn: async () => {
-      const userId = await getUserId()
+      try {
+        const userId = await getUserId()
 
-      const { data, error } = await supabase
-        .from(Table.ARMIES)
-        .select(
-          `
+        const { data, error } = await supabase
+          .from(Table.ARMIES)
+          .select(
+            `
           id, 
           name, 
           total_points, 
@@ -24,16 +25,19 @@ const getArmies = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
             *
           )
         `
-        )
-        .eq('user_id', userId)
+          )
+          .eq('user_id', userId)
 
-      if (error) {
-        throw { error }
+        if (error) {
+          return { error }
+        }
+
+        const armies = armiesSchema.parse(data)
+
+        return { data: armies }
+      } catch (error) {
+        return { error }
       }
-
-      const armies = armiesSchema.parse(data)
-
-      return { data: armies }
     },
     providesTags: [ArmiesApiTag.ARMY_LIST]
   })
