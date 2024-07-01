@@ -1,9 +1,10 @@
-import { Heading, LinearGradient } from '@gluestack-ui/themed'
+import { Heading } from '@gluestack-ui/themed'
 import MaskedView from '@react-native-masked-view/masked-view'
 import { config, useColorMode } from 'appdeptus/designSystem'
-import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
+
 import { AnimatePresence, motify } from 'moti'
 import { type PropsWithChildren } from 'react'
+import LinearGradient from '../LinearGradient'
 
 const AnimatedHeading = motify(Heading)()
 
@@ -53,12 +54,6 @@ const GradientHeading = ({ children }: PropsWithChildren) => {
             ? config.tokens.colors.secondary500
             : config.themes[colorMode].colors.secondary500
         ]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        as={ExpoLinearGradient}
-        style={{
-          width: '100%'
-        }}
       />
     </MaskedView>
   )

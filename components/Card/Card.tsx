@@ -1,8 +1,8 @@
-import { LinearGradient, VStack, type HStack } from '@gluestack-ui/themed'
+import { VStack, type HStack } from '@gluestack-ui/themed'
 import { config, useColorMode } from 'appdeptus/designSystem'
-import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { MotiView } from 'moti'
 import { useMemo, type PropsWithChildren } from 'react'
+import LinearGradient from '../LinearGradient'
 
 type CardProps = (typeof HStack)['defaultProps'] & {
   animated?: boolean
@@ -37,7 +37,7 @@ const Card = ({
         colors={colors}
         start={0.2}
         end={1}
-        as={ExpoLinearGradient}
+        height='auto'
       >
         {animated ? (
           <MotiView

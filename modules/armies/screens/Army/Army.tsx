@@ -1,15 +1,11 @@
-import {
-  Box,
-  HStack,
-  Icon,
-  LinearGradient,
-  Pressable,
-  VStack
-} from '@gluestack-ui/themed'
+import { Box, HStack, Icon, Pressable, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { AnimatedArmyBackgroundImage, Loading } from 'appdeptus/components'
+import {
+  AnimatedArmyBackgroundImage,
+  LinearGradient,
+  Loading
+} from 'appdeptus/components'
 import { config, setColorMode, useColorMode } from 'appdeptus/designSystem'
-import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { Link, useLocalSearchParams } from 'expo-router'
 import { Edit, Trash2 } from 'lucide-react-native'
 import { MotiView, motify } from 'moti'
@@ -107,13 +103,6 @@ const ArmyScreen = () => {
                   ? config.tokens.colors.secondary700
                   : config.themes[colorMode].colors.secondary700
               ]}
-              start={0}
-              end={1}
-              as={ExpoLinearGradient}
-              style={{
-                height: '100%',
-                width: '100%'
-              }}
             />
           </MotiView>
         </Box>
