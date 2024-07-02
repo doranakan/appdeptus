@@ -51,7 +51,7 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name='play'
+          name='games'
           options={{
             ...tabBarBaseOptions,
             tabBarIcon: ({ focused }) => (

@@ -1,20 +1,19 @@
-import { Box, HStack, Heading, VStack } from '@gluestack-ui/themed'
-import { BackgroundImage, Button, Loading } from 'appdeptus/components'
+import { HStack, Heading, Icon, Pressable, VStack } from '@gluestack-ui/themed'
+import { Loading } from 'appdeptus/components'
 import { setColorMode } from 'appdeptus/designSystem'
-import { useFocusEffect, useRouter } from 'expo-router'
-import { StatusBar } from 'expo-status-bar'
+import { Link, useFocusEffect } from 'expo-router'
 import { Plus } from 'lucide-react-native'
 import { useCallback } from 'react'
-import { StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useDispatch } from 'react-redux'
 import { useGetArmiesQuery } from '../../api'
 import ArmyList from './ArmyList'
+import Background from './Background'
 
 const ArmiesScreen = () => {
   const dispatch = useDispatch()
 
-  const router = useRouter()
+  const insets = useSafeAreaInsets()
 
   const { data } = useGetArmiesQuery()
 
@@ -30,55 +29,45 @@ const ArmiesScreen = () => {
 
   return (
     <VStack flex={1}>
-      <StatusBar
-        animated
-        style='dark'
-      />
-      <BackgroundImage
-        source='armybuilder'
-        opacity={0.5}
-      />
-      <SafeAreaView
-        edges={['top']}
-        style={styles.flex1}
+      <Background />
+      <VStack
+        flex={1}
+        gap='$4'
+        pt={insets.top}
+        px='$4'
       >
-        <Box
-          flex={1}
-          gap='$4'
-          px='$4'
+        <HStack
+          alignItems='center'
+          justifyContent='space-between'
         >
-          <HStack
-            alignItems='center'
-            justifyContent='space-between'
+          <Heading
+            fontFamily='$mono'
+            textTransform='capitalize'
+            size='4xl'
           >
-            <Heading
-              fontFamily='$mono'
-              textTransform='capitalize'
-              size='4xl'
-            >
-              Your armies
-            </Heading>
-            <Button
+            Your armies
+          </Heading>
+          <Link
+            asChild
+            href='army-builder/codex-selection'
+          >
+            <Pressable
+              bg='$primary500'
               borderRadius='$full'
-              Icon={Plus}
-              onPress={() => {
-                router.push('army-builder/codex-selection')
-              }}
-            />
-          </HStack>
-          <ArmyList armies={data} />
-        </Box>
-      </SafeAreaView>
+              p='$2'
+            >
+              <Icon
+                as={Plus}
+                color='$white'
+                size='lg'
+              />
+            </Pressable>
+          </Link>
+        </HStack>
+        <ArmyList armies={data} />
+      </VStack>
     </VStack>
   )
 }
-
-const styles = StyleSheet.create({
-  flex1: {
-    height: '100%',
-    position: 'absolute',
-    width: '100%'
-  }
-})
 
 export default ArmiesScreen

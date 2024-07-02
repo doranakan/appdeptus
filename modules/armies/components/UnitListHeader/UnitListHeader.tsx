@@ -1,7 +1,7 @@
 import { Box, HStack, Heading, VStack } from '@gluestack-ui/themed'
-import { ArmyIcon } from 'appdeptus/components'
+import { ArmyIcon, SquareContainer } from 'appdeptus/components'
 import { type ArmyForm, type Codex } from 'appdeptus/models'
-import { useEffect, useMemo, type PropsWithChildren } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useGetCodexUnitsQuery } from '../../api'
@@ -94,31 +94,5 @@ const UnitListHeader = ({ armyId, codex }: UnitListHeaderProps) => {
     </HStack>
   )
 }
-
-const SquareContainer = ({ children }: PropsWithChildren) => (
-  <VStack
-    bgColor='$white'
-    borderColor='$secondary700'
-    borderWidth='$1'
-    h='$11'
-    w='$11'
-    transform={[
-      {
-        rotate: '45 deg'
-      }
-    ]}
-  >
-    <VStack
-      p='$1'
-      transform={[
-        {
-          rotate: '-45 deg'
-        }
-      ]}
-    >
-      {children}
-    </VStack>
-  </VStack>
-)
 
 export default UnitListHeader

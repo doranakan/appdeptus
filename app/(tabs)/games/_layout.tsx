@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router'
 
-const PlayLayout = () => (
+const GamesLayout = () => (
   <Stack>
     <Stack.Screen
       name='index'
@@ -9,4 +9,4 @@ const PlayLayout = () => (
   </Stack>
 )
 
-export default PlayLayout
+export default GamesLayout
