@@ -1,4 +1,5 @@
 import { HStack, Heading, Icon, Pressable } from '@gluestack-ui/themed'
+import { Link } from 'expo-router'
 import { QrCode, Swords } from 'lucide-react-native'
 
 const Header = () => (
@@ -28,13 +29,18 @@ const Header = () => (
         </Pressable>
       </HStack>
       <HStack gap='$4'>
-        <Pressable>
-          <Icon
-            as={Swords}
-            color='$secondary50'
-            size='xl'
-          />
-        </Pressable>
+        <Link
+          asChild
+          href='./games/new-game'
+        >
+          <Pressable>
+            <Icon
+              as={Swords}
+              color='$secondary50'
+              size='xl'
+            />
+          </Pressable>
+        </Link>
       </HStack>
     </HStack>
   </HStack>

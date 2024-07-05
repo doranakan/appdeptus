@@ -6,6 +6,10 @@ const GamesLayout = () => (
       name='index'
       options={{ headerShown: false }}
     />
+    <Stack.Screen
+      name='new-game'
+      options={{ headerShown: false, presentation: 'modal' }}
+    />
   </Stack>
 )
 
