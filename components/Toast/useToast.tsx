@@ -41,7 +41,7 @@ const useToast = () => {
             </VStack>
           </Toast>
         )
-      }),
+      }) as void,
     [bottom, toast, width]
   )
 
