@@ -1,7 +1,7 @@
 import { Icon as GSIcon, Heading, VStack } from '@gluestack-ui/themed'
 import { config, useColorMode } from 'appdeptus/designSystem'
 import { Tabs } from 'expo-router'
-import { Dices, Shield, User, type LucideIcon } from 'lucide-react-native'
+import { Dices, Shield, type LucideIcon } from 'lucide-react-native'
 import { MotiView } from 'moti'
 import React from 'react'
 
@@ -59,19 +59,6 @@ const TabsLayout = () => {
                 focused={focused}
                 Icon={Dices}
                 title='Games'
-              />
-            )
-          }}
-        />
-        <Tabs.Screen
-          name='user'
-          options={{
-            ...tabBarBaseOptions,
-            tabBarIcon: ({ focused }) => (
-              <TabBarItem
-                focused={focused}
-                Icon={User}
-                title='User'
               />
             )
           }}

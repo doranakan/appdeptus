@@ -46,6 +46,7 @@ const Modal = ({ children, onPressClose, title }: ModalProps) => {
               <Icon
                 as={X}
                 color='$white'
+                size='xl'
               />
             </Pressable>
           </Link>

@@ -128,7 +128,7 @@ const ArmyScreen = () => {
             <Icon
               as={Edit}
               color='$white'
-              size='lg'
+              size='xl'
             />
           </Pressable>
         </Link>
@@ -136,7 +136,7 @@ const ArmyScreen = () => {
           <Icon
             as={Trash2}
             color='$white'
-            size='lg'
+            size='xl'
           />
         </Pressable>
       </AnimatedHStack>

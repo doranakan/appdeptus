@@ -1,7 +1,7 @@
 import { HStack, Icon, Pressable } from '@gluestack-ui/themed'
 import { useSignOutMutation } from 'appdeptus/modules/root/api'
-import { router } from 'expo-router'
-import { Bug, LogOut } from 'lucide-react-native'
+import { Link, router } from 'expo-router'
+import { Bug, ChevronLeft, LogOut } from 'lucide-react-native'
 import { useCallback } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -17,30 +17,47 @@ const Header = () => {
       return
     }
 
+    while (router.canGoBack()) {
+      router.back()
+    }
     router.replace('/')
   }, [signOutMutation])
 
   return (
     <HStack
-      gap='$8'
-      justifyContent='flex-end'
+      justifyContent='space-between'
       p='$4'
       pt={insets.top}
     >
-      <Pressable>
-        <Icon
-          as={Bug}
-          color='$secondary100'
-          size='lg'
-        />
-      </Pressable>
-      <Pressable onPress={signOut}>
-        <Icon
-          as={LogOut}
-          color='$secondary100'
-          size='lg'
-        />
-      </Pressable>
+      <Link
+        asChild
+        href='../'
+      >
+        <Pressable>
+          <Icon
+            as={ChevronLeft}
+            color='$secondary100'
+            size='xl'
+          />
+        </Pressable>
+      </Link>
+      <HStack gap='$8'>
+        <Pressable>
+          <Icon
+            as={Bug}
+            color='$secondary100'
+            size='xl'
+          />
+        </Pressable>
+
+        <Pressable onPress={signOut}>
+          <Icon
+            as={LogOut}
+            color='$secondary100'
+            size='xl'
+          />
+        </Pressable>
+      </HStack>
     </HStack>
   )
 }
