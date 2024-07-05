@@ -1,20 +1,13 @@
-import {
-  Box,
-  HStack,
-  Heading,
-  Icon,
-  Pressable,
-  ScrollView,
-  VStack
-} from '@gluestack-ui/themed'
+import { HStack, Heading, Icon, Pressable, VStack } from '@gluestack-ui/themed'
 import { Link } from 'expo-router'
 import { X } from 'lucide-react-native'
 import { type PropsWithChildren } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type ModalProps = PropsWithChildren<{
-  onPressClose?: () => void
   title: string
+
+  onPressClose?: () => void
 }>
 
 const Modal = ({ children, onPressClose, title }: ModalProps) => {
@@ -52,10 +45,7 @@ const Modal = ({ children, onPressClose, title }: ModalProps) => {
           </Link>
         </VStack>
       </HStack>
-      <ScrollView flex={1}>
-        {children}
-        <Box h={insets.bottom} />
-      </ScrollView>
+      {children}
     </VStack>
   )
 }
