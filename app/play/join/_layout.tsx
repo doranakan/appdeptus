@@ -1,13 +1,13 @@
 import { Stack } from 'expo-router'
 
-const GamesLayout = () => (
+const ArmiesLayout = () => (
   <Stack
     screenOptions={{
       headerShown: false
     }}
   >
-    <Stack.Screen name='index' />
+    <Stack.Screen name='[gameId]' />
   </Stack>
 )
 
-export default GamesLayout
+export default ArmiesLayout
