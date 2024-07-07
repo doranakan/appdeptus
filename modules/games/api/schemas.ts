@@ -8,6 +8,10 @@ const playerSchema = z.object({
   name: z.string()
 })
 
+const createGameSchema = z.object({
+  id: idSchema
+})
+
 const gameSchema = z
   .object({
     id: idSchema,
@@ -40,4 +44,4 @@ const gameSchema = z
 
 const getGamesSchema = z.array(gameSchema)
 
-export { getGamesSchema }
+export { createGameSchema, getGamesSchema }
