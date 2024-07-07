@@ -11,6 +11,7 @@ type CardProps = (typeof HStack)['defaultProps'] & {
 
 const Card = ({
   animated,
+  bg,
   gradient = 'secondary',
   opacity,
   ...props
@@ -53,11 +54,14 @@ const Card = ({
           >
             <Content
               {...props}
-              bg='$transparent'
+              bg={bg ?? '$secondary50'}
             />
           </MotiView>
         ) : (
-          <Content {...props} />
+          <Content
+            {...props}
+            bg={bg ?? '$secondary50'}
+          />
         )}
       </LinearGradient>
     </VStack>
