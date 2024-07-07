@@ -10,6 +10,15 @@ const GamesLayout = () => (
       name='new-game'
       options={{ headerShown: false, presentation: 'modal' }}
     />
+    <Stack.Screen
+      name='qr-code'
+      options={{
+        headerShown: false,
+        presentation: 'modal',
+        gestureEnabled: false,
+        fullScreenGestureEnabled: false
+      }}
+    />
   </Stack>
 )
 
