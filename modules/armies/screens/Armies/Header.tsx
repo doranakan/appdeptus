@@ -50,7 +50,7 @@ const Header = () => {
         </Link>
         <Link
           asChild
-          href='army-builder/codex-selection'
+          href='army-builder'
         >
           <Pressable>
             <Icon
