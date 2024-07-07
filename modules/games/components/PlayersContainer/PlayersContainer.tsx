@@ -8,8 +8,14 @@ type PlayersContainerProps = {
 
 const PlayersContainer = ({ armyOne, armyTwo }: PlayersContainerProps) => (
   <HStack gap='$2'>
-    <Player army={armyOne} />
-    <Player army={armyTwo} />
+    <Player
+      army={armyOne}
+      player='one'
+    />
+    <Player
+      army={armyTwo}
+      player='two'
+    />
   </HStack>
 )
 
@@ -17,7 +23,7 @@ type PlayerProps = {
   army: Omit<Army, 'units'> | undefined
 }
 
-const Player = ({ army }: PlayerProps) => (
+const Player = ({ army, player }: PlayerProps & { player: 'one' | 'two' }) => (
   <VStack flex={1}>
     {army ? (
       <>
@@ -40,11 +46,17 @@ const Player = ({ army }: PlayerProps) => (
           fontFamily='$mono'
           fontSize='$5xl'
           lineHeight='$6xl'
+          textAlign={player === 'one' ? 'left' : 'right'}
           textTransform='capitalize'
         >
           {army.codex.name}
         </Heading>
-        <Heading color='$secondary50'>{army.name}</Heading>
+        <Heading
+          color='$secondary50'
+          textAlign={player === 'one' ? 'left' : 'right'}
+        >
+          {army.name}
+        </Heading>
       </>
     ) : undefined}
   </VStack>

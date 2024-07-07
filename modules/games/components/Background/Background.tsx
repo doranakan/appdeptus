@@ -6,10 +6,11 @@ import {
 import { type CodexName } from 'appdeptus/models'
 
 type BackgroundProps = {
-  codex?: CodexName
+  codexOne: CodexName | undefined
+  codexTwo?: CodexName
 }
 
-const Background = ({ codex }: BackgroundProps) => (
+const Background = ({ codexOne, codexTwo }: BackgroundProps) => (
   <HStack
     h='$full'
     position='absolute'
@@ -19,9 +20,9 @@ const Background = ({ codex }: BackgroundProps) => (
       bg='$secondary950'
       flex={1}
     >
-      {codex ? (
+      {codexOne ? (
         <AnimatedArmyBackgroundImage
-          codexName={codex}
+          codexName={codexOne}
           type='hero'
         />
       ) : undefined}
@@ -36,6 +37,12 @@ const Background = ({ codex }: BackgroundProps) => (
       bg='$secondary950'
       flex={1}
     >
+      {codexTwo ? (
+        <AnimatedArmyBackgroundImage
+          codexName={codexTwo}
+          type='hero'
+        />
+      ) : undefined}
       <LinearGradient
         colors={['$secondary900', '$transparent']}
         position='absolute'
@@ -49,9 +56,9 @@ const Background = ({ codex }: BackgroundProps) => (
       position='absolute'
       w='$full'
     >
-      <Box flex={3} />
+      <Box flex={2} />
       <Box flex={1}>
-        <LinearGradient colors={['$transparent', '$secondary200']} />
+        <LinearGradient colors={['$transparent', '$secondary900']} />
       </Box>
     </VStack>
   </HStack>

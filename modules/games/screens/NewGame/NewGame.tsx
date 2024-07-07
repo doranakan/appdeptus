@@ -2,9 +2,8 @@ import { VStack } from '@gluestack-ui/themed'
 import { type Army } from 'appdeptus/models'
 import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
-import { PlayersContainer } from '../../components'
-import ArmySelector from './ArmySelector'
-import Background from './Background'
+import { ArmySelector, Background, PlayersContainer } from '../../components'
+
 import Header from './Header'
 
 const NewGameScreen = () => {
@@ -19,7 +18,7 @@ const NewGameScreen = () => {
         style='light'
       />
 
-      <Background codex={selectedArmy?.codex.name} />
+      <Background codexOne={selectedArmy?.codex.name} />
 
       <VStack
         flex={1}
