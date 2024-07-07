@@ -24,6 +24,7 @@ const ArmyCoverImage = ({ codexName }: ArmyCoverImageProps) => {
         duration={200}
         fromScale={1.1}
         opacity={0.3}
+        type='codex'
       />
       <VStack
         h='$full'
