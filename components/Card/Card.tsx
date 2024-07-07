@@ -73,7 +73,6 @@ const Content = ({
   ...props
 }: Omit<CardProps, 'gradient' | 'animated'>) => (
   <VStack
-    bg='$secondary100'
     p='$2'
     {...props}
   >
