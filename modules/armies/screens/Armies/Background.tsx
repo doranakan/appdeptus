@@ -13,7 +13,7 @@ const Background = () => (
       style='dark'
     />
     <BackgroundImage
-      source='armybuilder'
+      source='army_builder'
       opacity={0.5}
     />
   </VStack>
