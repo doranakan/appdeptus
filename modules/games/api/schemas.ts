@@ -44,4 +44,6 @@ const gameSchema = z
 
 const getGamesSchema = z.array(gameSchema)
 
-export { createGameSchema, getGamesSchema }
+const getGameSchema = gameSchema
+
+export { createGameSchema, getGameSchema, getGamesSchema }
