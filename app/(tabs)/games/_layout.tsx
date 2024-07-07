@@ -1,0 +1,25 @@
+import { Stack } from 'expo-router'
+
+const GamesLayout = () => (
+  <Stack>
+    <Stack.Screen
+      name='index'
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name='new-game'
+      options={{ headerShown: false, presentation: 'modal' }}
+    />
+    <Stack.Screen
+      name='qr-code'
+      options={{
+        headerShown: false,
+        presentation: 'modal',
+        gestureEnabled: false,
+        fullScreenGestureEnabled: false
+      }}
+    />
+  </Stack>
+)
+
+export default GamesLayout

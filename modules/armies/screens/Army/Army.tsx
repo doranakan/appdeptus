@@ -85,6 +85,7 @@ const ArmyScreen = () => {
           duration={200}
           fromScale={1.1}
           opacity={0.3}
+          type='codex'
         />
         <Box
           h='$full'
@@ -128,7 +129,7 @@ const ArmyScreen = () => {
             <Icon
               as={Edit}
               color='$white'
-              size='lg'
+              size='xl'
             />
           </Pressable>
         </Link>
@@ -136,7 +137,7 @@ const ArmyScreen = () => {
           <Icon
             as={Trash2}
             color='$white'
-            size='lg'
+            size='xl'
           />
         </Pressable>
       </AnimatedHStack>

@@ -2,9 +2,20 @@ import { LinearGradient as GSLinearGradient } from '@gluestack-ui/themed'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { type ComponentProps } from 'react'
 
-type LinearGradientProps = {
+type Coordinates = {
+  x: number
+  y: number
+}
+
+type LinearGradientProps = Omit<
+  ComponentProps<typeof GSLinearGradient>,
+  'end' | 'start'
+> & {
   colors: string[]
-} & ComponentProps<typeof GSLinearGradient>
+
+  end?: number | Coordinates
+  start?: number | Coordinates
+}
 
 const LinearGradient = ({
   colors,
@@ -14,11 +25,13 @@ const LinearGradient = ({
 }: LinearGradientProps) => (
   <GSLinearGradient
     as={ExpoLinearGradient}
+    colors={colors}
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
-    colors={colors}
     end={end}
     height='$full'
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error
     start={start}
     width='$full'
     {...props}

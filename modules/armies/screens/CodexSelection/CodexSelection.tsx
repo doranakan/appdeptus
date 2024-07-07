@@ -9,7 +9,7 @@ import {
   GradientHeading,
   Loading
 } from 'appdeptus/components'
-import { setColorMode, useColorMode } from 'appdeptus/designSystem'
+import { setColorMode } from 'appdeptus/designSystem'
 import { CodexName, type ArmyForm } from 'appdeptus/models'
 import { useRouter } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
@@ -28,8 +28,6 @@ const CodexSelectionScreen = () => {
   const insets = useSafeAreaInsets()
 
   const dispatch = useDispatch()
-
-  const colorMode = useColorMode()
 
   const router = useRouter()
 
@@ -106,7 +104,10 @@ const CodexSelectionScreen = () => {
               h='$full'
               w='$full'
             >
-              <AnimatedArmyBackgroundImage codexName={selectedCodex.name} />
+              <AnimatedArmyBackgroundImage
+                codexName={selectedCodex.name}
+                type='codex'
+              />
             </Box>
           </MaskedView>
         </VStack>
