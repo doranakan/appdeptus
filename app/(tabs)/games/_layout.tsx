@@ -1,22 +1,22 @@
 import { Stack } from 'expo-router'
 
 const GamesLayout = () => (
-  <Stack>
-    <Stack.Screen
-      name='index'
-      options={{ headerShown: false }}
-    />
+  <Stack
+    screenOptions={{
+      headerShown: false
+    }}
+  >
+    <Stack.Screen name='index' />
     <Stack.Screen
       name='new-game'
-      options={{ headerShown: false, presentation: 'modal' }}
+      options={{ presentation: 'modal' }}
     />
     <Stack.Screen
       name='qr-code'
       options={{
-        headerShown: false,
-        presentation: 'modal',
         gestureEnabled: false,
-        fullScreenGestureEnabled: false
+        fullScreenGestureEnabled: false,
+        presentation: 'modal'
       }}
     />
   </Stack>

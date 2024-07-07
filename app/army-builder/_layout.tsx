@@ -15,25 +15,20 @@ const ArmiesLayout = () => {
 
   return (
     <FormProvider {...form}>
-      <Stack>
-        <Stack.Screen
-          name='codex-selection'
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name='unit-selection'
-          options={{
-            headerShown: false
-          }}
-        />
+      <Stack
+        screenOptions={{
+          headerShown: false
+        }}
+      >
+        <Stack.Screen name='index' />
+        <Stack.Screen name='unit-selection' />
         <Stack.Screen
           name='tier-selection'
           options={{
             animation:
               Platform.OS === 'android' ? 'slide_from_bottom' : undefined,
             presentation: Platform.OS === 'ios' ? 'modal' : undefined,
-            fullScreenGestureEnabled: true,
-            headerShown: false
+            fullScreenGestureEnabled: true
           }}
         />
         <Stack.Screen
