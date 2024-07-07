@@ -1,21 +1,43 @@
 import { VStack } from '@gluestack-ui/themed'
-import { Modal } from 'appdeptus/components'
+import { type Army } from 'appdeptus/models'
+import { StatusBar } from 'expo-status-bar'
+import { useState } from 'react'
+import { PlayersContainer } from '../../components'
 import ArmySelector from './ArmySelector'
 import Background from './Background'
+import Header from './Header'
 
-const NewGameScreen = () => (
-  <VStack flex={1}>
-    <Background />
-    <Modal title='Select army'>
+const NewGameScreen = () => {
+  const [selectedArmy, setSelectedArmy] = useState<
+    Omit<Army, 'units'> | undefined
+  >()
+
+  return (
+    <VStack flex={1}>
+      <StatusBar
+        animated
+        style='light'
+      />
+
+      <Background codex={selectedArmy?.codex.name} />
+
       <VStack
-        gap='$4'
         flex={1}
-        p='$4'
+        justifyContent='space-between'
+        px='$4'
+        py='$8'
       >
-        <ArmySelector />
+        <Header selectedArmyId={selectedArmy?.id} />
+
+        <PlayersContainer armyOne={selectedArmy} />
       </VStack>
-    </Modal>
-  </VStack>
-)
+
+      <ArmySelector
+        selectedArmy={selectedArmy?.id}
+        onArmySelected={setSelectedArmy}
+      />
+    </VStack>
+  )
+}
 
 export default NewGameScreen

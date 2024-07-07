@@ -1,64 +1,81 @@
-import { VStack } from '@gluestack-ui/themed'
-import { Button, Loading, useToast } from 'appdeptus/components'
+import {
+  Box,
+  HStack,
+  Heading,
+  Icon,
+  Pressable,
+  Text,
+  VStack
+} from '@gluestack-ui/themed'
+import { ArmyIcon, Card } from 'appdeptus/components'
+import { type Army } from 'appdeptus/models'
 import { useGetArmiesQuery } from 'appdeptus/modules/armies/api'
-import { ArmyList } from 'appdeptus/modules/armies/components'
-import { router } from 'expo-router'
 import { Swords } from 'lucide-react-native'
-import { useCallback, useState } from 'react'
-import { useCreateGameMutation } from '../../api/hooks'
+import { FlatList } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-const ArmySelector = () => {
+type ArmySelectorProps = {
+  selectedArmy: string | undefined
+  onArmySelected: (army: Omit<Army, 'units'>) => void
+}
+
+const ArmySelector = ({ selectedArmy, onArmySelected }: ArmySelectorProps) => {
+  const insets = useSafeAreaInsets()
+
   const { data } = useGetArmiesQuery()
 
-  const [selectedArmy, setSelectedArmy] = useState<string | undefined>()
-
-  const [createGame, { isLoading }] = useCreateGameMutation()
-
-  const showToast = useToast()
-
-  const newGame = useCallback(
-    async (armyId: string) => {
-      const res = await createGame(armyId)
-
-      console.log({ res })
-
-      if ('error' in res) {
-        showToast({
-          title: 'Astropathic interference!',
-          description: 'An error occurred'
-        })
-        return
-      }
-
-      router.back()
-    },
-    [createGame, showToast]
-  )
-
   if (!data) {
-    return <Loading />
+    return null
   }
 
   return (
-    <VStack
-      flex={1}
-      gap='$4'
-    >
-      <Button
-        disabled={!selectedArmy}
-        loading={isLoading}
-        Icon={Swords}
-        onPress={async () => {
-          if (selectedArmy) {
-            await newGame(selectedArmy)
-          }
-        }}
-        text='New game'
-      />
-      <ArmyList
-        armies={data}
-        selectedArmy={selectedArmy}
-        onPressArmy={setSelectedArmy}
+    <VStack pb={insets.bottom}>
+      <HStack
+        alignItems='center'
+        gap='$2'
+        px='$4'
+        py='$2'
+      >
+        <Icon
+          as={Swords}
+          color='$secondary50'
+        />
+        <Heading color='$secondary50'>Select your army:</Heading>
+      </HStack>
+      <FlatList
+        data={data}
+        horizontal
+        ItemSeparatorComponent={() => <Box w='$4' />}
+        ListHeaderComponent={() => <Box w='$4' />}
+        ListFooterComponent={() => <Box w='$4' />}
+        renderItem={({ item }) => (
+          <Pressable
+            mb='$4'
+            onPress={() => {
+              onArmySelected(item)
+            }}
+            w={150}
+          >
+            <Card
+              alignItems='center'
+              gradient={selectedArmy === item.id ? 'primary' : 'secondary'}
+              bg={selectedArmy === item.id ? '$primary50' : '$white'}
+            >
+              <ArmyIcon
+                codexName={item.codex.name}
+                h={80}
+                w={80}
+              />
+              <Heading
+                ellipsizeMode='tail'
+                numberOfLines={1}
+              >
+                {item.name}
+              </Heading>
+              <Text>{`${item.totalPoints}pts`}</Text>
+            </Card>
+          </Pressable>
+        )}
       />
     </VStack>
   )
