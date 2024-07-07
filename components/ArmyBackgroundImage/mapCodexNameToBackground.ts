@@ -13,7 +13,7 @@ const mapCodexNameToBackground = {
   [CodexName.CHAOS_SPACE_MARINES]: 'codex_chaos_space_marines',
   [CodexName.DARK_ANGELS]: 'codex_dark_angels',
   [CodexName.DEATH_GUARD]: 'codex_death_guard',
-  [CodexName.DEATHWATCH]: 'codex_death_watch',
+  [CodexName.DEATHWATCH]: 'codex_deathwatch',
   [CodexName.DRUKHARI]: 'codex_drukhari',
   [CodexName.GENESTEALER_CULTS]: 'codex_genestealer_cults',
   [CodexName.GREY_KNIGHTS]: 'codex_grey_knights',
