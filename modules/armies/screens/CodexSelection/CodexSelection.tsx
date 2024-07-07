@@ -22,7 +22,7 @@ import { useDispatch } from 'react-redux'
 import { useGetCodexesQuery } from '../../api'
 import { CodexCoverImage } from '../../components'
 
-const AVAILABLED_ARMIES = [CodexName.TYRANIDS]
+const AVAILABLED_ARMIES = [CodexName.AELDARI, CodexName.TYRANIDS]
 
 const CodexSelectionScreen = () => {
   const insets = useSafeAreaInsets()
@@ -51,7 +51,7 @@ const CodexSelectionScreen = () => {
       params: {
         codexId: selectedCodex?.id
       },
-      pathname: './unit-selection'
+      pathname: 'army-builder/unit-selection'
     })
   }, [reset, router, selectedCodex?.id, setValue])
 
