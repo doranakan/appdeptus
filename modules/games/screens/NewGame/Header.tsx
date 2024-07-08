@@ -1,7 +1,7 @@
 import { HStack, Icon, Pressable, Spinner, Text } from '@gluestack-ui/themed'
 import { useToast } from 'appdeptus/components'
 import { Link, router } from 'expo-router'
-import { QrCode, X } from 'lucide-react-native'
+import { ChevronLeft, QrCode } from 'lucide-react-native'
 import { useCallback } from 'react'
 import { useCreateGameMutation } from '../../api/hooks'
 
@@ -44,7 +44,7 @@ const Header = ({ selectedArmyId }: HeaderProps) => {
         <Pressable>
           <HStack alignContent='center'>
             <Icon
-              as={X}
+              as={ChevronLeft}
               color='$secondary50'
               size='xl'
             />
