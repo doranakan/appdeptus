@@ -1,5 +1,6 @@
 import {
   NotoSerif_400Regular,
+  NotoSerif_400Regular_Italic,
   NotoSerif_700Bold,
   useFonts
 } from '@expo-google-fonts/noto-serif'
@@ -33,6 +34,7 @@ const RootLayout = () => {
   const [fontLoaded] = useFonts({
     AmericanText,
     NotoSerif_400Regular,
+    NotoSerif_400Regular_Italic,
     NotoSerif_700Bold,
     RobotoCondensed_700Bold
   })
