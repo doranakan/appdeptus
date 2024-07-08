@@ -17,7 +17,7 @@ const Footer = () => {
     >
       <Image
         contentFit='contain'
-        source='40klogo'
+        source='wh_40k_logo'
         style={{
           height: 40
         }}
