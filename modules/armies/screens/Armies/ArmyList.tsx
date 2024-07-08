@@ -32,7 +32,7 @@ const ArmyList = ({ armies }: ArmyListProps) => {
         <Text textAlign='center'>😱 You have no armies!</Text>
         <Button
           onPress={() => {
-            router.push('armies/army-builder/codex-selection')
+            router.push('army-builder')
           }}
           text='Create your first army'
         />

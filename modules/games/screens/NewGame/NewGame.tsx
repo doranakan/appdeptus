@@ -2,15 +2,25 @@ import { VStack } from '@gluestack-ui/themed'
 import { type Army } from 'appdeptus/models'
 import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
-import { PlayersContainer } from '../../components'
-import ArmySelector from './ArmySelector'
-import Background from './Background'
+import { ArmySelector, Background, PlayersContainer } from '../../components'
+
+import { Loading } from 'appdeptus/components'
+import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Header from './Header'
 
 const NewGameScreen = () => {
+  const insets = useSafeAreaInsets()
+
   const [selectedArmy, setSelectedArmy] = useState<
     Omit<Army, 'units'> | undefined
   >()
+
+  const { data } = useGetUserProfileQuery()
+
+  if (!data) {
+    return <Loading />
+  }
 
   return (
     <VStack flex={1}>
@@ -19,17 +29,21 @@ const NewGameScreen = () => {
         style='light'
       />
 
-      <Background codex={selectedArmy?.codex.name} />
+      <Background codexOne={selectedArmy?.codex.name} />
 
       <VStack
         flex={1}
         justifyContent='space-between'
+        pb='$8'
+        pt={insets.top}
         px='$4'
-        py='$8'
       >
         <Header selectedArmyId={selectedArmy?.id} />
 
-        <PlayersContainer armyOne={selectedArmy} />
+        <PlayersContainer
+          armyOne={selectedArmy}
+          nameOne={data?.name}
+        />
       </VStack>
 
       <ArmySelector

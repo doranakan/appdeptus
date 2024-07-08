@@ -1,11 +1,12 @@
 import { supabaseApi } from 'appdeptus/api'
-import { createGame } from './endpoints'
-import getGames from './endpoints/getGames'
+import { createGame, getGame, getGames, startGame } from './endpoints'
 
 const gamesApi = supabaseApi.injectEndpoints({
   endpoints: (builder) => ({
     createGame: createGame(builder),
-    getGames: getGames(builder)
+    getGame: getGame(builder),
+    getGames: getGames(builder),
+    startGame: startGame(builder)
   }),
   overrideExisting: true
 })

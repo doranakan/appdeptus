@@ -1,22 +1,23 @@
 import { HStack, Icon, Pressable, Spinner, Text } from '@gluestack-ui/themed'
 import { useToast } from 'appdeptus/components'
 import { Link, router } from 'expo-router'
-import { ChevronLeft, QrCode } from 'lucide-react-native'
+import { ChevronLeft, Swords } from 'lucide-react-native'
 import { useCallback } from 'react'
-import { useCreateGameMutation } from '../../api'
+import { useStartGameMutation } from '../../api'
 
 type HeaderProps = {
+  gameId: string
   selectedArmyId: string | undefined
 }
 
-const Header = ({ selectedArmyId }: HeaderProps) => {
-  const [createGame, { isLoading }] = useCreateGameMutation()
+const Header = ({ gameId, selectedArmyId }: HeaderProps) => {
+  const [startGame, { isLoading }] = useStartGameMutation()
 
   const showToast = useToast()
 
-  const createGameAndSelectPlayerTwo = useCallback(async () => {
+  const StartGameAndSelectPlayerTwo = useCallback(async () => {
     if (selectedArmyId) {
-      const res = await createGame(selectedArmyId)
+      const res = await startGame({ armyId: selectedArmyId, gameId })
 
       if ('error' in res) {
         showToast({
@@ -26,14 +27,11 @@ const Header = ({ selectedArmyId }: HeaderProps) => {
         return
       }
 
-      router.push({
-        params: {
-          gameId: res.data
-        },
-        pathname: './qr-code'
+      router.replace({
+        pathname: `play/${gameId}`
       })
     }
-  }, [createGame, selectedArmyId, showToast])
+  }, [selectedArmyId, startGame, gameId, showToast])
 
   return (
     <HStack justifyContent='space-between'>
@@ -54,7 +52,7 @@ const Header = ({ selectedArmyId }: HeaderProps) => {
 
       <Pressable
         disabled={!selectedArmyId}
-        onPress={createGameAndSelectPlayerTwo}
+        onPress={StartGameAndSelectPlayerTwo}
       >
         <HStack
           alignContent='center'
@@ -64,13 +62,13 @@ const Header = ({ selectedArmyId }: HeaderProps) => {
             color='$secondary50'
             size='lg'
           >
-            Player 2
+            Play
           </Text>
           {isLoading ? (
             <Spinner color='$white' />
           ) : (
             <Icon
-              as={QrCode}
+              as={Swords}
               color='$secondary50'
               size='xl'
             />
