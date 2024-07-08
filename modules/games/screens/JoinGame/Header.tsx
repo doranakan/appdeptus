@@ -3,7 +3,7 @@ import { useToast } from 'appdeptus/components'
 import { Link, router } from 'expo-router'
 import { ChevronLeft, Swords } from 'lucide-react-native'
 import { useCallback } from 'react'
-import { useStartGameMutation } from '../../api/hooks'
+import { useStartGameMutation } from '../../api'
 
 type HeaderProps = {
   gameId: string
@@ -28,10 +28,7 @@ const Header = ({ gameId, selectedArmyId }: HeaderProps) => {
       }
 
       router.replace({
-        params: {
-          gameId
-        },
-        pathname: 'play'
+        pathname: `play/${gameId}`
       })
     }
   }, [selectedArmyId, startGame, gameId, showToast])

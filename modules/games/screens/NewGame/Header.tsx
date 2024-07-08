@@ -3,7 +3,7 @@ import { useToast } from 'appdeptus/components'
 import { Link, router } from 'expo-router'
 import { ChevronLeft, QrCode } from 'lucide-react-native'
 import { useCallback } from 'react'
-import { useCreateGameMutation } from '../../api/hooks'
+import { useCreateGameMutation } from '../../api'
 
 type HeaderProps = {
   selectedArmyId: string | undefined

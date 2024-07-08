@@ -6,7 +6,7 @@ import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { useLocalSearchParams } from 'expo-router'
 import { useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useGetGameQuery } from '../../api/hooks'
+import { useGetGameQuery } from '../../api'
 import { ArmySelector, Background, PlayersContainer } from '../../components'
 import Header from './Header'
 
