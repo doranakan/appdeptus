@@ -1,5 +1,15 @@
 import gamesApi from './api'
 
-const { useCreateGameMutation, useGetGameQuery, useGetGamesQuery } = gamesApi
+const {
+  useCreateGameMutation,
+  useGetGameQuery,
+  useGetGamesQuery,
+  useStartGameMutation
+} = gamesApi
 
-export { useCreateGameMutation, useGetGameQuery, useGetGamesQuery }
+export {
+  useCreateGameMutation,
+  useGetGameQuery,
+  useGetGamesQuery,
+  useStartGameMutation
+}
