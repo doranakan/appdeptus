@@ -1,4 +1,5 @@
 import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { GameStatus } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import GamesApiTag from '../tags'
@@ -15,7 +16,8 @@ const startGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
         const { data, error } = await supabase
           .from(Table.GAMES)
           .update({
-            army_two: armyId
+            army_two: armyId,
+            status: GameStatus.READY
           })
           .eq('id', gameId)
 
