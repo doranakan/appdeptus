@@ -3,12 +3,17 @@ import { GameStatus, type Game } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { getGamesSchema } from '../schemas'
+import type GamesApiTag from '../tags'
 
-const getGames = (builder: SupabaseEndpointBuilder) =>
+const getGames = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
   builder.query<Game[], void>({
     queryFn: async () => {
       try {
         const userId = await getUserId()
+
+        if (typeof userId === 'object') {
+          throw userId.error
+        }
 
         const { data, error } = await supabase
           .from(Table.GAMES)
@@ -39,7 +44,7 @@ const getGames = (builder: SupabaseEndpointBuilder) =>
             )
             `
           )
-          .eq('player_one', userId)
+          .or(`player_one.eq.${userId},player_two.eq.${userId}`)
 
         if (error) {
           return { error }

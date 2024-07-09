@@ -2,8 +2,9 @@ import { type SupabaseEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { createGameSchema } from '../schemas'
+import type GamesApiTag from '../tags'
 
-const createGame = (builder: SupabaseEndpointBuilder) =>
+const createGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
   builder.mutation<string, string>({
     queryFn: async (armyId) => {
       try {

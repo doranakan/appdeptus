@@ -3,8 +3,9 @@ import { GameStatus, type Game } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { getGameSchema } from '../schemas'
+import type GamesApiTag from '../tags'
 
-const getGames = (builder: SupabaseEndpointBuilder) =>
+const getGames = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
   builder.query<Game, string>({
     queryFn: async (gameId) => {
       try {

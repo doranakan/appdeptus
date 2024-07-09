@@ -1,13 +1,14 @@
 import { type SupabaseEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
+import GamesApiTag from '../tags'
 
 type StartGameRequest = {
   armyId: string
   gameId: string
 }
 
-const startGame = (builder: SupabaseEndpointBuilder) =>
+const startGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
   builder.mutation<null, StartGameRequest>({
     queryFn: async ({ armyId, gameId }) => {
       try {
@@ -26,7 +27,8 @@ const startGame = (builder: SupabaseEndpointBuilder) =>
       } catch (error) {
         return { error }
       }
-    }
+    },
+    invalidatesTags: [GamesApiTag.GAME_LIST]
   })
 
 export default startGame
