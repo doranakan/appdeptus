@@ -27,6 +27,7 @@
     "@types/pluralize": "^0.0.33",
     "ahooks": "^3.7.10",
     "babel-plugin-inline-import": "^3.0.0",
+    "date-fns": "^3.6.0",
     "expo": "~51.0.17",
     "expo-application": "~5.9.1",
     "expo-asset": "~10.0.9",
