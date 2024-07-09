@@ -36,7 +36,10 @@ const Header = ({ selectedArmyId }: HeaderProps) => {
   }, [createGame, selectedArmyId, showToast])
 
   return (
-    <HStack justifyContent='space-between'>
+    <HStack
+      justifyContent='space-between'
+      py='$4'
+    >
       <Link
         asChild
         href='../'

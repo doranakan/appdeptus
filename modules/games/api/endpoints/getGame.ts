@@ -1,11 +1,12 @@
 import { type SupabaseEndpointBuilder } from 'appdeptus/api'
-import { GameStatus, type Game } from 'appdeptus/models/game'
+import { GameStatus, type Game, type NewGame } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { getGameSchema } from '../schemas'
+import type GamesApiTag from '../tags'
 
-const getGames = (builder: SupabaseEndpointBuilder) =>
-  builder.query<Game, string>({
+const getGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
+  builder.query<NewGame | Game, string>({
     queryFn: async (gameId) => {
       try {
         const { data, error } = await supabase
@@ -81,4 +82,4 @@ const getGames = (builder: SupabaseEndpointBuilder) =>
     }
   })
 
-export default getGames
+export default getGame

@@ -12,26 +12,27 @@ enum GameStatus {
   ENDED = 'ended'
 }
 
-type Game = {
+type BaseGame = {
   id: string
   created: string
   playerOne: Player
-} & (
-  | {
-      status: GameStatus.NEW
-    }
-  | {
-      status:
-        | GameStatus.READY
-        | GameStatus.TURN_1
-        | GameStatus.TURN_2
-        | GameStatus.TURN_3
-        | GameStatus.TURN_4
-        | GameStatus.TURN_5
-        | GameStatus.ENDED
-      playerTwo: Player
-    }
-)
+}
+
+type NewGame = BaseGame & {
+  status: GameStatus.NEW
+}
+
+type Game = BaseGame & {
+  status:
+    | GameStatus.READY
+    | GameStatus.TURN_1
+    | GameStatus.TURN_2
+    | GameStatus.TURN_3
+    | GameStatus.TURN_4
+    | GameStatus.TURN_5
+    | GameStatus.ENDED
+  playerTwo: Player
+}
 
 type Player = {
   name: UserProfile['name']
@@ -41,4 +42,4 @@ type Player = {
 
 export { GameStatus }
 
-export type { Game }
+export type { Game, NewGame, Player }
