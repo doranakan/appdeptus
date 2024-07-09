@@ -1,60 +1,67 @@
 import { Box, HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
-import { ArmyIcon, Card } from 'appdeptus/components'
-import { CodexName } from 'appdeptus/models'
+import { ArmyIcon, Card, Loading } from 'appdeptus/components'
+import { GameStatus, type Player } from 'appdeptus/models/game'
+import { formatDistance } from 'date-fns'
 import { FlatList } from 'react-native'
-import PlayerCard from './PlayerCard'
+import { useGetGamesQuery } from '../../api'
 
 const GameList = () => {
+  const { data } = useGetGamesQuery()
+
+  if (!data) {
+    return <Loading />
+  }
+
   return (
     <FlatList
-      data={[
-        {
-          id: 1,
-          playerOne: {
-            armyPoints: 1950,
-            codex: CodexName.AELDARI,
-            name: 'Doranakan',
-            gamePoints: 49,
-            userId: '234598'
-          },
-          playerTwo: {
-            armyPoints: 2000,
-            codex: CodexName.TYRANIDS,
-            name: 'Rygar',
-            gamePoints: 61,
-            userId: '345984'
-          },
-          date: 'Yesterday'
-        }
-      ]}
-      ListHeaderComponent={() => (
-        <VStack pb='$4'>
-          <PlayerCard />
-        </VStack>
-      )}
+      data={data}
       keyExtractor={({ id }) => String(id)}
       ItemSeparatorComponent={() => <Box p='$2' />}
       renderItem={({ item }) => (
         <Card
+          bg={item.status !== GameStatus.ENDED ? '$primary50' : undefined}
+          gap='$2'
+          gradient={item.status !== GameStatus.ENDED ? 'primary' : 'secondary'}
           p='$2'
           opacity='$90'
         >
-          <HStack justifyContent='flex-end'>
-            <Text color='$secondary500'>{item.date}</Text>
+          <HStack justifyContent='space-between'>
+            <Text>
+              Status:{' '}
+              <Text
+                bold
+                textTransform='capitalize'
+              >
+                {item.status}
+              </Text>
+            </Text>
+            <Text color='$secondary500'>
+              {formatDistance(new Date(item.created), new Date(), {
+                addSuffix: true
+              })}
+            </Text>
           </HStack>
           <HStack
             gap='$4'
             justifyContent='space-between'
           >
             <PlayerContainer
-              {...item.playerOne}
-              player={0}
-              winner={item.playerOne.gamePoints > item.playerTwo.gamePoints}
+              oneOrTwo='one'
+              player={item.playerOne}
+              winner={
+                item.status === GameStatus.ENDED
+                  ? item.playerOne.score > item.playerTwo.score
+                  : false
+              }
             />
             <PlayerContainer
-              {...item.playerTwo}
-              player={1}
-              winner={item.playerOne.gamePoints < item.playerTwo.gamePoints}
+              oneOrTwo='two'
+              player={item.playerTwo}
+              winner={
+                item.status === GameStatus.ENDED
+                  ? item.playerOne.score < item.playerTwo.score
+                  : false
+              }
             />
           </HStack>
         </Card>
@@ -64,57 +71,53 @@ const GameList = () => {
 }
 
 type PlayerContainerProps = {
-  codex: CodexName
-  name: string
-  player: 0 | 1
-  armyPoints: number
-  gamePoints: number
-  userId: string
+  oneOrTwo: 'one' | 'two'
+  player: Player
   winner: boolean
 }
 
 const PlayerContainer = ({
-  codex,
-  name,
+  oneOrTwo,
   player,
-  armyPoints,
-  gamePoints,
-  userId,
   winner
 }: PlayerContainerProps) => (
   <VStack
-    alignItems={player ? 'flex-end' : 'flex-start'}
+    alignItems={oneOrTwo === 'two' ? 'flex-end' : 'flex-start'}
     flex={1}
     gap='$1'
   >
     <HStack
       borderBottomWidth='$1'
-      borderLeftWidth={player ? '$1' : '$0'}
-      borderRightWidth={player ? '$0' : '$1'}
+      borderLeftWidth={oneOrTwo === 'one' ? '$1' : '$0'}
+      borderRightWidth={oneOrTwo === 'one' ? '$0' : '$1'}
       borderColor='$secondary700'
       px='$1'
-      reversed={!!player}
+      reversed={oneOrTwo === 'two'}
       justifyContent={'space-between'}
       w='$full'
     >
-      <Heading>{name}</Heading>
+      <Heading>{player.name}</Heading>
 
       <Heading color={winner ? '$primary500' : '$secondary300'}>
-        {gamePoints}
+        {player.score}
       </Heading>
     </HStack>
     <HStack
-      reversed={!!player}
+      alignItems='center'
+      reversed={oneOrTwo === 'two'}
       gap='$1'
     >
       <ArmyIcon
-        codexName={codex}
+        codexName={player.army.codex.name}
         color='secondary700'
         h={16}
         w={16}
       />
-      <Text>
-        <Text bold>{codex}</Text> - {armyPoints}pts
+      <Text
+        ellipsizeMode='tail'
+        numberOfLines={1}
+      >
+        {player.army.name}
       </Text>
     </HStack>
   </VStack>
