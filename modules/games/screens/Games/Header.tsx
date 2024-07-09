@@ -31,7 +31,7 @@ const Header = () => (
       <HStack gap='$4'>
         <Link
           asChild
-          href='./games/new-game'
+          href='play/new-game'
         >
           <Pressable>
             <Icon
