@@ -1,7 +1,15 @@
-import { Box, HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
+import {
+  Box,
+  HStack,
+  Heading,
+  Pressable,
+  Text,
+  VStack
+} from '@gluestack-ui/themed'
 import { ArmyIcon, Card, Loading } from 'appdeptus/components'
 import { GameStatus, type Player } from 'appdeptus/models/game'
 import { formatDistance } from 'date-fns'
+import { Link } from 'expo-router'
 import { FlatList } from 'react-native'
 import { useGetGamesQuery } from '../../api'
 
@@ -18,53 +26,62 @@ const GameList = () => {
       keyExtractor={({ id }) => String(id)}
       ItemSeparatorComponent={() => <Box p='$2' />}
       renderItem={({ item }) => (
-        <Card
-          bg={item.status !== GameStatus.ENDED ? '$primary50' : undefined}
-          gap='$2'
-          gradient={item.status !== GameStatus.ENDED ? 'primary' : 'secondary'}
-          p='$2'
-          opacity='$90'
+        <Link
+          asChild
+          href={`play/${item.id}`}
         >
-          <HStack justifyContent='space-between'>
-            <Text>
-              Status:{' '}
-              <Text
-                bold
-                textTransform='capitalize'
+          <Pressable>
+            <Card
+              bg={item.status !== GameStatus.ENDED ? '$primary50' : undefined}
+              gap='$2'
+              gradient={
+                item.status !== GameStatus.ENDED ? 'primary' : 'secondary'
+              }
+              p='$2'
+              opacity='$90'
+            >
+              <HStack justifyContent='space-between'>
+                <Text>
+                  Status:{' '}
+                  <Text
+                    bold
+                    textTransform='capitalize'
+                  >
+                    {item.status}
+                  </Text>
+                </Text>
+                <Text color='$secondary500'>
+                  {formatDistance(new Date(item.created), new Date(), {
+                    addSuffix: true
+                  })}
+                </Text>
+              </HStack>
+              <HStack
+                gap='$4'
+                justifyContent='space-between'
               >
-                {item.status}
-              </Text>
-            </Text>
-            <Text color='$secondary500'>
-              {formatDistance(new Date(item.created), new Date(), {
-                addSuffix: true
-              })}
-            </Text>
-          </HStack>
-          <HStack
-            gap='$4'
-            justifyContent='space-between'
-          >
-            <PlayerContainer
-              oneOrTwo='one'
-              player={item.playerOne}
-              winner={
-                item.status === GameStatus.ENDED
-                  ? item.playerOne.score > item.playerTwo.score
-                  : false
-              }
-            />
-            <PlayerContainer
-              oneOrTwo='two'
-              player={item.playerTwo}
-              winner={
-                item.status === GameStatus.ENDED
-                  ? item.playerOne.score < item.playerTwo.score
-                  : false
-              }
-            />
-          </HStack>
-        </Card>
+                <PlayerContainer
+                  oneOrTwo='one'
+                  player={item.playerOne}
+                  winner={
+                    item.status === GameStatus.ENDED
+                      ? item.playerOne.score > item.playerTwo.score
+                      : false
+                  }
+                />
+                <PlayerContainer
+                  oneOrTwo='two'
+                  player={item.playerTwo}
+                  winner={
+                    item.status === GameStatus.ENDED
+                      ? item.playerOne.score < item.playerTwo.score
+                      : false
+                  }
+                />
+              </HStack>
+            </Card>
+          </Pressable>
+        </Link>
       )}
     />
   )
