@@ -1,6 +1,7 @@
 import { VStack } from '@gluestack-ui/themed'
+import { type PropsWithChildren } from 'react'
 
-const SquareContainer = ({ children }: PropsWithChildrens) => (
+const SquareContainer = ({ children }: PropsWithChildren) => (
   <VStack
     bgColor='$white'
     borderColor='$secondary700'
