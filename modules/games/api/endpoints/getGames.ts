@@ -1,15 +1,12 @@
 import { getUserId, type SupabaseEndpointBuilder } from 'appdeptus/api'
-import { GameStatus, type Game, type NewGame } from 'appdeptus/models/game'
+import { type ActiveGame, type EndedGame } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { getGamesSchema } from '../schemas'
 import GamesApiTag from '../tags'
 
-const isNonNewGame = (game: NewGame | Game): game is Game =>
-  game.status !== GameStatus.NEW
-
 const getGames = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
-  builder.query<Game[], void>({
+  builder.query<(ActiveGame | EndedGame)[], void>({
     queryFn: async () => {
       try {
         const userId = await getUserId()
@@ -22,11 +19,7 @@ const getGames = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
           .from(Table.GAMES)
           .select(
             `
-            id,
-            score_one,
-            score_two,
-            created_at,
-            status,
+            *,
             player_one (
               name
             ),
@@ -58,35 +51,34 @@ const getGames = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
 
         return {
           data: games
-            .map<NewGame | Game>((rawGame) => {
-              const game = {
-                created: rawGame.created_at,
-                id: rawGame.id,
+            .map<ActiveGame | EndedGame | undefined>((game) => {
+              const baseGame = {
+                created: game.created_at,
+                id: game.id,
                 playerOne: {
-                  army: rawGame.army_one,
-                  name: rawGame.player_one.name,
-                  score: rawGame.score_one
+                  army: game.army_one,
+                  cp: game.cp_one,
+                  name: game.player_one.name,
+                  score: game.score_one
                 }
               }
 
-              if (rawGame.status === GameStatus.NEW) {
-                return {
-                  ...game,
-                  status: rawGame.status
-                }
+              if (game.status === 'new') {
+                return undefined
               }
 
               return {
-                ...game,
+                ...baseGame,
                 playerTwo: {
-                  army: rawGame.army_two,
-                  name: rawGame.player_two.name,
-                  score: rawGame.score_two
+                  army: game.army_two,
+                  cp: game.cp_two,
+                  name: game.player_two.name,
+                  score: game.score_two
                 },
-                status: rawGame.status
+                status: game.status
               }
             })
-            .filter<Game>(isNonNewGame)
+            .filter<ActiveGame | EndedGame>(isActiveOrEndedGame)
             .sort(({ id: id1 }, { id: id2 }) => Number(id2) - Number(id1))
         }
       } catch (error) {
@@ -95,5 +87,9 @@ const getGames = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
     },
     providesTags: [GamesApiTag.GAME_LIST]
   })
+
+const isActiveOrEndedGame = (
+  game: ActiveGame | EndedGame | undefined
+): game is ActiveGame | EndedGame => !!game
 
 export default getGames
