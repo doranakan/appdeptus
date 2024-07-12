@@ -60,14 +60,14 @@ const Header = ({ selectedArmyId }: HeaderProps) => {
         onPress={createGameAndSelectPlayerTwo}
       >
         <HStack
-          alignContent='center'
+          alignItems='center'
           gap='$2'
         >
           <Text
             color='$secondary50'
             size='lg'
           >
-            Player 2
+            Select Defender
           </Text>
           {isLoading ? (
             <Spinner color='$white' />

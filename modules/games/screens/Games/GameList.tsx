@@ -7,7 +7,11 @@ import {
   VStack
 } from '@gluestack-ui/themed'
 import { ArmyIcon, Card, Loading } from 'appdeptus/components'
-import { GameStatus, type Player } from 'appdeptus/models/game'
+import {
+  type ActiveGame,
+  type EndedGame,
+  type Player
+} from 'appdeptus/models/game'
 import { formatDistance } from 'date-fns'
 import { Link } from 'expo-router'
 import { FlatList } from 'react-native'
@@ -32,11 +36,9 @@ const GameList = () => {
         >
           <Pressable>
             <Card
-              bg={item.status !== GameStatus.ENDED ? '$primary50' : undefined}
+              bg={item.status !== 'ended' ? '$primary50' : undefined}
               gap='$2'
-              gradient={
-                item.status !== GameStatus.ENDED ? 'primary' : 'secondary'
-              }
+              gradient={item.status !== 'ended' ? 'primary' : 'secondary'}
               p='$2'
               opacity='$90'
             >
@@ -47,7 +49,7 @@ const GameList = () => {
                     bold
                     textTransform='capitalize'
                   >
-                    {item.status}
+                    {mapStatusToText[item.status]}
                   </Text>
                 </Text>
                 <Text color='$secondary500'>
@@ -64,7 +66,7 @@ const GameList = () => {
                   oneOrTwo='one'
                   player={item.playerOne}
                   winner={
-                    item.status === GameStatus.ENDED
+                    item.status === 'ended'
                       ? item.playerOne.score > item.playerTwo.score
                       : false
                   }
@@ -73,7 +75,7 @@ const GameList = () => {
                   oneOrTwo='two'
                   player={item.playerTwo}
                   winner={
-                    item.status === GameStatus.ENDED
+                    item.status === 'ended'
                       ? item.playerOne.score < item.playerTwo.score
                       : false
                   }
@@ -139,5 +141,22 @@ const PlayerContainer = ({
     </HStack>
   </VStack>
 )
+
+const mapStatusToText: Record<
+  ActiveGame['status'] | EndedGame['status'],
+  string
+> = {
+  turn1_p1: 'Attacker Turn 1',
+  turn1_p2: 'Defender Turn 1',
+  turn2_p1: 'Attacker Turn 2',
+  turn2_p2: 'Defender Turn 2',
+  turn3_p1: 'Attacker Turn 3',
+  turn3_p2: 'Defender Turn 3',
+  turn4_p1: 'Attacker Turn 4',
+  turn4_p2: 'Defender Turn 4',
+  turn5_p1: 'Attacker Turn 5',
+  turn5_p2: 'Defender Turn 5',
+  ended: 'Ended'
+} as const
 
 export default GameList
