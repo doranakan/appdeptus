@@ -1,5 +1,6 @@
 import { supabaseApi } from 'appdeptus/api'
 import { createGame, getGame, getGames, startGame } from './endpoints'
+import getGameArmy from './endpoints/getGameArmy'
 import nextTurn from './endpoints/nextTurn'
 import GamesApiTag from './tags'
 
@@ -10,6 +11,7 @@ const gamesApi = supabaseApi
   .injectEndpoints({
     endpoints: (builder) => ({
       createGame: createGame(builder),
+      getGameArmy: getGameArmy(builder),
       getGame: getGame(builder),
       getGames: getGames(builder),
       nextTurn: nextTurn(builder),

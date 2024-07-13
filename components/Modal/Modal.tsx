@@ -2,49 +2,56 @@ import { HStack, Heading, Icon, Pressable, VStack } from '@gluestack-ui/themed'
 import { Link } from 'expo-router'
 import { X } from 'lucide-react-native'
 import { type PropsWithChildren } from 'react'
+import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type ModalProps = PropsWithChildren<{
   title: string
-
-  onPressClose?: () => void
 }>
 
-const Modal = ({ children, onPressClose, title }: ModalProps) => {
+const Modal = ({ children, title }: ModalProps) => {
   const insets = useSafeAreaInsets()
 
   return (
     <VStack flex={1}>
       <HStack
         alignItems='center'
-        bg='$primary700'
         borderColor='$primary800'
-        borderBottomWidth='$1'
+        p='$4'
+        pt={Platform.OS === 'android' ? insets.top : undefined}
         justifyContent='space-between'
-        opacity='$60'
-        paddingTop={insets.top}
-        pb='$4'
-        px='$4'
       >
-        <Heading color='$white'>{title}</Heading>
-        <VStack>
-          <Link
-            href='../'
-            asChild
-          >
-            <Pressable
-              hitSlop={16}
-              onPress={onPressClose}
-            >
-              <Icon
-                as={X}
-                color='$white'
-                size='xl'
-              />
-            </Pressable>
-          </Link>
-        </VStack>
+        <Link
+          href='../'
+          asChild
+        >
+          <Pressable hitSlop={16}>
+            <Icon
+              as={X}
+              size='xl'
+            />
+          </Pressable>
+        </Link>
+        <Heading
+          fontFamily='$mono'
+          size='4xl'
+          textTransform='capitalize'
+        >
+          {title}
+        </Heading>
+        <Link
+          href='../'
+          asChild
+        >
+          <Pressable hitSlop={16}>
+            <Icon
+              as={X}
+              size='xl'
+            />
+          </Pressable>
+        </Link>
       </HStack>
+
       {children}
     </VStack>
   )

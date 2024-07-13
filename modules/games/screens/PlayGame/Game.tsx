@@ -4,6 +4,7 @@ import { type ActiveGame } from 'appdeptus/models/game'
 import { useCallback, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useGameUpdateListener, type RealTimeGame } from '../../api'
+import Armies from './Armies'
 import Header from './Header'
 import NextButton from './NextButton'
 
@@ -58,9 +59,15 @@ const Game = ({ game }: GameProps) => {
 
         <VStack
           flex={1}
+          gap='$4'
           justifyContent='flex-end'
           py='$4'
         >
+          <Armies
+            armyOne={game.playerOne.army}
+            armyTwo={game.playerTwo.army}
+          />
+
           <NextButton
             gameId={game.id}
             status={status}

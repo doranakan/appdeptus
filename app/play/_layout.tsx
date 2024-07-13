@@ -16,6 +16,18 @@ const ArmiesLayout = () => (
         presentation: 'modal'
       }}
     />
+    <Stack.Screen
+      name='army/[armyId]/index'
+      options={{
+        presentation: 'modal'
+      }}
+    />
+    <Stack.Screen
+      name='army/[armyId]/[...unitDetail]'
+      options={{
+        presentation: 'modal'
+      }}
+    />
   </Stack>
 )
 

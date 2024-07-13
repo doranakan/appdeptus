@@ -1,7 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/query'
+import { ModelList } from 'appdeptus/modules/armies/components'
 import { useLocalSearchParams } from 'expo-router'
-import { useGetArmyQuery } from '../../api'
-import { ModelList } from '../../components'
+import { useGetGameArmyQuery } from '../../api'
 
 const UnitDetail = () => {
   const { armyId, tierId, unitId } = useLocalSearchParams<{
@@ -10,7 +10,7 @@ const UnitDetail = () => {
     unitId: string
   }>()
 
-  const { army, unit } = useGetArmyQuery(armyId ?? skipToken, {
+  const { army, unit } = useGetGameArmyQuery(armyId ?? skipToken, {
     selectFromResult: ({ data, ...rest }) => {
       if (!data) {
         return { army: undefined, unit: undefined }

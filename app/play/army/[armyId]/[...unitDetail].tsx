@@ -1,4 +1,4 @@
-import { UnitDetailModal } from 'appdeptus/modules/armies/screens'
+import { UnitDetailModal } from 'appdeptus/modules/games/screens'
 
 const UnitDetailRoot = () => <UnitDetailModal />
 

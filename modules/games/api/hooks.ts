@@ -14,6 +14,7 @@ const useGameUpdateListener = (args: Parameters<typeof gameUpdates>[0]) => {
 
 const {
   useCreateGameMutation,
+  useGetGameArmyQuery,
   useGetGameQuery,
   useGetGamesQuery,
   useNextTurnMutation,
@@ -23,6 +24,7 @@ const {
 export {
   useCreateGameMutation,
   useGameUpdateListener,
+  useGetGameArmyQuery,
   useGetGameQuery,
   useGetGamesQuery,
   useNextTurnMutation,

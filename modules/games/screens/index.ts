@@ -1,5 +1,7 @@
+export { default as ArmyModal } from './Army'
 export { default as GamesScreen } from './Games'
 export { default as JoinGameScreen } from './JoinGame'
 export { default as NewGameScreen } from './NewGame'
 export { default as PlayGameScreen } from './PlayGame'
 export { default as QrCodeScreen } from './QrCode'
+export { default as UnitDetailModal } from './UnitDetail'
