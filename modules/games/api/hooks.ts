@@ -16,6 +16,7 @@ const {
   useCreateGameMutation,
   useGetGameQuery,
   useGetGamesQuery,
+  useNextTurnMutation,
   useStartGameMutation
 } = gamesApi
 
@@ -24,5 +25,6 @@ export {
   useGameUpdateListener,
   useGetGameQuery,
   useGetGamesQuery,
+  useNextTurnMutation,
   useStartGameMutation
 }
