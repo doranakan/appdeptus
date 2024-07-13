@@ -29,7 +29,7 @@ const startGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
         return { error }
       }
     },
-    invalidatesTags: [GamesApiTag.GAME_LIST]
+    invalidatesTags: [GamesApiTag.GAME_LIST, GamesApiTag.GAME]
   })
 
 export default startGame

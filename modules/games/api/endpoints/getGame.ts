@@ -7,7 +7,7 @@ import {
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { getGameSchema } from '../schemas'
-import type GamesApiTag from '../tags'
+import GamesApiTag from '../tags'
 
 const getGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
   builder.query<ActiveGame | EndedGame | NewGame, string>({
@@ -81,7 +81,8 @@ const getGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
       } catch (error) {
         return { error }
       }
-    }
+    },
+    providesTags: [GamesApiTag.GAME]
   })
 
 export default getGame
