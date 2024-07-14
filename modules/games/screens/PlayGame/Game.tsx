@@ -1,12 +1,15 @@
 import { VStack } from '@gluestack-ui/themed'
 import { type RealtimePostgresUpdatePayload } from '@supabase/supabase-js'
+import { LinearGradient } from 'appdeptus/components'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { useCallback, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useGameUpdateListener, type RealTimeGame } from '../../api'
+import { Background } from '../../components'
 import Armies from './Armies'
 import Header from './Header'
 import NextButton from './NextButton'
+import ScoreBoard from './ScoreBoard'
 
 type GameProps = {
   game: ActiveGame
@@ -50,6 +53,24 @@ const Game = ({ game }: GameProps) => {
   return (
     <VStack flex={1}>
       <VStack
+        h='$full'
+        position='absolute'
+        w='$full'
+      >
+        <Background
+          codexOne={game.playerOne.army.codex.name}
+          codexTwo={game.playerTwo.army.codex.name}
+          opacity={0.8}
+        />
+        <VStack flex={1}>
+          <LinearGradient colors={['$secondary800', '$transparent']} />
+        </VStack>
+        <VStack flex={1}>
+          <LinearGradient colors={['$transparent', '$secondary800']} />
+        </VStack>
+      </VStack>
+
+      <VStack
         flex={1}
         pb={insets.bottom}
         px='$4'
@@ -63,10 +84,21 @@ const Game = ({ game }: GameProps) => {
           justifyContent='flex-end'
           py='$4'
         >
-          <Armies
-            armyOne={game.playerOne.army}
-            armyTwo={game.playerTwo.army}
-          />
+          <VStack>
+            <ScoreBoard
+              gameId={game.id}
+              pOneCP={pOneCP}
+              pOneName={game.playerOne.name}
+              pOneScore={pOneScore}
+              pTwoCP={pTwoCP}
+              pTwoName={game.playerTwo.name}
+              pTwoScore={pTwoScore}
+            />
+            <Armies
+              armyOne={game.playerOne.army}
+              armyTwo={game.playerTwo.army}
+            />
+          </VStack>
 
           <NextButton
             gameId={game.id}

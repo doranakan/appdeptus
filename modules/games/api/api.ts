@@ -2,6 +2,7 @@ import { supabaseApi } from 'appdeptus/api'
 import { createGame, getGame, getGames, startGame } from './endpoints'
 import getGameArmy from './endpoints/getGameArmy'
 import nextTurn from './endpoints/nextTurn'
+import updateScoreAndCP from './endpoints/updateScoreAndCP'
 import GamesApiTag from './tags'
 
 const gamesApi = supabaseApi
@@ -15,7 +16,8 @@ const gamesApi = supabaseApi
       getGame: getGame(builder),
       getGames: getGames(builder),
       nextTurn: nextTurn(builder),
-      startGame: startGame(builder)
+      startGame: startGame(builder),
+      updateScoreAndCP: updateScoreAndCP(builder)
     }),
     overrideExisting: true
   })

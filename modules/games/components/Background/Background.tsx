@@ -7,12 +7,15 @@ import { type CodexName } from 'appdeptus/models'
 
 type BackgroundProps = {
   codexOne: CodexName | undefined
+
   codexTwo?: CodexName
+  opacity?: number
 }
 
-const Background = ({ codexOne, codexTwo }: BackgroundProps) => (
+const Background = ({ codexOne, codexTwo, opacity = 1 }: BackgroundProps) => (
   <HStack
     h='$full'
+    opacity={opacity}
     position='absolute'
     w='$full'
   >
