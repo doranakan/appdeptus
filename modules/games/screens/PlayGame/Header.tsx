@@ -1,53 +1,26 @@
-import {
-  Box,
-  Heading,
-  HStack,
-  Icon,
-  Pressable,
-  VStack
-} from '@gluestack-ui/themed'
+import { Box, Heading, HStack, VStack } from '@gluestack-ui/themed'
+import { Header } from 'appdeptus/components'
 import { type ActiveGame } from 'appdeptus/models/game'
-import { Link } from 'expo-router'
 import { ChevronLeft, HelpCircle } from 'lucide-react-native'
 
-type HeaderProps = {
+type PlayGameHeaderProps = {
   status: ActiveGame['status']
 }
 
-const Header = ({ status }: HeaderProps) => (
+const PlayGameHeader = ({ status }: PlayGameHeaderProps) => (
   <VStack>
-    <HStack alignItems='center'>
-      <Link
-        asChild
-        href='../'
-      >
-        <Pressable>
-          <Icon
-            as={ChevronLeft}
-            color='$secondary50'
-            size='xl'
-          />
-        </Pressable>
-      </Link>
-      <Heading
-        color='$secondary50'
-        fontFamily='$mono'
-        flex={1}
-        size='4xl'
-        textAlign='center'
-        textTransform='capitalize'
-      >
-        {mapStatusToText[status]}
-      </Heading>
+    <Header
+      left={{
+        href: '../',
+        Icon: ChevronLeft
+      }}
+      right={{
+        href: '',
+        Icon: HelpCircle
+      }}
+      title={mapStatusToText[status]}
+    />
 
-      <Pressable>
-        <Icon
-          color='$secondary50'
-          as={HelpCircle}
-          size='xl'
-        />
-      </Pressable>
-    </HStack>
     <HStack justifyContent='center'>
       <Box
         borderColor='$secondary50'
@@ -78,4 +51,4 @@ const mapStatusToText: Record<ActiveGame['status'], string> = {
   turn5_p2: 'Turn 5'
 } as const
 
-export default Header
+export default PlayGameHeader
