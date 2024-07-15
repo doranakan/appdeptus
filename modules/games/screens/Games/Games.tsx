@@ -1,8 +1,9 @@
 import { VStack } from '@gluestack-ui/themed'
+import { Header } from 'appdeptus/components'
+import { Swords } from 'lucide-react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Background from './Background'
 import GameList from './GameList'
-import Header from './Header'
 
 const GamesScreen = () => {
   const insets = useSafeAreaInsets()
@@ -17,7 +18,13 @@ const GamesScreen = () => {
         pt={insets.top}
         px='$4'
       >
-        <Header />
+        <Header
+          title='Games'
+          right={{
+            href: 'play/new',
+            Icon: Swords
+          }}
+        />
 
         <GameList />
       </VStack>

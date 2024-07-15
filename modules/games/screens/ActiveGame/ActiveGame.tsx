@@ -5,7 +5,7 @@ import { useLocalSearchParams } from 'expo-router'
 import { useGetGameQuery } from '../../api'
 import Game from './Game'
 
-const PlayGameScreen = () => {
+const ActiveGameScreen = () => {
   const { gameId } = useLocalSearchParams<{ gameId: string }>()
 
   const { game } = useGetGameQuery(gameId ?? skipToken, {
@@ -25,4 +25,4 @@ const PlayGameScreen = () => {
   return <Game game={game} />
 }
 
-export default PlayGameScreen
+export default ActiveGameScreen

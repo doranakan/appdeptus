@@ -33,7 +33,7 @@ const QrCodeContent = ({ gameId }: QrCodeContentProps) => {
     (payload: RealtimePostgresUpdatePayload<RealTimeGame>) => {
       if (payload.new.player_two) {
         router.back()
-        router.replace(`play/${gameId}`)
+        router.replace(`play/active/${gameId}`)
       }
     },
     [gameId]

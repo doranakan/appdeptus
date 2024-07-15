@@ -28,7 +28,7 @@ const Header = ({ gameId, selectedArmyId }: HeaderProps) => {
       }
 
       router.replace({
-        pathname: `play/${gameId}`
+        pathname: `play/active/${gameId}`
       })
     }
   }, [selectedArmyId, startGame, gameId, showToast])

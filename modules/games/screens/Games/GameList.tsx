@@ -32,7 +32,7 @@ const GameList = () => {
       renderItem={({ item }) => (
         <Link
           asChild
-          href={`play/${item.id}`}
+          href={`play/active/${item.id}`}
         >
           <Pressable>
             <Card

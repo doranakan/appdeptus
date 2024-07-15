@@ -7,8 +7,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useGameUpdateListener, type RealTimeGame } from '../../api'
 import { Background } from '../../components'
 import Armies from './Armies'
+import Button from './Button'
 import Header from './Header'
-import NextButton from './NextButton'
 import ScoreBoard from './ScoreBoard'
 
 type GameProps = {
@@ -100,7 +100,7 @@ const Game = ({ game }: GameProps) => {
             />
           </VStack>
 
-          <NextButton
+          <Button
             gameId={game.id}
             status={status}
           />
