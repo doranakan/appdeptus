@@ -2,7 +2,7 @@ import { type SupabaseEndpointBuilder } from 'appdeptus/api'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import type GamesApiTag from '../tags'
+import GamesApiTag from '../tags'
 
 type UpdateScoreAndCPParams = {
   gameId: ActiveGame['id']
@@ -36,7 +36,14 @@ const updateScoreAndCP = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
       } catch (error) {
         return { error }
       }
-    }
+    },
+    invalidatesTags: (_error, _res, { gameId }) => [
+      GamesApiTag.GAME_LIST,
+      {
+        type: GamesApiTag.GAME,
+        id: gameId
+      }
+    ]
   })
 
 export default updateScoreAndCP

@@ -2,7 +2,7 @@ import { type SupabaseEndpointBuilder } from 'appdeptus/api'
 import { type ActiveGame, type EndedGame } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import type GamesApiTag from '../tags'
+import GamesApiTag from '../tags'
 
 type NextTurnParams = {
   currentStatus: ActiveGame['status']
@@ -28,7 +28,14 @@ const nextTurn = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
       } catch (error) {
         return { error }
       }
-    }
+    },
+    invalidatesTags: (_error, _res, { gameId }) => [
+      GamesApiTag.GAME_LIST,
+      {
+        type: GamesApiTag.GAME,
+        id: gameId
+      }
+    ]
   })
 
 const mapNextTurn: Record<

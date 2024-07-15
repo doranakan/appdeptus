@@ -82,7 +82,12 @@ const getGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
         return { error }
       }
     },
-    providesTags: [GamesApiTag.GAME]
+    providesTags: (_err, _res, gameId) => [
+      {
+        type: GamesApiTag.GAME,
+        id: gameId
+      }
+    ]
   })
 
 export default getGame
