@@ -1,5 +1,4 @@
 import { Text, VStack } from '@gluestack-ui/themed'
-import { useBoolean } from 'ahooks'
 import { Button, Card, Modal } from 'appdeptus/components'
 import { type ArmyForm, type Model, type Wargear } from 'appdeptus/models'
 import { compact, times } from 'lodash'
@@ -16,15 +15,13 @@ type OptionItemProps = {
   wargear: Wargear
 }
 
+// FIXME: This component is not used anymore
 const OptionItem = ({
   choiceIndex,
   count,
   model,
   wargear
 }: OptionItemProps) => {
-  const [modalVisible, { setFalse: closeModal, setTrue: openModal }] =
-    useBoolean()
-
   const { baseWargear, options } = wargear
 
   const { watch } = useFormContext<ArmyForm>()
@@ -62,17 +59,12 @@ const OptionItem = ({
         {options ? (
           <Button
             backgroundColor='$secondary500'
-            onPress={openModal}
             text='Options'
           />
         ) : undefined}
       </Card>
       {options ? (
-        <Modal
-          onPressClose={closeModal}
-          title='Customize wargear'
-          visible={modalVisible}
-        >
+        <Modal title='Customize wargear'>
           <VStack
             gap='$4'
             p='$4'

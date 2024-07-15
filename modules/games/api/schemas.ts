@@ -1,4 +1,3 @@
-import { GameStatus } from 'appdeptus/models/game'
 import { armySchema } from 'appdeptus/modules/armies/api/schemas'
 import { z } from 'zod'
 
@@ -15,28 +14,34 @@ const createGameSchema = z.object({
 const gameSchema = z
   .object({
     id: idSchema,
-    player_one: playerSchema,
     army_one: armySchema.transform(({ units: _, ...rest }) => rest),
-    score_one: z.number(),
-    created_at: z.string()
+    cp_one: z.number(),
+    updated_at: z.string(),
+    player_one: playerSchema,
+    score_one: z.number()
   })
   .and(
     z.discriminatedUnion('status', [
       z.object({
-        status: z.literal(GameStatus.NEW)
+        status: z.literal('new')
       }),
       z.object({
         status: z.enum([
-          GameStatus.READY,
-          GameStatus.TURN_1,
-          GameStatus.TURN_2,
-          GameStatus.TURN_3,
-          GameStatus.TURN_4,
-          GameStatus.TURN_5,
-          GameStatus.ENDED
+          'turn1_p1',
+          'turn1_p2',
+          'turn2_p1',
+          'turn2_p2',
+          'turn3_p1',
+          'turn3_p2',
+          'turn4_p1',
+          'turn4_p2',
+          'turn5_p1',
+          'turn5_p2',
+          'ended'
         ]),
-        player_two: playerSchema,
         army_two: armySchema.transform(({ units: _, ...rest }) => rest),
+        cp_two: z.number(),
+        player_two: playerSchema,
         score_two: z.number()
       })
     ])

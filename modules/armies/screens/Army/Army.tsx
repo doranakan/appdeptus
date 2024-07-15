@@ -5,13 +5,12 @@ import {
   LinearGradient,
   Loading
 } from 'appdeptus/components'
-import { config, setColorMode, useColorMode } from 'appdeptus/designSystem'
+import { config, useArmyTintEffect, useColorMode } from 'appdeptus/designSystem'
+import { type Army } from 'appdeptus/models'
 import { Link, useLocalSearchParams } from 'expo-router'
 import { Edit, Trash2 } from 'lucide-react-native'
 import { MotiView, motify } from 'moti'
-import { useEffect } from 'react'
-import { StyleSheet } from 'react-native'
-import Animated, {
+import {
   Extrapolation,
   interpolate,
   interpolateColor,
@@ -20,19 +19,30 @@ import Animated, {
   useSharedValue
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useDispatch } from 'react-redux'
 import { useGetArmyQuery } from '../../api'
+import { UnitList } from '../../components'
 import Header from './Header'
-import Item from './Item'
 
 const AnimatedHStack = motify(HStack)()
 
 const ArmyScreen = () => {
-  const dispatch = useDispatch()
-
   const { armyId } = useLocalSearchParams<{ armyId: string }>()
 
   const { data: army } = useGetArmyQuery(armyId ?? skipToken)
+
+  if (!army) {
+    return <Loading />
+  }
+
+  return <ArmyContent army={army} />
+}
+
+type ArmyProps = {
+  army: Army
+}
+
+const ArmyContent = ({ army }: ArmyProps) => {
+  useArmyTintEffect(army.codex.name)
 
   const insets = useSafeAreaInsets()
 
@@ -62,16 +72,6 @@ const ArmyScreen = () => {
       Extrapolation.CLAMP
     )
   }))
-
-  useEffect(() => {
-    if (army) {
-      dispatch(setColorMode(army.codex.name))
-    }
-  })
-
-  if (!army) {
-    return <Loading />
-  }
 
   return (
     <>
@@ -141,39 +141,13 @@ const ArmyScreen = () => {
           />
         </Pressable>
       </AnimatedHStack>
-      <Animated.FlatList
-        data={army.units}
-        ItemSeparatorComponent={() => <Box h='$4' />}
-        keyExtractor={({ id }, index) => `${id}-${index}`}
+      <UnitList
+        army={army}
         ListHeaderComponent={() => <Header army={army} />}
-        ListFooterComponent={() => <Box height='$8' />}
         onScroll={scrollHandler}
-        renderItem={({ item: unit, index }) => (
-          <MotiView
-            from={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{
-              delay: 200 + 150 * index,
-              duration: 400
-            }}
-          >
-            <Item
-              armyId={army.id}
-              unit={unit}
-            />
-          </MotiView>
-        )}
-        style={styles.flatList}
       />
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  flatList: {
-    flex: 1,
-    padding: 16
-  }
-})
 
 export default ArmyScreen

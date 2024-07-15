@@ -1,5 +1,5 @@
 import { UnitDetailModal } from 'appdeptus/modules/armies/screens'
 
-const UnitRoot = () => <UnitDetailModal />
+const UnitDetailRoot = () => <UnitDetailModal />
 
-export default UnitRoot
+export default UnitDetailRoot

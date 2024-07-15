@@ -5,8 +5,9 @@ import { config } from 'appdeptus/designSystem'
 import { Link, router, useLocalSearchParams } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { useCallback } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { Platform, useWindowDimensions } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useGameUpdateListener, type RealTimeGame } from '../../api'
 
 const QrCodeScreen = () => {
@@ -26,11 +27,13 @@ type QrCodeContentProps = {
 const QrCodeContent = ({ gameId }: QrCodeContentProps) => {
   const window = useWindowDimensions()
 
+  const insets = useSafeAreaInsets()
+
   const onGameUpdated = useCallback(
     (payload: RealtimePostgresUpdatePayload<RealTimeGame>) => {
       if (payload.new.player_two) {
         router.back()
-        router.replace(`play/${gameId}`)
+        router.replace(`play/active/${gameId}`)
       }
     },
     [gameId]
@@ -39,7 +42,10 @@ const QrCodeContent = ({ gameId }: QrCodeContentProps) => {
   useGameUpdateListener({ eventHandler: onGameUpdated, gameId })
 
   return (
-    <VStack flex={1}>
+    <VStack
+      flex={1}
+      pt={Platform.OS === 'android' ? insets.top : undefined}
+    >
       <StatusBar
         animated
         style='light'

@@ -6,13 +6,27 @@ const ArmiesLayout = () => (
       headerShown: false
     }}
   >
-    <Stack.Screen name='new-game' />
-    <Stack.Screen name='[gameId]' />
+    <Stack.Screen name='new' />
+    <Stack.Screen name='active/[gameId]' />
+    <Stack.Screen name='join/[gameId]' />
+    <Stack.Screen name='ended/[gameId]' />
     <Stack.Screen
       name='qr-code'
       options={{
         gestureEnabled: false,
         fullScreenGestureEnabled: false,
+        presentation: 'modal'
+      }}
+    />
+    <Stack.Screen
+      name='army/[armyId]/index'
+      options={{
+        presentation: 'modal'
+      }}
+    />
+    <Stack.Screen
+      name='army/[armyId]/[...unitDetail]'
+      options={{
         presentation: 'modal'
       }}
     />

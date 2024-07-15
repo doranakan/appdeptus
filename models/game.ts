@@ -1,45 +1,54 @@
 import { type Army } from './army'
 import { type UserProfile } from './userProfile'
 
-enum GameStatus {
-  NEW = 'new',
-  READY = 'ready',
-  TURN_1 = 'turn 1',
-  TURN_2 = 'turn 2',
-  TURN_3 = 'turn 3',
-  TURN_4 = 'turn 4',
-  TURN_5 = 'turn 5',
-  ENDED = 'ended'
-}
-
 type BaseGame = {
   id: string
-  created: string
+  lastUpdate: string
   playerOne: Player
 }
 
-type NewGame = BaseGame & {
-  status: GameStatus.NEW
-}
-
-type Game = BaseGame & {
+type ActiveGame = BaseGame & {
   status:
-    | GameStatus.READY
-    | GameStatus.TURN_1
-    | GameStatus.TURN_2
-    | GameStatus.TURN_3
-    | GameStatus.TURN_4
-    | GameStatus.TURN_5
-    | GameStatus.ENDED
+    | 'turn1_p1'
+    | 'turn1_p2'
+    | 'turn2_p1'
+    | 'turn2_p2'
+    | 'turn3_p1'
+    | 'turn3_p2'
+    | 'turn4_p1'
+    | 'turn4_p2'
+    | 'turn5_p1'
+    | 'turn5_p2'
   playerTwo: Player
 }
 
+type EndedGame = BaseGame & {
+  status: 'ended'
+  playerTwo: Player
+}
+
+type NewGame = BaseGame & {
+  status: 'new'
+}
+
 type Player = {
+  cp: number
   name: UserProfile['name']
   army: Omit<Army, 'units'>
   score: number
 }
 
-export { GameStatus }
+const isActiveGame = (
+  game: ActiveGame | EndedGame | NewGame
+): game is ActiveGame => game.status !== 'new' && game.status !== 'ended'
 
-export type { Game, NewGame, Player }
+const isEndedGame = (
+  game: ActiveGame | EndedGame | NewGame
+): game is EndedGame => game.status === 'ended'
+
+const isNewGame = (game: ActiveGame | EndedGame | NewGame): game is NewGame =>
+  game.status === 'new'
+
+export { isActiveGame, isEndedGame, isNewGame }
+
+export type { ActiveGame, EndedGame, NewGame, Player }

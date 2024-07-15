@@ -1,6 +1,6 @@
 import { Box, HStack, Heading, Icon, VStack } from '@gluestack-ui/themed'
 import { type Army } from 'appdeptus/models'
-import { Dice1, Dice2 } from 'lucide-react-native'
+import { Shield, Swords } from 'lucide-react-native'
 
 type PlayersContainerProps = {
   armyOne: Omit<Army, 'units'> | undefined
@@ -20,12 +20,12 @@ const PlayersContainer = ({
     <Player
       army={armyOne}
       name={nameOne}
-      player='one'
+      role='attacker'
     />
     <Player
       army={armyTwo}
       name={nameTwo}
-      player='two'
+      role='defender'
     />
   </HStack>
 )
@@ -38,18 +38,18 @@ type PlayerProps = {
 const Player = ({
   army,
   name,
-  player
-}: PlayerProps & { player: 'one' | 'two' }) => (
+  role
+}: PlayerProps & { role: 'attacker' | 'defender' }) => (
   <VStack flex={1}>
     {army ? (
       <>
         <HStack
           alignItems='center'
-          flexDirection={player === 'one' ? 'row' : 'row-reverse'}
+          flexDirection={role === 'attacker' ? 'row' : 'row-reverse'}
           gap='$1'
         >
           <Icon
-            as={player === 'one' ? Dice1 : Dice2}
+            as={role === 'attacker' ? Swords : Shield}
             color='$secondary50'
           />
           <Heading
@@ -57,7 +57,7 @@ const Player = ({
             ellipsizeMode='tail'
             numberOfLines={1}
             size='xl'
-            textAlign={player === 'one' ? 'left' : 'right'}
+            textAlign={role === 'attacker' ? 'left' : 'right'}
           >
             {name}
           </Heading>
@@ -81,14 +81,14 @@ const Player = ({
           fontFamily='$mono'
           fontSize='$5xl'
           lineHeight='$6xl'
-          textAlign={player === 'one' ? 'left' : 'right'}
+          textAlign={role === 'attacker' ? 'left' : 'right'}
           textTransform='capitalize'
         >
           {army.codex.name}
         </Heading>
         <Heading
           color='$secondary50'
-          textAlign={player === 'one' ? 'left' : 'right'}
+          textAlign={role === 'attacker' ? 'left' : 'right'}
         >
           {army.name}
         </Heading>

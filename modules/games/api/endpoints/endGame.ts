@@ -1,0 +1,35 @@
+import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { supabase } from 'appdeptus/utils'
+import { Table } from 'appdeptus/utils/supabase'
+import GamesApiTag from '../tags'
+
+const nextTurn = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
+  builder.mutation<null, string>({
+    queryFn: async (gameId) => {
+      try {
+        const { data, error } = await supabase
+          .from(Table.GAMES)
+          .update({
+            status: 'ended'
+          })
+          .eq('id', gameId)
+
+        if (error) {
+          return { error }
+        }
+
+        return { data }
+      } catch (error) {
+        return { error }
+      }
+    },
+    invalidatesTags: (_error, _res, gameId) => [
+      GamesApiTag.GAME_LIST,
+      {
+        type: GamesApiTag.GAME,
+        id: gameId
+      }
+    ]
+  })
+
+export default nextTurn

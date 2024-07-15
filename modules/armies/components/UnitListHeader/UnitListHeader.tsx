@@ -54,6 +54,8 @@ const UnitListHeader = ({ armyId, codex }: UnitListHeaderProps) => {
             <ArmyIcon
               codexName={codex.name}
               color='secondary700'
+              h={32}
+              w={32}
             />
           </SquareContainer>
         </VStack>

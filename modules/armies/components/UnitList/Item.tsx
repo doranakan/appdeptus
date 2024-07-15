@@ -3,6 +3,7 @@ import { Card } from 'appdeptus/components'
 import { type ArmyUnit } from 'appdeptus/models'
 import { Link } from 'expo-router'
 import pluralize from 'pluralize'
+import { memo } from 'react'
 
 type ItemProps = {
   armyId: string
@@ -11,13 +12,7 @@ type ItemProps = {
 
 const Item = ({ armyId, unit }: ItemProps): JSX.Element => (
   <Link
-    href={{
-      params: {
-        tierId: unit.tier.id,
-        unitId: unit.id
-      },
-      pathname: `./${armyId}`
-    }}
+    href={`./army/${armyId}?unitId=${unit.id}&tierId=${unit.tier.id}`}
     asChild
   >
     <Pressable opacity={0.9}>
@@ -50,4 +45,4 @@ const Item = ({ armyId, unit }: ItemProps): JSX.Element => (
   </Link>
 )
 
-export default Item
+export default memo(Item)

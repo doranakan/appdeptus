@@ -1,5 +1,4 @@
 import { type SupabaseEndpointBuilder } from 'appdeptus/api'
-import { GameStatus } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import GamesApiTag from '../tags'
@@ -17,7 +16,7 @@ const startGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
           .from(Table.GAMES)
           .update({
             army_two: armyId,
-            status: GameStatus.READY
+            status: 'turn1_p1'
           })
           .eq('id', gameId)
 
@@ -30,7 +29,7 @@ const startGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
         return { error }
       }
     },
-    invalidatesTags: [GamesApiTag.GAME_LIST]
+    invalidatesTags: [GamesApiTag.GAME_LIST, GamesApiTag.GAME]
   })
 
 export default startGame

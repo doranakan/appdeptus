@@ -19,7 +19,7 @@ const TierSelectionScreen = () => {
     unitId: string
   }>()
 
-  const { data: codex } = useGetCodexQuery(codexId)
+  const { data: codex } = useGetCodexQuery(codexId ?? skipToken)
   const { unit } = useGetCodexUnitsQuery(codexId ?? skipToken, {
     selectFromResult: ({ data }) => {
       if (data) {

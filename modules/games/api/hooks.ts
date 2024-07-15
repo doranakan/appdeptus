@@ -14,15 +14,23 @@ const useGameUpdateListener = (args: Parameters<typeof gameUpdates>[0]) => {
 
 const {
   useCreateGameMutation,
+  useEndGameMutation,
+  useGetGameArmyQuery,
   useGetGameQuery,
   useGetGamesQuery,
-  useStartGameMutation
+  useNextTurnMutation,
+  useStartGameMutation,
+  useUpdateScoreAndCPMutation
 } = gamesApi
 
 export {
   useCreateGameMutation,
+  useEndGameMutation,
   useGameUpdateListener,
+  useGetGameArmyQuery,
   useGetGameQuery,
   useGetGamesQuery,
-  useStartGameMutation
+  useNextTurnMutation,
+  useStartGameMutation,
+  useUpdateScoreAndCPMutation
 }

@@ -2,6 +2,7 @@ enum Table {
   ARMIES = 'armies',
   CODEXES = 'codexes',
   FACTIONS = 'factions',
+  GAME_ARMIES = 'game_armies',
   GAMES = 'games',
   MODELS = 'models',
   UNITS = 'units',

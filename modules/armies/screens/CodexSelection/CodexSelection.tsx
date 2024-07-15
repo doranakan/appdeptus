@@ -9,38 +9,59 @@ import {
   GradientHeading,
   Loading
 } from 'appdeptus/components'
-import { setColorMode } from 'appdeptus/designSystem'
-import { CodexName, type ArmyForm } from 'appdeptus/models'
-import { useRouter } from 'expo-router'
+import { useArmyTintEffect } from 'appdeptus/designSystem'
+import { CodexName, type ArmyForm, type Codex } from 'appdeptus/models'
+import { router } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
-import { useDispatch } from 'react-redux'
 import { useGetCodexesQuery } from '../../api'
 import { CodexCoverImage } from '../../components'
 
 const AVAILABLED_ARMIES = [CodexName.AELDARI, CodexName.TYRANIDS]
 
 const CodexSelectionScreen = () => {
-  const insets = useSafeAreaInsets()
-
-  const dispatch = useDispatch()
-
-  const router = useRouter()
-
   const [selectedIndex, setSelectedIndex] = useState(0)
 
-  const { data: codexes } = useGetCodexesQuery()
-
-  const { reset, setValue } = useFormContext<ArmyForm>()
+  const { data } = useGetCodexesQuery()
 
   const selectedCodex = useMemo(
-    () => codexes?.[selectedIndex],
-    [codexes, selectedIndex]
+    () => data?.[selectedIndex],
+    [data, selectedIndex]
   )
+
+  if (!data || !selectedCodex) {
+    return <Loading />
+  }
+
+  return (
+    <CodexSelectionContent
+      codexes={data}
+      selectedCodex={selectedCodex}
+      onPressItem={setSelectedIndex}
+    />
+  )
+}
+
+type CodexSelectionContentProps = {
+  codexes: Codex[]
+  onPressItem: (index: number) => void
+  selectedCodex: Codex
+}
+
+const CodexSelectionContent = ({
+  codexes,
+  onPressItem,
+  selectedCodex
+}: CodexSelectionContentProps) => {
+  const insets = useSafeAreaInsets()
+
+  useArmyTintEffect(selectedCodex.name)
+
+  const { reset, setValue } = useFormContext<ArmyForm>()
 
   const startBuilding = useCallback(() => {
     reset()
@@ -53,17 +74,7 @@ const CodexSelectionScreen = () => {
       },
       pathname: 'army-builder/unit-selection'
     })
-  }, [reset, router, selectedCodex?.id, setValue])
-
-  useEffect(() => {
-    if (selectedCodex) {
-      dispatch(setColorMode(selectedCodex.name))
-    }
-  }, [codexes, dispatch, selectedCodex])
-
-  if (!codexes || !selectedCodex) {
-    return <Loading />
-  }
+  }, [reset, selectedCodex?.id, setValue])
 
   return (
     <VStack>
@@ -144,8 +155,7 @@ const CodexSelectionScreen = () => {
               renderItem={({ item, index }) => (
                 <Pressable
                   onPress={() => {
-                    setSelectedIndex(index)
-                    dispatch(setColorMode(item.name))
+                    onPressItem(index)
                   }}
                   ml={index === 0 ? '$4' : 0}
                   mr={index === codexes.length - 1 ? '$4' : 0}

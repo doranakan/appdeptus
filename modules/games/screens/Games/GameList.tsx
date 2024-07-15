@@ -1,7 +1,19 @@
-import { Box, HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
+import {
+  Box,
+  HStack,
+  Heading,
+  Pressable,
+  Text,
+  VStack
+} from '@gluestack-ui/themed'
 import { ArmyIcon, Card, Loading } from 'appdeptus/components'
-import { GameStatus, type Player } from 'appdeptus/models/game'
+import {
+  type ActiveGame,
+  type EndedGame,
+  type Player
+} from 'appdeptus/models/game'
 import { formatDistance } from 'date-fns'
+import { Link } from 'expo-router'
 import { FlatList } from 'react-native'
 import { useGetGamesQuery } from '../../api'
 
@@ -18,53 +30,64 @@ const GameList = () => {
       keyExtractor={({ id }) => String(id)}
       ItemSeparatorComponent={() => <Box p='$2' />}
       renderItem={({ item }) => (
-        <Card
-          bg={item.status !== GameStatus.ENDED ? '$primary50' : undefined}
-          gap='$2'
-          gradient={item.status !== GameStatus.ENDED ? 'primary' : 'secondary'}
-          p='$2'
-          opacity='$90'
+        <Link
+          asChild
+          href={
+            item.status === 'ended'
+              ? `play/ended/${item.id}`
+              : `play/active/${item.id}`
+          }
         >
-          <HStack justifyContent='space-between'>
-            <Text>
-              Status:{' '}
-              <Text
-                bold
-                textTransform='capitalize'
+          <Pressable>
+            <Card
+              bg={item.status !== 'ended' ? '$primary50' : undefined}
+              gap='$2'
+              gradient={item.status !== 'ended' ? 'primary' : 'secondary'}
+              p='$2'
+              opacity='$90'
+            >
+              <HStack justifyContent='space-between'>
+                <Text>
+                  Status:{' '}
+                  <Text
+                    bold
+                    textTransform='capitalize'
+                  >
+                    {mapStatusToText[item.status]}
+                  </Text>
+                </Text>
+                <Text color='$secondary500'>
+                  {formatDistance(new Date(item.lastUpdate), new Date(), {
+                    addSuffix: true
+                  })}
+                </Text>
+              </HStack>
+              <HStack
+                gap='$4'
+                justifyContent='space-between'
               >
-                {item.status}
-              </Text>
-            </Text>
-            <Text color='$secondary500'>
-              {formatDistance(new Date(item.created), new Date(), {
-                addSuffix: true
-              })}
-            </Text>
-          </HStack>
-          <HStack
-            gap='$4'
-            justifyContent='space-between'
-          >
-            <PlayerContainer
-              oneOrTwo='one'
-              player={item.playerOne}
-              winner={
-                item.status === GameStatus.ENDED
-                  ? item.playerOne.score > item.playerTwo.score
-                  : false
-              }
-            />
-            <PlayerContainer
-              oneOrTwo='two'
-              player={item.playerTwo}
-              winner={
-                item.status === GameStatus.ENDED
-                  ? item.playerOne.score < item.playerTwo.score
-                  : false
-              }
-            />
-          </HStack>
-        </Card>
+                <PlayerContainer
+                  oneOrTwo='one'
+                  player={item.playerOne}
+                  winner={
+                    item.status === 'ended'
+                      ? item.playerOne.score > item.playerTwo.score
+                      : false
+                  }
+                />
+                <PlayerContainer
+                  oneOrTwo='two'
+                  player={item.playerTwo}
+                  winner={
+                    item.status === 'ended'
+                      ? item.playerOne.score < item.playerTwo.score
+                      : false
+                  }
+                />
+              </HStack>
+            </Card>
+          </Pressable>
+        </Link>
       )}
     />
   )
@@ -122,5 +145,22 @@ const PlayerContainer = ({
     </HStack>
   </VStack>
 )
+
+const mapStatusToText: Record<
+  ActiveGame['status'] | EndedGame['status'],
+  string
+> = {
+  turn1_p1: 'Attacker Turn 1',
+  turn1_p2: 'Defender Turn 1',
+  turn2_p1: 'Attacker Turn 2',
+  turn2_p2: 'Defender Turn 2',
+  turn3_p1: 'Attacker Turn 3',
+  turn3_p2: 'Defender Turn 3',
+  turn4_p1: 'Attacker Turn 4',
+  turn4_p2: 'Defender Turn 4',
+  turn5_p1: 'Attacker Turn 5',
+  turn5_p2: 'Defender Turn 5',
+  ended: 'Ended'
+} as const
 
 export default GameList
