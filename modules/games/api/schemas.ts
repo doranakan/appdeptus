@@ -16,7 +16,7 @@ const gameSchema = z
     id: idSchema,
     army_one: armySchema.transform(({ units: _, ...rest }) => rest),
     cp_one: z.number(),
-    created_at: z.string(),
+    updated_at: z.string(),
     player_one: playerSchema,
     score_one: z.number()
   })

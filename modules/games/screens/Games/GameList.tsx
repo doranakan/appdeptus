@@ -53,7 +53,7 @@ const GameList = () => {
                   </Text>
                 </Text>
                 <Text color='$secondary500'>
-                  {formatDistance(new Date(item.created), new Date(), {
+                  {formatDistance(new Date(item.lastUpdate), new Date(), {
                     addSuffix: true
                   })}
                 </Text>

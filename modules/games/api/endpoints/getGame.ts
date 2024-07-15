@@ -47,8 +47,8 @@ const getGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
         const game = await getGameSchema.parseAsync(data[0])
 
         const baseGame = {
-          created: game.created_at,
           id: game.id,
+          lastUpdate: game.updated_at,
           playerOne: {
             army: game.army_one,
             cp: game.cp_one,

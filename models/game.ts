@@ -3,7 +3,7 @@ import { type UserProfile } from './userProfile'
 
 type BaseGame = {
   id: string
-  created: string
+  lastUpdate: string
   playerOne: Player
 }
 
