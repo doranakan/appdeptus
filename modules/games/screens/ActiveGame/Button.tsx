@@ -29,7 +29,7 @@ const NextTurnOrEndGameButton = ({
       return
     }
 
-    router.replace(`./endedGame/${gameId}`)
+    router.replace(`play/endedGame/${gameId}`)
   }, [endGameMutation, gameId])
 
   return (

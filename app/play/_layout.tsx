@@ -9,8 +9,7 @@ const ArmiesLayout = () => (
     <Stack.Screen name='new' />
     <Stack.Screen name='active/[gameId]' />
     <Stack.Screen name='join/[gameId]' />
-    <Stack.Screen name='new-game' />
-    <Stack.Screen name='[gameId]' />
+    <Stack.Screen name='ended/[gameId]' />
     <Stack.Screen
       name='qr-code'
       options={{

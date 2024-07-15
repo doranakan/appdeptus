@@ -1,4 +1,8 @@
 export { default as createGame } from './createGame'
+export { default as endGame } from './endGame'
 export { default as getGame } from './getGame'
+export { default as getGameArmy } from './getGameArmy'
 export { default as getGames } from './getGames'
+export { default as nextTurn } from './nextTurn'
 export { default as startGame } from './startGame'
+export { default as updateScoreAndCP } from './updateScoreAndCP'

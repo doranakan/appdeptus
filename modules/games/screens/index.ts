@@ -1,5 +1,6 @@
 export { default as ActiveGameScreen } from './ActiveGame'
 export { default as ArmyModal } from './Army'
+export { default as EndedGameScreen } from './EndedGame'
 export { default as GamesScreen } from './Games'
 export { default as JoinGameScreen } from './JoinGame'
 export { default as NewGameScreen } from './NewGame'
