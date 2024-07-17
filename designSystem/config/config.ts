@@ -18,7 +18,7 @@ const config = createConfig({
         ':disabled': {
           opacity: '$60'
         },
-        borderRadius: '$none',
+        borderRadius: '$2xl',
         variants: {
           ...GSConfig.components.Button.theme.variants,
           action: {
@@ -56,7 +56,7 @@ const config = createConfig({
       ...GSConfig.components.Input,
       theme: {
         ...GSConfig.components.Input.theme,
-        borderRadius: '$none'
+        borderRadius: '$2xl'
       }
     },
     InputField: {

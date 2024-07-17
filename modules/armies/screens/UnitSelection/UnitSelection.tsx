@@ -1,9 +1,10 @@
 import { Box, HStack, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { Loading } from 'appdeptus/components'
+import { Header, Loading } from 'appdeptus/components'
 import { type ArmyForm } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import { ChevronLeft, HelpCircle } from 'lucide-react-native'
 import React, { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -56,11 +57,28 @@ const UnitSelectionScreen = () => {
       >
         <CodexCoverImage codexName={codex.name} />
       </VStack>
+      <VStack
+        pt={insets.top}
+        px='$4'
+      >
+        <Header
+          color='secondary700'
+          title='Build army'
+          left={{
+            href: '../',
+            Icon: ChevronLeft
+          }}
+          right={{
+            href: '../',
+            Icon: HelpCircle
+          }}
+        />
+      </VStack>
       <HStack flex={1}>
         <VStack
           alignItems='center'
           h='$full'
-          mt={insets.top + 16}
+          mt='$4'
           w='$16'
         >
           <Box

@@ -39,7 +39,7 @@ const ScoreBoard = ({
       gap='$2'
       justifyContent='space-between'
       mt={-24}
-      px='$3'
+      px='$1.5'
       pb='$10'
     >
       <PlayerName
@@ -66,14 +66,10 @@ const PlayerName = ({ name, score, reversed }: PlayerNameProps) => (
   <HStack
     alignItems='center'
     flex={1}
-    gap={6}
     h={60}
     reversed={reversed}
   >
-    <SquareContainer
-      borderColor={reversed ? '$teal700' : '$primary600'}
-      size='$8'
-    >
+    <SquareContainer borderColor={reversed ? '$teal700' : '$primary600'}>
       <Text
         bold
         size='sm'

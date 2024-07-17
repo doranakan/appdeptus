@@ -4,7 +4,6 @@ import { type ArmyForm } from 'appdeptus/models'
 import { ClipboardCheck } from 'lucide-react-native'
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type UnitListHeaderProps = {
   loading: boolean
@@ -17,8 +16,6 @@ const UnitListHeader = ({
   onSubmit,
   submitTitle
 }: UnitListHeaderProps) => {
-  const insets = useSafeAreaInsets()
-
   const { control, watch } = useFormContext<ArmyForm>()
 
   const name = watch('name')
@@ -27,7 +24,6 @@ const UnitListHeader = ({
   return (
     <VStack
       pb='$4'
-      pt={insets.top}
       pr='$4'
     >
       <VStack>
@@ -41,9 +37,8 @@ const UnitListHeader = ({
               <InputField
                 {...props}
                 onChangeText={onChange}
-                fontFamily='AmericanText'
                 placeholder='Army name'
-                size='3xl'
+                size='xl'
               />
             </Input>
           )}

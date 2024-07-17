@@ -17,7 +17,7 @@ const Header = () => {
     <HStack justifyContent='center'>
       <Heading
         textTransform='capitalize'
-        size='4xl'
+        size='2xl'
       >
         Armies
       </Heading>
@@ -47,7 +47,6 @@ const Header = () => {
               <Text
                 bold
                 color='$secondary50'
-                lineHeight='$3xl'
                 textAlign='center'
               >
                 {data.name[0]}

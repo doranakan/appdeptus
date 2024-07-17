@@ -40,7 +40,8 @@ const UserProfile = () => {
         </Box>
         <Heading
           color='$secondary50'
-          size='3xl'
+          size='2xl'
+          lineHeight='$2xl'
           textAlign='center'
         >
           {data.name}

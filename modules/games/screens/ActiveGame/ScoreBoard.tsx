@@ -187,7 +187,6 @@ const PlayerName = ({ name, reversed }: PlayerNameProps) => (
   <HStack
     alignItems='center'
     flex={1}
-    gap={6}
     h={60}
     reversed={reversed}
   >

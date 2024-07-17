@@ -65,9 +65,10 @@ const Player = ({
         </HStack>
         <Box
           alignItems='center'
+          bg={role === 'attacker' ? '$primary600' : '$teal700'}
           borderColor='$secondary50'
+          borderRadius='$lg'
           borderWidth='$1'
-          px='$8'
         >
           <Text
             bold
@@ -79,9 +80,11 @@ const Player = ({
           </Text>
         </Box>
         <Heading
+          adjustsFontSizeToFit
           color='$secondary100'
-          fontSize='$5xl'
-          lineHeight='$6xl'
+          fontSize='$3xl'
+          lineHeight='$3xl'
+          numberOfLines={1}
           textAlign={role === 'attacker' ? 'left' : 'right'}
         >
           {army.codex.name}

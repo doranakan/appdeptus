@@ -34,8 +34,10 @@ const GradientHeading = ({ children }: PropsWithChildren) => {
               duration: 100,
               type: 'timing'
             }}
+            adjustsFontSizeToFit
             alignSelf='center'
-            size='4xl'
+            numberOfLines={1}
+            size='2xl'
             position='absolute'
           >
             {children}

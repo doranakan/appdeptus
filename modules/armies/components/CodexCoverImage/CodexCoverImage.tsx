@@ -1,8 +1,6 @@
-import { Box } from '@gluestack-ui/themed'
 import {
   AnimatedArmyBackgroundImage,
-  ArmyBackgroundImage,
-  LinearGradient
+  ArmyBackgroundImage
 } from 'appdeptus/components'
 import { type CodexName } from 'appdeptus/models'
 
@@ -10,14 +8,19 @@ type CodexCoverImageProps = {
   codexName: CodexName
 
   animated?: boolean
+  opacity?: number
 }
 
-const CodexCoverImage = ({ codexName, animated }: CodexCoverImageProps) => (
+const CodexCoverImage = ({
+  codexName,
+  animated,
+  opacity = 0.2
+}: CodexCoverImageProps) => (
   <>
     {animated ? (
       <AnimatedArmyBackgroundImage
         codexName={codexName}
-        opacity={0.2}
+        opacity={opacity}
         duration={200}
         fromScale={1.1}
         exitScale={1.5}
@@ -28,13 +31,6 @@ const CodexCoverImage = ({ codexName, animated }: CodexCoverImageProps) => (
         opacity={0.2}
       />
     )}
-    <Box
-      h='$full'
-      position='absolute'
-      w='$full'
-    >
-      <LinearGradient colors={['$white', 'rgba(255,255,255,0)']} />
-    </Box>
   </>
 )
 

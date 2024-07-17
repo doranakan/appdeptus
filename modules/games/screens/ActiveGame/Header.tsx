@@ -24,6 +24,7 @@ const PlayGameHeader = ({ status }: PlayGameHeaderProps) => (
     <HStack justifyContent='center'>
       <Box
         borderColor='$secondary50'
+        borderRadius='$lg'
         borderWidth='$1'
         px='$2'
       >

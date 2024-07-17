@@ -62,8 +62,8 @@ const ArmySelector = ({ selectedArmy, onArmySelected }: ArmySelectorProps) => {
           >
             <Card
               alignItems='center'
-              gradient={selectedArmy === item.id ? 'primary' : 'secondary'}
-              bg={selectedArmy === item.id ? '$primary50' : '$white'}
+              bg={selectedArmy === item.id ? '$secondary100' : '$secondary50'}
+              opacity={selectedArmy === item.id ? '$100' : '$60'}
             >
               <ArmyIcon
                 codexName={item.codex.name}

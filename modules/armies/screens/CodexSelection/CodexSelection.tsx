@@ -1,12 +1,11 @@
 import { Box, Pressable, Text, VStack } from '@gluestack-ui/themed'
-import MaskedView from '@react-native-masked-view/masked-view'
-import { codexSelectionMask } from 'appdeptus/assets'
 import {
-  AnimatedArmyBackgroundImage,
+  AnimatedArmyIcon,
   ArmyIcon,
   Button,
   Card,
   GradientHeading,
+  LinearGradient,
   Loading
 } from 'appdeptus/components'
 import { useArmyTintEffect } from 'appdeptus/designSystem'
@@ -17,7 +16,6 @@ import { useCallback, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { SvgXml } from 'react-native-svg'
 import { useGetCodexesQuery } from '../../api'
 import { CodexCoverImage } from '../../components'
 
@@ -85,40 +83,30 @@ const CodexSelectionContent = ({
       <CodexCoverImage
         animated
         codexName={selectedCodex.name}
+        opacity={1}
       />
+
+      <Box
+        h='$full'
+        position='absolute'
+        w='$full'
+      >
+        <LinearGradient
+          colors={[
+            '$secondary700',
+            'rgba(255,255,255,0)',
+            'rgba(255,255,255,0.8)',
+            '$white'
+          ]}
+        />
+      </Box>
       <VStack
         h='$full'
         pb={insets.bottom}
         position='absolute'
         w='$full'
       >
-        <VStack flex={1}>
-          <MaskedView
-            style={{
-              position: 'absolute',
-              flexDirection: 'row',
-              height: '100%'
-            }}
-            maskElement={
-              <Box flex={1}>
-                <SvgXml xml={codexSelectionMask} />
-              </Box>
-            }
-          >
-            <Box
-              bg='$black'
-              h='$full'
-              w='$full'
-            />
-            <Box
-              position='absolute'
-              h='$full'
-              w='$full'
-            >
-              <AnimatedArmyBackgroundImage codexName={selectedCodex.name} />
-            </Box>
-          </MaskedView>
-        </VStack>
+        <AnimatedArmyIcon codexName={selectedCodex.name} />
         <VStack
           justifyContent='flex-end'
           p='$4'
@@ -126,12 +114,15 @@ const CodexSelectionContent = ({
         >
           <Box
             alignItems='center'
-            borderColor='$dark900'
+            bg='$secondary50'
+            borderColor='$secondary700'
+            borderRadius='$xl'
             borderWidth='$1'
             px='$8'
           >
             <Text
               bold
+              color='$secondary700'
               letterSpacing='$xl'
               lineHeight='$xl'
               size='xl'
@@ -158,14 +149,16 @@ const CodexSelectionContent = ({
                   mr={index === codexes.length - 1 ? '$4' : 0}
                 >
                   <Card
-                    gradient={
-                      selectedCodex.id === item.id ? 'primary' : 'secondary'
-                    }
                     alignItems='center'
-                    bg={selectedCodex.id === item.id ? '$primary50' : '$white'}
+                    bg={
+                      selectedCodex.id === item.id
+                        ? '$secondary100'
+                        : '$secondary50'
+                    }
                     h={90}
                     justifyContent='center'
                     key={item.id}
+                    opacity={selectedCodex.id === item.id ? '$100' : '$60'}
                     w={90}
                   >
                     <ArmyIcon

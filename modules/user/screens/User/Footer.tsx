@@ -27,7 +27,10 @@ const Footer = () => {
         intended for entertainment and informational purposes only and is made
         by fans for fans.
       </Text>
-      <HStack justifyContent='space-between'>
+      <HStack
+        alignItems='center'
+        justifyContent='space-between'
+      >
         <Text>
           <Heading>Appdeptus</Heading>{' '}
           {`v${Application.nativeApplicationVersion}`}

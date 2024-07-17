@@ -166,7 +166,7 @@ const Content = () => {
           <Heading
             color='$secondary200'
             fontSize='$4xl'
-            lineHeight='$4xl'
+            lineHeight='$2xl'
           >
             Appdeptus
           </Heading>
@@ -183,8 +183,10 @@ const Content = () => {
         justifyContent='flex-end'
         p='$4'
       >
-        <Card opacity={0.8}>
-          <Text bold>Sign in</Text>
+        <Card
+          gap='$2'
+          opacity='$80'
+        >
           <Form />
         </Card>
       </VStack>

@@ -31,25 +31,30 @@ const GameList = () => {
               : `play/active/${item.id}`
           }
         >
-          <Pressable>
+          <Pressable opacity='$90'>
             <Card
               bg={item.status !== 'ended' ? '$primary50' : undefined}
               gap='$2'
-              gradient={item.status !== 'ended' ? 'primary' : 'secondary'}
               p='$2'
               opacity='$90'
             >
               <HStack justifyContent='space-between'>
-                <Text>
-                  Status:{' '}
+                <HStack
+                  bg='$secondary100'
+                  borderRadius='$md'
+                  px='$2'
+                >
                   <Text
-                    bold
+                    size='sm'
                     textTransform='capitalize'
                   >
                     {mapStatusToText[item.status]}
                   </Text>
-                </Text>
-                <Text color='$secondary500'>
+                </HStack>
+                <Text
+                  color='$secondary500'
+                  size='sm'
+                >
                   {formatDistance(new Date(item.lastUpdate), new Date(), {
                     addSuffix: true
                   })}
