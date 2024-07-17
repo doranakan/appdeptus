@@ -1,6 +1,7 @@
 import { Box, HStack, VStack } from '@gluestack-ui/themed'
 import {
   AnimatedArmyBackgroundImage,
+  AnimatedArmyIcon,
   LinearGradient
 } from 'appdeptus/components'
 import { type CodexName } from 'appdeptus/models'
@@ -24,34 +25,40 @@ const Background = ({ codexOne, codexTwo, opacity = 1 }: BackgroundProps) => (
       flex={1}
     >
       {codexOne ? (
-        <AnimatedArmyBackgroundImage
-          codexName={codexOne}
-          type='hero'
-        />
+        <VStack flex={1}>
+          <AnimatedArmyBackgroundImage
+            codexName={codexOne}
+            opacity={0.5}
+          />
+          <VStack
+            h='$2/3'
+            position='absolute'
+            w='$full'
+          >
+            <AnimatedArmyIcon codexName={codexOne} />
+          </VStack>
+        </VStack>
       ) : undefined}
-      <LinearGradient
-        colors={['$secondary900', '$transparent']}
-        position='absolute'
-        start={{ x: 1, y: 1 }}
-        end={{ x: 0, y: 1 }}
-      />
     </VStack>
     <VStack
       bg='$secondary950'
       flex={1}
     >
       {codexTwo ? (
-        <AnimatedArmyBackgroundImage
-          codexName={codexTwo}
-          type='hero'
-        />
+        <VStack>
+          <AnimatedArmyBackgroundImage
+            codexName={codexTwo}
+            opacity={0.5}
+          />
+          <VStack
+            h='$2/3'
+            position='absolute'
+            w='$full'
+          >
+            <AnimatedArmyIcon codexName={codexTwo} />
+          </VStack>
+        </VStack>
       ) : undefined}
-      <LinearGradient
-        colors={['$secondary900', '$transparent']}
-        position='absolute'
-        start={{ x: 0, y: 1 }}
-        end={{ x: 1, y: 1 }}
-      />
     </VStack>
     <VStack
       h='$full'

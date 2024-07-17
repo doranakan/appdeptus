@@ -14,7 +14,7 @@ const UserScreen = () => {
         w='$full'
       >
         <BackgroundImage
-          source='leviathan'
+          source='user_profile'
           opacity={0.6}
         />
         <LinearGradient

@@ -1,7 +1,6 @@
 import {
   Box,
   HStack,
-  Heading,
   Icon,
   Pressable,
   Text,
@@ -188,7 +187,6 @@ const PlayerName = ({ name, reversed }: PlayerNameProps) => (
   <HStack
     alignItems='center'
     flex={1}
-    gap={6}
     h={60}
     reversed={reversed}
   >
@@ -212,13 +210,14 @@ const PlayerName = ({ name, reversed }: PlayerNameProps) => (
         pr={reversed ? '$1' : undefined}
         reversed={reversed}
       >
-        <Heading
+        <Text
+          bold
           color={reversed ? '$teal50' : '$primary50'}
           ellipsizeMode='tail'
           numberOfLines={1}
         >
           {name}
-        </Heading>
+        </Text>
       </HStack>
       <HStack flex={1}></HStack>
     </VStack>
@@ -256,7 +255,12 @@ const ScoreSetter = ({
         size='xs'
       />
     </Pressable>
-    <Heading color='$secondary50'>{score}</Heading>
+    <Text
+      bold
+      color='$secondary50'
+    >
+      {score}
+    </Text>
     <Pressable
       hitSlop={20}
       onPress={() => {

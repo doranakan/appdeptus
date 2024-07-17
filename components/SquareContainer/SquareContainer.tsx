@@ -17,28 +17,13 @@ const SquareContainer = ({
     alignItems='center'
     bg={bg}
     borderColor={borderColor}
-    borderWidth='$1'
+    borderRadius='$2xl'
+    borderWidth='$2'
     justifyContent='center'
     h={size}
     w={size}
-    transform={[
-      {
-        rotate: '45 deg'
-      }
-    ]}
   >
-    <VStack
-      alignItems='center'
-      justifyContent='center'
-      p='$1'
-      transform={[
-        {
-          rotate: '-45 deg'
-        }
-      ]}
-    >
-      {children}
-    </VStack>
+    {children}
   </VStack>
 )
 

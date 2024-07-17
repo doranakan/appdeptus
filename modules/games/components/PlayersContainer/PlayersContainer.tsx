@@ -1,4 +1,4 @@
-import { Box, HStack, Heading, Icon, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, Heading, Icon, Text, VStack } from '@gluestack-ui/themed'
 import { type Army } from 'appdeptus/models'
 import { Shield, Swords } from 'lucide-react-native'
 
@@ -52,7 +52,8 @@ const Player = ({
             as={role === 'attacker' ? Swords : Shield}
             color='$secondary50'
           />
-          <Heading
+          <Text
+            bold
             color='$secondary50'
             ellipsizeMode='tail'
             numberOfLines={1}
@@ -60,38 +61,41 @@ const Player = ({
             textAlign={role === 'attacker' ? 'left' : 'right'}
           >
             {name}
-          </Heading>
+          </Text>
         </HStack>
         <Box
           alignItems='center'
+          bg={role === 'attacker' ? '$primary600' : '$teal700'}
           borderColor='$secondary50'
+          borderRadius='$lg'
           borderWidth='$1'
-          px='$8'
         >
-          <Heading
+          <Text
+            bold
             color='$secondary50'
             letterSpacing='$xl'
             textTransform='uppercase'
           >
             {`${army.totalPoints} pts`}
-          </Heading>
+          </Text>
         </Box>
         <Heading
+          adjustsFontSizeToFit
           color='$secondary100'
-          fontFamily='$mono'
-          fontSize='$5xl'
-          lineHeight='$6xl'
+          fontSize='$3xl'
+          lineHeight='$3xl'
+          numberOfLines={1}
           textAlign={role === 'attacker' ? 'left' : 'right'}
-          textTransform='capitalize'
         >
           {army.codex.name}
         </Heading>
-        <Heading
+        <Text
+          bold
           color='$secondary50'
           textAlign={role === 'attacker' ? 'left' : 'right'}
         >
           {army.name}
-        </Heading>
+        </Text>
       </>
     ) : undefined}
   </VStack>

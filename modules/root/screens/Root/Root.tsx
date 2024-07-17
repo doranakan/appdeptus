@@ -51,7 +51,7 @@ const Background = () => (
       width='$full'
     >
       <AnimatedBackgroundImage
-        source='leviathan'
+        source='sign_in'
         delay={2000}
         duration={2000}
         fromScale={1.1}
@@ -165,15 +165,16 @@ const Content = () => {
         >
           <Heading
             color='$secondary200'
-            fontFamily='$mono'
-            fontSize='$6xl'
-            lineHeight='$6xl'
-            textTransform='capitalize'
+            fontSize='$4xl'
+            lineHeight='$2xl'
           >
             Appdeptus
           </Heading>
-          <Text color='$secondary100'>
-            Unofficial Warhammer 40.000™ companion app
+          <Text
+            color='$secondary100'
+            textAlign='center'
+          >
+            {'An unofficial Warhammer 40.000™\ncompanion app'}
           </Text>
         </VStack>
       </VStack>
@@ -182,8 +183,10 @@ const Content = () => {
         justifyContent='flex-end'
         p='$4'
       >
-        <Card opacity={0.8}>
-          <Heading>Sign in</Heading>
+        <Card
+          gap='$2'
+          opacity='$80'
+        >
           <Form />
         </Card>
       </VStack>

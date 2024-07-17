@@ -1,11 +1,4 @@
-import {
-  Box,
-  HStack,
-  Heading,
-  Pressable,
-  Text,
-  VStack
-} from '@gluestack-ui/themed'
+import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import { ArmyIcon, Card, Loading } from 'appdeptus/components'
 import {
   type ActiveGame,
@@ -38,25 +31,30 @@ const GameList = () => {
               : `play/active/${item.id}`
           }
         >
-          <Pressable>
+          <Pressable opacity='$90'>
             <Card
               bg={item.status !== 'ended' ? '$primary50' : undefined}
               gap='$2'
-              gradient={item.status !== 'ended' ? 'primary' : 'secondary'}
               p='$2'
               opacity='$90'
             >
               <HStack justifyContent='space-between'>
-                <Text>
-                  Status:{' '}
+                <HStack
+                  bg='$secondary100'
+                  borderRadius='$md'
+                  px='$2'
+                >
                   <Text
-                    bold
+                    size='sm'
                     textTransform='capitalize'
                   >
                     {mapStatusToText[item.status]}
                   </Text>
-                </Text>
-                <Text color='$secondary500'>
+                </HStack>
+                <Text
+                  color='$secondary500'
+                  size='sm'
+                >
                   {formatDistance(new Date(item.lastUpdate), new Date(), {
                     addSuffix: true
                   })}
@@ -119,11 +117,14 @@ const PlayerContainer = ({
       justifyContent={'space-between'}
       w='$full'
     >
-      <Heading>{player.name}</Heading>
+      <Text bold>{player.name}</Text>
 
-      <Heading color={winner ? '$primary500' : '$secondary300'}>
+      <Text
+        bold
+        color={winner ? '$primary500' : '$secondary300'}
+      >
         {player.score}
-      </Heading>
+      </Text>
     </HStack>
     <HStack
       alignItems='center'

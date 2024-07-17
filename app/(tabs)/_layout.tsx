@@ -1,4 +1,4 @@
-import { Icon as GSIcon, Heading, VStack } from '@gluestack-ui/themed'
+import { Icon as GSIcon, Text, VStack } from '@gluestack-ui/themed'
 import { config, useColorMode } from 'appdeptus/designSystem'
 import { Tabs } from 'expo-router'
 import { Dices, Shield, type LucideIcon } from 'lucide-react-native'
@@ -87,13 +87,14 @@ const TabBarItem = ({
       size='xs'
     />
 
-    <Heading
+    <Text
+      bold
       color={focused ? '$white' : '$light400'}
       size='xs'
       fontSize='$xs'
     >
       {title}
-    </Heading>
+    </Text>
   </VStack>
 )
 

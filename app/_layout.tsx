@@ -1,11 +1,14 @@
 import {
-  NotoSerif_400Regular,
-  NotoSerif_400Regular_Italic,
-  NotoSerif_700Bold,
+  IBMPlexMono_400Regular,
+  IBMPlexMono_400Regular_Italic,
+  IBMPlexMono_500Medium,
+  IBMPlexMono_500Medium_Italic,
+  IBMPlexMono_700Bold,
+  IBMPlexMono_700Bold_Italic,
   useFonts
-} from '@expo-google-fonts/noto-serif'
-import { RobotoCondensed_700Bold } from '@expo-google-fonts/roboto-condensed'
-import { AmericanText } from 'appdeptus/assets'
+} from '@expo-google-fonts/ibm-plex-mono'
+import { Silkscreen_400Regular } from '@expo-google-fonts/silkscreen'
+
 import { ThemeProvider, config, selectColorMode } from 'appdeptus/designSystem'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
 import { store } from 'appdeptus/store'
@@ -32,11 +35,13 @@ const RootLayout = () => {
   const { data: session, isFetching, isUninitialized } = useGetSessionQuery()
 
   const [fontLoaded] = useFonts({
-    AmericanText,
-    NotoSerif_400Regular,
-    NotoSerif_400Regular_Italic,
-    NotoSerif_700Bold,
-    RobotoCondensed_700Bold
+    Silkscreen_400Regular,
+    IBMPlexMono_400Regular,
+    IBMPlexMono_400Regular_Italic,
+    IBMPlexMono_500Medium,
+    IBMPlexMono_500Medium_Italic,
+    IBMPlexMono_700Bold,
+    IBMPlexMono_700Bold_Italic
   })
 
   const colorMode = useSelector(selectColorMode)

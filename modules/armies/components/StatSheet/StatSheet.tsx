@@ -1,4 +1,4 @@
-import { Box, HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, Text, VStack } from '@gluestack-ui/themed'
 import { type Model } from 'appdeptus/models'
 import { STATSHEET_CELL_WIDTH, STATS_CELL_NAMES } from './constants'
 
@@ -38,7 +38,10 @@ const StatSheet = ({ model }: StatSheetProps): JSX.Element => (
           justifyContent='center'
           width={STATSHEET_CELL_WIDTH}
         >
-          <Heading size='md'>{`${stat}${Object.keys(model.stats)[index] === 'sv' || Object.keys(model.stats)[index] === 'ld' ? '+' : ''}`}</Heading>
+          <Text
+            bold
+            size='md'
+          >{`${stat}${Object.keys(model.stats)[index] === 'sv' || Object.keys(model.stats)[index] === 'ld' ? '+' : ''}`}</Text>
         </Box>
       ))}
     </HStack>

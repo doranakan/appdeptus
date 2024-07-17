@@ -6,10 +6,7 @@ const Background = () => (
     position='absolute'
     w='$full'
   >
-    <BackgroundImage
-      source='games'
-      opacity={0.4}
-    />
+    <BackgroundImage source='games' />
     <LinearGradient
       colors={['$secondary800', '$transparent']}
       position='absolute'

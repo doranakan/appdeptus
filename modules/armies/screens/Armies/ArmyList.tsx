@@ -1,7 +1,6 @@
 import {
   Box,
   HStack,
-  Heading,
   Icon,
   Pressable,
   Text,
@@ -59,7 +58,7 @@ const ArmyList = ({ armies }: ArmyListProps) => {
             justifyContent='space-between'
           >
             <VStack gap='$1'>
-              <Heading>{army.name}</Heading>
+              <Text bold>{army.name}</Text>
               <HStack
                 alignItems='center'
                 gap='$4'

@@ -31,12 +31,7 @@
     },
     "plugins": [
       "expo-router",
-      [
-        "expo-font",
-        {
-          "fonts": ["./assets/fonts/AmericanText.ttf"]
-        }
-      ],
+      ["expo-font"],
       [
         "expo-asset",
         {
@@ -44,63 +39,17 @@
             "./assets/resources/icon_mono.png",
             "./assets/resources/splash.png",
 
-            "./assets/resources/armies/codex_adepta_sororitas.png",
-            "./assets/resources/armies/codex_adeptus_astartes.png",
-            "./assets/resources/armies/codex_adeptus_mechanicus.png",
-            "./assets/resources/armies/codex_aeldari.png",
-            "./assets/resources/armies/codex_astra_militarum.png",
-            "./assets/resources/armies/codex_black_templars.png",
-            "./assets/resources/armies/codex_blood_angels.png",
-            "./assets/resources/armies/codex_blood_ravens.png",
-            "./assets/resources/armies/codex_chaos_daemons.png",
-            "./assets/resources/armies/codex_chaos_space_marines.png",
-            "./assets/resources/armies/codex_dark_angels.png",
-            "./assets/resources/armies/codex_death_guard.png",
-            "./assets/resources/armies/codex_deathwatch.png",
-            "./assets/resources/armies/codex_drukhari.png",
-            "./assets/resources/armies/codex_genestealer_cults.png",
-            "./assets/resources/armies/codex_grey_knights.png",
-            "./assets/resources/armies/codex_imperial_fists.png",
-            "./assets/resources/armies/codex_inquisition.png",
-            "./assets/resources/armies/codex_necrons.png",
-            "./assets/resources/armies/codex_orks.png",
-            "./assets/resources/armies/codex_space_wolves.png",
-            "./assets/resources/armies/codex_tau.png",
-            "./assets/resources/armies/codex_thousand_sons.png",
-            "./assets/resources/armies/codex_tyranids.png",
-            "./assets/resources/armies/codex_world_eaters.png",
+            "./assets/resources/armies/adepta_sororitas.jpg",
+            "./assets/resources/armies/adeptus_astartes.jpg",
+            "./assets/resources/armies/aeldari.jpg",
+            "./assets/resources/armies/astra_militarum.jpg",
+            "./assets/resources/armies/chaos_space_marines.jpg",
+            "./assets/resources/armies/tyranids.jpg",
 
-            "./assets/resources/armies/hero_adepta_sororitas.png",
-            "./assets/resources/armies/hero_adeptus_astartes.png",
-            "./assets/resources/armies/hero_adeptus_mechanicus.png",
-            "./assets/resources/armies/hero_aeldari.png",
-            "./assets/resources/armies/hero_astra_militarum.png",
-            "./assets/resources/armies/hero_black_templars.png",
-            "./assets/resources/armies/hero_blood_angels.png",
-            "./assets/resources/armies/hero_blood_ravens.png",
-            "./assets/resources/armies/hero_chaos_daemons.png",
-            "./assets/resources/armies/hero_chaos_space_marines.png",
-            "./assets/resources/armies/hero_dark_angels.png",
-            "./assets/resources/armies/hero_death_guard.png",
-            "./assets/resources/armies/hero_deathwatch.png",
-            "./assets/resources/armies/hero_drukhari.png",
-            "./assets/resources/armies/hero_genestealer_cults.png",
-            "./assets/resources/armies/hero_grey_knights.png",
-            "./assets/resources/armies/hero_imperial_fists.png",
-            "./assets/resources/armies/hero_inquisition.png",
-            "./assets/resources/armies/hero_necrons.png",
-            "./assets/resources/armies/hero_orks.png",
-            "./assets/resources/armies/hero_space_wolves.png",
-            "./assets/resources/armies/hero_tau.png",
-            "./assets/resources/armies/hero_thousand_sons.png",
-            "./assets/resources/armies/hero_tyranids.png",
-            "./assets/resources/armies/hero_world_eaters.png",
-
-            "./assets/resources/bkg/army_builder.png",
-            "./assets/resources/bkg/games.png",
-            "./assets/resources/bkg/leviathan.png",
-
-            "./assets/resources/images/wh_40k_logo.png"
+            "./assets/resources/bkg/army_builder.jpg",
+            "./assets/resources/bkg/games.jpg",
+            "./assets/resources/bkg/sign_in.jpg",
+            "./assets/resources/bkg/user_profile.jpg"
           ]
         }
       ]

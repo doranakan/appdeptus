@@ -1,9 +1,8 @@
-import { Box, HStack, Heading, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, Text, VStack } from '@gluestack-ui/themed'
 import { ArmyIcon, SquareContainer } from 'appdeptus/components'
 import { type ArmyForm, type Codex } from 'appdeptus/models'
 import { useEffect, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useGetCodexUnitsQuery } from '../../api'
 import CreateArmyHeader from './CreateArmyHeader'
 import UpdateArmyHeader from './UpdateArmyHeader'
@@ -15,8 +14,6 @@ type UnitListHeaderProps = {
 }
 
 const UnitListHeader = ({ armyId, codex }: UnitListHeaderProps) => {
-  const insets = useSafeAreaInsets()
-
   const { data } = useGetCodexUnitsQuery(codex.id)
 
   const { setValue, watch } = useFormContext<ArmyForm>()
@@ -42,7 +39,6 @@ const UnitListHeader = ({ armyId, codex }: UnitListHeaderProps) => {
     <HStack>
       <VStack
         left={-54}
-        mt={insets.top}
         position='absolute'
         w='$16'
       >
@@ -61,7 +57,7 @@ const UnitListHeader = ({ armyId, codex }: UnitListHeaderProps) => {
         </VStack>
       </VStack>
       <HStack
-        bottom={-21}
+        top={73}
         left={-54}
         position='absolute'
         w='$full'
@@ -69,7 +65,7 @@ const UnitListHeader = ({ armyId, codex }: UnitListHeaderProps) => {
         <Box
           bg='$secondary700'
           h={2}
-          left={53}
+          left={38}
           position='absolute'
           top={21}
           w='$full'
@@ -79,13 +75,18 @@ const UnitListHeader = ({ armyId, codex }: UnitListHeaderProps) => {
             alignItems='center'
             justifyContent='center'
           >
-            <Heading size='xs'>{totalPoints}</Heading>
-            <Heading
+            <Text
+              bold
               size='xs'
-              textTransform='uppercase'
+            >
+              {totalPoints}
+            </Text>
+            <Text
+              bold
+              size='xs'
             >
               pts
-            </Heading>
+            </Text>
           </VStack>
         </SquareContainer>
       </HStack>

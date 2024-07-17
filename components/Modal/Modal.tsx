@@ -32,13 +32,7 @@ const Modal = ({ children, title }: ModalProps) => {
             />
           </Pressable>
         </Link>
-        <Heading
-          fontFamily='$mono'
-          size='4xl'
-          textTransform='capitalize'
-        >
-          {title}
-        </Heading>
+        <Heading size='2xl'>{title}</Heading>
         <Link
           href='../'
           asChild

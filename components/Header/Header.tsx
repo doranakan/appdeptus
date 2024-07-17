@@ -1,4 +1,5 @@
 import { HStack, Heading, Icon, Pressable, Text } from '@gluestack-ui/themed'
+import { config, type Colors } from 'appdeptus/designSystem'
 import { Link } from 'expo-router'
 import { type LucideIcon } from 'lucide-react-native'
 
@@ -12,17 +13,16 @@ type IconButton = {
 type HeaderProps = {
   title: string
 
+  color?: Colors
   left?: IconButton
   right?: IconButton
 }
 
-const Header = ({ title, left, right }: HeaderProps) => (
+const Header = ({ color = 'secondary50', title, left, right }: HeaderProps) => (
   <HStack justifyContent='center'>
     <Heading
-      color='$secondary50'
-      fontFamily='$mono'
-      textTransform='capitalize'
-      size='4xl'
+      color={config.tokens.colors[color]}
+      size='2xl'
     >
       {title}
     </Heading>
@@ -47,11 +47,13 @@ const Header = ({ title, left, right }: HeaderProps) => (
               {left.Icon ? (
                 <Icon
                   as={left.Icon}
-                  color='$secondary50'
+                  color={config.tokens.colors[color]}
                   size='xl'
                 />
               ) : null}
-              {left.text ? <Text color='$secondary50'>{left.text}</Text> : null}
+              {left.text ? (
+                <Text color={config.tokens.colors[color]}>{left.text}</Text>
+              ) : null}
             </Pressable>
           </Link>
         ) : null}
@@ -68,12 +70,12 @@ const Header = ({ title, left, right }: HeaderProps) => (
               gap={'$1'}
             >
               {right.text ? (
-                <Text color='$secondary50'>{right.text}</Text>
+                <Text color={config.tokens.colors[color]}>{right.text}</Text>
               ) : null}
               {right.Icon ? (
                 <Icon
                   as={right.Icon}
-                  color='$secondary50'
+                  color={config.tokens.colors[color]}
                   size='xl'
                 />
               ) : null}

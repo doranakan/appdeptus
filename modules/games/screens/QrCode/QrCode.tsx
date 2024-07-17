@@ -67,10 +67,8 @@ const QrCodeContent = ({ gameId }: QrCodeContentProps) => {
         p='$4'
       >
         <Heading
-          fontFamily='$mono'
           size='3xl'
           textAlign='center'
-          textTransform='capitalize'
         >
           Get ready
         </Heading>
@@ -100,7 +98,7 @@ const QrCodeContent = ({ gameId }: QrCodeContentProps) => {
             </Pressable>
           </Link>
           <VStack>
-            <Heading>Time to roll some dice</Heading>
+            <Text bold>Time to roll the dice</Text>
 
             <Text>
               Show this <Text bold>Qr Code</Text> to your opponent to let them

@@ -1,4 +1,11 @@
-import { HStack, Heading, Icon, Pressable, Spinner } from '@gluestack-ui/themed'
+import {
+  HStack,
+  Heading,
+  Icon,
+  Pressable,
+  Spinner,
+  Text
+} from '@gluestack-ui/themed'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { Link } from 'expo-router'
 import { PlusCircle } from 'lucide-react-native'
@@ -9,9 +16,8 @@ const Header = () => {
   return (
     <HStack justifyContent='center'>
       <Heading
-        fontFamily='$mono'
         textTransform='capitalize'
-        size='4xl'
+        size='2xl'
       >
         Armies
       </Heading>
@@ -38,13 +44,13 @@ const Header = () => {
             {!data ? (
               <Spinner />
             ) : (
-              <Heading
+              <Text
+                bold
                 color='$secondary50'
-                lineHeight='$3xl'
                 textAlign='center'
               >
                 {data.name[0]}
-              </Heading>
+              </Text>
             )}
           </Pressable>
         </Link>

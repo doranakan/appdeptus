@@ -10,7 +10,6 @@ import {
   ButtonGroup,
   ButtonText,
   CloseIcon,
-  Heading,
   Icon,
   Text
 } from '@gluestack-ui/themed'
@@ -47,7 +46,7 @@ const Dialog = ({
     <AlertDialogBackdrop />
     <AlertDialogContent borderRadius='$none'>
       <AlertDialogHeader>
-        <Heading>{title}</Heading>
+        <Text bold>{title}</Text>
         <AlertDialogCloseButton>
           <Icon as={CloseIcon} />
         </AlertDialogCloseButton>
