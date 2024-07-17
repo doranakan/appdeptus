@@ -6,7 +6,7 @@ import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { useLocalSearchParams } from 'expo-router'
 import { useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useGetGameQuery } from '../../api'
+import { useGetNewGameQuery } from '../../api'
 import { ArmySelector, Background, PlayersContainer } from '../../components'
 import Header from './Header'
 
@@ -15,7 +15,7 @@ const JoinGameScreen = () => {
 
   const { gameId } = useLocalSearchParams<{ gameId: string }>()
 
-  const { data: game } = useGetGameQuery(gameId ?? skipToken)
+  const { data: game } = useGetNewGameQuery(gameId ?? skipToken)
   const { data: userProfile } = useGetUserProfileQuery()
 
   const [selectedArmy, setSelectedArmy] = useState<

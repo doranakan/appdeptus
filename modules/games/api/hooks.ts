@@ -18,6 +18,7 @@ const {
   useGetGameArmyQuery,
   useGetGameQuery,
   useGetGamesQuery,
+  useGetNewGameQuery,
   useNextTurnMutation,
   useStartGameMutation,
   useUpdateScoreAndCPMutation
@@ -30,6 +31,7 @@ export {
   useGetGameArmyQuery,
   useGetGameQuery,
   useGetGamesQuery,
+  useGetNewGameQuery,
   useNextTurnMutation,
   useStartGameMutation,
   useUpdateScoreAndCPMutation

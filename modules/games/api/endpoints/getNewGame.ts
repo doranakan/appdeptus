@@ -1,16 +1,12 @@
 import { type SupabaseEndpointBuilder } from 'appdeptus/api'
-import {
-  type ActiveGame,
-  type EndedGame,
-  type NewGame
-} from 'appdeptus/models/game'
+import { type NewGame } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import { getGameSchema } from '../schemas'
-import GamesApiTag from '../tags'
+import { getNewGameSchema } from '../schemas'
+import type GamesApiTag from '../tags'
 
-const getGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
-  builder.query<ActiveGame | EndedGame | NewGame, string>({
+const getNewGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
+  builder.query<NewGame, string>({
     queryFn: async (gameId) => {
       try {
         const { data, error } = await supabase
@@ -26,15 +22,6 @@ const getGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
               codex!inner(
                 *
               )
-            ),
-            player_two (
-              name
-            ),
-            army_two (
-              *,
-              codex!inner(
-                *
-              )
             )
             `
           )
@@ -44,7 +31,7 @@ const getGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
           return { error }
         }
 
-        const game = await getGameSchema.parseAsync(data[0])
+        const game = await getNewGameSchema.parseAsync(data[0])
 
         return {
           data: {
@@ -56,25 +43,13 @@ const getGame = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
               name: game.player_one.name,
               score: game.score_one
             },
-            playerTwo: {
-              army: game.army_two,
-              cp: game.cp_two,
-              name: game.player_two.name,
-              score: game.score_two
-            },
             status: game.status
           }
         }
       } catch (error) {
         return { error }
       }
-    },
-    providesTags: (_err, _res, gameId) => [
-      {
-        type: GamesApiTag.GAME,
-        id: gameId
-      }
-    ]
+    }
   })
 
-export default getGame
+export default getNewGame

@@ -41,6 +41,7 @@ const getGames = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
             `
           )
           .or(`player_one.eq.${userId},player_two.eq.${userId}`)
+          .filter('status', 'not.eq', 'new')
           .limit(10)
 
         if (error) {
@@ -51,34 +52,23 @@ const getGames = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
 
         return {
           data: games
-            .map<ActiveGame | EndedGame | undefined>((game) => {
-              const baseGame = {
-                id: game.id,
-                lastUpdate: game.updated_at,
-                playerOne: {
-                  army: game.army_one,
-                  cp: game.cp_one,
-                  name: game.player_one.name,
-                  score: game.score_one
-                }
-              }
-
-              if (game.status === 'new') {
-                return undefined
-              }
-
-              return {
-                ...baseGame,
-                playerTwo: {
-                  army: game.army_two,
-                  cp: game.cp_two,
-                  name: game.player_two.name,
-                  score: game.score_two
-                },
-                status: game.status
-              }
-            })
-            .filter<ActiveGame | EndedGame>(isActiveOrEndedGame)
+            .map<ActiveGame | EndedGame>((game) => ({
+              id: game.id,
+              lastUpdate: game.updated_at,
+              playerOne: {
+                army: game.army_one,
+                cp: game.cp_one,
+                name: game.player_one.name,
+                score: game.score_one
+              },
+              playerTwo: {
+                army: game.army_two,
+                cp: game.cp_two,
+                name: game.player_two.name,
+                score: game.score_two
+              },
+              status: game.status
+            }))
             .sort(({ id: id1 }, { id: id2 }) => Number(id2) - Number(id1))
         }
       } catch (error) {
@@ -87,9 +77,5 @@ const getGames = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
     },
     providesTags: [GamesApiTag.GAME_LIST]
   })
-
-const isActiveOrEndedGame = (
-  game: ActiveGame | EndedGame | undefined
-): game is ActiveGame | EndedGame => !!game
 
 export default getGames

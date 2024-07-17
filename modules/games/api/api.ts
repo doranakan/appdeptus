@@ -5,6 +5,7 @@ import {
   getGame,
   getGameArmy,
   getGames,
+  getNewGame,
   nextTurn,
   startGame,
   updateScoreAndCP
@@ -22,6 +23,7 @@ const gamesApi = supabaseApi
       getGameArmy: getGameArmy(builder),
       getGame: getGame(builder),
       getGames: getGames(builder),
+      getNewGame: getNewGame(builder),
       nextTurn: nextTurn(builder),
       startGame: startGame(builder),
       updateScoreAndCP: updateScoreAndCP(builder)
