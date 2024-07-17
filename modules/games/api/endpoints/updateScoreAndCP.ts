@@ -26,8 +26,6 @@ const updateScoreAndCP = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
           })
           .eq('id', gameId)
 
-        console.log({ data, error })
-
         if (error) {
           return { error }
         }

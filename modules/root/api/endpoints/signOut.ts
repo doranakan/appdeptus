@@ -8,8 +8,6 @@ const signOut = (builder: SupabaseEndpointBuilder<string>) =>
       try {
         const { error } = await supabase.auth.signOut()
 
-        console.log(error)
-
         if (error) {
           return { error }
         }
