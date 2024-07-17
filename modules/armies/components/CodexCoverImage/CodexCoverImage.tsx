@@ -21,7 +21,6 @@ const CodexCoverImage = ({ codexName, animated }: CodexCoverImageProps) => (
         duration={200}
         fromScale={1.1}
         exitScale={1.5}
-        type='codex'
       />
     ) : (
       <ArmyBackgroundImage

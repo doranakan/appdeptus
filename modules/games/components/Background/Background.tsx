@@ -24,10 +24,7 @@ const Background = ({ codexOne, codexTwo, opacity = 1 }: BackgroundProps) => (
       flex={1}
     >
       {codexOne ? (
-        <AnimatedArmyBackgroundImage
-          codexName={codexOne}
-          type='hero'
-        />
+        <AnimatedArmyBackgroundImage codexName={codexOne} />
       ) : undefined}
       <LinearGradient
         colors={['$secondary900', '$transparent']}
@@ -41,10 +38,7 @@ const Background = ({ codexOne, codexTwo, opacity = 1 }: BackgroundProps) => (
       flex={1}
     >
       {codexTwo ? (
-        <AnimatedArmyBackgroundImage
-          codexName={codexTwo}
-          type='hero'
-        />
+        <AnimatedArmyBackgroundImage codexName={codexTwo} />
       ) : undefined}
       <LinearGradient
         colors={['$secondary900', '$transparent']}

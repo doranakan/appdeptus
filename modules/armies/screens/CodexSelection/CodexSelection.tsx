@@ -115,10 +115,7 @@ const CodexSelectionContent = ({
               h='$full'
               w='$full'
             >
-              <AnimatedArmyBackgroundImage
-                codexName={selectedCodex.name}
-                type='codex'
-              />
+              <AnimatedArmyBackgroundImage codexName={selectedCodex.name} />
             </Box>
           </MaskedView>
         </VStack>

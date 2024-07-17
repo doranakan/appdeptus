@@ -51,7 +51,6 @@ const Header = ({ army }: HeaderProps) => (
           <AnimatedArmyBackgroundImage
             codexName={army.codex.name}
             opacity={0.8}
-            type='codex'
           />
         </MaskedView>
       </VStack>

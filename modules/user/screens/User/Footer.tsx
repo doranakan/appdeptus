@@ -1,6 +1,5 @@
 import { HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
 import * as Application from 'expo-application'
-import { Image } from 'expo-image'
 import { Link } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
@@ -15,13 +14,6 @@ const Footer = () => {
       px='$4'
       pb={insets.bottom}
     >
-      <Image
-        contentFit='contain'
-        source='wh_40k_logo'
-        style={{
-          height: 40
-        }}
-      />
       <Text
         fontSize='$2xs'
         lineHeight='$2xs'

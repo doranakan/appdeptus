@@ -51,7 +51,7 @@ const Background = () => (
       width='$full'
     >
       <AnimatedBackgroundImage
-        source='leviathan'
+        source='sign_in'
         delay={2000}
         duration={2000}
         fromScale={1.1}
