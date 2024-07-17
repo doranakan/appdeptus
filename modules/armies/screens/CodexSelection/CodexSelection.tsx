@@ -1,4 +1,4 @@
-import { Box, Heading, Pressable, VStack } from '@gluestack-ui/themed'
+import { Box, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import MaskedView from '@react-native-masked-view/masked-view'
 import { codexSelectionMask } from 'appdeptus/assets'
 import {
@@ -130,14 +130,14 @@ const CodexSelectionContent = ({
             borderWidth='$1'
             px='$8'
           >
-            <Heading
+            <Text
+              bold
               letterSpacing='$xl'
               lineHeight='$xl'
               size='xl'
-              textTransform='uppercase'
             >
               Codex
-            </Heading>
+            </Text>
           </Box>
           <GradientHeading>{selectedCodex.name}</GradientHeading>
         </VStack>

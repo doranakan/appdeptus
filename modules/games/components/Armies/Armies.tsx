@@ -1,11 +1,4 @@
-import {
-  HStack,
-  Heading,
-  Icon,
-  Pressable,
-  Text,
-  VStack
-} from '@gluestack-ui/themed'
+import { HStack, Icon, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import { ArmyIcon, Card, SquareContainer } from 'appdeptus/components'
 import { type Player } from 'appdeptus/models/game'
 import { Link } from 'expo-router'
@@ -64,7 +57,12 @@ const Army = ({ army, reversed }: ArmyProps) => (
         pr={reversed ? '$2' : undefined}
         reversed={reversed}
       >
-        <Heading lineHeight='$sm'>{army.name}</Heading>
+        <Text
+          bold
+          lineHeight='$sm'
+        >
+          {army.name}
+        </Text>
         <Link
           asChild
           href={`play/army/${army.id}`}

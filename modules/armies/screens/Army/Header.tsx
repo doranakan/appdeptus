@@ -1,4 +1,4 @@
-import { Box, Heading, VStack } from '@gluestack-ui/themed'
+import { Box, Text, VStack } from '@gluestack-ui/themed'
 import MaskedView from '@react-native-masked-view/masked-view'
 import {
   AnimatedArmyBackgroundImage,
@@ -60,15 +60,15 @@ const Header = ({ army }: HeaderProps) => (
         borderWidth='$1'
         px='$8'
       >
-        <Heading
+        <Text
+          bold
           color='$primary100'
           letterSpacing='$lg'
           lineHeight='$lg'
           size='lg'
-          textTransform='uppercase'
         >
           {`${army.totalPoints} pts`}
-        </Heading>
+        </Text>
       </Box>
       <GradientHeading>{army.name}</GradientHeading>
     </VStack>

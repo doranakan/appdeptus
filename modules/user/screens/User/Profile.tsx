@@ -1,4 +1,11 @@
-import { Box, HStack, Heading, Spinner, VStack } from '@gluestack-ui/themed'
+import {
+  Box,
+  HStack,
+  Heading,
+  Spinner,
+  Text,
+  VStack
+} from '@gluestack-ui/themed'
 import { useGetUserProfileQuery } from '../../api'
 
 const UserProfile = () => {
@@ -22,20 +29,19 @@ const UserProfile = () => {
           justifyContent='center'
           w={50}
         >
-          <Heading
+          <Text
+            bold
             color='$secondary50'
             size='xl'
             textAlign='center'
           >
             {data.name[0]}
-          </Heading>
+          </Text>
         </Box>
         <Heading
           color='$secondary50'
-          fontFamily='$mono'
           size='3xl'
           textAlign='center'
-          textTransform='capitalize'
         >
           {data.name}
         </Heading>

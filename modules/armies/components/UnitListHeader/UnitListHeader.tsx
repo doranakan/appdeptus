@@ -1,4 +1,4 @@
-import { Box, HStack, Heading, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, Text, VStack } from '@gluestack-ui/themed'
 import { ArmyIcon, SquareContainer } from 'appdeptus/components'
 import { type ArmyForm, type Codex } from 'appdeptus/models'
 import { useEffect, useMemo } from 'react'
@@ -79,13 +79,18 @@ const UnitListHeader = ({ armyId, codex }: UnitListHeaderProps) => {
             alignItems='center'
             justifyContent='center'
           >
-            <Heading size='xs'>{totalPoints}</Heading>
-            <Heading
+            <Text
+              bold
               size='xs'
-              textTransform='uppercase'
+            >
+              {totalPoints}
+            </Text>
+            <Text
+              bold
+              size='xs'
             >
               pts
-            </Heading>
+            </Text>
           </VStack>
         </SquareContainer>
       </HStack>

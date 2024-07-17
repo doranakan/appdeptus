@@ -1,4 +1,4 @@
-import { HStack, Heading, Pressable, Text, VStack } from '@gluestack-ui/themed'
+import { HStack, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import { Card } from 'appdeptus/components'
 import { type ArmyUnit } from 'appdeptus/models'
 import { Link } from 'expo-router'
@@ -25,9 +25,7 @@ const Item = ({ armyId, unit }: ItemProps): JSX.Element => (
           justifyContent='space-between'
         >
           <VStack>
-            <Text>
-              <Heading>{unit.name}</Heading>
-            </Text>
+            <Text bold>{unit.name}</Text>
             {unit.caption && <Text size='xs'>{unit.caption}</Text>}
           </VStack>
           <Text fontWeight='bold'>

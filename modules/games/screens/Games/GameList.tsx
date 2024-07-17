@@ -1,11 +1,4 @@
-import {
-  Box,
-  HStack,
-  Heading,
-  Pressable,
-  Text,
-  VStack
-} from '@gluestack-ui/themed'
+import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import { ArmyIcon, Card, Loading } from 'appdeptus/components'
 import {
   type ActiveGame,
@@ -119,11 +112,14 @@ const PlayerContainer = ({
       justifyContent={'space-between'}
       w='$full'
     >
-      <Heading>{player.name}</Heading>
+      <Text bold>{player.name}</Text>
 
-      <Heading color={winner ? '$primary500' : '$secondary300'}>
+      <Text
+        bold
+        color={winner ? '$primary500' : '$secondary300'}
+      >
         {player.score}
-      </Heading>
+      </Text>
     </HStack>
     <HStack
       alignItems='center'

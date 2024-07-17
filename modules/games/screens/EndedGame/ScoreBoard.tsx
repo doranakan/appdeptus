@@ -1,4 +1,4 @@
-import { Box, HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, Text, VStack } from '@gluestack-ui/themed'
 import { SquareContainer } from 'appdeptus/components'
 import { memo } from 'react'
 
@@ -74,7 +74,12 @@ const PlayerName = ({ name, score, reversed }: PlayerNameProps) => (
       borderColor={reversed ? '$teal700' : '$primary600'}
       size='$8'
     >
-      <Heading size='sm'>{score}</Heading>
+      <Text
+        bold
+        size='sm'
+      >
+        {score}
+      </Text>
     </SquareContainer>
     <VStack flex={1}>
       <HStack
@@ -86,13 +91,14 @@ const PlayerName = ({ name, score, reversed }: PlayerNameProps) => (
         pr={reversed ? '$1' : undefined}
         reversed={reversed}
       >
-        <Heading
+        <Text
+          bold
           color={reversed ? '$teal50' : '$primary50'}
           ellipsizeMode='tail'
           numberOfLines={1}
         >
           {name}
-        </Heading>
+        </Text>
       </HStack>
       <HStack
         flex={1}

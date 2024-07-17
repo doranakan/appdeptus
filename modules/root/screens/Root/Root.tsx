@@ -165,15 +165,16 @@ const Content = () => {
         >
           <Heading
             color='$secondary200'
-            fontFamily='$mono'
-            fontSize='$6xl'
-            lineHeight='$6xl'
-            textTransform='capitalize'
+            fontSize='$4xl'
+            lineHeight='$4xl'
           >
             Appdeptus
           </Heading>
-          <Text color='$secondary100'>
-            Unofficial Warhammer 40.000™ companion app
+          <Text
+            color='$secondary100'
+            textAlign='center'
+          >
+            {'An unofficial Warhammer 40.000™\ncompanion app'}
           </Text>
         </VStack>
       </VStack>
@@ -183,7 +184,7 @@ const Content = () => {
         p='$4'
       >
         <Card opacity={0.8}>
-          <Heading>Sign in</Heading>
+          <Text bold>Sign in</Text>
           <Form />
         </Card>
       </VStack>

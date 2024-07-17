@@ -29,12 +29,7 @@ const Footer = () => {
       </Text>
       <HStack justifyContent='space-between'>
         <Text>
-          <Heading
-            fontFamily='$mono'
-            textTransform='capitalize'
-          >
-            Appdeptus
-          </Heading>{' '}
+          <Heading>Appdeptus</Heading>{' '}
           {`v${Application.nativeApplicationVersion}`}
         </Text>
 

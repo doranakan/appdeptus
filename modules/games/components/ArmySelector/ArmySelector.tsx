@@ -1,7 +1,6 @@
 import {
   Box,
   HStack,
-  Heading,
   Icon,
   Pressable,
   Text,
@@ -40,7 +39,12 @@ const ArmySelector = ({ selectedArmy, onArmySelected }: ArmySelectorProps) => {
           as={Swords}
           color='$secondary50'
         />
-        <Heading color='$secondary50'>Select your army:</Heading>
+        <Text
+          bold
+          color='$secondary50'
+        >
+          Select your army:
+        </Text>
       </HStack>
       <FlatList
         data={data}
@@ -66,12 +70,13 @@ const ArmySelector = ({ selectedArmy, onArmySelected }: ArmySelectorProps) => {
                 h={80}
                 w={80}
               />
-              <Heading
+              <Text
+                bold
                 ellipsizeMode='tail'
                 numberOfLines={1}
               >
                 {item.name}
-              </Heading>
+              </Text>
               <Text>{`${item.totalPoints}pts`}</Text>
             </Card>
           </Pressable>

@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, Text, VStack } from '@gluestack-ui/themed'
 import { Header } from 'appdeptus/components'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { ChevronLeft, HelpCircle } from 'lucide-react-native'
@@ -27,12 +27,13 @@ const PlayGameHeader = ({ status }: PlayGameHeaderProps) => (
         borderWidth='$1'
         px='$2'
       >
-        <Heading
+        <Text
+          bold
           color='$secondary50'
           size='sm'
         >
           {status.endsWith('1') ? 'Attacker' : 'Defender'}
-        </Heading>
+        </Text>
       </Box>
     </HStack>
   </VStack>

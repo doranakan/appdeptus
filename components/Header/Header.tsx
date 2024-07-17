@@ -20,8 +20,6 @@ const Header = ({ title, left, right }: HeaderProps) => (
   <HStack justifyContent='center'>
     <Heading
       color='$secondary50'
-      fontFamily='$mono'
-      textTransform='capitalize'
       size='4xl'
     >
       {title}

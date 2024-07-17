@@ -1,4 +1,4 @@
-import { HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
+import { HStack, Text, VStack } from '@gluestack-ui/themed'
 import { Card } from 'appdeptus/components'
 import { type ComponentProps, type PropsWithChildren } from 'react'
 
@@ -35,7 +35,7 @@ const UnitCard = ({
         maxWidth='$full'
         numberOfLines={1}
       >
-        <Heading>{name}</Heading>
+        <Text bold>{name}</Text>
         {caption && <Text fontSize='$sm'>{` ${caption}`}</Text>}
       </Text>
 

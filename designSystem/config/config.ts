@@ -47,16 +47,8 @@ const config = createConfig({
       },
       theme: {
         ...GSConfig.components.Heading.theme,
-        textTransform: 'uppercase',
         variants: {
-          ...GSConfig.components.Heading.theme.variants,
-          variant: {
-            title: {
-              fontFamily: '$mono',
-              fontWeight: 400,
-              textTransform: 'capitalize'
-            }
-          }
+          ...GSConfig.components.Heading.theme.variants
         }
       }
     },
@@ -94,9 +86,8 @@ const config = createConfig({
   tokens: {
     ...GSConfig.tokens,
     fonts: {
-      body: 'NotoSerif',
-      heading: 'Roboto Condensed',
-      mono: 'AmericanText'
+      body: 'IBM Plex Mono',
+      heading: 'Silkscreen'
     },
     colors: {
       ...GSConfig.tokens.colors,

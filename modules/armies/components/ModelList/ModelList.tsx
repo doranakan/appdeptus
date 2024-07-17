@@ -1,4 +1,4 @@
-import { HStack, Heading, ScrollView, Text, VStack } from '@gluestack-ui/themed'
+import { HStack, ScrollView, Text, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Card, Loading, Modal } from 'appdeptus/components'
 import { type Army, type ArmyUnit } from 'appdeptus/models'
@@ -66,14 +66,14 @@ const ModelList = ({ army, unit, tierId }: ModelListProps) => {
                     gap='$2'
                     justifyContent='space-between'
                   >
-                    <Heading
+                    <Text
+                      bold
                       color='$white'
                       size='xl'
-                      textTransform='uppercase'
                       lineHeight='$lg'
                     >
                       {`${pluralize(model.name, count)}`}
-                    </Heading>
+                    </Text>
                     <Text
                       color='$white'
                       size='sm'

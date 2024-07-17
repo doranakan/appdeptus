@@ -35,10 +35,8 @@ const GradientHeading = ({ children }: PropsWithChildren) => {
               type: 'timing'
             }}
             alignSelf='center'
-            fontFamily='$mono'
             size='4xl'
             position='absolute'
-            textTransform='capitalize'
           >
             {children}
           </AnimatedHeading>

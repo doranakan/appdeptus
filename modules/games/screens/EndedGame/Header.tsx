@@ -1,4 +1,4 @@
-import { Box, Heading, HStack, VStack } from '@gluestack-ui/themed'
+import { Box, HStack, Text, VStack } from '@gluestack-ui/themed'
 import { Header } from 'appdeptus/components'
 import { formatDistance } from 'date-fns'
 import { ChevronLeft, Share } from 'lucide-react-native'
@@ -27,14 +27,15 @@ const EndedGameHeader = ({ lastUpdate }: EndedGameHeaderProps) => (
         borderWidth='$1'
         px='$2'
       >
-        <Heading
+        <Text
+          bold
           color='$secondary50'
           size='sm'
         >
           {formatDistance(new Date(lastUpdate), new Date(), {
             addSuffix: true
           })}
-        </Heading>
+        </Text>
       </Box>
     </HStack>
   </VStack>
