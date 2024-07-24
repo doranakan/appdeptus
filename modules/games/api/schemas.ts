@@ -16,12 +16,12 @@ const baseGameSchema = z.object({
   army_one: armySchema.transform(({ units: _, ...rest }) => rest),
   cp_one: z.number(),
   player_one: playerSchema,
-  score_one: z.number()
+  score_one: z.number(),
+  updated_at: z.string()
 })
 
 const gameSchema = baseGameSchema.and(
   z.object({
-    updated_at: z.string(),
     status: z.enum([
       'turn1_p1',
       'turn1_p2',
