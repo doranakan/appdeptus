@@ -18,7 +18,7 @@ const Form = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, touchedFields },
     setError,
     setFocus
   } = useForm<SignInForm>({
@@ -108,6 +108,7 @@ const Form = () => {
       />
 
       <Button
+        disabled={!touchedFields.email && !touchedFields.password}
         loading={isLoading}
         onPress={handleSubmit(onSubmit)}
         text='Sign in'
