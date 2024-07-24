@@ -87,7 +87,7 @@ const QrCodeContent = ({ gameId }: QrCodeContentProps) => {
                 ]}
                 enableLinearGradient
                 logo={{
-                  uri: 'icon_mono'
+                  uri: 'qr_logo'
                 }}
                 logoBackgroundColor={config.tokens.colors.secondary50}
                 logoMargin={10}
