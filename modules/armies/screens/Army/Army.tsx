@@ -8,7 +8,7 @@ import {
 import { config, useArmyTintEffect, useColorMode } from 'appdeptus/designSystem'
 import { type Army } from 'appdeptus/models'
 import { Link, useLocalSearchParams } from 'expo-router'
-import { Edit, Trash2 } from 'lucide-react-native'
+import { ChevronLeft, Edit } from 'lucide-react-native'
 import { MotiView, motify } from 'moti'
 import {
   Extrapolation,
@@ -110,13 +110,25 @@ const ArmyContent = ({ army }: ArmyProps) => {
       <AnimatedHStack
         borderColor='$primary800'
         gap='$8'
-        justifyContent='flex-end'
+        justifyContent='space-between'
         opacity={0.6}
         pb='$4'
         pt={insets.top}
         px='$4'
         style={animatedStyle}
       >
+        <Link
+          asChild
+          href='../'
+        >
+          <Pressable>
+            <Icon
+              as={ChevronLeft}
+              color='$white'
+              size='xl'
+            />
+          </Pressable>
+        </Link>
         <Link
           asChild
           href={{
@@ -132,13 +144,6 @@ const ArmyContent = ({ army }: ArmyProps) => {
             />
           </Pressable>
         </Link>
-        <Pressable>
-          <Icon
-            as={Trash2}
-            color='$white'
-            size='xl'
-          />
-        </Pressable>
       </AnimatedHStack>
       <UnitList
         army={army}
