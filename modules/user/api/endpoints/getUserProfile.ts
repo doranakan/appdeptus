@@ -1,10 +1,10 @@
-import { getUserId, type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { getUserId, type CoreEndpointBuilder } from 'appdeptus/api'
 import { type UserProfile } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { userProfileSchema } from '../schemas'
 
-const getUserProfile = (builder: SupabaseEndpointBuilder) =>
+const getUserProfile = (builder: CoreEndpointBuilder) =>
   builder.query<UserProfile | null, void>({
     queryFn: async () => {
       try {

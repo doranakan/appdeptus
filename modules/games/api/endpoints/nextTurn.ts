@@ -1,4 +1,4 @@
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type ActiveGame, type EndedGame } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
@@ -9,7 +9,7 @@ type NextTurnParams = {
   gameId: ActiveGame['id']
 }
 
-const nextTurn = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
+const nextTurn = (builder: CoreEndpointBuilder<GamesApiTag>) =>
   builder.mutation<null, NextTurnParams>({
     queryFn: async ({ currentStatus, gameId }) => {
       try {
@@ -29,7 +29,7 @@ const nextTurn = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
         return { error }
       }
     },
-    invalidatesTags: (_error, _res, { gameId }) => [
+    invalidatesTags: (_res, _error, { gameId }) => [
       GamesApiTag.GAME_LIST,
       {
         type: GamesApiTag.GAME,

@@ -8,6 +8,7 @@ import {
   useFonts
 } from '@expo-google-fonts/ibm-plex-mono'
 import { Silkscreen_400Regular } from '@expo-google-fonts/silkscreen'
+import { coreApi } from 'appdeptus/api'
 
 import { ThemeProvider, config, selectColorMode } from 'appdeptus/designSystem'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
@@ -18,7 +19,7 @@ import {
   SafeAreaProvider,
   initialWindowMetrics
 } from 'react-native-safe-area-context'
-import { Provider, useSelector } from 'react-redux'
+import { Provider, useDispatch, useSelector } from 'react-redux'
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 SplashScreen.preventAutoHideAsync()
@@ -32,6 +33,8 @@ const App = () => (
 )
 
 const RootLayout = () => {
+  const dispatch = useDispatch()
+
   const { data: session, isFetching, isUninitialized } = useGetSessionQuery()
 
   const [fontLoaded] = useFonts({
@@ -62,10 +65,15 @@ const RootLayout = () => {
         return
       }
       case !session: {
+        while (router.canGoBack()) {
+          router.back()
+        }
         router.replace('/')
+
+        dispatch(coreApi.util.resetApiState())
       }
     }
-  }, [isFetching, isUninitialized, session])
+  }, [dispatch, isFetching, isUninitialized, session])
 
   return (
     <ThemeProvider

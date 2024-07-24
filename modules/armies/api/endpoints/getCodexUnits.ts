@@ -1,4 +1,4 @@
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type CodexUnit } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
@@ -6,7 +6,7 @@ import { sortBy } from 'lodash'
 import { tiersSchema, unitsSchema } from '../schemas'
 import type ArmiesApiTag from '../tags'
 
-const getCodexUnits = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
+const getCodexUnits = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.query<CodexUnit[], string>({
     queryFn: async (codexId) => {
       try {

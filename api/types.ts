@@ -1,9 +1,15 @@
 import { type BaseQueryFn, type EndpointBuilder } from '@reduxjs/toolkit/query'
 
-type SupabaseEndpointBuilder<T extends string = never> = EndpointBuilder<
+type CoreEndpointBuilder<T extends string = never> = EndpointBuilder<
   BaseQueryFn,
   T,
-  'supabaseApi'
+  'coreApi'
 >
 
-export type { SupabaseEndpointBuilder }
+type SessionEndpointBuilder<T extends string = never> = EndpointBuilder<
+  BaseQueryFn,
+  T,
+  'sessionApi'
+>
+
+export type { CoreEndpointBuilder, SessionEndpointBuilder }

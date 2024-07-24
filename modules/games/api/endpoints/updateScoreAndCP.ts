@@ -1,4 +1,4 @@
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
@@ -12,7 +12,7 @@ type UpdateScoreAndCPParams = {
   pTwoCP: number
 }
 
-const updateScoreAndCP = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
+const updateScoreAndCP = (builder: CoreEndpointBuilder<GamesApiTag>) =>
   builder.mutation<null, UpdateScoreAndCPParams>({
     queryFn: async ({ gameId, pOneScore, pOneCP, pTwoScore, pTwoCP }) => {
       try {
@@ -35,7 +35,7 @@ const updateScoreAndCP = (builder: SupabaseEndpointBuilder<GamesApiTag>) =>
         return { error }
       }
     },
-    invalidatesTags: (_error, _res, { gameId }) => [
+    invalidatesTags: (_res, _error, { gameId }) => [
       GamesApiTag.GAME_LIST,
       {
         type: GamesApiTag.GAME,

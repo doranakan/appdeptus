@@ -1,11 +1,11 @@
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type ArmyForm } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { armyToEditSchema } from '../schemas'
 import ArmiesApiTag from '../tags'
 
-const getArmyToEdit = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
+const getArmyToEdit = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.query<ArmyForm, string>({
     queryFn: async (armyId) => {
       try {

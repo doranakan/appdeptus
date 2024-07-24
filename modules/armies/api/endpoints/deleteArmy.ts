@@ -1,9 +1,9 @@
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import ArmiesApiTag from '../tags'
 
-const deleteArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
+const deleteArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.mutation<null, string>({
     queryFn: async (armyId) => {
       try {

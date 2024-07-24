@@ -1,8 +1,8 @@
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
-import apiTags from 'appdeptus/api/tags'
+import { type SessionEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
+import SessionApiTag from '../tags'
 
-const signOut = (builder: SupabaseEndpointBuilder<string>) =>
+const signOut = (builder: SessionEndpointBuilder<SessionApiTag>) =>
   builder.mutation<null, void>({
     queryFn: async () => {
       try {
@@ -17,7 +17,7 @@ const signOut = (builder: SupabaseEndpointBuilder<string>) =>
         return { error }
       }
     },
-    invalidatesTags: apiTags
+    invalidatesTags: (_res, error) => (!error ? [SessionApiTag.SESSION] : [])
   })
 
 export default signOut

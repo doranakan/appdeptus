@@ -1,4 +1,4 @@
-import { supabaseApi } from 'appdeptus/api'
+import { coreApi } from 'appdeptus/api'
 import {
   createGame,
   endGame,
@@ -12,7 +12,7 @@ import {
 } from './endpoints'
 import GamesApiTag from './tags'
 
-const gamesApi = supabaseApi
+const gamesApi = coreApi
   .enhanceEndpoints({
     addTagTypes: Object.values(GamesApiTag)
   })

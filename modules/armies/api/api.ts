@@ -1,4 +1,4 @@
-import { supabaseApi } from 'appdeptus/api'
+import { coreApi } from 'appdeptus/api'
 import {
   createArmy,
   deleteArmy,
@@ -14,7 +14,7 @@ import {
 } from './endpoints'
 import ArmiesApiTag from './tags'
 
-const armiesApi = supabaseApi
+const armiesApi = coreApi
   .enhanceEndpoints({
     addTagTypes: [...Object.values(ArmiesApiTag)]
   })

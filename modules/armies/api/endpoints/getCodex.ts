@@ -1,11 +1,11 @@
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Codex } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { codexSchema } from '../schemas'
 import type ArmiesApiTag from '../tags'
 
-const getCodex = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
+const getCodex = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.query<Codex, string>({
     queryFn: async (codexId) => {
       try {

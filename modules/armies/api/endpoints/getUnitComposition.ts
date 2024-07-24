@@ -1,4 +1,4 @@
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type UnitComposition } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
@@ -49,7 +49,7 @@ const unitCompositionQuery = async (tierId: string) => {
   }
 }
 
-const getUnitComposition = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
+const getUnitComposition = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.query<UnitComposition, string>({
     queryFn: unitCompositionQuery
   })

@@ -1,8 +1,9 @@
 import { type Session } from '@supabase/supabase-js'
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type SessionEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
+import SessionApiTag from '../tags'
 
-const getSession = (builder: SupabaseEndpointBuilder) =>
+const getSession = (builder: SessionEndpointBuilder<SessionApiTag>) =>
   builder.query<Session | null, void>({
     queryFn: async () => {
       try {
@@ -16,7 +17,8 @@ const getSession = (builder: SupabaseEndpointBuilder) =>
       } catch (error) {
         return { error }
       }
-    }
+    },
+    providesTags: [SessionApiTag.SESSION]
   })
 
 export default getSession

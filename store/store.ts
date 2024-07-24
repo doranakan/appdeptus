@@ -1,9 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query'
 import {
-  supabaseApi,
-  supabaseApiReducer,
-  supabaseApiReducerPath
+  coreApi,
+  coreApiReducer,
+  coreApiReducerPath,
+  sessionApi,
+  sessionApiReducer,
+  sessionApiReducerPath
 } from 'appdeptus/api'
 import {
   designSystemReducer,
@@ -12,11 +15,14 @@ import {
 
 const store = configureStore({
   reducer: {
+    [coreApiReducerPath]: coreApiReducer,
     [designSystemReducerPath]: designSystemReducer,
-    [supabaseApiReducerPath]: supabaseApiReducer
+    [sessionApiReducerPath]: sessionApiReducer
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(supabaseApi.middleware)
+    getDefaultMiddleware()
+      .concat(coreApi.middleware)
+      .concat(sessionApi.middleware)
 })
 
 setupListeners(store.dispatch)

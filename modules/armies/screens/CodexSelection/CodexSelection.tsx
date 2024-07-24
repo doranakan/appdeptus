@@ -5,6 +5,7 @@ import {
   Button,
   Card,
   GradientHeading,
+  Header,
   LinearGradient,
   Loading
 } from 'appdeptus/components'
@@ -12,6 +13,7 @@ import { useArmyTintEffect } from 'appdeptus/designSystem'
 import { CodexName, type ArmyForm, type Codex } from 'appdeptus/models'
 import { router } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import { ChevronLeft } from 'lucide-react-native'
 import { useCallback, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
@@ -103,9 +105,19 @@ const CodexSelectionContent = ({
       <VStack
         h='$full'
         pb={insets.bottom}
+        pt={insets.top}
         position='absolute'
         w='$full'
       >
+        <VStack p='$4'>
+          <Header
+            title=''
+            left={{
+              href: '../',
+              Icon: ChevronLeft
+            }}
+          />
+        </VStack>
         <AnimatedArmyIcon codexName={selectedCodex.name} />
         <VStack
           justifyContent='flex-end'

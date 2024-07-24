@@ -1,9 +1,10 @@
 import { type AuthTokenResponsePassword } from '@supabase/supabase-js'
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type SessionEndpointBuilder } from 'appdeptus/api'
 import { type SignInForm } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
+import SessionApiTag from '../tags'
 
-const signIn = (builder: SupabaseEndpointBuilder) =>
+const signIn = (builder: SessionEndpointBuilder<SessionApiTag>) =>
   builder.mutation<AuthTokenResponsePassword['data'], SignInForm>({
     queryFn: async ({ email, password }) => {
       try {
@@ -20,7 +21,8 @@ const signIn = (builder: SupabaseEndpointBuilder) =>
       } catch (error) {
         return { error }
       }
-    }
+    },
+    invalidatesTags: (_res, error) => (!error ? [SessionApiTag.SESSION] : [])
   })
 
 export default signIn

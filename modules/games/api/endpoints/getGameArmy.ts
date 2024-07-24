@@ -1,4 +1,4 @@
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Army, type ArmyUnit } from 'appdeptus/models'
 import {
   armySchema,
@@ -12,7 +12,7 @@ import { Table } from 'appdeptus/utils/supabase'
 import { compact, sortBy } from 'lodash'
 import type ArmiesApiTag from '../tags'
 
-const getGameArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
+const getGameArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.query<Army, string>({
     queryFn: async (armyId) => {
       try {

@@ -1,4 +1,4 @@
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type UnitComposition } from 'appdeptus/models'
 import { type Wargear } from 'appdeptus/models/wargear'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
@@ -17,7 +17,7 @@ type Composition = Omit<UnitComposition[0], 'tierId' | 'id'>
 
 type UnitOption = Composition & Wargear
 
-const getUnitOptions = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
+const getUnitOptions = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.query<UnitOption[], string>({
     queryFn: async (tierId) => {
       try {

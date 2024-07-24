@@ -1,4 +1,4 @@
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Army, type ArmyUnit } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
@@ -7,7 +7,7 @@ import { armySchema, tiersSchema, unitsSchema, weaponsSchema } from '../schemas'
 import ArmiesApiTag from '../tags'
 import { parseWeapon } from '../utils'
 
-const getArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
+const getArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.query<Army, string>({
     queryFn: async (armyId) => {
       try {

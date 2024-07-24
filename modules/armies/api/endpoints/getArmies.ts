@@ -1,4 +1,4 @@
-import { getUserId, type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { getUserId, type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Army } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
@@ -7,7 +7,7 @@ import ArmiesApiTag from '../tags'
 
 type GetArmiesResponse = Omit<Army, 'units'>
 
-const getArmies = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
+const getArmies = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.query<GetArmiesResponse[], void>({
     queryFn: async () => {
       try {

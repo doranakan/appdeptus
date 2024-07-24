@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type ArmyForm } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
@@ -9,7 +9,7 @@ type UpdateArmyArgs = {
   armyId: string
 } & ArmyForm
 
-const updateArmy = (builder: SupabaseEndpointBuilder<string>) =>
+const updateArmy = (builder: CoreEndpointBuilder<string>) =>
   builder.mutation<null, UpdateArmyArgs>({
     queryFn: async ({ armyId, totalPoints, codexId, ...restArgs }) => {
       try {

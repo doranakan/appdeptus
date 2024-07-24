@@ -1,11 +1,11 @@
 /* eslint-disable camelcase */
-import { type SupabaseEndpointBuilder } from 'appdeptus/api'
+import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type ArmyForm } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import ArmiesApiTag from '../tags'
 
-const createArmy = (builder: SupabaseEndpointBuilder<ArmiesApiTag>) =>
+const createArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.mutation<null, ArmyForm>({
     queryFn: async ({ codexId, totalPoints, ...army }) => {
       try {

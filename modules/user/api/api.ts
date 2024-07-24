@@ -1,7 +1,7 @@
-import { supabaseApi } from 'appdeptus/api'
+import { coreApi } from 'appdeptus/api'
 import { getUserProfile } from './endpoints'
 
-const userApi = supabaseApi.injectEndpoints({
+const userApi = coreApi.injectEndpoints({
   endpoints: (builder) => ({
     getUserProfile: getUserProfile(builder)
   }),

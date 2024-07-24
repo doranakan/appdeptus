@@ -9,7 +9,6 @@ import {
 import { type AuthTokenResponsePassword } from '@supabase/supabase-js'
 import { Button } from 'appdeptus/components'
 import { type SignInForm } from 'appdeptus/models'
-import { router } from 'expo-router'
 import { Key, ServerCrash, Vault } from 'lucide-react-native'
 import React, { useCallback } from 'react'
 import { Controller, useForm } from 'react-hook-form'
@@ -42,10 +41,7 @@ const Form = () => {
         setError('root', {
           message: (result.error as AuthTokenResponsePassword['error'])?.message
         })
-        return
       }
-
-      router.replace('armies')
     },
     [setError, signIn]
   )
