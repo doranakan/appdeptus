@@ -15,6 +15,7 @@ const PlayGameHeader = ({ status }: PlayGameHeaderProps) => (
         Icon: ChevronLeft
       }}
       right={{
+        disabled: true,
         href: '',
         Icon: HelpCircle
       }}

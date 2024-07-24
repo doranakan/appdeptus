@@ -15,6 +15,7 @@ const EndedGameHeader = ({ lastUpdate }: EndedGameHeaderProps) => (
         Icon: ChevronLeft
       }}
       right={{
+        disabled: true,
         href: '',
         Icon: Share
       }}

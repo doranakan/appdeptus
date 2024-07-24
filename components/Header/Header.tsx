@@ -6,6 +6,7 @@ import { type LucideIcon } from 'lucide-react-native'
 type IconButton = {
   href: string
 
+  disabled?: boolean
   Icon?: LucideIcon
   text?: string
 }
@@ -37,6 +38,7 @@ const Header = ({ color = 'secondary50', title, left, right }: HeaderProps) => (
         {left ? (
           <Link
             asChild
+            disabled={left.disabled}
             href={left.href}
           >
             <Pressable
@@ -62,6 +64,7 @@ const Header = ({ color = 'secondary50', title, left, right }: HeaderProps) => (
         {right ? (
           <Link
             asChild
+            disabled={right.disabled}
             href={right.href}
           >
             <Pressable
