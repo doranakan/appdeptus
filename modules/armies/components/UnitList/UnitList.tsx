@@ -31,10 +31,7 @@ const UnitList = ({ army, ListHeaderComponent, onScroll }: UnitListProps) => {
             duration: 400
           }}
         >
-          <Item
-            armyId={army.id}
-            unit={unit}
-          />
+          <Item unit={unit} />
         </MotiView>
       )}
       style={styles.flatList}

@@ -31,10 +31,6 @@ const ArmiesLayout = () => {
             fullScreenGestureEnabled: true
           }}
         />
-        <Stack.Screen
-          name='option-selection'
-          options={{ headerBackTitle: 'Back', title: 'Customize wargear' }}
-        />
       </Stack>
     </FormProvider>
   )

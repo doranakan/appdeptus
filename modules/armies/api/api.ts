@@ -8,8 +8,6 @@ import {
   getCodex,
   getCodexes,
   getCodexUnits,
-  getUnitComposition,
-  getUnitOptions,
   updateArmy
 } from './endpoints'
 import ArmiesApiTag from './tags'
@@ -28,8 +26,6 @@ const armiesApi = coreApi
       getCodex: getCodex(builder),
       getCodexes: getCodexes(builder),
       getCodexUnits: getCodexUnits(builder),
-      getUnitComposition: getUnitComposition(builder),
-      getUnitOptions: getUnitOptions(builder),
       updateArmy: updateArmy(builder)
     }),
     overrideExisting: true

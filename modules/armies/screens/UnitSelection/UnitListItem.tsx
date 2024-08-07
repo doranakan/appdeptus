@@ -35,7 +35,7 @@ const UnitListItem = ({
       name={unit.name}
       opacity={count ? 1 : 0.8}
       points={count ? points : unit.tiers[0]?.points ?? 0}
-      subtitle={`${count} / ${unit.limit}`}
+      subtitle={`Selected: ${count}`}
     >
       <HStack
         flex={1}
@@ -43,12 +43,10 @@ const UnitListItem = ({
       >
         <Button
           action={'secondary'}
-          disabled={count >= unit.limit}
           flex={1}
           Icon={Plus}
           onPress={() => {
             append({
-              options: [],
               tier: unit.tiers[0]?.id ?? '',
               unit: unit.id
             })
