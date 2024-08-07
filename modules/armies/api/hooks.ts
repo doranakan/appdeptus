@@ -9,8 +9,6 @@ const {
   useGetCodexQuery,
   useGetCodexesQuery,
   useGetCodexUnitsQuery,
-  useGetUnitCompositionQuery,
-  useGetUnitOptionsQuery,
   useUpdateArmyMutation
 } = armiesApi
 
@@ -23,7 +21,5 @@ export {
   useGetCodexQuery,
   useGetCodexUnitsQuery,
   useGetCodexesQuery,
-  useGetUnitCompositionQuery,
-  useGetUnitOptionsQuery,
   useUpdateArmyMutation
 }

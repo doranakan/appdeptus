@@ -59,78 +59,21 @@ const tiersSchema = z.array(
   })
 )
 
-const modelSchema = z.object({
-  id: idSchema,
-  name: z.string(),
-  m: z.number(),
-  t: z.number(),
-  sv: z.number(),
-  w: z.number(),
-  ld: z.number(),
-  oc: z.number()
-})
-
-const unitCompositionsSchema = z.array(
-  z.object({
-    id: idSchema,
-    unit_tier: idSchema,
-    count: z.number(),
-    model: modelSchema
-  })
-)
-
 const unitsSchema = z.array(
   z.object({
     id: idSchema,
     name: z.string(),
     caption: z.string().optional(),
-    leader: z.boolean(),
-    limit: z.number()
+    leader: z.boolean()
   })
 )
-
-const weaponSchema = z.object({
-  id: idSchema,
-  name: z.string(),
-  range: z.string().optional(),
-  a: z.string(),
-  bs_ws: z.string().optional(),
-  s: z.string(),
-  ap: z.string(),
-  d: z.string()
-})
-
-const unitOptionsSchema = z.array(
-  z.object({
-    id: idSchema,
-    count: z.number().optional(),
-    unit_composition: idSchema,
-    unit_wargear: z.number().transform(String).optional(),
-    weapons: z.array(z.number().transform(String))
-  })
-)
-
-const wargearWeaponsSchema = z.array(
-  z.object({
-    id: idSchema,
-    unit_composition: idSchema,
-    weapon: weaponSchema
-  })
-)
-
-const weaponsSchema = z.array(weaponSchema)
 
 export {
   armiesSchema,
   armySchema,
   armyToEditSchema,
-  codexSchema,
   codexesSchema,
+  codexSchema,
   tiersSchema,
-  unitCompositionsSchema,
-  unitOptionsSchema,
-  unitsSchema,
-  wargearWeaponsSchema,
-  weaponSchema,
-  weaponsSchema
+  unitsSchema
 }

@@ -2,14 +2,12 @@ import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Army, type ArmyUnit } from 'appdeptus/models'
 import {
   armySchema,
-  parseWeapon,
   tiersSchema,
-  unitsSchema,
-  weaponsSchema
+  unitsSchema
 } from 'appdeptus/modules/armies/api'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import { compact, sortBy } from 'lodash'
+import { sortBy } from 'lodash'
 import type ArmiesApiTag from '../tags'
 
 const getGameArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
@@ -57,27 +55,12 @@ const getGameArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           return { error: tiersError }
         }
 
-        const weaponIds = army.units
-          .map(({ options }) => options)
-          .flat()
-          .map(({ weaponId }) => weaponId)
-        const { data: weaponsData, error: weaponsError } = await supabase
-          .from(Table.WEAPONS)
-          .select()
-          .in('id', weaponIds)
-
-        if (weaponsError) {
-          return { error: weaponsError }
-        }
-
         const allUnits = unitsSchema.parse(mapNullToUndefined(unitsData))
 
         const allTiers = tiersSchema.parse(tiersData)
 
-        const allWeapons = weaponsSchema.parse(mapNullToUndefined(weaponsData))
-
         const units = army.units.map<ArmyUnit>(
-          ({ tier: tierId, unit: unitId, options: optionsAndWeapons }) => {
+          ({ tier: tierId, unit: unitId }) => {
             const tier = allTiers.find(({ id }) => id === tierId)
 
             if (!tier) {
@@ -90,25 +73,9 @@ const getGameArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
               throw { error: `corrupted data: invalid unitId ${unitId}` }
             }
 
-            const options = compact(
-              optionsAndWeapons.map(({ optionId, weaponId }) => {
-                const weapon = allWeapons.find(({ id }) => id === weaponId)
-
-                if (!weapon) {
-                  throw { error: `corrupted data: invalid tierId ${weaponId}` }
-                }
-
-                return {
-                  id: optionId,
-                  weapon: parseWeapon(weapon)
-                }
-              })
-            )
-
             return {
               ...unit,
-              tier,
-              options
+              tier
             }
           }
         )

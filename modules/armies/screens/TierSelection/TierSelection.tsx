@@ -84,7 +84,6 @@ const TierSelectionScreen = () => {
                               ({ id: fieldId }) => fieldId === choiceId
                             ),
                             {
-                              options: [],
                               tier: tier.id,
                               unit: unitId
                             }
