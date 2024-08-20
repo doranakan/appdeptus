@@ -5,7 +5,7 @@ import { Table } from 'appdeptus/utils/supabase'
 import { armiesSchema } from '../schemas'
 import ArmiesApiTag from '../tags'
 
-type GetArmiesResponse = Omit<Army, 'units'>
+type GetArmiesResponse = Omit<Army, 'units' | 'detachment'>
 
 const getArmies = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.query<GetArmiesResponse[], void>({
