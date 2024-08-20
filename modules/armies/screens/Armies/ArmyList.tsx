@@ -13,7 +13,7 @@ import { Blinds } from 'lucide-react-native'
 import { FlatList, StyleSheet } from 'react-native'
 
 type ArmyListProps = {
-  armies: Omit<Army, 'units'>[]
+  armies: Omit<Army, 'units' | 'detachment'>[]
 }
 
 const ArmyList = ({ armies }: ArmyListProps) => {

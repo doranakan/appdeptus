@@ -13,7 +13,7 @@ const NewGameScreen = () => {
   const insets = useSafeAreaInsets()
 
   const [selectedArmy, setSelectedArmy] = useState<
-    Omit<Army, 'units'> | undefined
+    Omit<Army, 'units' | 'detachment'> | undefined
   >()
 
   const { data } = useGetUserProfileQuery()

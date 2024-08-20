@@ -19,7 +19,7 @@ const JoinGameScreen = () => {
   const { data: userProfile } = useGetUserProfileQuery()
 
   const [selectedArmy, setSelectedArmy] = useState<
-    Omit<Army, 'units'> | undefined
+    Omit<Army, 'units' | 'detachment'> | undefined
   >()
 
   if (!game || !userProfile) {

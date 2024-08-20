@@ -15,7 +15,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type ArmySelectorProps = {
   selectedArmy: string | undefined
-  onArmySelected: (army: Omit<Army, 'units'>) => void
+  onArmySelected: (army: Omit<Army, 'units' | 'detachment'>) => void
 }
 
 const ArmySelector = ({ selectedArmy, onArmySelected }: ArmySelectorProps) => {

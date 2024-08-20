@@ -6,8 +6,6 @@ type UnitCardProps = ComponentProps<typeof Card> & {
   name: string
   points: number
   subtitle: string
-
-  caption?: string
 }
 
 const UnitCard = ({
@@ -15,7 +13,6 @@ const UnitCard = ({
   points,
   subtitle,
 
-  caption,
   children,
   ...cardProps
 }: PropsWithChildren<UnitCardProps>) => (
@@ -36,7 +33,6 @@ const UnitCard = ({
         numberOfLines={1}
       >
         <Text bold>{name}</Text>
-        {caption && <Text fontSize='$sm'>{` ${caption}`}</Text>}
       </Text>
 
       <HStack
