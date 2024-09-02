@@ -3,49 +3,40 @@ import { type CodexUnit } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
-import { tiersSchema, unitsSchema } from '../schemas'
+import { unitsSchema } from '../schemas'
 import type ArmiesApiTag from '../tags'
 
 const getCodexUnits = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.query<CodexUnit[], string>({
     queryFn: async (codexId) => {
       try {
-        const { data: unitsData, error: unitsError } = await supabase
+        const { data, error } = await supabase
           .from(Table.UNITS)
-          .select()
+          .select(
+            `
+              id,
+              name,
+              unit_tiers(
+                id,
+                models,
+                points
+              ),
+              unit_upgrades(
+                id,
+                name,
+                points
+              )
+            `
+          )
           .eq('codex', codexId)
 
-        if (unitsError) {
-          return { error: unitsError }
+        if (error) {
+          return { error }
         }
 
-        const units = unitsSchema.parse(mapNullToUndefined(unitsData))
+        const units = unitsSchema.parse(mapNullToUndefined(data))
 
-        const { data: tiersData, error: tiersError } = await supabase
-          .from(Table.UNIT_TIERS)
-          .select()
-          .in(
-            'unit',
-            units.map(({ id }) => id)
-          )
-
-        if (tiersError) {
-          return { error: tiersError }
-        }
-
-        const tiers = tiersSchema.parse(tiersData)
-
-        const unitsWithTiers = units.map((unit) => {
-          const unitTiers = tiers
-            .filter((tier) => tier.unit === unit.id)
-            .map(({ id, models, points }) => ({ id, models, points }))
-          return {
-            ...unit,
-            tiers: unitTiers
-          }
-        })
-
-        const sortedUnits = sortBy(unitsWithTiers, ({ name }) => name)
+        const sortedUnits = sortBy(units, ({ name }) => name)
 
         return { data: sortedUnits }
       } catch (error) {

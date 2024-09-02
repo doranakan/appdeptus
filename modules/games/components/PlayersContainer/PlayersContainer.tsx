@@ -3,10 +3,10 @@ import { type Army } from 'appdeptus/models'
 import { Shield, Swords } from 'lucide-react-native'
 
 type PlayersContainerProps = {
-  armyOne: Omit<Army, 'units'> | undefined
+  armyOne: Omit<Army, 'units' | 'detachment'> | undefined
   nameOne: string
 
-  armyTwo?: Omit<Army, 'units'>
+  armyTwo?: Omit<Army, 'units' | 'detachment'>
   nameTwo?: string
 }
 
@@ -31,7 +31,7 @@ const PlayersContainer = ({
 )
 
 type PlayerProps = {
-  army: Omit<Army, 'units'> | undefined
+  army: Omit<Army, 'units' | 'detachment'> | undefined
   name: string | undefined
 }
 

@@ -9,22 +9,38 @@ const codexSchema = z.object({
   name: z.nativeEnum(CodexName)
 })
 
+const detachmentSchema = z
+  .object({
+    id: z.string(),
+    name: z.string(),
+    detachment_enhancements: z.array(
+      z.object({
+        id: z.string(),
+        name: z.string(),
+        points: z.number()
+      })
+    )
+  })
+  .transform(({ detachment_enhancements, ...rest }) => ({
+    ...rest,
+    enhancements: detachment_enhancements
+  }))
+
 const baseArmySchema = z
   .object({
     id: idSchema,
     name: z.string(),
     units: z.array(
       z.object({
-        unit: z.string(),
-        tier: z.string(),
-        options: z.array(
-          z.object({
-            optionId: z.string(),
-            weaponId: z.string()
-          })
-        )
+        unit: idSchema,
+        tier: idSchema,
+        upgrades: z.array(z.string())
       })
     ),
+    detachment: z.object({
+      id: idSchema,
+      enhancements: z.array(idSchema)
+    }),
     total_points: z.number()
   })
   .transform(({ total_points, ...rest }) => ({
@@ -45,7 +61,7 @@ const armyToEditSchema = z
   .and(baseArmySchema)
 
 const armiesSchema = z.array(
-  armySchema.transform(({ units: _, ...rest }) => rest)
+  armySchema.transform(({ detachment: _d, units: _u, ...rest }) => rest)
 )
 
 const codexesSchema = z.array(codexSchema)
@@ -54,18 +70,31 @@ const tiersSchema = z.array(
   z.object({
     id: idSchema,
     models: z.number(),
-    points: z.number(),
-    unit: idSchema
+    points: z.number()
+  })
+)
+
+const upgradesSchema = z.array(
+  z.object({
+    id: idSchema,
+    name: z.string(),
+    points: z.number()
   })
 )
 
 const unitsSchema = z.array(
-  z.object({
-    id: idSchema,
-    name: z.string(),
-    caption: z.string().optional(),
-    leader: z.boolean()
-  })
+  z
+    .object({
+      id: idSchema,
+      name: z.string(),
+      unit_tiers: tiersSchema,
+      unit_upgrades: upgradesSchema
+    })
+    .transform(({ unit_tiers, unit_upgrades, ...rest }) => ({
+      ...rest,
+      tiers: unit_tiers,
+      upgrades: unit_upgrades
+    }))
 )
 
 export {
@@ -74,6 +103,7 @@ export {
   armyToEditSchema,
   codexesSchema,
   codexSchema,
+  detachmentSchema,
   tiersSchema,
   unitsSchema
 }

@@ -19,7 +19,6 @@ const Item = ({ unit }: ItemProps): JSX.Element => (
     >
       <VStack>
         <Text bold>{unit.name}</Text>
-        {unit.caption && <Text size='xs'>{unit.caption}</Text>}
       </VStack>
       <Text fontWeight='bold'>
         {unit.tier.points} <Text>points</Text>

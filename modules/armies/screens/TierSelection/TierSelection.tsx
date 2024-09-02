@@ -62,7 +62,6 @@ const TierSelectionScreen = () => {
               unit.tiers.find(({ id }) => id === selectedTierId)?.points ?? 0
             return (
               <UnitCard
-                caption={unit.caption}
                 name={unit.name}
                 points={tierPoints}
                 subtitle={''}
@@ -85,7 +84,8 @@ const TierSelectionScreen = () => {
                             ),
                             {
                               tier: tier.id,
-                              unit: unitId
+                              unit: unitId,
+                              upgrades: [] // TODO: handle unit upgrades
                             }
                           )
                         }}

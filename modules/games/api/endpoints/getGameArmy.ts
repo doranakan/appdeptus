@@ -2,6 +2,7 @@ import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Army, type ArmyUnit } from 'appdeptus/models'
 import {
   armySchema,
+  detachmentSchema,
   tiersSchema,
   unitsSchema
 } from 'appdeptus/modules/armies/api'
@@ -55,6 +56,25 @@ const getGameArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           return { error: tiersError }
         }
 
+        const { data: detachmentData, error: detachmentError } = await supabase
+          .from(Table.DETACHMENTS)
+          .select(
+            `
+            id,
+            name,
+            detachment_enhancements(
+              id,
+              name,
+              points
+            )
+          `
+          )
+          .eq('id', army.detachment.id)
+
+        if (detachmentError) {
+          return { error: detachmentError }
+        }
+
         const allUnits = unitsSchema.parse(mapNullToUndefined(unitsData))
 
         const allTiers = tiersSchema.parse(tiersData)
@@ -80,12 +100,19 @@ const getGameArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           }
         )
 
+        const completeDetachment = detachmentSchema.parse(detachmentData)
+
+        const detachment = {
+          ...completeDetachment,
+          enhancements: completeDetachment.enhancements.filter(({ id }) =>
+            army.detachment.enhancements.includes(id)
+          )
+        }
+
         return {
           data: {
-            id: army.id,
-            codex: army.codex,
-            name: army.name,
-            totalPoints: army.totalPoints,
+            ...army,
+            detachment,
             units: sortBy(units, 'name')
           }
         }

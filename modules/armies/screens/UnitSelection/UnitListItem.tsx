@@ -31,7 +31,6 @@ const UnitListItem = ({
   return (
     <UnitCard
       bg={count ? '$secondary100' : '$secondary50'}
-      caption={unit.caption}
       name={unit.name}
       opacity={count ? 1 : 0.8}
       points={count ? points : unit.tiers[0]?.points ?? 0}
@@ -48,7 +47,8 @@ const UnitListItem = ({
           onPress={() => {
             append({
               tier: unit.tiers[0]?.id ?? '',
-              unit: unit.id
+              unit: unit.id,
+              upgrades: [] // TODO: handle unit upgrades
             })
           }}
           text='Add'

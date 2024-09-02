@@ -3,7 +3,7 @@ import { type Army, type ArmyUnit } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
-import { armySchema, tiersSchema, unitsSchema } from '../schemas'
+import { armySchema, detachmentSchema, unitsSchema } from '../schemas'
 import ArmiesApiTag from '../tags'
 
 const getArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
@@ -16,7 +16,8 @@ const getArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
             `
           id, 
           name, 
-          total_points, 
+          total_points,
+          detachment,
           units,
           codex!inner(
             *
@@ -34,47 +35,85 @@ const getArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
         const unitIds = army.units.map(({ unit }) => unit)
         const { data: unitsData, error: unitsError } = await supabase
           .from(Table.UNITS)
-          .select()
+          .select(
+            `
+              id,
+              name,
+              unit_tiers(
+                id,
+                models,
+                points
+              ),
+              unit_upgrades(
+                id,
+                name,
+                points
+              )
+            `
+          )
           .in('id', unitIds)
 
         if (unitsError) {
           return { error: unitsError }
         }
 
-        const tierIds = army.units.map(({ tier }) => tier)
-        const { data: tiersData, error: tiersError } = await supabase
-          .from(Table.UNIT_TIERS)
-          .select()
-          .in('id', tierIds)
+        const { data: detachmentData, error: detachmentError } = await supabase
+          .from(Table.DETACHMENTS)
+          .select(
+            `
+            id,
+            name,
+            detachment_enhancements(
+              id,
+              name,
+              points
+            )
+          `
+          )
+          .eq('id', army.detachment.id)
 
-        if (tiersError) {
-          return { error: tiersError }
+        if (detachmentError) {
+          return { error: detachmentError }
         }
 
         const allUnits = unitsSchema.parse(mapNullToUndefined(unitsData))
 
-        const allTiers = tiersSchema.parse(tiersData)
-
         const units = army.units.map<ArmyUnit>(
-          ({ tier: tierId, unit: unitId }) => {
-            const tier = allTiers.find(({ id }) => id === tierId)
-
-            if (!tier) {
-              throw { error: `corrupted data: invalid tierId ${tierId}` }
-            }
-
+          ({ tier: tierId, unit: unitId, upgrades: upgradeIds }) => {
             const unit = allUnits.find(({ id }) => id === unitId)
 
             if (!unit) {
               throw { error: `corrupted data: invalid unitId ${unitId}` }
             }
 
+            const tier = allUnits
+              .flatMap(({ tiers }) => tiers)
+              .find(({ id }) => id === tierId)
+
+            if (!tier) {
+              throw { error: `corrupted data: invalid tierId ${tierId}` }
+            }
+
+            const upgrades = allUnits
+              .flatMap(({ upgrades }) => upgrades)
+              .filter(({ id }) => upgradeIds.includes(id))
+
             return {
               ...unit,
-              tier
+              tier,
+              upgrades
             }
           }
         )
+
+        const completeDetachment = detachmentSchema.parse(detachmentData)
+
+        const detachment = {
+          ...completeDetachment,
+          enhancements: completeDetachment.enhancements.filter(({ id }) =>
+            army.detachment.enhancements.includes(id)
+          )
+        }
 
         return {
           data: {
@@ -82,6 +121,7 @@ const getArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
             codex: army.codex,
             name: army.name,
             totalPoints: army.totalPoints,
+            detachment,
             units: sortBy(units, 'name')
           }
         }
