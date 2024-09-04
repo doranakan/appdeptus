@@ -10,7 +10,7 @@ import {
   Loading
 } from 'appdeptus/components'
 import { useArmyTintEffect } from 'appdeptus/designSystem'
-import { CodexName, type ArmyForm, type Codex } from 'appdeptus/models'
+import { type ArmyForm, type Codex } from 'appdeptus/models'
 import { router } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { ChevronLeft } from 'lucide-react-native'
@@ -20,8 +20,6 @@ import { FlatList } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useGetCodexesQuery } from '../../api'
 import { CodexCoverImage } from '../../components'
-
-const AVAILABLED_ARMIES = [CodexName.AELDARI, CodexName.TYRANIDS]
 
 const CodexSelectionScreen = () => {
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -185,9 +183,6 @@ const CodexSelectionContent = ({
           </Box>
           <VStack p='$4'>
             <Button
-              disabled={
-                !AVAILABLED_ARMIES.some((army) => army === selectedCodex.name)
-              }
               onPress={startBuilding}
               text='Start building'
             />
