@@ -160,34 +160,34 @@ const config = createConfig({
         secondary950: '#030202'
       }
     },
-    // ------------------ ADEPTUS_ASTARTES 👩🏼‍🚀
-    [CodexName.ADEPTUS_ASTARTES]: {
+    // ------------------ ADEPTUS_CUSTODES ⚡️
+    [CodexName.ADEPTUS_CUSTODES]: {
       ...GSConfig.tokens,
       colors: {
         ...GSConfig.tokens.colors,
-        primary50: '#FDF9F2',
-        primary100: '#FAF1E0',
-        primary200: '#F6E5C6',
-        primary300: '#F1D7A7',
-        primary400: '#EDCB8C',
-        primary500: '#E8BC6D',
-        primary600: '#DFA334',
-        primary700: '#B07C1C',
-        primary800: '#775413',
-        primary900: '#392809',
-        primary950: '#1F1605',
+        primary50: '#FCF8EE',
+        primary100: '#F8F2DD',
+        primary200: '#F1E5BB',
+        primary300: '#EAD799',
+        primary400: '#E4CC7C',
+        primary500: '#DDBF59',
+        primary600: '#CFA92A',
+        primary700: '#987C1F',
+        primary800: '#665315',
+        primary900: '#33290A',
+        primary950: '#191505',
 
-        secondary50: '#DFECFC',
-        secondary100: '#BED8F8',
-        secondary200: '#79AFF1',
-        secondary300: '#3888EB',
-        secondary400: '#1462C2',
-        secondary500: '#0D407F',
-        secondary600: '#0A3466',
-        secondary700: '#08284F',
-        secondary800: '#051A33',
-        secondary900: '#030E1C',
-        secondary950: '#01070E'
+        secondary50: '#FCE9E9',
+        secondary100: '#F8CECE',
+        secondary200: '#F19D9D',
+        secondary300: '#EA6C6C',
+        secondary400: '#E33B3B',
+        secondary500: '#C91D1D',
+        secondary600: '#A01717',
+        secondary700: '#781111',
+        secondary800: '#500C0C',
+        secondary900: '#280606',
+        secondary950: '#160303'
       }
     },
     // ------------------ ADEPTUS_MECHANICUS ⚙️
@@ -248,6 +248,35 @@ const config = createConfig({
         secondary800: '#0D3940',
         secondary900: '#061B1E',
         secondary950: '#030F11'
+      }
+    }, // ------------------ AGENTS_OF_THE_IMPERIUM 🕵🏼
+    [CodexName.AGENTS_OF_THE_IMPERIUM]: {
+      ...GSConfig.tokens,
+      colors: {
+        ...GSConfig.tokens.colors,
+        primary50: '#F9D6D2',
+        primary100: '#F2ACA6',
+        primary200: '#E55548',
+        primary300: '#AE2519',
+        primary400: '#932015',
+        primary500: '#7D1B12',
+        primary600: '#62150E',
+        primary700: '#4C100B',
+        primary800: '#310B07',
+        primary900: '#1B0604',
+        primary950: '#0D0302',
+
+        secondary50: '#EBE1E0',
+        secondary100: '#D9C6C4',
+        secondary200: '#B48C89',
+        secondary300: '#845854',
+        secondary400: '#704B47',
+        secondary500: '#5D3E3C',
+        secondary600: '#4B3230',
+        secondary700: '#382524',
+        secondary800: '#251918',
+        secondary900: '#130C0C',
+        secondary950: '#090606'
       }
     },
     // ------------------ ASTRA_MILITARUM 🪖
@@ -340,36 +369,6 @@ const config = createConfig({
         secondary950: '#181007'
       }
     },
-    // ------------------ BLOOD_RAVENS 🐦‍⬛
-    [CodexName.BLOOD_RAVENS]: {
-      ...GSConfig.tokens,
-      colors: {
-        ...GSConfig.tokens.colors,
-        primary50: '#FEFAF6',
-        primary100: '#FDF8F2',
-        primary200: '#FBEEE0',
-        primary300: '#F9E7D2',
-        primary400: '#F6DDC1',
-        primary500: '#F4D5B2',
-        primary600: '#E9AD67',
-        primary700: '#DF8620',
-        primary800: '#935815',
-        primary900: '#4C2E0B',
-        primary950: '#241505',
-
-        secondary50: '#FDDEDE',
-        secondary100: '#FABCBD',
-        secondary200: '#F67A7C',
-        secondary300: '#F1373A',
-        secondary400: '#D10F12',
-        secondary500: '#8C0A0C',
-        secondary600: '#72080A',
-        secondary700: '#560607',
-        secondary800: '#390405',
-        secondary900: '#1D0202',
-        secondary950: '#0E0101'
-      }
-    },
     // ------------------ CHAOS_DAEMONS 👾
     [CodexName.CHAOS_DAEMONS]: {
       ...GSConfig.tokens,
@@ -458,36 +457,6 @@ const config = createConfig({
         secondary800: '#00190C',
         secondary900: '#000F07',
         secondary950: '#000502'
-      }
-    },
-    // ------------------ DEATHWATCH 👮🏼‍♀️
-    [CodexName.DEATHWATCH]: {
-      ...GSConfig.tokens,
-      colors: {
-        ...GSConfig.tokens.colors,
-        primary50: '#F4F5F6',
-        primary100: '#EBEEEF',
-        primary200: '#D8DCDF',
-        primary300: '#C3CACE',
-        primary400: '#A2ADB3',
-        primary500: '#83929A',
-        primary600: '#67767E',
-        primary700: '#4E595F',
-        primary800: '#323A3E',
-        primary900: '#191D1F',
-        primary950: '#0E1011',
-
-        secondary50: '#F0EBEB',
-        secondary100: '#DED3D3',
-        secondary200: '#BEA7A7',
-        secondary300: '#9D7B7B',
-        secondary400: '#755757',
-        secondary500: '#4C3838',
-        secondary600: '#1F1717',
-        secondary700: '#171111',
-        secondary800: '#0F0B0B',
-        secondary900: '#090707',
-        secondary950: '#030202'
       }
     },
     // ------------------ DEATH_GUARD 🦠
@@ -610,64 +579,34 @@ const config = createConfig({
         secondary950: '#080911'
       }
     },
-    // ------------------ IMPERIAL_FISTS ✊🏼
-    [CodexName.IMPERIAL_FISTS]: {
+    // ------------------ LEAGUES_OF_VOTANN 📖
+    [CodexName.LEAGUES_OF_VOTANN]: {
       ...GSConfig.tokens,
       colors: {
         ...GSConfig.tokens.colors,
-        primary50: '#FFFDD6',
-        primary100: '#FFFBA8',
-        primary200: '#FFF757',
-        primary300: '#FFF200',
-        primary400: '#DBD000',
-        primary500: '#B8AE00',
-        primary600: '#948D00',
-        primary700: '#6B6600',
-        primary800: '#474400',
-        primary900: '#242200',
-        primary950: '#141300',
+        primary50: '#E7F9F8',
+        primary100: '#D3F3F2',
+        primary200: '#A3E6E4',
+        primary300: '#76DAD7',
+        primary400: '#46CDC9',
+        primary500: '#2EABA6',
+        primary600: '#258985',
+        primary700: '#1C6866',
+        primary800: '#124443',
+        primary900: '#0A2423',
+        primary950: '#041010',
 
-        secondary50: '#F0F0EF',
-        secondary100: '#E2E2DF',
-        secondary200: '#C4C4BF',
-        secondary300: '#A8A8A0',
-        secondary400: '#919187',
-        secondary500: '#7A7A70',
-        secondary600: '#63635A',
-        secondary700: '#4B4B44',
-        secondary800: '#30302C',
-        secondary900: '#181816',
-        secondary950: '#0D0D0C'
-      }
-    },
-    // ------------------ INQUISITION 🕵🏼
-    [CodexName.INQUISITION]: {
-      ...GSConfig.tokens,
-      colors: {
-        ...GSConfig.tokens.colors,
-        primary50: '#F9D6D2',
-        primary100: '#F2ACA6',
-        primary200: '#E55548',
-        primary300: '#AE2519',
-        primary400: '#932015',
-        primary500: '#7D1B12',
-        primary600: '#62150E',
-        primary700: '#4C100B',
-        primary800: '#310B07',
-        primary900: '#1B0604',
-        primary950: '#0D0302',
-
-        secondary50: '#EBE1E0',
-        secondary100: '#D9C6C4',
-        secondary200: '#B48C89',
-        secondary300: '#845854',
-        secondary400: '#704B47',
-        secondary500: '#5D3E3C',
-        secondary600: '#4B3230',
-        secondary700: '#382524',
-        secondary800: '#251918',
-        secondary900: '#130C0C',
-        secondary950: '#090606'
+        secondary50: '#F9EFE7',
+        secondary100: '#F3E2D3',
+        secondary200: '#E6C2A3',
+        secondary300: '#DAA576',
+        secondary400: '#CD8546',
+        secondary500: '#AB692E',
+        secondary600: '#895325',
+        secondary700: '#68401C',
+        secondary800: '#442A12',
+        secondary900: '#24160A',
+        secondary950: '#100A04'
       }
     },
     // ------------------ NECRONS 💀
@@ -730,6 +669,36 @@ const config = createConfig({
         secondary950: '#070E0A'
       }
     },
+    // ------------------ SPACE_MARINES 👩🏼‍🚀
+    [CodexName.SPACE_MARINES]: {
+      ...GSConfig.tokens,
+      colors: {
+        ...GSConfig.tokens.colors,
+        primary50: '#FDF9F2',
+        primary100: '#FAF1E0',
+        primary200: '#F6E5C6',
+        primary300: '#F1D7A7',
+        primary400: '#EDCB8C',
+        primary500: '#E8BC6D',
+        primary600: '#DFA334',
+        primary700: '#B07C1C',
+        primary800: '#775413',
+        primary900: '#392809',
+        primary950: '#1F1605',
+
+        secondary50: '#DFECFC',
+        secondary100: '#BED8F8',
+        secondary200: '#79AFF1',
+        secondary300: '#3888EB',
+        secondary400: '#1462C2',
+        secondary500: '#0D407F',
+        secondary600: '#0A3466',
+        secondary700: '#08284F',
+        secondary800: '#051A33',
+        secondary900: '#030E1C',
+        secondary950: '#01070E'
+      }
+    },
     // ------------------ SPACE_WOLVES 🐺
     [CodexName.SPACE_WOLVES]: {
       ...GSConfig.tokens,
@@ -761,7 +730,7 @@ const config = createConfig({
       }
     },
     // ------------------ TAU 🐟
-    [CodexName.TAU]: {
+    [CodexName.TAU_EMPIRE]: {
       ...GSConfig.tokens,
       colors: {
         ...GSConfig.tokens.colors,
