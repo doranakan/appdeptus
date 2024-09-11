@@ -3,7 +3,7 @@ import {
   ToastDescription,
   ToastTitle,
   VStack,
-  useToast as useGSToast
+  useToast
 } from '@gluestack-ui/themed'
 import { useCallback } from 'react'
 import { useWindowDimensions } from 'react-native'
@@ -15,8 +15,8 @@ type ToastArgs = {
   title: string
 }
 
-const useToast = () => {
-  const toast = useGSToast()
+const useCustomToast = () => {
+  const toast = useToast()
 
   const { bottom } = useSafeAreaInsets()
 
@@ -48,4 +48,4 @@ const useToast = () => {
   return show
 }
 
-export default useToast
+export default useCustomToast
