@@ -3,7 +3,6 @@ import {
   AnimatedArmyIcon,
   ArmyIcon,
   Button,
-  Card,
   GradientHeading,
   Header,
   LinearGradient,
@@ -158,13 +157,14 @@ const CodexSelectionContent = ({
                   ml={index === 0 ? '$4' : 0}
                   mr={index === codexes.length - 1 ? '$4' : 0}
                 >
-                  <Card
+                  <VStack
                     alignItems='center'
                     bg={
                       selectedCodex.id === item.id
                         ? '$secondary100'
                         : '$secondary50'
                     }
+                    borderRadius='$2xl'
                     h={90}
                     justifyContent='center'
                     key={item.id}
@@ -176,7 +176,7 @@ const CodexSelectionContent = ({
                       w={45}
                       h={45}
                     />
-                  </Card>
+                  </VStack>
                 </Pressable>
               )}
             />

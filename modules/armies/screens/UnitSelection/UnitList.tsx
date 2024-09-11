@@ -1,6 +1,5 @@
 import { Box } from '@gluestack-ui/themed'
 import { type ArmyForm, type Codex, type CodexUnit } from 'appdeptus/models'
-import { AnimatePresence, MotiView } from 'moti'
 import { useCallback } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList, StyleSheet, type ListRenderItem } from 'react-native'
@@ -33,21 +32,13 @@ const UnitList = ({ codexId, units }: UnitListProps) => {
       ).length
 
       return (
-        <AnimatePresence>
-          <MotiView
-            from={{ opacity: 0, translateX: 300 }}
-            animate={{ opacity: 1, translateX: 0 }}
-            transition={{ delay: 100 * index, type: 'timing' }}
-          >
-            <UnitListItem
-              codexId={codexId}
-              count={count}
-              points={points ?? unit.tiers[0]?.points ?? 0}
-              unitIndex={index}
-              unit={unit}
-            />
-          </MotiView>
-        </AnimatePresence>
+        <UnitListItem
+          codexId={codexId}
+          count={count}
+          points={points ?? unit.tiers[0]?.points ?? 0}
+          unitIndex={index}
+          unit={unit}
+        />
       )
     },
     [codexId, selectedUnits]

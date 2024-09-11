@@ -1,8 +1,7 @@
 import { HStack, Text, VStack } from '@gluestack-ui/themed'
-import { Card } from 'appdeptus/components'
-import { type ComponentProps, type PropsWithChildren } from 'react'
+import { type PropsWithChildren } from 'react'
 
-type UnitCardProps = ComponentProps<typeof Card> & {
+type UnitCardProps = {
   name: string
   points: number
   subtitle: string
@@ -13,12 +12,13 @@ const UnitCard = ({
   points,
   subtitle,
 
-  children,
-  ...cardProps
+  children
 }: PropsWithChildren<UnitCardProps>) => (
-  <Card
+  <VStack
+    bg='$backgroundLight100'
+    borderRadius='$2xl'
     gap='$2'
-    {...cardProps}
+    p='$2'
   >
     <VStack
       borderColor='$secondary500'
@@ -49,7 +49,7 @@ const UnitCard = ({
       </HStack>
     </VStack>
     {children}
-  </Card>
+  </VStack>
 )
 
 export default UnitCard

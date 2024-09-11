@@ -1,6 +1,6 @@
 import { Heading, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import { type RealtimePostgresUpdatePayload } from '@supabase/supabase-js'
-import { BackgroundImage, Card, Loading } from 'appdeptus/components'
+import { BackgroundImage, Loading } from 'appdeptus/components'
 import { config } from 'appdeptus/designSystem'
 import { Link, router, useLocalSearchParams } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
@@ -73,7 +73,12 @@ const QrCodeContent = ({ gameId }: QrCodeContentProps) => {
           Get ready
         </Heading>
 
-        <Card gap='$4'>
+        <VStack
+          bg='$backgroundLight100'
+          borderRadius='$2xl'
+          gap='$4'
+          p='$2'
+        >
           <Link
             asChild
             href='games'
@@ -106,7 +111,11 @@ const QrCodeContent = ({ gameId }: QrCodeContentProps) => {
               be automatically redirected to the game.
             </Text>
           </VStack>
-          <Card bg='$light50'>
+          <VStack
+            bg='$light50'
+            borderRadius='$2xl'
+            p='$2'
+          >
             <Text
               italic
               size='sm'
@@ -115,8 +124,8 @@ const QrCodeContent = ({ gameId }: QrCodeContentProps) => {
               believes his gods are on his side. Let him believe what he will.
               We have the tanks on ours.
             </Text>
-          </Card>
-        </Card>
+          </VStack>
+        </VStack>
       </VStack>
     </VStack>
   )

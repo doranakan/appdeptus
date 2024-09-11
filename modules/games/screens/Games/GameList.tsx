@@ -1,5 +1,5 @@
 import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed'
-import { ArmyIcon, Card, Loading } from 'appdeptus/components'
+import { ArmyIcon, Loading } from 'appdeptus/components'
 import {
   type ActiveGame,
   type EndedGame,
@@ -32,8 +32,9 @@ const GameList = () => {
           }
         >
           <Pressable opacity='$90'>
-            <Card
+            <VStack
               bg={item.status !== 'ended' ? '$primary50' : undefined}
+              borderRadius='$2xl'
               gap='$2'
               p='$2'
               opacity='$90'
@@ -83,7 +84,7 @@ const GameList = () => {
                   }
                 />
               </HStack>
-            </Card>
+            </VStack>
           </Pressable>
         </Link>
       )}

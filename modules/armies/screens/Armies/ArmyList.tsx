@@ -6,7 +6,7 @@ import {
   Text,
   VStack
 } from '@gluestack-ui/themed'
-import { ArmyIcon, Button, Card } from 'appdeptus/components'
+import { ArmyIcon, Button } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { Link, useRouter } from 'expo-router'
 import { Blinds } from 'lucide-react-native'
@@ -54,10 +54,12 @@ const ArmyList = ({ armies }: ArmyListProps) => {
             router.push(`armies/${army.id}`)
           }}
         >
-          <Card
-            animated
+          <VStack
+            bg='$backgroundLight100'
+            borderRadius='$2xl'
             flex={1}
             justifyContent='space-between'
+            p='$2'
           >
             <VStack gap='$1'>
               <Text bold>{army.name}</Text>
@@ -95,7 +97,7 @@ const ArmyList = ({ armies }: ArmyListProps) => {
                 </HStack>
               </HStack>
             </VStack>
-          </Card>
+          </VStack>
         </Pressable>
       )}
       style={styles.flex1}

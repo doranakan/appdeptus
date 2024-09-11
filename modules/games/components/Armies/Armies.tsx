@@ -1,5 +1,5 @@
 import { HStack, Icon, Pressable, Text, VStack } from '@gluestack-ui/themed'
-import { ArmyIcon, Card, SquareContainer } from 'appdeptus/components'
+import { ArmyIcon, SquareContainer } from 'appdeptus/components'
 import { type Player } from 'appdeptus/models/game'
 import { Link } from 'expo-router'
 import { ScanEye } from 'lucide-react-native'
@@ -12,7 +12,11 @@ type ArmiesProps = {
 
 const Armies = ({ armyOne, armyTwo }: ArmiesProps) => {
   return (
-    <Card p='$4'>
+    <VStack
+      bg='$backgroundLight100'
+      borderRadius='$2xl'
+      p='$4'
+    >
       <VStack gap='$4'>
         <Army army={armyOne} />
         <Army
@@ -20,7 +24,7 @@ const Armies = ({ armyOne, armyTwo }: ArmiesProps) => {
           reversed
         />
       </VStack>
-    </Card>
+    </VStack>
   )
 }
 

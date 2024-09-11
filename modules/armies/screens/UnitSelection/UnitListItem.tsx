@@ -30,9 +30,7 @@ const UnitListItem = ({
 
   return (
     <UnitCard
-      bg={count ? '$secondary100' : '$secondary50'}
       name={unit.name}
-      opacity={count ? 1 : 0.8}
       points={count ? points : unit.tiers[0]?.points ?? 0}
       subtitle={`Selected: ${count}`}
     >

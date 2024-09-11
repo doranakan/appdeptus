@@ -1,5 +1,4 @@
 import { HStack, Text, VStack } from '@gluestack-ui/themed'
-import { Card } from 'appdeptus/components'
 import { type ArmyUnit } from 'appdeptus/models'
 import pluralize from 'pluralize'
 import { memo } from 'react'
@@ -9,9 +8,11 @@ type ItemProps = {
 }
 
 const Item = ({ unit }: ItemProps): JSX.Element => (
-  <Card
-    animated
+  <VStack
+    bg='$backgroundLight100'
+    borderRadius='$2xl'
     justifyContent='space-between'
+    p='$2'
   >
     <HStack
       alignItems='center'
@@ -30,7 +31,7 @@ const Item = ({ unit }: ItemProps): JSX.Element => (
     >
       {`${unit.tier.models} ${pluralize('model', unit.tier.models)}`}
     </Text>
-  </Card>
+  </VStack>
 )
 
 export default memo(Item)

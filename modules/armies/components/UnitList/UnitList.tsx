@@ -1,9 +1,7 @@
 import { Box } from '@gluestack-ui/themed'
 import { type Army } from 'appdeptus/models'
-import { MotiView } from 'moti'
 import { memo } from 'react'
-import { StyleSheet, type FlatListProps } from 'react-native'
-import Animated from 'react-native-reanimated'
+import { FlatList, StyleSheet, type FlatListProps } from 'react-native'
 import Item from './Item'
 
 type UnitListProps = {
@@ -15,25 +13,14 @@ type UnitListProps = {
 
 const UnitList = ({ army, ListHeaderComponent, onScroll }: UnitListProps) => {
   return (
-    <Animated.FlatList
+    <FlatList
       data={army.units}
       ItemSeparatorComponent={() => <Box h='$4' />}
       keyExtractor={({ id }, index) => `${id}-${index}`}
       ListHeaderComponent={ListHeaderComponent}
       ListFooterComponent={() => <Box height='$8' />}
       onScroll={onScroll}
-      renderItem={({ item: unit, index }) => (
-        <MotiView
-          from={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{
-            delay: 200 + 150 * index,
-            duration: 400
-          }}
-        >
-          <Item unit={unit} />
-        </MotiView>
-      )}
+      renderItem={({ item: unit }) => <Item unit={unit} />}
       style={styles.flatList}
     />
   )

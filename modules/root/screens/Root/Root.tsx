@@ -8,7 +8,6 @@ import {
 import {
   AnimatedBackgroundImage,
   BackgroundImage,
-  Card,
   LinearGradient
 } from 'appdeptus/components'
 import { config } from 'appdeptus/designSystem'
@@ -183,12 +182,15 @@ const Content = () => {
         justifyContent='flex-end'
         p='$4'
       >
-        <Card
+        <VStack
+          bg='$backgroundLight100'
+          borderRadius='$2xl'
           gap='$2'
           opacity='$80'
+          p='$2'
         >
           <Form />
-        </Card>
+        </VStack>
       </VStack>
     </MotiView>
   )

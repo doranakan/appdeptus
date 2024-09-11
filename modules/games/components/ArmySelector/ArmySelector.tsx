@@ -6,7 +6,7 @@ import {
   Text,
   VStack
 } from '@gluestack-ui/themed'
-import { ArmyIcon, Card } from 'appdeptus/components'
+import { ArmyIcon } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { useGetArmiesQuery } from 'appdeptus/modules/armies/api'
 import { Swords } from 'lucide-react-native'
@@ -60,10 +60,12 @@ const ArmySelector = ({ selectedArmy, onArmySelected }: ArmySelectorProps) => {
             }}
             w={150}
           >
-            <Card
+            <VStack
               alignItems='center'
+              borderRadius='$2xl'
               bg={selectedArmy === item.id ? '$secondary100' : '$secondary50'}
               opacity={selectedArmy === item.id ? '$100' : '$60'}
+              p='$2'
             >
               <ArmyIcon
                 codexName={item.codex.name}
@@ -78,7 +80,7 @@ const ArmySelector = ({ selectedArmy, onArmySelected }: ArmySelectorProps) => {
                 {item.name}
               </Text>
               <Text>{`${item.totalPoints}pts`}</Text>
-            </Card>
+            </VStack>
           </Pressable>
         )}
       />
