@@ -1,6 +1,9 @@
-import { Heading, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import { type RealtimePostgresUpdatePayload } from '@supabase/supabase-js'
 import { BackgroundImage, Loading } from 'appdeptus/components'
+import { Heading } from 'appdeptus/components/ui/heading'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { config } from 'appdeptus/designSystem'
 import { Link, router, useLocalSearchParams } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
@@ -43,42 +46,27 @@ const QrCodeContent = ({ gameId }: QrCodeContentProps) => {
 
   return (
     <VStack
-      flex={1}
-      pt={Platform.OS === 'android' ? insets.top : undefined}
+      className={` ${Platform.OS === 'android' ? insets.top : undefined} flex-1 `}
     >
       <StatusBar
         animated
         style='light'
       />
-
-      <VStack
-        h='$full'
-        position='absolute'
-        w='$full'
-      >
+      <VStack className='h-full absolute w-full'>
         <BackgroundImage
           source='games'
           opacity={0.1}
         />
       </VStack>
-
-      <VStack
-        gap='$4'
-        p='$4'
-      >
+      <VStack className='gap-4 p-4'>
         <Heading
           size='3xl'
-          textAlign='center'
+          className='text-center'
         >
           Get ready
         </Heading>
 
-        <VStack
-          bg='$backgroundLight100'
-          borderRadius='$2xl'
-          gap='$4'
-          p='$2'
-        >
+        <VStack className='bg-backgroundLight-100 rounded-2xl gap-4 p-2'>
           <Link
             asChild
             href='games'
@@ -111,11 +99,7 @@ const QrCodeContent = ({ gameId }: QrCodeContentProps) => {
               be automatically redirected to the game.
             </Text>
           </VStack>
-          <VStack
-            bg='$light50'
-            borderRadius='$2xl'
-            p='$2'
-          >
+          <VStack className='bg-light-50 rounded-2xl p-2'>
             <Text
               italic
               size='sm'

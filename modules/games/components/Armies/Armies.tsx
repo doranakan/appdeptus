@@ -1,5 +1,9 @@
-import { HStack, Icon, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import { ArmyIcon, SquareContainer } from 'appdeptus/components'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Icon } from 'appdeptus/components/ui/icon'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type Player } from 'appdeptus/models/game'
 import { Link } from 'expo-router'
 import { ScanEye } from 'lucide-react-native'
@@ -12,12 +16,8 @@ type ArmiesProps = {
 
 const Armies = ({ armyOne, armyTwo }: ArmiesProps) => {
   return (
-    <VStack
-      bg='$backgroundLight100'
-      borderRadius='$2xl'
-      p='$4'
-    >
-      <VStack gap='$4'>
+    <VStack className='bg-backgroundLight-100 rounded-2xl p-4'>
+      <VStack className='gap-4'>
         <Army army={armyOne} />
         <Army
           army={armyTwo}
@@ -35,9 +35,8 @@ type ArmyProps = {
 
 const Army = ({ army, reversed }: ArmyProps) => (
   <HStack
-    alignItems='center'
-    h={50}
     reversed={reversed}
+    className='items-center h-[50px]'
   >
     <SquareContainer>
       <ArmyIcon
@@ -47,20 +46,14 @@ const Army = ({ army, reversed }: ArmyProps) => (
         w={32}
       />
     </SquareContainer>
-    <VStack flex={1}>
+    <VStack className='flex-1'>
       <HStack
-        alignItems='center'
-        borderBottomWidth='$1'
-        borderColor={reversed ? '$teal700' : '$primary600'}
-        flex={1}
-        justifyContent='space-between'
-        pl={reversed ? undefined : '$2'}
-        pr={reversed ? '$2' : undefined}
         reversed={reversed}
+        className={` ${reversed ? 'pr-2' : undefined} ${reversed ? undefined : 'pl-2'} ${reversed ? 'border-teal-700' : 'border-primary-600'} items-center border-b-1 flex-1 justify-between `}
       >
         <Text
           bold
-          lineHeight='$sm'
+          className='leading-sm'
         >
           {army.name}
         </Text>
@@ -69,11 +62,7 @@ const Army = ({ army, reversed }: ArmyProps) => (
           href={`play/army/${army.id}`}
         >
           <Pressable>
-            <HStack
-              alignItems='center'
-              flex={1}
-              gap='$1'
-            >
+            <HStack className='items-center flex-1 gap-1'>
               <Icon as={ScanEye} />
               <Text underline>Show</Text>
             </HStack>
@@ -81,10 +70,8 @@ const Army = ({ army, reversed }: ArmyProps) => (
         </Link>
       </HStack>
       <HStack
-        alignItems='center'
-        flex={1}
-        px='$2'
         reversed={reversed}
+        className='items-center flex-1 px-2'
       >
         <Text>
           <Text bold>{army.codex.name}</Text> - {army.totalPoints}pts

@@ -1,10 +1,14 @@
-import { Box, HStack, Icon, Pressable, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import {
   AnimatedArmyBackgroundImage,
   LinearGradient,
   Loading
 } from 'appdeptus/components'
+import { Box } from 'appdeptus/components/ui/box'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Icon } from 'appdeptus/components/ui/icon'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { config, useArmyTintEffect, useColorMode } from 'appdeptus/designSystem'
 import { type Army } from 'appdeptus/models'
 import { Link, useLocalSearchParams } from 'expo-router'
@@ -75,22 +79,14 @@ const ArmyContent = ({ army }: ArmyProps) => {
 
   return (
     <>
-      <VStack
-        h='$full'
-        position='absolute'
-        width='$full'
-      >
+      <VStack className='h-full absolute w-full'>
         <AnimatedArmyBackgroundImage
           codexName={army.codex.name}
           duration={200}
           fromScale={1.1}
           opacity={0.3}
         />
-        <Box
-          h='$full'
-          position='absolute'
-          w='$full'
-        >
+        <Box className='h-full absolute w-full'>
           <MotiView
             from={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -124,8 +120,8 @@ const ArmyContent = ({ army }: ArmyProps) => {
           <Pressable>
             <Icon
               as={ChevronLeft}
-              color='$white'
               size='xl'
+              className='text-white'
             />
           </Pressable>
         </Link>
@@ -139,8 +135,8 @@ const ArmyContent = ({ army }: ArmyProps) => {
           <Pressable>
             <Icon
               as={Edit}
-              color='$white'
               size='xl'
+              className='text-white'
             />
           </Pressable>
         </Link>

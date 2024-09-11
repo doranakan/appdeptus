@@ -1,13 +1,11 @@
-import {
-  Box,
-  HStack,
-  Icon,
-  Pressable,
-  Text,
-  VStack
-} from '@gluestack-ui/themed'
 import { useCounter, useDebounceEffect } from 'ahooks'
 import { SquareContainer } from 'appdeptus/components'
+import { Box } from 'appdeptus/components/ui/box'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Icon } from 'appdeptus/components/ui/icon'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { Minus, Plus, Shield, Swords } from 'lucide-react-native'
 import { memo, useEffect } from 'react'
 import { useUpdateScoreAndCPMutation } from '../../api'
@@ -100,53 +98,26 @@ const ScoreBoard = ({
 
   return (
     <VStack>
-      <HStack
-        h='$full'
-        justifyContent='space-between'
-        position='absolute'
-        px='$4'
-        w='$full'
-      >
-        <Box
-          bg='$primary600'
-          h='$full'
-          w='$6'
-        />
-        <Box
-          bg='$teal700'
-          h='$full'
-          w='$6'
-        />
+      <HStack className='h-full justify-between absolute px-4 w-full'>
+        <Box className='bg-primary-600 h-full w-6' />
+        <Box className='bg-teal-700 h-full w-6' />
       </HStack>
-
-      <HStack
-        gap='$2'
-        justifyContent='space-between'
-        mt={-24}
-        px='$3'
-      >
+      <HStack className='gap-2 justify-between -mt-24 px-3'>
         <PlayerName name={pOneName} />
         <PlayerName
           name={pTwoName}
           reversed
         />
       </HStack>
-
-      <VStack
-        gap='$6'
-        py='$8'
-      >
-        <HStack
-          alignItems='center'
-          justifyContent='space-between'
-        >
+      <VStack className='gap-6 py-8'>
+        <HStack className='items-center justify-between'>
           <ScoreSetter
             onPressMinus={decPOneScore}
             onPressPlus={incPOneScore}
             score={localPOneScore}
             role='attacker'
           />
-          <Text color='$secondary50'>Victory points</Text>
+          <Text className='text-secondary-50'>Victory points</Text>
           <ScoreSetter
             onPressMinus={decPTwoScore}
             onPressPlus={incPTwoScore}
@@ -155,17 +126,14 @@ const ScoreBoard = ({
           />
         </HStack>
 
-        <HStack
-          alignItems='center'
-          justifyContent='space-between'
-        >
+        <HStack className='items-center justify-between'>
           <ScoreSetter
             onPressMinus={decPOneCP}
             onPressPlus={incPOneCP}
             score={localPOneCP}
             role='attacker'
           />
-          <Text color='$secondary50'>Command points</Text>
+          <Text className='text-secondary-50'>Command points</Text>
           <ScoreSetter
             onPressMinus={decPTwoCP}
             onPressPlus={incPTwoCP}
@@ -185,38 +153,31 @@ type PlayerNameProps = {
 
 const PlayerName = ({ name, reversed }: PlayerNameProps) => (
   <HStack
-    alignItems='center'
-    flex={1}
-    h={60}
     reversed={reversed}
+    className='items-center flex-1 h-[60px]'
   >
     <SquareContainer>
       <Icon
         as={reversed ? Shield : Swords}
-        color={reversed ? '$teal700' : '$primary600'}
         size='lg'
+        className={` ${reversed ? 'text-teal-700' : 'text-primary-600'} `}
       />
     </SquareContainer>
-    <VStack flex={1}>
+    <VStack className='flex-1'>
       <HStack
-        alignItems='center'
-        borderBottomWidth='$1'
-        borderColor={'$white'}
-        flex={1}
-        pl={reversed ? undefined : '$1'}
-        pr={reversed ? '$1' : undefined}
         reversed={reversed}
+        className={` ${reversed ? 'pr-1' : undefined} ${reversed ? undefined : 'pl-1'} items-center border-b-1 border-white flex-1 `}
       >
         <Text
           bold
-          color={reversed ? '$teal50' : '$primary50'}
           ellipsizeMode='tail'
           numberOfLines={1}
+          className={` ${reversed ? 'text-teal-50' : 'text-primary-50'} `}
         >
           {name}
         </Text>
       </HStack>
-      <HStack flex={1}></HStack>
+      <HStack className='flex-1'></HStack>
     </VStack>
   </HStack>
 )
@@ -235,10 +196,8 @@ const ScoreSetter = ({
   role
 }: ScoreSetterProps) => (
   <HStack
-    alignItems='center'
-    justifyContent='space-between'
     reversed={role === 'defender'}
-    w={56}
+    className='items-center justify-between w-[56px]'
   >
     <Pressable
       hitSlop={20}
@@ -248,13 +207,13 @@ const ScoreSetter = ({
     >
       <Icon
         as={Minus}
-        color='$secondary50'
         size='xs'
+        className='text-secondary-50'
       />
     </Pressable>
     <Text
       bold
-      color='$secondary50'
+      className='text-secondary-50'
     >
       {score}
     </Text>
@@ -266,8 +225,8 @@ const ScoreSetter = ({
     >
       <Icon
         as={Plus}
-        color='$secondary50'
         size='xs'
+        className='text-secondary-50'
       />
     </Pressable>
   </HStack>

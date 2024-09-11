@@ -14,9 +14,7 @@ const TableHeaderContext = createContext<any>({});
 const TableFooterContext = createContext<any>({});
 
 const Table = React.forwardRef(({ className, ...props }: any, ref?: any) => {
-  return (
-    <table ref={ref} className={tableStyle({ class: className })} {...props} />
-  );
+  return <table ref={ref} className={tableStyle({ class: className })} {...props} />;
 });
 
 const TableHeader = React.forwardRef(

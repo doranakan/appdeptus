@@ -1,4 +1,4 @@
-import { VStack } from '@gluestack-ui/themed'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { Image } from 'expo-image'
 import { AnimatePresence, motify } from 'moti'
 
@@ -21,10 +21,7 @@ const AnimatedBackgroundImage = ({
   opacity = 1,
   source
 }: AnimatedBackgroundImageProps) => (
-  <VStack
-    h='$full'
-    w='$full'
-  >
+  <VStack className='h-full w-full'>
     <AnimatePresence>
       <AnimatedImage
         from={{

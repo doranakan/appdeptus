@@ -1,14 +1,11 @@
-import {
-  HStack,
-  Icon,
-  Input,
-  InputField,
-  Pressable,
-  Text,
-  VStack
-} from '@gluestack-ui/themed'
 import { type AuthTokenResponsePassword } from '@supabase/supabase-js'
 import { Button } from 'appdeptus/components'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Icon } from 'appdeptus/components/ui/icon'
+import { Input, InputField } from 'appdeptus/components/ui/input'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type SignInForm } from 'appdeptus/models'
 import { Key, ServerCrash, Vault } from 'lucide-react-native'
 import React, { useCallback } from 'react'
@@ -48,17 +45,11 @@ const Form = () => {
   )
 
   return (
-    <VStack
-      gap='$2'
-      w='$full'
-    >
+    <VStack className='gap-2 w-full'>
       <Controller
         control={control}
         render={({ field: { onChange, ...props } }) => (
-          <Input
-            alignItems='center'
-            bg='$secondary50'
-          >
+          <Input className='items-center bg-secondary-50'>
             <InputField
               {...props}
               autoCapitalize='none'
@@ -72,24 +63,20 @@ const Form = () => {
               returnKeyType='next'
               textContentType='emailAddress'
             />
-            <VStack pr='$4'>
+            <VStack className='pr-4'>
               <Icon
                 as={Vault}
-                color='$secondary500'
+                className='text-secondary-500'
               />
             </VStack>
           </Input>
         )}
         name='email'
       />
-
       <Controller
         control={control}
         render={({ field: { onChange, ...props } }) => (
-          <Input
-            alignItems='center'
-            bg='$secondary50'
-          >
+          <Input className='items-center bg-secondary-50'>
             <InputField
               {...props}
               onChangeText={onChange}
@@ -97,17 +84,16 @@ const Form = () => {
               placeholder='Password'
               type='password'
             />
-            <VStack pr='$4'>
+            <VStack className='pr-4'>
               <Icon
                 as={Key}
-                color='$secondary500'
+                className='text-secondary-500'
               />
             </VStack>
           </Input>
         )}
         name='password'
       />
-
       <Pressable
         disabled={!touchedFields.email && !touchedFields.password}
         onPress={handleSubmit(onSubmit)}
@@ -117,14 +103,13 @@ const Form = () => {
           text='Sign in'
         />
       </Pressable>
-
       {errors.root && (
-        <HStack gap='$1'>
+        <HStack className='gap-1'>
           <Icon
             as={ServerCrash}
-            color='$primary700'
+            className='text-primary-700'
           />
-          <Text color='$primary700'>{errors.root.message}</Text>
+          <Text className='text-primary-700'>{errors.root.message}</Text>
         </HStack>
       )}
     </VStack>

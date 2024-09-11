@@ -1,20 +1,17 @@
-import { Box, Text, VStack } from '@gluestack-ui/themed'
+import { Box } from 'appdeptus/components/ui/box'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { Link } from 'expo-router'
 
 const NotFoundScreen = () => (
-  <Box
-    alignItems='center'
-    flex={1}
-    justifyContent='center'
-    p='$8'
-  >
+  <Box className='items-center flex-1 justify-center p-8'>
     <VStack
       space='md'
-      w='$full'
+      className='w-full'
     >
       <Text
-        fontWeight='bold'
         size='xl'
+        className='font-bold'
       >
         Oh no!
       </Text>
@@ -25,8 +22,8 @@ const NotFoundScreen = () => (
 
       <Link href='/'>
         <Text
-          color='$primary500'
           size='lg'
+          className='text-primary-500'
         >
           Back to the Strategium
         </Text>

@@ -1,11 +1,9 @@
-import {
-  HStack,
-  Heading,
-  Icon,
-  Pressable,
-  Spinner,
-  Text
-} from '@gluestack-ui/themed'
+import { Heading } from 'appdeptus/components/ui/heading'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Icon } from 'appdeptus/components/ui/icon'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { Spinner } from 'appdeptus/components/ui/spinner'
+import { Text } from 'appdeptus/components/ui/text'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { Link } from 'expo-router'
 import { PlusCircle } from 'lucide-react-native'
@@ -14,40 +12,28 @@ const Header = () => {
   const { data } = useGetUserProfileQuery()
 
   return (
-    <HStack justifyContent='center'>
+    <HStack className='justify-center'>
       <Heading
         textTransform='capitalize'
         size='2xl'
       >
         Armies
       </Heading>
-      <HStack
-        alignItems='center'
-        h='$full'
-        justifyContent='space-between'
-        position='absolute'
-        w='$full'
-      >
+      <HStack className='items-center h-full justify-between absolute w-full'>
         <Link
           asChild
           href='user'
         >
           <Pressable
-            alignItems='center'
-            bg='$secondary700'
-            borderRadius='$full'
             disabled={!data}
-            h='$8'
-            justifyContent='center'
-            w='$8'
+            className='items-center bg-secondary-700 rounded-full h-8 justify-center w-8'
           >
             {!data ? (
               <Spinner />
             ) : (
               <Text
                 bold
-                color='$secondary50'
-                textAlign='center'
+                className='text-secondary-50 text-center'
               >
                 {data.name[0]}
               </Text>
@@ -61,8 +47,8 @@ const Header = () => {
           <Pressable>
             <Icon
               as={PlusCircle}
-              color='$primary500'
               size='xl'
+              className='text-primary-500'
             />
           </Pressable>
         </Link>

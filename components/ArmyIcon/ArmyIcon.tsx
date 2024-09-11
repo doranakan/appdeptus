@@ -1,4 +1,4 @@
-import { Box } from '@gluestack-ui/themed'
+import { Box } from 'appdeptus/components/ui/box'
 import { config, useColorMode, type Colors } from 'appdeptus/designSystem'
 import { type CodexName } from 'appdeptus/models'
 import { SvgXml } from 'react-native-svg'

@@ -1,6 +1,8 @@
-import { HStack, Pressable, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Button, Loading, Modal } from 'appdeptus/components'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type ArmyForm } from 'appdeptus/models'
 import { useLocalSearchParams, useRouter } from 'expo-router'
 import { Trash2 } from 'lucide-react-native'
@@ -53,10 +55,7 @@ const TierSelectionScreen = () => {
     <>
       <ArmyCoverImage codexName={codex.name} />
       <Modal title={unit.name}>
-        <VStack
-          gap='$4'
-          p='$4'
-        >
+        <VStack className='gap-4 p-4'>
           {units.map(({ id: choiceId, tier: selectedTierId }, choiceIndex) => {
             const tierPoints =
               unit.tiers.find(({ id }) => id === selectedTierId)?.points ?? 0
@@ -67,12 +66,11 @@ const TierSelectionScreen = () => {
                 subtitle={''}
                 key={`${unit.name}-${choiceIndex}`}
               >
-                <HStack gap='$2'>
+                <HStack className='gap-2'>
                   {unit.tiers.map((tier) => {
                     return (
                       <Pressable
                         key={tier.points}
-                        flex={1}
                         onPress={() => {
                           update(
                             fields.findIndex(
@@ -85,6 +83,7 @@ const TierSelectionScreen = () => {
                             }
                           )
                         }}
+                        className='flex-1'
                       >
                         <Button
                           text={`${tier.models} ${pluralize('model', tier.models)}`}

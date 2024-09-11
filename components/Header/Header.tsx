@@ -1,4 +1,8 @@
-import { HStack, Heading, Icon, Pressable, Text } from '@gluestack-ui/themed'
+import { Heading } from 'appdeptus/components/ui/heading'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Icon } from 'appdeptus/components/ui/icon'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { Text } from 'appdeptus/components/ui/text'
 import { config, type Colors } from 'appdeptus/designSystem'
 import { Link } from 'expo-router'
 import { type LucideIcon } from 'lucide-react-native'
@@ -20,20 +24,14 @@ type HeaderProps = {
 }
 
 const Header = ({ color = 'secondary50', title, left, right }: HeaderProps) => (
-  <HStack justifyContent='center'>
+  <HStack className='justify-center'>
     <Heading
-      color={config.tokens.colors[color]}
       size='2xl'
+      className={` color-${config.tokens.colors[color]} `}
     >
       {title}
     </Heading>
-    <HStack
-      alignItems='center'
-      h='$full'
-      justifyContent='space-between'
-      position='absolute'
-      w='$full'
-    >
+    <HStack className='items-center h-full justify-between absolute w-full'>
       <HStack>
         {left ? (
           <Link
@@ -41,20 +39,18 @@ const Header = ({ color = 'secondary50', title, left, right }: HeaderProps) => (
             disabled={left.disabled}
             href={left.href}
           >
-            <Pressable
-              alignItems='center'
-              flexDirection='row'
-              gap={'$1'}
-            >
+            <Pressable className='items-center flex-row gap-1'>
               {left.Icon ? (
                 <Icon
                   as={left.Icon}
-                  color={config.tokens.colors[color]}
                   size='xl'
+                  className={` color-${config.tokens.colors[color]} `}
                 />
               ) : null}
               {left.text ? (
-                <Text color={config.tokens.colors[color]}>{left.text}</Text>
+                <Text className={` color-${config.tokens.colors[color]} `}>
+                  {left.text}
+                </Text>
               ) : null}
             </Pressable>
           </Link>
@@ -67,19 +63,17 @@ const Header = ({ color = 'secondary50', title, left, right }: HeaderProps) => (
             disabled={right.disabled}
             href={right.href}
           >
-            <Pressable
-              alignItems='center'
-              flexDirection='row'
-              gap={'$1'}
-            >
+            <Pressable className='items-center flex-row gap-1'>
               {right.text ? (
-                <Text color={config.tokens.colors[color]}>{right.text}</Text>
+                <Text className={` color-${config.tokens.colors[color]} `}>
+                  {right.text}
+                </Text>
               ) : null}
               {right.Icon ? (
                 <Icon
                   as={right.Icon}
-                  color={config.tokens.colors[color]}
                   size='xl'
+                  className={` color-${config.tokens.colors[color]} `}
                 />
               ) : null}
             </Pressable>

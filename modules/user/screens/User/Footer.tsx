@@ -1,4 +1,7 @@
-import { HStack, Heading, Text, VStack } from '@gluestack-ui/themed'
+import { Heading } from 'appdeptus/components/ui/heading'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import * as Application from 'expo-application'
 import { Link } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -7,18 +10,8 @@ const Footer = () => {
   const insets = useSafeAreaInsets()
 
   return (
-    <VStack
-      justifyContent='flex-end'
-      flex={1}
-      gap='$4'
-      px='$4'
-      pb={insets.bottom}
-    >
-      <Text
-        fontSize='$2xs'
-        lineHeight='$2xs'
-        textAlign='justify'
-      >
+    <VStack className={` pb-${insets.bottom} justify-end flex-1 gap-4 px-4 `}>
+      <Text className='text-2xs leading-2xs text-justify'>
         This app is a fan-made project and is not affiliated with or endorsed by
         Games Workshop Group PLC. Warhammer 40,000 and all related trademarks,
         logos, and imagery are the property of Games Workshop. All rights to the
@@ -27,10 +20,7 @@ const Footer = () => {
         intended for entertainment and informational purposes only and is made
         by fans for fans.
       </Text>
-      <HStack
-        alignItems='center'
-        justifyContent='space-between'
-      >
+      <HStack className='items-center justify-between'>
         <Text>
           <Heading>Appdeptus</Heading>{' '}
           {`v${Application.nativeApplicationVersion}`}

@@ -1,6 +1,6 @@
-import { VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { LinearGradient, Loading } from 'appdeptus/components'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { useLocalSearchParams } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useGetGameQuery } from '../../api'
@@ -20,39 +20,24 @@ const EndedGameScreen = () => {
   }
 
   return (
-    <VStack flex={1}>
-      <VStack
-        h='$full'
-        position='absolute'
-        w='$full'
-      >
+    <VStack className='flex-1'>
+      <VStack className='h-full absolute w-full'>
         <Background
           codexOne={data.playerOne.army.codex.name}
           codexTwo={data.playerTwo.army.codex.name}
           opacity={1}
         />
-        <VStack flex={1}>
+        <VStack className='flex-1'>
           <LinearGradient colors={['$secondary800', '$transparent']} />
         </VStack>
-        <VStack flex={1}>
+        <VStack className='flex-1'>
           <LinearGradient colors={['$transparent', '$secondary800']} />
         </VStack>
       </VStack>
-
-      <VStack
-        flex={1}
-        pb={insets.bottom}
-        px='$4'
-        pt={insets.top}
-      >
+      <VStack className={` pt-${insets.top} pb-${insets.bottom} flex-1 px-4 `}>
         <Header lastUpdate={data.lastUpdate} />
 
-        <VStack
-          flex={1}
-          gap='$4'
-          justifyContent='flex-end'
-          py='$4'
-        >
+        <VStack className='flex-1 gap-4 justify-end py-4'>
           <VStack>
             <ScoreBoard
               pOneName={data.playerOne.name}

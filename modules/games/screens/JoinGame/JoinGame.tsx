@@ -1,6 +1,6 @@
-import { VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Loading } from 'appdeptus/components'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type Army } from 'appdeptus/models'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { useLocalSearchParams } from 'expo-router'
@@ -27,19 +27,12 @@ const JoinGameScreen = () => {
   }
 
   return (
-    <VStack flex={1}>
+    <VStack className='flex-1'>
       <Background
         codexOne={game.playerOne.army.codex.name}
         codexTwo={selectedArmy?.codex.name}
       />
-
-      <VStack
-        flex={1}
-        justifyContent='space-between'
-        pb='$8'
-        px='$4'
-        pt={insets.top}
-      >
+      <VStack className={` pt-${insets.top} flex-1 justify-between pb-8 px-4 `}>
         <Header
           gameId={game.id}
           selectedArmyId={selectedArmy?.id}
@@ -52,7 +45,6 @@ const JoinGameScreen = () => {
           nameTwo={userProfile.name}
         />
       </VStack>
-
       <ArmySelector
         selectedArmy={selectedArmy?.id}
         onArmySelected={setSelectedArmy}

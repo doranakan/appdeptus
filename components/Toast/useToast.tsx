@@ -2,9 +2,9 @@ import {
   Toast,
   ToastDescription,
   ToastTitle,
-  VStack,
   useToast
-} from '@gluestack-ui/themed'
+} from 'appdeptus/components/ui/toast'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { useCallback } from 'react'
 import { useWindowDimensions } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -30,10 +30,9 @@ const useCustomToast = () => {
         render: () => (
           <Toast
             action='attention'
-            bgColor='$backgroundLight0'
-            mb={bottom + 24}
             shadowOpacity={0}
             variant='accent'
+            className={` mb-${bottom + 24} bg-backgroundLight-0 `}
           >
             <VStack space='xs'>
               <ToastTitle>{title}</ToastTitle>

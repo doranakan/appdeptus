@@ -1,5 +1,5 @@
-import { Heading } from '@gluestack-ui/themed'
 import MaskedView from '@react-native-masked-view/masked-view'
+import { Heading } from 'appdeptus/components/ui/heading'
 import { config, useColorMode } from 'appdeptus/designSystem'
 
 import { AnimatePresence, motify } from 'moti'

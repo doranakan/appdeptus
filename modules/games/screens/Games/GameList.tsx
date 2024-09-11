@@ -1,5 +1,9 @@
-import { Box, HStack, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import { ArmyIcon, Loading } from 'appdeptus/components'
+import { Box } from 'appdeptus/components/ui/box'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import {
   type ActiveGame,
   type EndedGame,
@@ -21,7 +25,7 @@ const GameList = () => {
     <FlatList
       data={data}
       keyExtractor={({ id }) => String(id)}
-      ItemSeparatorComponent={() => <Box p='$2' />}
+      ItemSeparatorComponent={() => <Box className='p-2' />}
       renderItem={({ item }) => (
         <Link
           asChild
@@ -31,20 +35,12 @@ const GameList = () => {
               : `play/active/${item.id}`
           }
         >
-          <Pressable opacity='$90'>
+          <Pressable className='opacity-90'>
             <VStack
-              bg={item.status !== 'ended' ? '$primary50' : undefined}
-              borderRadius='$2xl'
-              gap='$2'
-              p='$2'
-              opacity='$90'
+              className={` ${item.status !== 'ended' ? 'bg-primary-50' : undefined} rounded-2xl gap-2 p-2 opacity-90 `}
             >
-              <HStack justifyContent='space-between'>
-                <HStack
-                  bg='$secondary100'
-                  borderRadius='$md'
-                  px='$2'
-                >
+              <HStack className='justify-between'>
+                <HStack className='bg-secondary-100 rounded-md px-2'>
                   <Text
                     size='sm'
                     textTransform='capitalize'
@@ -53,18 +49,15 @@ const GameList = () => {
                   </Text>
                 </HStack>
                 <Text
-                  color='$secondary500'
                   size='sm'
+                  className='text-secondary-500'
                 >
                   {formatDistance(new Date(item.lastUpdate), new Date(), {
                     addSuffix: true
                   })}
                 </Text>
               </HStack>
-              <HStack
-                gap='$4'
-                justifyContent='space-between'
-              >
+              <HStack className='gap-4 justify-between'>
                 <PlayerContainer
                   oneOrTwo='one'
                   player={item.playerOne}
@@ -104,33 +97,24 @@ const PlayerContainer = ({
   winner
 }: PlayerContainerProps) => (
   <VStack
-    alignItems={oneOrTwo === 'two' ? 'flex-end' : 'flex-start'}
-    flex={1}
-    gap='$1'
+    className={` ${oneOrTwo === 'two' ? 'items-end' : 'items-start'} flex-1 gap-1 `}
   >
     <HStack
-      borderBottomWidth='$1'
-      borderLeftWidth={oneOrTwo === 'one' ? '$1' : '$0'}
-      borderRightWidth={oneOrTwo === 'one' ? '$0' : '$1'}
-      borderColor='$secondary700'
-      px='$1'
       reversed={oneOrTwo === 'two'}
-      justifyContent={'space-between'}
-      w='$full'
+      className={` ${oneOrTwo === 'one' ? 'border-r-0' : 'border-r-1'} ${oneOrTwo === 'one' ? 'border-l-1' : 'border-l-0'} border-b-1 border-secondary-700 px-1 justify-between w-full `}
     >
       <Text bold>{player.name}</Text>
 
       <Text
         bold
-        color={winner ? '$primary500' : '$secondary300'}
+        className={` ${winner ? 'text-primary-500' : 'text-secondary-300'} `}
       >
         {player.score}
       </Text>
     </HStack>
     <HStack
-      alignItems='center'
       reversed={oneOrTwo === 'two'}
-      gap='$1'
+      className='items-center gap-1'
     >
       <ArmyIcon
         codexName={player.army.codex.name}

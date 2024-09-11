@@ -45,7 +45,7 @@ const UpdateArmyHeader = ({ armyId }: UpdateArmyHeaderProps) => {
       onSubmit={handleSubmit}
       submitTitle='Save changes'
     />
-  )
+  );
 }
 
 export default UpdateArmyHeader

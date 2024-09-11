@@ -1,4 +1,6 @@
-import { HStack, Icon, Pressable } from '@gluestack-ui/themed'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Icon } from 'appdeptus/components/ui/icon'
+import { Pressable } from 'appdeptus/components/ui/pressable'
 import { useSignOutMutation } from 'appdeptus/modules/root/api'
 import { Link } from 'expo-router'
 import { Bug, ChevronLeft, LogOut } from 'lucide-react-native'
@@ -10,11 +12,7 @@ const Header = () => {
   const [signOut] = useSignOutMutation()
 
   return (
-    <HStack
-      justifyContent='space-between'
-      p='$4'
-      pt={insets.top}
-    >
+    <HStack className={` pt-${insets.top} justify-between p-4 `}>
       <Link
         asChild
         href='../'
@@ -22,25 +20,25 @@ const Header = () => {
         <Pressable>
           <Icon
             as={ChevronLeft}
-            color='$secondary100'
             size='xl'
+            className='text-secondary-100'
           />
         </Pressable>
       </Link>
-      <HStack gap='$8'>
+      <HStack className='gap-8'>
         <Pressable>
           <Icon
             as={Bug}
-            color='$secondary100'
             size='xl'
+            className='text-secondary-100'
           />
         </Pressable>
 
         <Pressable onPress={signOut}>
           <Icon
             as={LogOut}
-            color='$secondary100'
             size='xl'
+            className='text-secondary-100'
           />
         </Pressable>
       </HStack>

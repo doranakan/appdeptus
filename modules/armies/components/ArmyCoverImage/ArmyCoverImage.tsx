@@ -1,8 +1,8 @@
-import { VStack } from '@gluestack-ui/themed'
 import {
   AnimatedArmyBackgroundImage,
   LinearGradient
 } from 'appdeptus/components'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { config, useColorMode } from 'appdeptus/designSystem'
 import { type CodexName } from 'appdeptus/models'
 import { MotiView } from 'moti'
@@ -14,22 +14,14 @@ type ArmyCoverImageProps = {
 const ArmyCoverImage = ({ codexName }: ArmyCoverImageProps) => {
   const colorMode = useColorMode()
   return (
-    <VStack
-      h='$full'
-      position='absolute'
-      width='$full'
-    >
+    <VStack className='h-full absolute w-full'>
       <AnimatedArmyBackgroundImage
         codexName={codexName}
         duration={200}
         fromScale={1.1}
         opacity={0.3}
       />
-      <VStack
-        h='$full'
-        position='absolute'
-        w='$full'
-      >
+      <VStack className='h-full absolute w-full'>
         <MotiView
           from={{ opacity: 0 }}
           animate={{ opacity: 1 }}

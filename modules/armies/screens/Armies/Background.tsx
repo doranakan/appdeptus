@@ -1,13 +1,9 @@
-import { VStack } from '@gluestack-ui/themed'
 import { BackgroundImage } from 'appdeptus/components'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { StatusBar } from 'expo-status-bar'
 
 const Background = () => (
-  <VStack
-    h='$full'
-    position='absolute'
-    w='$full'
-  >
+  <VStack className='h-full absolute w-full'>
     <StatusBar
       animated
       style='dark'

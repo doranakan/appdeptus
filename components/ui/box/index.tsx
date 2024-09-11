@@ -9,9 +9,7 @@ type IBoxProps = ViewProps &
 
 const Box = React.forwardRef<React.ElementRef<typeof View>, IBoxProps>(
   ({ className, ...props }, ref) => {
-    return (
-      <View ref={ref} {...props} className={boxStyle({ class: className })} />
-    );
+    return <View ref={ref} {...props} className={boxStyle({ class: className })} />;
   }
 );
 

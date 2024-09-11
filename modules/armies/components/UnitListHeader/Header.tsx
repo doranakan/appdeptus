@@ -1,5 +1,7 @@
-import { Input, InputField, Pressable, VStack } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
+import { Input, InputField } from 'appdeptus/components/ui/input'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type ArmyForm } from 'appdeptus/models'
 import { ClipboardCheck } from 'lucide-react-native'
 import React from 'react'
@@ -22,10 +24,7 @@ const UnitListHeader = ({
   const units = watch('units')
 
   return (
-    <VStack
-      pb='$4'
-      pr='$4'
-    >
+    <VStack className='pb-4 pr-4'>
       <VStack>
         <Controller
           control={control}
@@ -33,7 +32,7 @@ const UnitListHeader = ({
             maxLength: 25
           }}
           render={({ field: { onChange, ...props } }) => (
-            <Input borderWidth='$0'>
+            <Input className='border-0'>
               <InputField
                 {...props}
                 onChangeText={onChange}
@@ -45,7 +44,6 @@ const UnitListHeader = ({
           name='name'
         />
       </VStack>
-
       <Pressable
         disabled={!units.length || !name.length}
         onPress={onSubmit}

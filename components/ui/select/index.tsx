@@ -139,9 +139,7 @@ const PrimitiveIcon = React.forwardRef<
     if (AsComp) {
       return <AsComp ref={ref} {...props} {...sizeProps} {...colorProps} />;
     }
-    return (
-      <Svg ref={ref} height={height} width={width} {...colorProps} {...props} />
-    );
+    return <Svg ref={ref} height={height} width={width} {...colorProps} {...props} />;
   }
 );
 

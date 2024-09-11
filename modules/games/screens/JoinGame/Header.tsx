@@ -1,5 +1,9 @@
-import { HStack, Icon, Pressable, Spinner, Text } from '@gluestack-ui/themed'
 import { useToast } from 'appdeptus/components'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Icon } from 'appdeptus/components/ui/icon'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { Spinner } from 'appdeptus/components/ui/spinner'
+import { Text } from 'appdeptus/components/ui/text'
 import { Link, router } from 'expo-router'
 import { ChevronLeft, Swords } from 'lucide-react-native'
 import { useCallback } from 'react'
@@ -34,43 +38,39 @@ const Header = ({ gameId, selectedArmyId }: HeaderProps) => {
   }, [selectedArmyId, startGame, gameId, showToast])
 
   return (
-    <HStack justifyContent='space-between'>
+    <HStack className='justify-between'>
       <Link
         asChild
         href='../'
       >
         <Pressable>
-          <HStack alignContent='center'>
+          <HStack className='content-center'>
             <Icon
               as={ChevronLeft}
-              color='$secondary50'
               size='xl'
+              className='text-secondary-50'
             />
           </HStack>
         </Pressable>
       </Link>
-
       <Pressable
         disabled={!selectedArmyId}
         onPress={StartGameAndSelectPlayerTwo}
       >
-        <HStack
-          alignContent='center'
-          gap='$2'
-        >
+        <HStack className='content-center gap-2'>
           <Text
-            color='$secondary50'
             size='lg'
+            className='text-secondary-50'
           >
             Play
           </Text>
           {isLoading ? (
-            <Spinner color='$white' />
+            <Spinner className='text-white' />
           ) : (
             <Icon
               as={Swords}
-              color='$secondary50'
               size='xl'
+              className='text-secondary-50'
             />
           )}
         </HStack>

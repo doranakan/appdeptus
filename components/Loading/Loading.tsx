@@ -1,12 +1,8 @@
-import { Box } from '@gluestack-ui/themed'
+import { Box } from 'appdeptus/components/ui/box'
 import { ActivityIndicator } from 'react-native'
 
 const Loading = () => (
-  <Box
-    alignItems='center'
-    flex={1}
-    justifyContent='center'
-  >
+  <Box className='items-center flex-1 justify-center'>
     <ActivityIndicator />
   </Box>
 )

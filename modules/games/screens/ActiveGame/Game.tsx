@@ -1,6 +1,6 @@
-import { VStack } from '@gluestack-ui/themed'
 import { type RealtimePostgresUpdatePayload } from '@supabase/supabase-js'
 import { LinearGradient } from 'appdeptus/components'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { useCallback, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
@@ -50,39 +50,24 @@ const Game = ({ game }: GameProps) => {
   })
 
   return (
-    <VStack flex={1}>
-      <VStack
-        h='$full'
-        position='absolute'
-        w='$full'
-      >
+    <VStack className='flex-1'>
+      <VStack className='h-full absolute w-full'>
         <Background
           codexOne={game.playerOne.army.codex.name}
           codexTwo={game.playerTwo.army.codex.name}
           opacity={0.8}
         />
-        <VStack flex={1}>
+        <VStack className='flex-1'>
           <LinearGradient colors={['$secondary800', '$transparent']} />
         </VStack>
-        <VStack flex={1}>
+        <VStack className='flex-1'>
           <LinearGradient colors={['$transparent', '$secondary800']} />
         </VStack>
       </VStack>
-
-      <VStack
-        flex={1}
-        pb={insets.bottom}
-        px='$4'
-        pt={insets.top}
-      >
+      <VStack className={` pt-${insets.top} pb-${insets.bottom} flex-1 px-4 `}>
         <Header status={status} />
 
-        <VStack
-          flex={1}
-          gap='$4'
-          justifyContent='flex-end'
-          py='$4'
-        >
+        <VStack className='flex-1 gap-4 justify-end py-4'>
           <VStack>
             <ScoreBoard
               gameId={game.id}

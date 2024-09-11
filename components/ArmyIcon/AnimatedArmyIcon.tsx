@@ -1,5 +1,6 @@
-import { Box, VStack } from '@gluestack-ui/themed'
 import MaskedView from '@react-native-masked-view/masked-view'
+import { Box } from 'appdeptus/components/ui/box'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type CodexName } from 'appdeptus/models'
 import { AnimatePresence, MotiView } from 'moti'
 import { SvgXml } from 'react-native-svg'
@@ -12,7 +13,7 @@ type AnimatedArmyIconProps = {
 
 const AnimatedArmyIcon = ({ codexName }: AnimatedArmyIconProps) => {
   return (
-    <VStack flex={1}>
+    <VStack className='flex-1'>
       <AnimatePresence exitBeforeEnter>
         <MotiView
           key={codexName}
@@ -45,15 +46,12 @@ const AnimatedArmyIcon = ({ codexName }: AnimatedArmyIconProps) => {
         >
           <MaskedView
             maskElement={
-              <Box flex={1}>
+              <Box className='flex-1'>
                 <SvgXml xml={mapCodexNameToIcon[codexName]} />
               </Box>
             }
           >
-            <Box
-              h='$full'
-              w='$full'
-            >
+            <Box className='h-full w-full'>
               <ArmyBackgroundImage codexName={codexName} />
             </Box>
           </MaskedView>

@@ -1,4 +1,6 @@
-import { Icon, Text, VStack } from '@gluestack-ui/themed'
+import { Icon } from 'appdeptus/components/ui/icon'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { config, useColorMode } from 'appdeptus/designSystem'
 import { Tabs } from 'expo-router'
 import { Dices, Shield, type LucideIcon } from 'lucide-react-native'
@@ -17,10 +19,7 @@ const TabsLayout = () => {
   const colorMode = useColorMode()
 
   return (
-    <VStack
-      flex={1}
-      justifyContent='flex-end'
-    >
+    <VStack className='flex-1 justify-end'>
       <MotiView
         animate={{
           backgroundColor:
@@ -77,21 +76,17 @@ const TabBarItem = ({
   Icon: LucideIcon
   title: string
 }) => (
-  <VStack
-    alignItems='center'
-    gap='$1'
-  >
+  <VStack className='items-center gap-1'>
     <Icon
       as={LucideIcon}
-      color={focused ? '$white' : '$light400'}
       size='xs'
+      className={` ${focused ? 'text-white' : 'text-light-400'} `}
     />
 
     <Text
       bold
-      color={focused ? '$white' : '$light400'}
       size='xs'
-      fontSize='$xs'
+      className={` ${focused ? 'text-white' : 'text-light-400'} text-xs `}
     >
       {title}
     </Text>

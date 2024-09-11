@@ -1,4 +1,4 @@
-import { Box } from '@gluestack-ui/themed'
+import { Box } from 'appdeptus/components/ui/box'
 import { type Army } from 'appdeptus/models'
 import { memo } from 'react'
 import { FlatList, StyleSheet, type FlatListProps } from 'react-native'
@@ -15,10 +15,10 @@ const UnitList = ({ army, ListHeaderComponent, onScroll }: UnitListProps) => {
   return (
     <FlatList
       data={army.units}
-      ItemSeparatorComponent={() => <Box h='$4' />}
+      ItemSeparatorComponent={() => <Box className='h-4' />}
       keyExtractor={({ id }, index) => `${id}-${index}`}
       ListHeaderComponent={ListHeaderComponent}
-      ListFooterComponent={() => <Box height='$8' />}
+      ListFooterComponent={() => <Box className='h-8' />}
       onScroll={onScroll}
       renderItem={({ item: unit }) => <Item unit={unit} />}
       style={styles.flatList}

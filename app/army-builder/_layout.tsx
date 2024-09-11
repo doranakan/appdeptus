@@ -33,7 +33,7 @@ const ArmiesLayout = () => {
         />
       </Stack>
     </FormProvider>
-  )
+  );
 }
 
 export default ArmiesLayout

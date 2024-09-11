@@ -1,17 +1,10 @@
-import { Box, VStack } from '@gluestack-ui/themed'
 import { BackgroundImage, LinearGradient } from 'appdeptus/components'
+import { Box } from 'appdeptus/components/ui/box'
+import { VStack } from 'appdeptus/components/ui/vstack'
 const Background = () => (
-  <VStack
-    h='$full'
-    position='absolute'
-    w='$full'
-  >
+  <VStack className='h-full absolute w-full'>
     <BackgroundImage source='games' />
-    <Box
-      h='$full'
-      position='absolute'
-      w='$full'
-    >
+    <Box className='h-full absolute w-full'>
       <LinearGradient colors={['$secondary800', '$transparent']} />
     </Box>
   </VStack>

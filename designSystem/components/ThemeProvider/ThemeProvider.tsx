@@ -1,5 +1,5 @@
-import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider'
 import '@/global.css'
+import { GluestackUIProvider } from 'appdeptus/components/ui/gluestack-ui-provider'
 import { type ComponentProps } from 'react'
 import { type ColorMode } from '../../types'
 

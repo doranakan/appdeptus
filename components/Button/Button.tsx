@@ -1,4 +1,9 @@
-import { Button, ButtonSpinner, ButtonText, Icon } from '@gluestack-ui/themed'
+import {
+  Button,
+  ButtonSpinner,
+  ButtonText
+} from 'appdeptus/components/ui/button'
+import { Icon } from 'appdeptus/components/ui/icon'
 import { type LucideIcon } from 'lucide-react-native'
 import React from 'react'
 
@@ -17,9 +22,9 @@ const CustomButton = ({
   ...props
 }: CustomButtonProps) => (
   <Button
-    gap='$1'
     disabled
     {...props}
+    className='gap-1'
   >
     {loading ? (
       <ButtonSpinner />
@@ -29,9 +34,7 @@ const CustomButton = ({
         {LucideIcon && (
           <Icon
             as={LucideIcon}
-            color={'white'}
-            h={iconSize}
-            w={iconSize}
+            className={` w-${iconSize} h-${iconSize} text-white `}
           />
         )}
       </>

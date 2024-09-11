@@ -1,4 +1,6 @@
-import { HStack, Text, VStack } from '@gluestack-ui/themed'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type PropsWithChildren } from 'react'
 
 type UnitCardProps = {
@@ -14,35 +16,21 @@ const UnitCard = ({
 
   children
 }: PropsWithChildren<UnitCardProps>) => (
-  <VStack
-    bg='$backgroundLight100'
-    borderRadius='$2xl'
-    gap='$2'
-    p='$2'
-  >
-    <VStack
-      borderColor='$secondary500'
-      borderBottomWidth='$1'
-      borderLeftWidth='$1'
-      pb='$1'
-      pl='$2'
-    >
+  <VStack className='bg-backgroundLight-100 rounded-2xl gap-2 p-2'>
+    <VStack className='border-secondary-500 border-b-1 border-l-1 pb-1 pl-2'>
       <Text
         ellipsizeMode='tail'
-        maxWidth='$full'
         numberOfLines={1}
+        className='max-w-full'
       >
         <Text bold>{name}</Text>
       </Text>
 
-      <HStack
-        gap='$1'
-        justifyContent='space-between'
-      >
+      <HStack className='gap-1 justify-between'>
         <Text>{subtitle}</Text>
         <Text
-          fontFamily='$heading'
           textTransform='uppercase'
+          className='font-heading'
         >
           {points} pts
         </Text>

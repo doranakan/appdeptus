@@ -1,5 +1,8 @@
-import { Box, HStack, Text, VStack } from '@gluestack-ui/themed'
 import { ArmyIcon, SquareContainer } from 'appdeptus/components'
+import { Box } from 'appdeptus/components/ui/box'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type ArmyForm, type Codex } from 'appdeptus/models'
 import { useEffect, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -37,15 +40,8 @@ const UnitListHeader = ({ armyId, codex }: UnitListHeaderProps) => {
 
   return (
     <HStack>
-      <VStack
-        left={-54}
-        position='absolute'
-        w='$16'
-      >
-        <VStack
-          alignItems='flex-start'
-          gap='$8'
-        >
+      <VStack className='-left-54 absolute w-16'>
+        <VStack className='items-start gap-8'>
           <SquareContainer>
             <ArmyIcon
               codexName={codex.name}
@@ -56,25 +52,10 @@ const UnitListHeader = ({ armyId, codex }: UnitListHeaderProps) => {
           </SquareContainer>
         </VStack>
       </VStack>
-      <HStack
-        top={73}
-        left={-54}
-        position='absolute'
-        w='$full'
-      >
-        <Box
-          bg='$secondary700'
-          h={2}
-          left={38}
-          position='absolute'
-          top={21}
-          w='$full'
-        />
+      <HStack className='top-73 -left-54 absolute w-full'>
+        <Box className='bg-secondary-700 h-[2px] left-38 absolute top-21 w-full' />
         <SquareContainer>
-          <VStack
-            alignItems='center'
-            justifyContent='center'
-          >
+          <VStack className='items-center justify-center'>
             <Text
               bold
               size='xs'
@@ -90,8 +71,7 @@ const UnitListHeader = ({ armyId, codex }: UnitListHeaderProps) => {
           </VStack>
         </SquareContainer>
       </HStack>
-
-      <VStack flex={1}>
+      <VStack className='flex-1'>
         {armyId ? <UpdateArmyHeader armyId={armyId} /> : <CreateArmyHeader />}
       </VStack>
     </HStack>

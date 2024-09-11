@@ -1,5 +1,5 @@
-import { Pressable } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
+import { Pressable } from 'appdeptus/components/ui/pressable'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { router } from 'expo-router'
 import { Handshake, RedoDot } from 'lucide-react-native'

@@ -1,4 +1,3 @@
-import { Box, Pressable, Text, VStack } from '@gluestack-ui/themed'
 import {
   AnimatedArmyIcon,
   ArmyIcon,
@@ -8,6 +7,10 @@ import {
   LinearGradient,
   Loading
 } from 'appdeptus/components'
+import { Box } from 'appdeptus/components/ui/box'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { useArmyTintEffect } from 'appdeptus/designSystem'
 import { type ArmyForm, type Codex } from 'appdeptus/models'
 import { router } from 'expo-router'
@@ -84,12 +87,7 @@ const CodexSelectionContent = ({
         codexName={selectedCodex.name}
         opacity={1}
       />
-
-      <Box
-        h='$full'
-        position='absolute'
-        w='$full'
-      >
+      <Box className='h-full absolute w-full'>
         <LinearGradient
           colors={[
             '$secondary700',
@@ -100,13 +98,9 @@ const CodexSelectionContent = ({
         />
       </Box>
       <VStack
-        h='$full'
-        pb={insets.bottom}
-        pt={insets.top}
-        position='absolute'
-        w='$full'
+        className={` pt-${insets.top} pb-${insets.bottom} h-full absolute w-full `}
       >
-        <VStack p='$4'>
+        <VStack className='p-4'>
           <Header
             title=''
             left={{
@@ -116,25 +110,12 @@ const CodexSelectionContent = ({
           />
         </VStack>
         <AnimatedArmyIcon codexName={selectedCodex.name} />
-        <VStack
-          justifyContent='flex-end'
-          p='$4'
-          alignItems='center'
-        >
-          <Box
-            alignItems='center'
-            bg='$secondary50'
-            borderColor='$secondary700'
-            borderRadius='$xl'
-            borderWidth='$1'
-            px='$8'
-          >
+        <VStack className='justify-end p-4 items-center'>
+          <Box className='items-center bg-secondary-50 border-secondary-700 rounded-xl border-1 px-8'>
             <Text
               bold
-              color='$secondary700'
-              letterSpacing='$xl'
-              lineHeight='$xl'
               size='xl'
+              className='text-secondary-700 tracking-xl leading-xl'
             >
               Codex
             </Text>
@@ -142,34 +123,23 @@ const CodexSelectionContent = ({
           <GradientHeading>{selectedCodex.name}</GradientHeading>
         </VStack>
         <VStack>
-          <Box h={92}>
+          <Box className='h-[92px]'>
             <FlatList
               data={codexes}
               horizontal
               showsHorizontalScrollIndicator={false}
               keyExtractor={(item) => item.id}
-              ItemSeparatorComponent={() => <Box p='$2' />}
+              ItemSeparatorComponent={() => <Box className='p-2' />}
               renderItem={({ item, index }) => (
                 <Pressable
                   onPress={() => {
                     onPressItem(index)
                   }}
-                  ml={index === 0 ? '$4' : 0}
-                  mr={index === codexes.length - 1 ? '$4' : 0}
+                  className={` ${index === codexes.length - 1 ? 'mr-4' : 'mr-[0px]'} ${index === 0 ? 'ml-4' : 'ml-[0px]'} `}
                 >
                   <VStack
-                    alignItems='center'
-                    bg={
-                      selectedCodex.id === item.id
-                        ? '$secondary100'
-                        : '$secondary50'
-                    }
-                    borderRadius='$2xl'
-                    h={90}
-                    justifyContent='center'
                     key={item.id}
-                    opacity={selectedCodex.id === item.id ? '$100' : '$60'}
-                    w={90}
+                    className={` ${selectedCodex.id === item.id ? 'opacity-100' : 'opacity-60'} ${selectedCodex.id === item.id ? 'bg-secondary-100' : 'bg-secondary-50'} items-center rounded-2xl h-[90px] justify-center w-[90px] `}
                   >
                     <ArmyIcon
                       codexName={item.name}
@@ -181,7 +151,7 @@ const CodexSelectionContent = ({
               )}
             />
           </Box>
-          <VStack p='$4'>
+          <VStack className='p-4'>
             <Pressable onPress={startBuilding}>
               <Button text='Start building' />
             </Pressable>

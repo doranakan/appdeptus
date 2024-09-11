@@ -1,4 +1,4 @@
-import { VStack } from '@gluestack-ui/themed'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type Army } from 'appdeptus/models'
 import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
@@ -23,21 +23,13 @@ const NewGameScreen = () => {
   }
 
   return (
-    <VStack flex={1}>
+    <VStack className='flex-1'>
       <StatusBar
         animated
         style='light'
       />
-
       <Background codexOne={selectedArmy?.codex.name} />
-
-      <VStack
-        flex={1}
-        justifyContent='space-between'
-        pb='$8'
-        pt={insets.top}
-        px='$4'
-      >
+      <VStack className={` pt-${insets.top} flex-1 justify-between pb-8 px-4 `}>
         <Header selectedArmyId={selectedArmy?.id} />
 
         <PlayersContainer
@@ -45,7 +37,6 @@ const NewGameScreen = () => {
           nameOne={data?.name}
         />
       </VStack>
-
       <ArmySelector
         selectedArmy={selectedArmy?.id}
         onArmySelected={setSelectedArmy}

@@ -1,4 +1,4 @@
-import { Box } from '@gluestack-ui/themed'
+import { Box } from 'appdeptus/components/ui/box'
 import { type ArmyForm, type Codex, type CodexUnit } from 'appdeptus/models'
 import { useCallback } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -47,8 +47,10 @@ const UnitList = ({ codexId, units }: UnitListProps) => {
   return (
     <FlatList
       data={units}
-      ItemSeparatorComponent={() => <Box height='$4' />}
-      ListFooterComponent={() => <Box height={insets.bottom + 16} />}
+      ItemSeparatorComponent={() => <Box className='h-4' />}
+      ListFooterComponent={() => (
+        <Box className={` height-${insets.bottom + 16} `} />
+      )}
       keyExtractor={(unit) => unit.id}
       renderItem={renderItem}
       style={styles.flatList}

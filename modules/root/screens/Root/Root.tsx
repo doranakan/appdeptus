@@ -1,15 +1,13 @@
 import {
-  Box,
-  Heading,
-  KeyboardAvoidingView,
-  Text,
-  VStack
-} from '@gluestack-ui/themed'
-import {
   AnimatedBackgroundImage,
   BackgroundImage,
   LinearGradient
 } from 'appdeptus/components'
+import { Box } from 'appdeptus/components/ui/box'
+import { Heading } from 'appdeptus/components/ui/heading'
+import { KeyboardAvoidingView } from 'appdeptus/components/ui/keyboard-avoiding-view'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { config } from 'appdeptus/designSystem'
 import { StatusBar } from 'expo-status-bar'
 import { MotiView } from 'moti'
@@ -22,16 +20,13 @@ const RootScreen = () => {
   return (
     <>
       <StatusBar style='light' />
-      <VStack
-        bg='$secondary800'
-        flex={1}
-      >
+      <VStack className='bg-secondary-800 flex-1'>
         <Background />
 
         <KeyboardAvoidingView
           behavior='padding'
           keyboardVerticalOffset={-insets.bottom}
-          flex={1}
+          className='flex-1'
         >
           <Splash />
 
@@ -44,11 +39,7 @@ const RootScreen = () => {
 
 const Background = () => (
   <>
-    <VStack
-      h='$full'
-      position='absolute'
-      width='$full'
-    >
+    <VStack className='h-full absolute w-full'>
       <AnimatedBackgroundImage
         source='sign_in'
         delay={2000}
@@ -56,11 +47,7 @@ const Background = () => (
         fromScale={1.1}
         opacity={0.3}
       />
-      <VStack
-        h='$full'
-        position='absolute'
-        w='$full'
-      >
+      <VStack className='h-full absolute w-full'>
         <MotiView
           from={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -155,40 +142,19 @@ const Content = () => {
       transition={{ delay: 2500, duration: 2000, type: 'timing' }}
       style={{ flex: 1 }}
     >
-      <VStack flex={1}>
-        <Box flex={4} />
-        <VStack
-          alignItems='center'
-          flex={2}
-          justifyContent='center'
-        >
-          <Heading
-            color='$secondary200'
-            fontSize='$4xl'
-            lineHeight='$2xl'
-          >
+      <VStack className='flex-1'>
+        <Box className='flex-4' />
+        <VStack className='items-center flex-2 justify-center'>
+          <Heading className='text-secondary-200 text-4xl leading-2xl'>
             Appdeptus
           </Heading>
-          <Text
-            color='$secondary100'
-            textAlign='center'
-          >
+          <Text className='text-secondary-100 text-center'>
             {'An unofficial Warhammer 40.000™\ncompanion app'}
           </Text>
         </VStack>
       </VStack>
-      <VStack
-        flex={1}
-        justifyContent='flex-end'
-        p='$4'
-      >
-        <VStack
-          bg='$backgroundLight100'
-          borderRadius='$2xl'
-          gap='$2'
-          opacity='$80'
-          p='$2'
-        >
+      <VStack className='flex-1 justify-end p-4'>
+        <VStack className='bg-backgroundLight-100 rounded-2xl gap-2 opacity-80 p-2'>
           <Form />
         </VStack>
       </VStack>

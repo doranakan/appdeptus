@@ -40,7 +40,7 @@ const CreateArmyHeader = () => {
       onSubmit={handleSubmit}
       submitTitle='Create army'
     />
-  )
+  );
 }
 
 export default CreateArmyHeader

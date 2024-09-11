@@ -1,3 +1,4 @@
+import '@/global.css'
 import {
   IBMPlexMono_400Regular,
   IBMPlexMono_400Regular_Italic,
@@ -7,10 +8,9 @@ import {
   IBMPlexMono_700Bold_Italic,
   useFonts
 } from '@expo-google-fonts/ibm-plex-mono'
-import "@/global.css";
-import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import { Silkscreen_400Regular } from '@expo-google-fonts/silkscreen'
 import { coreApi } from 'appdeptus/api'
+import { GluestackUIProvider } from 'appdeptus/components/ui/gluestack-ui-provider'
 
 import { ThemeProvider, config, selectColorMode } from 'appdeptus/designSystem'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
@@ -78,7 +78,8 @@ const RootLayout = () => {
   }, [dispatch, isFetching, isUninitialized, session])
 
   return (
-    <GluestackUIProvider mode="light"><ThemeProvider
+    <GluestackUIProvider mode='light'>
+      <ThemeProvider
         config={config}
         colorMode={colorMode}
       >
@@ -88,8 +89,9 @@ const RootLayout = () => {
         >
           <Stack.Screen name='index' />
         </Stack>
-      </ThemeProvider></GluestackUIProvider>
-  );
+      </ThemeProvider>
+    </GluestackUIProvider>
+  )
 }
 
 export default App

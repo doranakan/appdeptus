@@ -1,4 +1,4 @@
-import { VStack } from '@gluestack-ui/themed'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { X } from 'lucide-react-native'
 import { type PropsWithChildren } from 'react'
 import { Platform } from 'react-native'
@@ -13,10 +13,9 @@ const Modal = ({ children, title }: ModalProps) => {
   const insets = useSafeAreaInsets()
 
   return (
-    <VStack flex={1}>
+    <VStack className='flex-1'>
       <VStack
-        p='$4'
-        pt={Platform.OS === 'android' ? insets.top : undefined}
+        className={` ${Platform.OS === 'android' ? insets.top : undefined} p-4 `}
       >
         <Header
           left={{
@@ -26,7 +25,6 @@ const Modal = ({ children, title }: ModalProps) => {
           title={title}
         />
       </VStack>
-
       {children}
     </VStack>
   )

@@ -1,4 +1,9 @@
-import { Box, HStack, Heading, Icon, Text, VStack } from '@gluestack-ui/themed'
+import { Box } from 'appdeptus/components/ui/box'
+import { Heading } from 'appdeptus/components/ui/heading'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Icon } from 'appdeptus/components/ui/icon'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type Army } from 'appdeptus/models'
 import { Shield, Swords } from 'lucide-react-native'
 
@@ -16,7 +21,7 @@ const PlayersContainer = ({
   nameOne,
   nameTwo
 }: PlayersContainerProps) => (
-  <HStack gap='$2'>
+  <HStack className='gap-2'>
     <Player
       army={armyOne}
       name={nameOne}
@@ -40,59 +45,47 @@ const Player = ({
   name,
   role
 }: PlayerProps & { role: 'attacker' | 'defender' }) => (
-  <VStack flex={1}>
+  <VStack className='flex-1'>
     {army ? (
       <>
         <HStack
-          alignItems='center'
-          flexDirection={role === 'attacker' ? 'row' : 'row-reverse'}
-          gap='$1'
+          className={` ${role === 'attacker' ? 'flex-row' : 'flex-reverse'} items-center gap-1 `}
         >
           <Icon
             as={role === 'attacker' ? Swords : Shield}
-            color='$secondary50'
+            className='text-secondary-50'
           />
           <Text
             bold
-            color='$secondary50'
             ellipsizeMode='tail'
             numberOfLines={1}
             size='xl'
-            textAlign={role === 'attacker' ? 'left' : 'right'}
+            className={` ${role === 'attacker' ? 'text-left' : 'text-right'} text-secondary-50 `}
           >
             {name}
           </Text>
         </HStack>
         <Box
-          alignItems='center'
-          bg={role === 'attacker' ? '$primary600' : '$teal700'}
-          borderColor='$secondary50'
-          borderRadius='$lg'
-          borderWidth='$1'
+          className={` ${role === 'attacker' ? 'bg-primary-600' : 'bg-teal-700'} items-center border-secondary-50 rounded-lg border-1 `}
         >
           <Text
             bold
-            color='$secondary50'
-            letterSpacing='$xl'
             textTransform='uppercase'
+            className='text-secondary-50 tracking-xl'
           >
             {`${army.totalPoints} pts`}
           </Text>
         </Box>
         <Heading
           adjustsFontSizeToFit
-          color='$secondary100'
-          fontSize='$3xl'
-          lineHeight='$3xl'
           numberOfLines={1}
-          textAlign={role === 'attacker' ? 'left' : 'right'}
+          className={` ${role === 'attacker' ? 'text-left' : 'text-right'} text-secondary-100 text-3xl leading-3xl `}
         >
           {army.codex.name}
         </Heading>
         <Text
           bold
-          color='$secondary50'
-          textAlign={role === 'attacker' ? 'left' : 'right'}
+          className={` ${role === 'attacker' ? 'text-left' : 'text-right'} text-secondary-50 `}
         >
           {army.name}
         </Text>

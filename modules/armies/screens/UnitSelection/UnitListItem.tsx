@@ -1,5 +1,6 @@
-import { HStack, Pressable } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Pressable } from 'appdeptus/components/ui/pressable'
 import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
 import { router } from 'expo-router'
 import { Edit, Plus } from 'lucide-react-native'
@@ -34,12 +35,8 @@ const UnitListItem = ({
       points={count ? points : unit.tiers[0]?.points ?? 0}
       subtitle={`Selected: ${count}`}
     >
-      <HStack
-        flex={1}
-        gap='$2'
-      >
+      <HStack className='flex-1 gap-2'>
         <Pressable
-          flex={1}
           onPress={() => {
             append({
               tier: unit.tiers[0]?.id ?? '',
@@ -47,6 +44,7 @@ const UnitListItem = ({
               upgrades: [] // TODO: handle unit upgrades
             })
           }}
+          className='flex-1'
         >
           <Button
             Icon={Plus}
@@ -57,7 +55,6 @@ const UnitListItem = ({
         {count ? (
           <Pressable
             disabled={!count}
-            flex={1}
             onPress={() => {
               router.push({
                 params: {
@@ -68,6 +65,7 @@ const UnitListItem = ({
                 pathname: './tier-selection'
               })
             }}
+            className='flex-1'
           >
             <Button
               Icon={Edit}

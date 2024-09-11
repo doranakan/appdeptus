@@ -1,12 +1,10 @@
-import {
-  Box,
-  HStack,
-  Icon,
-  Pressable,
-  Text,
-  VStack
-} from '@gluestack-ui/themed'
 import { ArmyIcon } from 'appdeptus/components'
+import { Box } from 'appdeptus/components/ui/box'
+import { HStack } from 'appdeptus/components/ui/hstack'
+import { Icon } from 'appdeptus/components/ui/icon'
+import { Pressable } from 'appdeptus/components/ui/pressable'
+import { Text } from 'appdeptus/components/ui/text'
+import { VStack } from 'appdeptus/components/ui/vstack'
 import { type Army } from 'appdeptus/models'
 import { useGetArmiesQuery } from 'appdeptus/modules/armies/api'
 import { Swords } from 'lucide-react-native'
@@ -28,20 +26,15 @@ const ArmySelector = ({ selectedArmy, onArmySelected }: ArmySelectorProps) => {
   }
 
   return (
-    <VStack pb={insets.bottom}>
-      <HStack
-        alignItems='center'
-        gap='$2'
-        px='$4'
-        py='$2'
-      >
+    <VStack className={` pb-${insets.bottom} `}>
+      <HStack className='items-center gap-2 px-4 py-2'>
         <Icon
           as={Swords}
-          color='$secondary50'
+          className='text-secondary-50'
         />
         <Text
           bold
-          color='$secondary50'
+          className='text-secondary-50'
         >
           Select your army:
         </Text>
@@ -49,23 +42,18 @@ const ArmySelector = ({ selectedArmy, onArmySelected }: ArmySelectorProps) => {
       <FlatList
         data={data}
         horizontal
-        ItemSeparatorComponent={() => <Box w='$4' />}
-        ListHeaderComponent={() => <Box w='$4' />}
-        ListFooterComponent={() => <Box w='$4' />}
+        ItemSeparatorComponent={() => <Box className='w-4' />}
+        ListHeaderComponent={() => <Box className='w-4' />}
+        ListFooterComponent={() => <Box className='w-4' />}
         renderItem={({ item }) => (
           <Pressable
-            mb='$4'
             onPress={() => {
               onArmySelected(item)
             }}
-            w={150}
+            className='mb-4 w-[150px]'
           >
             <VStack
-              alignItems='center'
-              borderRadius='$2xl'
-              bg={selectedArmy === item.id ? '$secondary100' : '$secondary50'}
-              opacity={selectedArmy === item.id ? '$100' : '$60'}
-              p='$2'
+              className={` ${selectedArmy === item.id ? 'opacity-100' : 'opacity-60'} ${selectedArmy === item.id ? 'bg-secondary-100' : 'bg-secondary-50'} items-center rounded-2xl p-2 `}
             >
               <ArmyIcon
                 codexName={item.codex.name}
