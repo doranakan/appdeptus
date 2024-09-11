@@ -190,10 +190,7 @@ const PlayerName = ({ name, reversed }: PlayerNameProps) => (
     h={60}
     reversed={reversed}
   >
-    <SquareContainer
-      borderColor={reversed ? '$teal700' : '$primary600'}
-      size='$8'
-    >
+    <SquareContainer>
       <Icon
         as={reversed ? Shield : Swords}
         color={reversed ? '$teal700' : '$primary600'}

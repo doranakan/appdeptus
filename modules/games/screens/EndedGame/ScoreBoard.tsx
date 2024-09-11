@@ -69,7 +69,7 @@ const PlayerName = ({ name, score, reversed }: PlayerNameProps) => (
     h={60}
     reversed={reversed}
   >
-    <SquareContainer borderColor={reversed ? '$teal700' : '$primary600'}>
+    <SquareContainer>
       <Text
         bold
         size='sm'

@@ -1,27 +1,16 @@
 import { VStack } from '@gluestack-ui/themed'
-import { type ComponentProps, type PropsWithChildren } from 'react'
+import { type PropsWithChildren } from 'react'
 
-type SquareContainerProps = {
-  bg?: ComponentProps<typeof VStack>['bg']
-  borderColor?: ComponentProps<typeof VStack>['borderColor']
-  size?: ComponentProps<typeof VStack>['h']
-}
-
-const SquareContainer = ({
-  bg = '$secondary50',
-  borderColor = '$secondary700',
-  children,
-  size = '$11'
-}: PropsWithChildren<SquareContainerProps>) => (
+const SquareContainer = ({ children }: PropsWithChildren) => (
   <VStack
     alignItems='center'
-    bg={bg}
-    borderColor={borderColor}
+    bg='$secondary50'
+    borderColor='$secondary700'
     borderRadius='$2xl'
     borderWidth='$2'
     justifyContent='center'
-    h={size}
-    w={size}
+    h='$11'
+    w='$11'
   >
     {children}
   </VStack>

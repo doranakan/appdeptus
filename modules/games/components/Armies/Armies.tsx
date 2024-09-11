@@ -39,10 +39,7 @@ const Army = ({ army, reversed }: ArmyProps) => (
     h={50}
     reversed={reversed}
   >
-    <SquareContainer
-      bg={reversed ? '$teal700' : '$primary600'}
-      borderColor={reversed ? '$teal700' : '$primary600'}
-    >
+    <SquareContainer>
       <ArmyIcon
         codexName={army.codex.name}
         color='white'
