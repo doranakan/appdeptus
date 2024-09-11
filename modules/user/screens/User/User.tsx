@@ -1,4 +1,4 @@
-import { VStack } from '@gluestack-ui/themed'
+import { Box, VStack } from '@gluestack-ui/themed'
 import { BackgroundImage, LinearGradient } from 'appdeptus/components'
 import React from 'react'
 import Footer from './Footer'
@@ -17,10 +17,13 @@ const UserScreen = () => {
           source='user_profile'
           opacity={0.6}
         />
-        <LinearGradient
-          colors={['$transparent', '$backgroundLight100']}
+        <Box
+          h='$full'
           position='absolute'
-        />
+          w='$full'
+        >
+          <LinearGradient colors={['$transparent', '$backgroundLight100']} />
+        </Box>
       </VStack>
 
       <Header />
