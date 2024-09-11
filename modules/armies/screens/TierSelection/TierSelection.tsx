@@ -1,4 +1,4 @@
-import { HStack, VStack } from '@gluestack-ui/themed'
+import { HStack, Pressable, VStack } from '@gluestack-ui/themed'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { Button, Loading, Modal } from 'appdeptus/components'
 import { type ArmyForm } from 'appdeptus/models'
@@ -70,13 +70,9 @@ const TierSelectionScreen = () => {
                 <HStack gap='$2'>
                   {unit.tiers.map((tier) => {
                     return (
-                      <Button
-                        action={
-                          tier.id === selectedTierId ? 'secondary' : 'negative'
-                        }
-                        flex={1}
+                      <Pressable
                         key={tier.points}
-                        text={`${tier.models} ${pluralize('model', tier.models)}`}
+                        flex={1}
                         onPress={() => {
                           update(
                             fields.findIndex(
@@ -89,11 +85,14 @@ const TierSelectionScreen = () => {
                             }
                           )
                         }}
-                      />
+                      >
+                        <Button
+                          text={`${tier.models} ${pluralize('model', tier.models)}`}
+                        />
+                      </Pressable>
                     )
                   })}
-                  <Button
-                    Icon={Trash2}
+                  <Pressable
                     onPress={() => {
                       remove(
                         fields.findIndex(
@@ -101,7 +100,9 @@ const TierSelectionScreen = () => {
                         )
                       )
                     }}
-                  />
+                  >
+                    <Button Icon={Trash2} />
+                  </Pressable>
                 </HStack>
               </UnitCard>
             )

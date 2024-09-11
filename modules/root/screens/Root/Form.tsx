@@ -3,6 +3,7 @@ import {
   Icon,
   Input,
   InputField,
+  Pressable,
   Text,
   VStack
 } from '@gluestack-ui/themed'
@@ -107,12 +108,15 @@ const Form = () => {
         name='password'
       />
 
-      <Button
+      <Pressable
         disabled={!touchedFields.email && !touchedFields.password}
-        loading={isLoading}
         onPress={handleSubmit(onSubmit)}
-        text='Sign in'
-      />
+      >
+        <Button
+          loading={isLoading}
+          text='Sign in'
+        />
+      </Pressable>
 
       {errors.root && (
         <HStack gap='$1'>

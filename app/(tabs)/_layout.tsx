@@ -1,4 +1,4 @@
-import { Icon as GSIcon, Text, VStack } from '@gluestack-ui/themed'
+import { Icon, Text, VStack } from '@gluestack-ui/themed'
 import { config, useColorMode } from 'appdeptus/designSystem'
 import { Tabs } from 'expo-router'
 import { Dices, Shield, type LucideIcon } from 'lucide-react-native'
@@ -70,7 +70,7 @@ const TabsLayout = () => {
 
 const TabBarItem = ({
   focused,
-  Icon,
+  Icon: LucideIcon,
   title
 }: {
   focused: boolean
@@ -81,8 +81,8 @@ const TabBarItem = ({
     alignItems='center'
     gap='$1'
   >
-    <GSIcon
-      as={Icon}
+    <Icon
+      as={LucideIcon}
       color={focused ? '$white' : '$light400'}
       size='xs'
     />

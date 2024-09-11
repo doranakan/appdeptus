@@ -1,4 +1,4 @@
-import { HStack } from '@gluestack-ui/themed'
+import { HStack, Pressable } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
 import { type ArmyForm, type CodexUnit } from 'appdeptus/models'
 import { router } from 'expo-router'
@@ -40,10 +40,8 @@ const UnitListItem = ({
         flex={1}
         gap='$2'
       >
-        <Button
-          action={'secondary'}
+        <Pressable
           flex={1}
-          Icon={Plus}
           onPress={() => {
             append({
               tier: unit.tiers[0]?.id ?? '',
@@ -51,16 +49,17 @@ const UnitListItem = ({
               upgrades: [] // TODO: handle unit upgrades
             })
           }}
-          text='Add'
-        />
+        >
+          <Button
+            Icon={Plus}
+            text='Add'
+          />
+        </Pressable>
 
         {count ? (
-          <Button
-            action='negative'
-            bg={count ? '$secondary300' : '$secondary200'}
+          <Pressable
             disabled={!count}
             flex={1}
-            Icon={Edit}
             onPress={() => {
               router.push({
                 params: {
@@ -71,8 +70,12 @@ const UnitListItem = ({
                 pathname: './tier-selection'
               })
             }}
-            text='Edit'
-          />
+          >
+            <Button
+              Icon={Edit}
+              text='Edit'
+            />
+          </Pressable>
         ) : undefined}
       </HStack>
     </UnitCard>

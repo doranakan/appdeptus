@@ -1,3 +1,4 @@
+import { Pressable } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { router } from 'expo-router'
@@ -33,18 +34,19 @@ const NextTurnOrEndGameButton = ({
   }, [endGameMutation, gameId])
 
   return (
-    <Button
-      Icon={status === 'turn5_p2' ? Handshake : RedoDot}
-      loading={isEndingGame || isLoadingNextTurn}
-      onPress={status === 'turn5_p2' ? endGame : nextTurn}
-      text={
-        status === 'turn5_p2'
-          ? 'End game'
-          : status.endsWith('1')
-            ? "Defender's turn"
-            : 'Next turn'
-      }
-    />
+    <Pressable onPress={status === 'turn5_p2' ? endGame : nextTurn}>
+      <Button
+        Icon={status === 'turn5_p2' ? Handshake : RedoDot}
+        loading={isEndingGame || isLoadingNextTurn}
+        text={
+          status === 'turn5_p2'
+            ? 'End game'
+            : status.endsWith('1')
+              ? "Defender's turn"
+              : 'Next turn'
+        }
+      />
+    </Pressable>
   )
 }
 

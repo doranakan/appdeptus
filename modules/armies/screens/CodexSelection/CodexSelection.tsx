@@ -182,10 +182,9 @@ const CodexSelectionContent = ({
             />
           </Box>
           <VStack p='$4'>
-            <Button
-              onPress={startBuilding}
-              text='Start building'
-            />
+            <Pressable onPress={startBuilding}>
+              <Button text='Start building' />
+            </Pressable>
           </VStack>
         </VStack>
       </VStack>

@@ -1,4 +1,4 @@
-import { Input, InputField, VStack } from '@gluestack-ui/themed'
+import { Input, InputField, Pressable, VStack } from '@gluestack-ui/themed'
 import { Button } from 'appdeptus/components'
 import { type ArmyForm } from 'appdeptus/models'
 import { ClipboardCheck } from 'lucide-react-native'
@@ -46,13 +46,16 @@ const UnitListHeader = ({
         />
       </VStack>
 
-      <Button
+      <Pressable
         disabled={!units.length || !name.length}
-        loading={loading}
-        Icon={ClipboardCheck}
         onPress={onSubmit}
-        text={submitTitle}
-      />
+      >
+        <Button
+          loading={loading}
+          Icon={ClipboardCheck}
+          text={submitTitle}
+        />
+      </Pressable>
     </VStack>
   )
 }

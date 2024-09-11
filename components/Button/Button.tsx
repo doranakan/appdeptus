@@ -1,42 +1,34 @@
-import {
-  ButtonSpinner,
-  ButtonText,
-  Button as GSButton,
-  Icon as GSIcon
-} from '@gluestack-ui/themed'
+import { Button, ButtonSpinner, ButtonText, Icon } from '@gluestack-ui/themed'
 import { type LucideIcon } from 'lucide-react-native'
-import React, { type ComponentProps } from 'react'
+import React from 'react'
 
-type ButtonProps = Omit<ComponentProps<typeof GSButton>, 'isDisabled'> & {
-  disabled?: boolean
+type CustomButtonProps = {
   iconSize?: number
   Icon?: LucideIcon
   loading?: boolean
   text?: string
 }
 
-const Button = ({
-  disabled,
-  Icon,
+const CustomButton = ({
+  Icon: LucideIcon,
   iconSize = 18,
   loading,
-  size,
   text,
   ...props
-}: ButtonProps) => (
-  <GSButton
+}: CustomButtonProps) => (
+  <Button
     gap='$1'
-    isDisabled={disabled ?? loading}
+    disabled
     {...props}
   >
     {loading ? (
       <ButtonSpinner />
     ) : (
       <>
-        {text && <ButtonText size={size}>{text}</ButtonText>}
-        {Icon && (
-          <GSIcon
-            as={Icon}
+        {text && <ButtonText size='md'>{text}</ButtonText>}
+        {LucideIcon && (
+          <Icon
+            as={LucideIcon}
             color={'white'}
             h={iconSize}
             w={iconSize}
@@ -44,7 +36,7 @@ const Button = ({
         )}
       </>
     )}
-  </GSButton>
+  </Button>
 )
 
-export default Button
+export default CustomButton
