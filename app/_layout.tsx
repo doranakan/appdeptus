@@ -9,6 +9,8 @@ import {
 } from '@expo-google-fonts/ibm-plex-mono'
 import { Silkscreen_400Regular } from '@expo-google-fonts/silkscreen'
 import { coreApi } from 'appdeptus/api'
+import { GluestackUIProvider } from 'appdeptus/components/ui'
+import 'appdeptus/global.css'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
 import { store } from 'appdeptus/store'
 import { SplashScreen, Stack, router } from 'expo-router'
@@ -72,12 +74,14 @@ const RootLayout = () => {
   }, [dispatch, isFetching, isUninitialized, session])
 
   return (
-    <Stack
-      initialRouteName='index'
-      screenOptions={{ headerShown: false }}
-    >
-      <Stack.Screen name='index' />
-    </Stack>
+    <GluestackUIProvider mode='light'>
+      <Stack
+        initialRouteName='index'
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name='index' />
+      </Stack>
+    </GluestackUIProvider>
   )
 }
 
