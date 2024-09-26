@@ -1,12 +1,13 @@
-import { Text, View } from 'react-native'
+import { VStack } from 'appdeptus/components/ui'
+import { Text } from 'react-native'
 
 const RootScreen = () => (
-  <View
-    style={{
-      alignItems: 'center',
-      flex: 1,
-      justifyContent: 'center'
-    }}
+  <VStack
+    className={`
+      flex-1
+      items-center
+      justify-center
+  `}
   >
     <Text
       style={{
@@ -22,7 +23,7 @@ const RootScreen = () => (
     >
       Munitorum at work
     </Text>
-  </View>
+  </VStack>
 )
 
 export default RootScreen
