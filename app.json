@@ -63,12 +63,7 @@
             "./assets/resources/armies/tau_empire.jpg",
             "./assets/resources/armies/thousand_sons.jpg",
             "./assets/resources/armies/tyranids.jpg",
-            "./assets/resources/armies/world_eaters.jpg",
-
-            "./assets/resources/bkg/army_builder.jpg",
-            "./assets/resources/bkg/games.jpg",
-            "./assets/resources/bkg/sign_in.jpg",
-            "./assets/resources/bkg/user_profile.jpg"
+            "./assets/resources/armies/world_eaters.jpg"
           ]
         }
       ]

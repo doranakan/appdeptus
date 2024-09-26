@@ -9,8 +9,6 @@ import {
 } from '@expo-google-fonts/ibm-plex-mono'
 import { Silkscreen_400Regular } from '@expo-google-fonts/silkscreen'
 import { coreApi } from 'appdeptus/api'
-
-import { ThemeProvider, config, selectColorMode } from 'appdeptus/designSystem'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
 import { store } from 'appdeptus/store'
 import { SplashScreen, Stack, router } from 'expo-router'
@@ -19,7 +17,7 @@ import {
   SafeAreaProvider,
   initialWindowMetrics
 } from 'react-native-safe-area-context'
-import { Provider, useDispatch, useSelector } from 'react-redux'
+import { Provider, useDispatch } from 'react-redux'
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 SplashScreen.preventAutoHideAsync()
@@ -47,8 +45,6 @@ const RootLayout = () => {
     IBMPlexMono_700Bold_Italic
   })
 
-  const colorMode = useSelector(selectColorMode)
-
   useEffect(() => {
     if (fontLoaded) {
       setTimeout(SplashScreen.hideAsync, 700)
@@ -61,7 +57,7 @@ const RootLayout = () => {
         return
       }
       case !!session: {
-        router.replace('armies')
+        // router.replace('whatever')
         return
       }
       case !session: {
@@ -76,17 +72,12 @@ const RootLayout = () => {
   }, [dispatch, isFetching, isUninitialized, session])
 
   return (
-    <ThemeProvider
-      config={config}
-      colorMode={colorMode}
+    <Stack
+      initialRouteName='index'
+      screenOptions={{ headerShown: false }}
     >
-      <Stack
-        initialRouteName='index'
-        screenOptions={{ headerShown: false }}
-      >
-        <Stack.Screen name='index' />
-      </Stack>
-    </ThemeProvider>
+      <Stack.Screen name='index' />
+    </Stack>
   )
 }
 
