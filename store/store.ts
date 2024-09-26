@@ -8,15 +8,10 @@ import {
   sessionApiReducer,
   sessionApiReducerPath
 } from 'appdeptus/api'
-import {
-  designSystemReducer,
-  designSystemReducerPath
-} from 'appdeptus/designSystem'
 
 const store = configureStore({
   reducer: {
     [coreApiReducerPath]: coreApiReducer,
-    [designSystemReducerPath]: designSystemReducer,
     [sessionApiReducerPath]: sessionApiReducer
   },
   middleware: (getDefaultMiddleware) =>
