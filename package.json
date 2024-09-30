@@ -6,7 +6,8 @@
     "start": "expo start",
     "android": "DARK_MODE=media expo run:android",
     "ios": "DARK_MODE=media expo run:ios",
-    "web": "DARK_MODE=media expo start --web"
+    "web": "DARK_MODE=media expo start --web",
+    "storybook-generate": "sb-rn-get-stories"
   },
   "dependencies": {
     "@expo-google-fonts/ibm-plex-mono": "^0.2.3",
@@ -14,6 +15,7 @@
     "@expo/html-elements": "^0.9.1",
     "@gluestack-ui/nativewind-utils": "^1.0.24",
     "@gluestack-ui/overlay": "^0.1.15",
+    "@gluestack-ui/pressable": "^0.1.16",
     "@gluestack-ui/toast": "^1.0.7",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@reduxjs/toolkit": "^2.1.0",
@@ -58,11 +60,17 @@
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
+    "@react-native-community/datetimepicker": "^8.2.0",
+    "@react-native-community/slider": "^4.5.3",
+    "@storybook/addon-ondevice-actions": "^7.6.20",
+    "@storybook/addon-ondevice-controls": "^7.6.20",
+    "@storybook/react-native": "^7.6.20",
     "@tsconfig/strictest": "^2.0.3",
     "@types/lodash": "^4.14.202",
     "@types/pluralize": "^0.0.33",
     "@types/react": "~18.2.79",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "babel-loader": "^8.4.1",
     "eslint": "^8.56.0",
     "eslint-config-standard-with-typescript": "^43.0.1",
     "eslint-plugin-import": "^2.29.1",

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import {
   IBMPlexMono_400Regular,
   IBMPlexMono_400Regular_Italic,
@@ -21,8 +24,13 @@ import {
 } from 'react-native-safe-area-context'
 import { Provider, useDispatch } from 'react-redux'
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-SplashScreen.preventAutoHideAsync()
+const STORYBOOK_ENABLED =
+  process.env['EXPO_PUBLIC_STORYBOOK_ENABLED'] === 'true'
+
+if (!STORYBOOK_ENABLED) {
+  // eslint-disable-next-line @typescript-eslint/no-floating-promises
+  SplashScreen.preventAutoHideAsync()
+}
 
 const App = () => (
   <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -55,7 +63,7 @@ const RootLayout = () => {
 
   useEffect(() => {
     switch (true) {
-      case isFetching || isUninitialized: {
+      case isFetching || isUninitialized || !fontLoaded: {
         return
       }
       case !!session: {
@@ -71,7 +79,11 @@ const RootLayout = () => {
         dispatch(coreApi.util.resetApiState())
       }
     }
-  }, [dispatch, isFetching, isUninitialized, session])
+  }, [dispatch, fontLoaded, isFetching, isUninitialized, session])
+
+  if (!fontLoaded) {
+    return null
+  }
 
   return (
     <GluestackUIProvider mode='light'>
@@ -85,4 +97,6 @@ const RootLayout = () => {
   )
 }
 
-export default App
+const EntryPoint = STORYBOOK_ENABLED ? require('../.storybook').default : App
+
+export default EntryPoint
