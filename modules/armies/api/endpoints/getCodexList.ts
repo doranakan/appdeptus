@@ -3,10 +3,10 @@ import { type Codex } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
-import { codexesSchema } from '../schemas'
+import { codexListSchema } from '../schemas'
 import type ArmiesApiTag from '../tags'
 
-const getCodexes = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
+const getCodexList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.query<Codex[], void>({
     queryFn: async () => {
       try {
@@ -18,7 +18,7 @@ const getCodexes = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           return { error: codexesError }
         }
 
-        const codexes = codexesSchema.parse(data)
+        const codexes = codexListSchema.parse(data)
 
         return { data: sortBy(codexes, ({ name }) => name) }
       } catch (error) {
@@ -27,4 +27,4 @@ const getCodexes = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
     }
   })
 
-export default getCodexes
+export default getCodexList

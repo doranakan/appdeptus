@@ -3,23 +3,17 @@ import armiesApi from './api'
 const {
   useCreateArmyMutation,
   useDeleteArmyMutation,
-  useGetArmiesQuery,
-  useGetArmyQuery,
-  useGetArmyToEditQuery,
-  useGetCodexQuery,
-  useGetCodexesQuery,
-  useGetCodexUnitsQuery,
+  useGetArmyListQuery,
+  useGetCodexListQuery,
+  useGetUnitListQuery,
   useUpdateArmyMutation
 } = armiesApi
 
 export {
   useCreateArmyMutation,
   useDeleteArmyMutation,
-  useGetArmiesQuery,
-  useGetArmyQuery,
-  useGetArmyToEditQuery,
-  useGetCodexQuery,
-  useGetCodexUnitsQuery,
-  useGetCodexesQuery,
+  useGetArmyListQuery,
+  useGetCodexListQuery,
+  useGetUnitListQuery,
   useUpdateArmyMutation
 }

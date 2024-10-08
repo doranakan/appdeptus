@@ -2,13 +2,11 @@ import { getUserId, type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Army } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import { armiesSchema } from '../schemas'
+import { armyListSchema } from '../schemas'
 import ArmiesApiTag from '../tags'
 
-type GetArmiesResponse = Omit<Army, 'units' | 'detachment'>
-
-const getArmies = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
-  builder.query<GetArmiesResponse[], void>({
+const getArmyList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
+  builder.query<Army[], void>({
     queryFn: async () => {
       try {
         const userId = await getUserId()
@@ -17,10 +15,7 @@ const getArmies = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           .from(Table.ARMIES)
           .select(
             `
-          id, 
-          name, 
-          total_points, 
-          units,
+          *,
           codex!inner(
             *
           )
@@ -32,9 +27,9 @@ const getArmies = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           return { error }
         }
 
-        const armies = armiesSchema.parse(data)
+        const armyList = armyListSchema.parse(data)
 
-        return { data: armies }
+        return { data: armyList }
       } catch (error) {
         return { error }
       }
@@ -42,4 +37,4 @@ const getArmies = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
     providesTags: [ArmiesApiTag.ARMY_LIST]
   })
 
-export default getArmies
+export default getArmyList

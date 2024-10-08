@@ -2,12 +2,9 @@ import { coreApi } from 'appdeptus/api'
 import {
   createArmy,
   deleteArmy,
-  getArmies,
-  getArmy,
-  getArmyToEdit,
-  getCodex,
-  getCodexes,
-  getCodexUnits,
+  getArmyList,
+  getCodexList,
+  getUnitList,
   updateArmy
 } from './endpoints'
 import ArmiesApiTag from './tags'
@@ -20,12 +17,9 @@ const armiesApi = coreApi
     endpoints: (builder) => ({
       createArmy: createArmy(builder),
       deleteArmy: deleteArmy(builder),
-      getArmies: getArmies(builder),
-      getArmy: getArmy(builder),
-      getArmyToEdit: getArmyToEdit(builder),
-      getCodex: getCodex(builder),
-      getCodexes: getCodexes(builder),
-      getCodexUnits: getCodexUnits(builder),
+      getArmyList: getArmyList(builder),
+      getCodexList: getCodexList(builder),
+      getUnitList: getUnitList(builder),
       updateArmy: updateArmy(builder)
     }),
     overrideExisting: true

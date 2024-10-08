@@ -2,9 +2,7 @@ import { coreApi } from 'appdeptus/api'
 import {
   createGame,
   endGame,
-  getGame,
-  getGameArmy,
-  getGames,
+  getGameList,
   getNewGame,
   nextTurn,
   startGame,
@@ -20,9 +18,7 @@ const gamesApi = coreApi
     endpoints: (builder) => ({
       createGame: createGame(builder),
       endGame: endGame(builder),
-      getGameArmy: getGameArmy(builder),
-      getGame: getGame(builder),
-      getGames: getGames(builder),
+      getGameList: getGameList(builder),
       getNewGame: getNewGame(builder),
       nextTurn: nextTurn(builder),
       startGame: startGame(builder),

@@ -1,12 +1,16 @@
 import { getUserId, type CoreEndpointBuilder } from 'appdeptus/api'
-import { type ActiveGame, type EndedGame } from 'appdeptus/models/game'
+import {
+  type ActiveGame,
+  type EndedGame,
+  type NewGame
+} from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { getGamesSchema } from '../schemas'
 import GamesApiTag from '../tags'
 
-const getGames = (builder: CoreEndpointBuilder<GamesApiTag>) =>
-  builder.query<(ActiveGame | EndedGame)[], void>({
+const getGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
+  builder.query<(ActiveGame | EndedGame | NewGame)[], void>({
     queryFn: async () => {
       try {
         const userId = await getUserId()
@@ -41,7 +45,6 @@ const getGames = (builder: CoreEndpointBuilder<GamesApiTag>) =>
             `
           )
           .or(`player_one.eq.${userId},player_two.eq.${userId}`)
-          .filter('status', 'not.eq', 'new')
           .limit(10)
 
         if (error) {
@@ -51,25 +54,9 @@ const getGames = (builder: CoreEndpointBuilder<GamesApiTag>) =>
         const games = await getGamesSchema.parseAsync(data)
 
         return {
-          data: games
-            .map<ActiveGame | EndedGame>((game) => ({
-              id: game.id,
-              lastUpdate: game.updated_at,
-              playerOne: {
-                army: game.army_one,
-                cp: game.cp_one,
-                name: game.player_one.name,
-                score: game.score_one
-              },
-              playerTwo: {
-                army: game.army_two,
-                cp: game.cp_two,
-                name: game.player_two.name,
-                score: game.score_two
-              },
-              status: game.status
-            }))
-            .sort(({ id: id1 }, { id: id2 }) => Number(id2) - Number(id1))
+          data: games.sort(
+            ({ id: id1 }, { id: id2 }) => Number(id2) - Number(id1)
+          )
         }
       } catch (error) {
         return { error }
@@ -78,4 +65,4 @@ const getGames = (builder: CoreEndpointBuilder<GamesApiTag>) =>
     providesTags: [GamesApiTag.GAME_LIST]
   })
 
-export default getGames
+export default getGameList

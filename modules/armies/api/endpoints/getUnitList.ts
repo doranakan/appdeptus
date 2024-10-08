@@ -1,13 +1,13 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
-import { type CodexUnit } from 'appdeptus/models'
+import { type Unit } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
-import { unitsSchema } from '../schemas'
+import { unitListSchema } from '../schemas'
 import type ArmiesApiTag from '../tags'
 
-const getCodexUnits = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
-  builder.query<CodexUnit[], string>({
+const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
+  builder.query<Unit[], string>({
     queryFn: async (codexId) => {
       try {
         const { data, error } = await supabase
@@ -16,6 +16,7 @@ const getCodexUnits = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
             `
               id,
               name,
+              type,
               unit_tiers(
                 id,
                 models,
@@ -34,7 +35,7 @@ const getCodexUnits = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           return { error }
         }
 
-        const units = unitsSchema.parse(mapNullToUndefined(data))
+        const units = unitListSchema.parse(mapNullToUndefined(data))
 
         const sortedUnits = sortBy(units, ({ name }) => name)
 
@@ -45,4 +46,4 @@ const getCodexUnits = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
     }
   })
 
-export default getCodexUnits
+export default getUnitList

@@ -1,26 +1,17 @@
-/* eslint-disable camelcase */
 import { type CoreEndpointBuilder } from 'appdeptus/api'
-import { type ArmyForm } from 'appdeptus/models'
+import { type Army } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import ArmiesApiTag from '../tags'
 
-type UpdateArmyArgs = {
-  armyId: string
-} & ArmyForm
-
 const updateArmy = (builder: CoreEndpointBuilder<string>) =>
-  builder.mutation<null, UpdateArmyArgs>({
-    queryFn: async ({ armyId, totalPoints, codexId, ...restArgs }) => {
+  builder.mutation<null, Army>({
+    queryFn: async ({ id, ...army }) => {
       try {
         const { data, error } = await supabase
           .from(Table.ARMIES)
-          .update({
-            ...restArgs,
-            total_points: totalPoints,
-            codex: codexId
-          })
-          .eq('id', armyId)
+          .update(army)
+          .eq('id', id)
 
         if (error) {
           return { error }
@@ -33,7 +24,7 @@ const updateArmy = (builder: CoreEndpointBuilder<string>) =>
         return { error }
       }
     },
-    invalidatesTags: (_res, error, { armyId }) => {
+    invalidatesTags: (_res, error, { id }) => {
       if (error) {
         return []
       }
@@ -41,7 +32,7 @@ const updateArmy = (builder: CoreEndpointBuilder<string>) =>
         ArmiesApiTag.ARMY_LIST,
         {
           type: ArmiesApiTag.ARMY_DETAIL,
-          id: armyId
+          id
         }
       ]
     }
