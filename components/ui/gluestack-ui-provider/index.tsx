@@ -1,45 +1,21 @@
 import { OverlayProvider } from '@gluestack-ui/overlay'
 import { ToastProvider } from '@gluestack-ui/toast'
-import { colorScheme as colorSchemeNW } from 'nativewind'
+import { selectThemeName } from 'appdeptus/components/store'
 import React from 'react'
-import {
-  type ColorSchemeName,
-  useColorScheme,
-  View,
-  type ViewProps
-} from 'react-native'
+import { View, type ViewProps } from 'react-native'
+import { useSelector } from 'react-redux'
 import { config } from './config'
 
-type ModeType = 'light' | 'dark' | 'system'
-
-const getColorSchemeName = (
-  colorScheme: ColorSchemeName,
-  mode: ModeType
-): 'light' | 'dark' => {
-  if (mode === 'system') {
-    return colorScheme ?? 'light'
-  }
-  return mode
-}
-
-const GluestackUIProvider = ({
-  mode = 'light',
-  ...props
-}: {
-  mode?: 'light' | 'dark' | 'system'
+const GluestackUIProvider = (props: {
   children?: React.ReactNode
   style?: ViewProps['style']
 }) => {
-  const colorScheme = useColorScheme()
-
-  const colorSchemeName = getColorSchemeName(colorScheme, mode)
-
-  colorSchemeNW.set(mode)
+  const themeName = useSelector(selectThemeName)
 
   return (
     <View
       style={[
-        config[colorSchemeName],
+        config[themeName],
         { flex: 1, height: '100%', width: '100%' },
         props.style
       ]}

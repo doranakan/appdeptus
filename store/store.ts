@@ -8,11 +8,13 @@ import {
   sessionApiReducer,
   sessionApiReducerPath
 } from 'appdeptus/api'
+import { themeReducer } from 'appdeptus/components/store'
 
 const store = configureStore({
   reducer: {
     [coreApiReducerPath]: coreApiReducer,
-    [sessionApiReducerPath]: sessionApiReducer
+    [sessionApiReducerPath]: sessionApiReducer,
+    theme: themeReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
