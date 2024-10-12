@@ -17,7 +17,7 @@ import 'appdeptus/global.css'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
 import { store } from 'appdeptus/store'
 import { SplashScreen, Stack, router } from 'expo-router'
-import { useEffect } from 'react'
+import { type PropsWithChildren, useEffect } from 'react'
 import {
   SafeAreaProvider,
   initialWindowMetrics
@@ -32,10 +32,10 @@ if (!STORYBOOK_ENABLED) {
   SplashScreen.preventAutoHideAsync()
 }
 
-const App = () => (
+const App = ({ children }: PropsWithChildren) => (
   <SafeAreaProvider initialMetrics={initialWindowMetrics}>
     <Provider store={store}>
-      <RootLayout />
+      <GluestackUIProvider>{children}</GluestackUIProvider>
     </Provider>
   </SafeAreaProvider>
 )
@@ -86,17 +86,23 @@ const RootLayout = () => {
   }
 
   return (
-    <GluestackUIProvider>
-      <Stack
-        initialRouteName='index'
-        screenOptions={{ headerShown: false }}
-      >
-        <Stack.Screen name='index' />
-      </Stack>
-    </GluestackUIProvider>
+    <Stack
+      initialRouteName='index'
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name='index' />
+    </Stack>
   )
 }
 
-const EntryPoint = STORYBOOK_ENABLED ? require('../.storybook').default : App
+const EntryPoint = STORYBOOK_ENABLED
+  ? require('../.storybook').default
+  : RootLayout
 
-export default EntryPoint
+const Layout = () => (
+  <App>
+    <EntryPoint />
+  </App>
+)
+
+export default Layout
