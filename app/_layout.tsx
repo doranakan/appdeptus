@@ -86,7 +86,7 @@ const RootLayout = () => {
   }
 
   return (
-    <GluestackUIProvider mode='light'>
+    <GluestackUIProvider>
       <Stack
         initialRouteName='index'
         screenOptions={{ headerShown: false }}
