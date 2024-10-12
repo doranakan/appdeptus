@@ -1,5 +1,6 @@
 export { GluestackUIProvider } from './gluestack-ui-provider'
 export { HStack } from './hstack'
+export { Icon } from './icon'
 export { Pressable } from './pressable'
 export { Text as GSText } from './text'
 export { VStack } from './vstack'
