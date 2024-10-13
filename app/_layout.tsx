@@ -32,19 +32,7 @@ if (!STORYBOOK_ENABLED) {
   SplashScreen.preventAutoHideAsync()
 }
 
-const App = ({ children }: PropsWithChildren) => (
-  <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-    <Provider store={store}>
-      <GluestackUIProvider>{children}</GluestackUIProvider>
-    </Provider>
-  </SafeAreaProvider>
-)
-
-const RootLayout = () => {
-  const dispatch = useDispatch()
-
-  const { data: session, isFetching, isUninitialized } = useGetSessionQuery()
-
+const App = ({ children }: PropsWithChildren) => {
   const [fontLoaded] = useFonts({
     Silkscreen_400Regular,
     IBMPlexMono_400Regular,
@@ -61,9 +49,27 @@ const RootLayout = () => {
     }
   }, [fontLoaded])
 
+  if (!fontLoaded) {
+    return null
+  }
+
+  return (
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <Provider store={store}>
+        <GluestackUIProvider>{children}</GluestackUIProvider>
+      </Provider>
+    </SafeAreaProvider>
+  )
+}
+
+const RootLayout = () => {
+  const dispatch = useDispatch()
+
+  const { data: session, isFetching, isUninitialized } = useGetSessionQuery()
+
   useEffect(() => {
     switch (true) {
-      case isFetching || isUninitialized || !fontLoaded: {
+      case isFetching || isUninitialized: {
         return
       }
       case !!session: {
@@ -79,11 +85,7 @@ const RootLayout = () => {
         dispatch(coreApi.util.resetApiState())
       }
     }
-  }, [dispatch, fontLoaded, isFetching, isUninitialized, session])
-
-  if (!fontLoaded) {
-    return null
-  }
+  }, [dispatch, isFetching, isUninitialized, session])
 
   return (
     <Stack
