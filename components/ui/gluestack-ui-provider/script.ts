@@ -1,16 +1,10 @@
-export const script = (mode: string) => {
+export const script = (theme: string, prev?: string) => {
   const documentElement = document.documentElement
 
-  const getSystemColorMode = () => {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches
-      ? 'dark'
-      : 'light'
-  }
-
   try {
-    const isSystem = mode === 'system'
-    const theme = isSystem ? getSystemColorMode() : mode
-    documentElement.classList.remove(theme === 'light' ? 'dark' : 'light')
+    if (prev) {
+      documentElement.classList.remove(prev)
+    }
     documentElement.classList.add(theme)
     documentElement.style.colorScheme = theme
   } catch (e) {

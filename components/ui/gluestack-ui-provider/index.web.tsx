@@ -2,7 +2,10 @@
 import { setFlushStyles } from '@gluestack-ui/nativewind-utils/flush'
 import { OverlayProvider } from '@gluestack-ui/overlay'
 import { ToastProvider } from '@gluestack-ui/toast'
+import { useMount, usePrevious } from 'ahooks'
+import { selectThemeName, type ThemeName } from 'appdeptus/components/store'
 import React, { useEffect, useLayoutEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { config } from './config'
 import { script } from './script'
 
@@ -17,46 +20,48 @@ const createStyle = (styleTagId: string) => {
 export const useSafeLayoutEffect =
   typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
-const GluestackUIProvider = ({
-  mode = 'light',
-  ...props
-}: {
-  mode?: 'light' | 'dark' | 'system'
-  children?: React.ReactNode
-}) => {
+const GluestackUIProvider = (props: { children?: React.ReactNode }) => {
+  const theme = useSelector(selectThemeName)
+
+  const prevTheme = usePrevious(theme)
+
   let cssVariablesWithMode = ''
+
   Object.keys(config).forEach((configKey) => {
-    cssVariablesWithMode +=
-      configKey === 'dark' ? '\n .dark {\n ' : '\n:root {\n'
-    const cssVariables = Object.keys(
-      config[configKey as keyof typeof config]
-    ).reduce((acc: string, curr: string) => {
-      acc += `${curr}:${config[configKey as keyof typeof config][curr]}; `
-      return acc
-    }, '')
+    cssVariablesWithMode += `\n.${configKey} {\n `
+
+    const cssVariables = Object.keys(config[configKey as ThemeName]).reduce(
+      (acc: string, curr: string) => {
+        acc += `${curr}:${config[configKey as ThemeName][curr]}; `
+        return acc
+      },
+      ''
+    )
+
     cssVariablesWithMode += `${cssVariables} \n}`
   })
 
-  setFlushStyles(cssVariablesWithMode)
+  useMount(() => {
+    setFlushStyles(cssVariablesWithMode)
+  })
 
-  const handleMediaQuery = React.useCallback((e: MediaQueryListEvent) => {
-    script(e.matches ? 'dark' : 'light')
-  }, [])
+  const handleMediaQuery = React.useCallback(() => {
+    script(theme, prevTheme)
+  }, [prevTheme, theme])
 
   useSafeLayoutEffect(() => {
-    if (mode !== 'system') {
-      const documentElement = document.documentElement
-      if (documentElement) {
-        documentElement.classList.add(mode)
-        documentElement.classList.remove(mode === 'light' ? 'dark' : 'light')
-        documentElement.style.colorScheme = mode
+    const documentElement = document.documentElement
+    if (documentElement) {
+      documentElement.classList.add(theme)
+      if (prevTheme) {
+        documentElement.classList.remove(prevTheme)
       }
+      documentElement.style.colorScheme = theme
     }
-  }, [mode])
+  }, [theme])
 
   useSafeLayoutEffect(() => {
-    if (mode !== 'system') return
-    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    const media = window.matchMedia(`(prefers-color-scheme: ${theme})`)
 
     media.addListener(handleMediaQuery)
 
@@ -85,7 +90,7 @@ const GluestackUIProvider = ({
       <script
         suppressHydrationWarning
         dangerouslySetInnerHTML={{
-          __html: `(${script.toString()})('${mode}')`
+          __html: `(${script.toString()})('${theme}')`
         }}
       />
       <OverlayProvider>

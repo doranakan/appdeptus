@@ -6,7 +6,8 @@ import React, { useMemo } from 'react'
 const accessClassName = (style: any) => {
   const obj = style[0]
   const keys = Object.keys(obj) // will return an array of keys
-  return obj[keys[1]]
+  const key = keys[1]
+  return key ? obj[key] : undefined
 }
 
 const Svg = React.forwardRef<
