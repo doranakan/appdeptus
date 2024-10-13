@@ -1,6 +1,6 @@
+import { Skull } from 'lucide-react-native'
 import { type ComponentProps } from 'react'
-import { Text } from 'react-native'
-import { Pressable } from '../ui'
+import { Icon, Pressable } from '../ui'
 
 type ButtonProps = {
   text: string
@@ -9,10 +9,14 @@ type ButtonProps = {
 const Button = ({ text, ...props }: ButtonProps) => {
   return (
     <Pressable
-      className='bg-red-500 p-4 active:bg-red-400 disabled:bg-red-300'
+      className='rounded-2xl bg-tertiary-600 p-4 active:bg-tertiary-500 disabled:bg-tertiary-400'
       {...props}
     >
-      <Text>{text}</Text>
+      <Icon
+        className='color-primary-50'
+        as={Skull}
+        size='xl'
+      />
     </Pressable>
   )
 }

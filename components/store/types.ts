@@ -1,5 +1,28 @@
-import { type CodexName } from 'appdeptus/models'
-
-type ThemeName = 'default' | CodexName
+type ThemeName =
+  | 'default'
+  | 'adeptaSororitas'
+  | 'adeptusCustodes'
+  | 'adeptusMechanicus'
+  | 'aeldari'
+  | 'agentsOfTheImperium'
+  | 'astraMilitarum'
+  | 'blackTemplars'
+  | 'bloodAngels'
+  | 'chaosDaemons'
+  | 'chaosSpaceMarines'
+  | 'darkAngels'
+  | 'deathGuard'
+  | 'drukhari'
+  | 'genestealerCults'
+  | 'greyKnights'
+  | 'leaguesOfVotann'
+  | 'necrons'
+  | 'orks'
+  | 'spaceMarines'
+  | 'spaceWolves'
+  | 'tauEmpire'
+  | 'thousandSons'
+  | 'tyranids'
+  | 'worldEaters'
 
 export type { ThemeName }

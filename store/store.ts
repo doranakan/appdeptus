@@ -8,7 +8,7 @@ import {
   sessionApiReducer,
   sessionApiReducerPath
 } from 'appdeptus/api'
-import { themeReducer } from 'appdeptus/components/store'
+import { themeReducer } from 'appdeptus/components'
 
 const store = configureStore({
   reducer: {

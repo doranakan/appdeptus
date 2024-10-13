@@ -17,7 +17,7 @@ import 'appdeptus/global.css'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
 import { store } from 'appdeptus/store'
 import { SplashScreen, Stack, router } from 'expo-router'
-import { useEffect } from 'react'
+import { type PropsWithChildren, useEffect } from 'react'
 import {
   SafeAreaProvider,
   initialWindowMetrics
@@ -32,19 +32,7 @@ if (!STORYBOOK_ENABLED) {
   SplashScreen.preventAutoHideAsync()
 }
 
-const App = () => (
-  <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-    <Provider store={store}>
-      <RootLayout />
-    </Provider>
-  </SafeAreaProvider>
-)
-
-const RootLayout = () => {
-  const dispatch = useDispatch()
-
-  const { data: session, isFetching, isUninitialized } = useGetSessionQuery()
-
+const App = ({ children }: PropsWithChildren) => {
   const [fontLoaded] = useFonts({
     Silkscreen_400Regular,
     IBMPlexMono_400Regular,
@@ -61,9 +49,27 @@ const RootLayout = () => {
     }
   }, [fontLoaded])
 
+  if (!fontLoaded) {
+    return null
+  }
+
+  return (
+    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <Provider store={store}>
+        <GluestackUIProvider>{children}</GluestackUIProvider>
+      </Provider>
+    </SafeAreaProvider>
+  )
+}
+
+const RootLayout = () => {
+  const dispatch = useDispatch()
+
+  const { data: session, isFetching, isUninitialized } = useGetSessionQuery()
+
   useEffect(() => {
     switch (true) {
-      case isFetching || isUninitialized || !fontLoaded: {
+      case isFetching || isUninitialized: {
         return
       }
       case !!session: {
@@ -79,24 +85,26 @@ const RootLayout = () => {
         dispatch(coreApi.util.resetApiState())
       }
     }
-  }, [dispatch, fontLoaded, isFetching, isUninitialized, session])
-
-  if (!fontLoaded) {
-    return null
-  }
+  }, [dispatch, isFetching, isUninitialized, session])
 
   return (
-    <GluestackUIProvider>
-      <Stack
-        initialRouteName='index'
-        screenOptions={{ headerShown: false }}
-      >
-        <Stack.Screen name='index' />
-      </Stack>
-    </GluestackUIProvider>
+    <Stack
+      initialRouteName='index'
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name='index' />
+    </Stack>
   )
 }
 
-const EntryPoint = STORYBOOK_ENABLED ? require('../.storybook').default : App
+const EntryPoint = STORYBOOK_ENABLED
+  ? require('../.storybook').default
+  : RootLayout
 
-export default EntryPoint
+const Layout = () => (
+  <App>
+    <EntryPoint />
+  </App>
+)
+
+export default Layout

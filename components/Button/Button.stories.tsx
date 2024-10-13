@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { View } from 'react-native'
+import { StoryContainer } from '../Storybook'
 import Button from './Button'
 
 const ButtonMeta: Meta<typeof Button> = {
@@ -10,9 +10,9 @@ const ButtonMeta: Meta<typeof Button> = {
   },
   decorators: [
     (Story) => (
-      <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+      <StoryContainer>
         <Story />
-      </View>
+      </StoryContainer>
     )
   ]
 }
