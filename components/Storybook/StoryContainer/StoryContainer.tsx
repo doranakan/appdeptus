@@ -1,10 +1,10 @@
 import { type PropsWithChildren } from 'react'
-import { HStack, Text, VStack } from '../../'
+import { HStack, Text, VStack } from '../..'
 import ThemeSelector from './ThemeSelector'
 
 const StoryContainer = ({ children }: PropsWithChildren) => (
   <VStack
-    className='flex-1 bg-primary-950 p-4'
+    className='flex-1 bg-secondary-950 p-4'
     space='md'
   >
     <HStack className='w-full justify-center'>
@@ -17,7 +17,7 @@ const StoryContainer = ({ children }: PropsWithChildren) => (
       </Text>
     </HStack>
     <ThemeSelector />
-    <VStack className='flex-1 items-center justify-center rounded-2xl bg-secondary-50'>
+    <VStack className='flex-1 items-center justify-center rounded-2xl bg-primary-950 p-4'>
       {children}
     </VStack>
   </VStack>
