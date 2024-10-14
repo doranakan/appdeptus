@@ -1,24 +1,72 @@
-import { Skull } from 'lucide-react-native'
-import { type ComponentProps } from 'react'
-import { Icon, Pressable } from '../ui'
+import { Link } from 'expo-router'
+import { type LucideIcon } from 'lucide-react-native'
+import Card from '../Card'
+import Text from '../Text'
+import { HStack, Icon, Pressable } from '../ui'
 
-type ButtonProps = {
-  text: string
-} & ComponentProps<typeof Pressable>
-
-const Button = ({ text, ...props }: ButtonProps) => {
-  return (
-    <Pressable
-      className='rounded-2xl bg-tertiary-600 p-4 active:bg-tertiary-500 disabled:bg-tertiary-400'
-      {...props}
-    >
-      <Icon
-        className='color-primary-50'
-        as={Skull}
-        size='xl'
-      />
-    </Pressable>
-  )
+type BaseButton = {
+  disabled?: boolean
+  icon?: LucideIcon
+  text?: string
 }
 
+type CallbackButton = {
+  variant: 'callback'
+  onPress: () => void | Promise<void>
+} & BaseButton
+
+type LinkButton = {
+  variant: 'link'
+  href: string
+} & BaseButton
+
+type ButtonProps = CallbackButton | LinkButton
+
+const Button = (props: ButtonProps) => {
+  const className =
+    'items-center rounded-2xl bg-tertiary-600 p-4 active:bg-tertiary-500 disabled:bg-tertiary-400'
+  switch (props.variant) {
+    case 'callback':
+      return (
+        <Card>
+          <Pressable
+            className={className}
+            {...props}
+          >
+            <ButtonContent {...props} />
+          </Pressable>
+        </Card>
+      )
+
+    case 'link':
+      return (
+        <Card>
+          <Link
+            asChild
+            href={props.href}
+          >
+            <Pressable
+              className={className}
+              {...props}
+            >
+              <ButtonContent {...props} />
+            </Pressable>
+          </Link>
+        </Card>
+      )
+  }
+}
+
+const ButtonContent = ({ text, icon }: Pick<ButtonProps, 'icon' | 'text'>) => (
+  <HStack space='md'>
+    {icon ? (
+      <Icon
+        className='color-primary-50'
+        as={icon}
+        size='xl'
+      />
+    ) : null}
+    {text ? <Text className='text-typography-50'>{text}</Text> : null}
+  </HStack>
+)
 export default Button
