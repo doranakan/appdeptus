@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { StoryContainer } from '../Storybook'
+import { StoryContainer } from '../storybook'
 import Button from './Button'
 
 const ButtonMeta: Meta<typeof Button> = {
   title: 'Button',
   component: Button,
   args: {
-    text: 'Hello world'
+    text: 'For the Emperor!'
   },
   decorators: [
     (Story) => (
