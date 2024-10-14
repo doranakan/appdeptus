@@ -24,13 +24,8 @@ import {
 } from 'react-native-safe-area-context'
 import { Provider, useDispatch } from 'react-redux'
 
-const STORYBOOK_ENABLED =
-  process.env['EXPO_PUBLIC_STORYBOOK_ENABLED'] === 'true'
-
-if (!STORYBOOK_ENABLED) {
-  // eslint-disable-next-line @typescript-eslint/no-floating-promises
-  SplashScreen.preventAutoHideAsync()
-}
+// eslint-disable-next-line @typescript-eslint/no-floating-promises
+SplashScreen.preventAutoHideAsync()
 
 const App = ({ children }: PropsWithChildren) => {
   const [fontLoaded] = useFonts({
@@ -97,9 +92,13 @@ const RootLayout = () => {
   )
 }
 
-const EntryPoint = STORYBOOK_ENABLED
-  ? require('../.storybook').default
-  : RootLayout
+const EntryPoint =
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-expect-error
+  // eslint-disable-next-line @typescript-eslint/dot-notation
+  process.env['EXPO_PUBLIC_STORYBOOK_ENABLED'] === 'true'
+    ? require('../.storybook').default
+    : RootLayout
 
 const Layout = () => (
   <App>
