@@ -1,25 +1,23 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { StoryContainer } from '../storybook'
 import Text from '../Text'
 import { VStack } from '../ui'
 import Card from './Card'
 
 const CardMeta: Meta<typeof Card> = {
   title: 'Card',
-  component: Card,
-  decorators: (Story) => (
-    <StoryContainer>
-      <Story>
-        <VStack>
-          <VStack className='p-4'>
-            <Text>For the Emperor!</Text>
-          </VStack>
+  component: (props) => (
+    <Card {...props}>
+      <VStack>
+        <VStack className='p-4'>
+          <Text className='text-typography-50'>For the Emperor!</Text>
         </VStack>
-      </Story>
-    </StoryContainer>
+      </VStack>
+    </Card>
   )
 }
 
 export default CardMeta
 
-export const Default: StoryObj<typeof Card> = {}
+type Story = StoryObj<typeof Card>
+
+export const Default: Story = {}
