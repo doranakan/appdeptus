@@ -6,9 +6,16 @@ import { HStack, Icon, Pressable } from '../ui'
 
 type BaseButton = {
   disabled?: boolean
-  icon?: LucideIcon
-  text?: string
-}
+} & (
+  | {
+      icon: LucideIcon
+      text?: string
+    }
+  | {
+      icon?: LucideIcon
+      text: string
+    }
+)
 
 type CallbackButton = {
   variant: 'callback'
