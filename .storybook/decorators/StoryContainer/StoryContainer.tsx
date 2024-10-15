@@ -1,8 +1,7 @@
-import { type PropsWithChildren } from 'react'
-import { HStack, Text, VStack } from '../..'
+import { HStack, Text, VStack } from 'appdeptus/components'
 import ThemeSelector from './ThemeSelector'
 
-const StoryContainer = ({ children }: PropsWithChildren) => (
+const StoryContainer = (Story: () => JSX.Element) => (
   <VStack
     className='flex-1 bg-secondary-950 p-4'
     space='md'
@@ -18,7 +17,7 @@ const StoryContainer = ({ children }: PropsWithChildren) => (
     </HStack>
     <ThemeSelector />
     <VStack className='flex-1 items-center justify-center rounded-2xl bg-primary-950 p-4'>
-      {children}
+      <Story />
     </VStack>
   </VStack>
 )
