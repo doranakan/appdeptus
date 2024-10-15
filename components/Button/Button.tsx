@@ -1,6 +1,6 @@
 import { Link } from 'expo-router'
 import { type LucideIcon } from 'lucide-react-native'
-import Card from '../Card'
+import InnerBorder from '../InnerBorder'
 import Text from '../Text'
 import { HStack, Icon, Pressable } from '../ui'
 
@@ -35,19 +35,19 @@ const Button = (props: ButtonProps) => {
   switch (props.variant) {
     case 'callback':
       return (
-        <Card>
+        <InnerBorder>
           <Pressable
             className={className}
             {...props}
           >
             <ButtonContent {...props} />
           </Pressable>
-        </Card>
+        </InnerBorder>
       )
 
     case 'link':
       return (
-        <Card>
+        <InnerBorder>
           <Link
             asChild
             href={props.href}
@@ -59,7 +59,7 @@ const Button = (props: ButtonProps) => {
               <ButtonContent {...props} />
             </Pressable>
           </Link>
-        </Card>
+        </InnerBorder>
       )
   }
 }
