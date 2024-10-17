@@ -2,7 +2,7 @@ import { Link } from 'expo-router'
 import { type LucideIcon } from 'lucide-react-native'
 import InnerBorder from '../InnerBorder'
 import Text from '../Text'
-import { HStack, Icon, Pressable } from '../ui'
+import { HStack, Icon, LinearGradient, Pressable, VStack } from '../ui'
 
 type BaseButton = {
   disabled?: boolean
@@ -30,50 +30,59 @@ type LinkButton = {
 type ButtonProps = CallbackButton | LinkButton
 
 const Button = (props: ButtonProps) => {
-  const className =
-    'items-center rounded-2xl bg-tertiary-600 p-4 active:bg-tertiary-500 disabled:bg-tertiary-400'
   switch (props.variant) {
     case 'callback':
       return (
-        <InnerBorder>
-          <Pressable
-            className={className}
-            {...props}
-          >
-            <ButtonContent {...props} />
-          </Pressable>
-        </InnerBorder>
+        <Pressable
+          {...props}
+          className='active:opacity-80 disabled:opacity-70'
+        >
+          <ButtonContent {...props} />
+        </Pressable>
       )
 
     case 'link':
       return (
-        <InnerBorder>
-          <Link
-            asChild
-            href={props.href}
+        <Link
+          asChild
+          href={props.href}
+        >
+          <Pressable
+            {...props}
+            className='active:opacity-80 disabled:opacity-70'
           >
-            <Pressable
-              className={className}
-              {...props}
-            >
-              <ButtonContent {...props} />
-            </Pressable>
-          </Link>
-        </InnerBorder>
+            <ButtonContent {...props} />
+          </Pressable>
+        </Link>
       )
   }
 }
 
 const ButtonContent = ({ text, icon }: Pick<ButtonProps, 'icon' | 'text'>) => (
-  <HStack space='md'>
-    {icon ? (
-      <Icon
-        className='color-primary-50'
-        as={icon}
-        size='xl'
-      />
-    ) : null}
-    {text ? <Text className='text-typography-50'>{text}</Text> : null}
-  </HStack>
+  <VStack className='overflow-hidden rounded-2xl'>
+    <InnerBorder>
+      <LinearGradient
+        className='bg-gradient-to-br from-tertiary-600 to-tertiary-800'
+        from='bg-tertiary-600'
+        to='bg-tertiary-950'
+        start={{ x: 0.3, y: 1 }}
+        end={{ x: 1, y: 3 }}
+      >
+        <HStack
+          className='items-center p-4'
+          space='md'
+        >
+          {icon ? (
+            <Icon
+              className='color-primary-50'
+              as={icon}
+              size='xl'
+            />
+          ) : null}
+          {text ? <Text className='text-typography-50'>{text}</Text> : null}
+        </HStack>
+      </LinearGradient>
+    </InnerBorder>
+  </VStack>
 )
 export default Button
