@@ -5,7 +5,7 @@ import { LinearGradient, VStack } from '../ui'
 type CardProps = PropsWithChildren
 
 const Card = ({ children }: CardProps) => (
-  <VStack className='w-full rounded-2xl bg-primary-700 shadow-lg'>
+  <VStack className='w-full rounded-3xl bg-primary-700 shadow-lg'>
     <InnerBorder>
       <LinearGradient
         from='bg-primary-700'

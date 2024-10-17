@@ -1,15 +1,15 @@
 import { VStack } from 'appdeptus/components/ui'
-import { type PropsWithChildren } from 'react'
 import { clsx } from 'clsx'
+import { type PropsWithChildren } from 'react'
 
 type InnerBorderProps = PropsWithChildren<{ className?: `rounded-${string}` }>
 
 const InnerBorder = ({ children, className }: InnerBorderProps) => (
-  <VStack className={clsx('overflow-hidden rounded-2xl', className)}>
+  <VStack className={clsx('overflow-hidden rounded-3xl', className)}>
     {children}
     <VStack
       className={clsx(
-        'absolute h-full w-full rounded-2xl opacity-20',
+        'absolute h-full w-full rounded-3xl opacity-20',
         className
       )}
       pointerEvents='none'
