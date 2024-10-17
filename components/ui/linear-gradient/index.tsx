@@ -1,25 +1,49 @@
 'use client'
-import { tva } from '@gluestack-ui/nativewind-utils/tva'
 import { LinearGradient as ExpoLinearGradient } from 'expo-linear-gradient'
 import { cssInterop } from 'nativewind'
-import React from 'react'
+import React, { type ComponentProps } from 'react'
+
+type LinearGradientProps = {
+  className?: string
+  from: `bg-${string}`
+  to: `bg-${string}`
+} & Omit<ComponentProps<typeof ExpoLinearGradient>, 'colors'>
+
+const LinearGradient = ({
+  className,
+  from,
+  to,
+  ...props
+}: LinearGradientProps) => (
+  <ExpoLinearGradient
+    {...props}
+    className={className}
+    colors={[
+      (from as unknown as { backgroundColor: string }).backgroundColor,
+      (to as unknown as { backgroundColor: string }).backgroundColor
+    ]}
+  />
+)
 
 cssInterop(ExpoLinearGradient, {
   className: 'style'
 })
 
-const linearGradientStyle = tva({
-  base: ''
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+cssInterop(LinearGradient, {
+  from: {
+    target: 'from',
+    nativeStyleToProp: {
+      color: true
+    }
+  },
+  to: {
+    target: 'to',
+    nativeStyleToProp: {
+      color: true
+    }
+  }
 })
 
-export const LinearGradient = React.forwardRef(
-  ({ className, ...props }: any, ref?: any) => {
-    return (
-      <ExpoLinearGradient
-        {...props}
-        className={linearGradientStyle({ class: className })}
-        ref={ref}
-      />
-    )
-  }
-)
+export { LinearGradient }
