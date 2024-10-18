@@ -1,13 +1,16 @@
+import { LinearGradient } from 'expo-linear-gradient'
+import { useEffect } from 'react'
+import { StyleSheet, View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring
 } from 'react-native-reanimated'
-import Text from '../Text'
-import { StyleSheet, View } from 'react-native'
-import { LinearGradient } from '../ui'
+import { useSelector } from 'react-redux'
 import InnerBorder from '../InnerBorder'
-import { useEffect } from 'react'
+import { selectThemeName } from '../store'
+import Text from '../Text'
+import { themeColors } from '../ui'
 
 type ProgressProps = {
   currentStep: number
@@ -16,6 +19,8 @@ type ProgressProps = {
 }
 
 const Progress = ({ currentStep, steps, text }: ProgressProps) => {
+  const themeName = useSelector(selectThemeName)
+
   const widthPercentage = useSharedValue(0)
 
   useEffect(() => {
@@ -41,9 +46,11 @@ const Progress = ({ currentStep, steps, text }: ProgressProps) => {
               <LinearGradient
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0 }}
-                from='bg-tertiary-950'
-                to='bg-tertiary-600'
-                className='h-full w-full'
+                colors={[
+                  themeColors[themeName].tertiary[950],
+                  themeColors[themeName].tertiary[600]
+                ]}
+                style={styles.progress}
               />
             </InnerBorder>
           </Animated.View>
@@ -60,6 +67,10 @@ const styles = StyleSheet.create({
     top: 0,
     height: '100%',
     zIndex: -1
+  },
+  progress: {
+    height: '100%',
+    width: '100%'
   }
 })
 
