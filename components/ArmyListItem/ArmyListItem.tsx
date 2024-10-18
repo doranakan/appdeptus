@@ -1,9 +1,8 @@
 import { type CodexName } from 'appdeptus/models'
 import { Image } from 'expo-image'
-import { camelCase, snakeCase } from 'lodash'
+import { snakeCase } from 'lodash'
 import { StyleSheet } from 'react-native'
 import Card from '../Card'
-import { type ThemeName } from '../store'
 import Text from '../Text'
 import { HStack, themeColors, VStack } from '../ui'
 
@@ -22,7 +21,7 @@ const ArmyListItem = ({ codex, name, points }: ArmyListItemProps) => (
     <VStack
       className='absolute h-full w-full opacity-60'
       style={{
-        backgroundColor: themeColors[camelCase(codex) as ThemeName].primary[900]
+        backgroundColor: themeColors[codex].primary[900]
       }}
     />
     <VStack

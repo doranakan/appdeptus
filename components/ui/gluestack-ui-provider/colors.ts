@@ -45,7 +45,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#49081a'
     }
   },
-  adeptaSororitas: {
+  'Adepta Sororitas': {
     primary: {
       50: '#effefd',
       100: '#c7fffa',
@@ -86,7 +86,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#332017'
     }
   },
-  adeptusCustodes: {
+  'Adeptus Custodes': {
     primary: {
       50: '#fdf9ef',
       100: '#faf0da',
@@ -127,7 +127,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#002151'
     }
   },
-  adeptusMechanicus: {
+  'Adeptus Mechanicus': {
     primary: {
       50: '#fff0f0',
       100: '#ffdddd',
@@ -168,7 +168,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#341d16'
     }
   },
-  aeldari: {
+  Aeldari: {
     primary: {
       50: '#fef2f2',
       100: '#ffe1e2',
@@ -209,7 +209,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#391c11'
     }
   },
-  agentsOfTheImperium: {
+  'Agents of the Imperium': {
     primary: {
       50: '#e9ffff',
       100: '#c6feff',
@@ -250,7 +250,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#0f260d'
     }
   },
-  astraMilitarum: {
+  'Astra Militarum': {
     primary: {
       50: '#f4f9ec',
       100: '#e7f1d6',
@@ -291,7 +291,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#222222'
     }
   },
-  blackTemplars: {
+  'Black Templars': {
     primary: {
       50: '#e9ffff',
       100: '#c6feff',
@@ -332,7 +332,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#341d16'
     }
   },
-  bloodAngels: {
+  'Blood Angels': {
     primary: {
       50: '#fff0f0',
       100: '#ffdddd',
@@ -373,7 +373,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#092a12'
     }
   },
-  chaosDaemons: {
+  'Chaos Daemons': {
     primary: {
       50: '#fff0f0',
       100: '#ffdddd',
@@ -414,7 +414,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#6a0001'
     }
   },
-  chaosSpaceMarines: {
+  'Chaos Space Marines': {
     primary: {
       50: '#f4f9f9',
       100: '#dcebeb',
@@ -455,7 +455,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#410e09'
     }
   },
-  darkAngels: {
+  'Dark Angels': {
     primary: {
       50: '#eefff4',
       100: '#d8ffe9',
@@ -496,7 +496,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#391c11'
     }
   },
-  deathGuard: {
+  'Death Guard': {
     primary: {
       50: '#f4f5f0',
       100: '#e7e8df',
@@ -537,7 +537,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#28292a'
     }
   },
-  drukhari: {
+  Drukhari: {
     primary: {
       50: '#effaf3',
       100: '#d8f3e1',
@@ -578,7 +578,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#32183a'
     }
   },
-  genestealerCults: {
+  'Genestealer Cults': {
     primary: {
       50: '#f6f6fc',
       100: '#f0eff8',
@@ -619,7 +619,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#191a19'
     }
   },
-  greyKnights: {
+  'Grey Knights': {
     primary: {
       50: '#f7f8f8',
       100: '#edeff1',
@@ -660,7 +660,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#45140a'
     }
   },
-  leaguesOfVotann: {
+  'Leagues of Votann': {
     primary: {
       50: '#e9fffb',
       100: '#c8fff6',
@@ -701,7 +701,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#410e09'
     }
   },
-  necrons: {
+  Necrons: {
     primary: {
       50: '#f4fbea',
       100: '#e6f5d2',
@@ -742,7 +742,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#351a15'
     }
   },
-  orks: {
+  Orks: {
     primary: {
       50: '#f3fbf2',
       100: '#e5f6e2',
@@ -783,7 +783,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#500001'
     }
   },
-  spaceMarines: {
+  'Space Marines': {
     primary: {
       50: '#edf9ff',
       100: '#d6f1ff',
@@ -824,7 +824,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#490608'
     }
   },
-  spaceWolves: {
+  'Space Wolves': {
     primary: {
       50: '#f4f8fa',
       100: '#e6eff3',
@@ -865,7 +865,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#4a0c05'
     }
   },
-  tauEmpire: {
+  "T'Au Empire": {
     primary: {
       50: '#faf6f2',
       100: '#f5ede2',
@@ -906,7 +906,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#4a0c05'
     }
   },
-  thousandSons: {
+  'Thousand Sons': {
     primary: {
       50: '#eefcfd',
       100: '#d3f6fa',
@@ -947,7 +947,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#46090b'
     }
   },
-  tyranids: {
+  Tyranids: {
     primary: {
       50: '#faf7fc',
       100: '#f4eef9',
@@ -988,7 +988,7 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#33312d'
     }
   },
-  worldEaters: {
+  'World Eaters': {
     primary: {
       50: '#fef2f2',
       100: '#ffe1e2',
