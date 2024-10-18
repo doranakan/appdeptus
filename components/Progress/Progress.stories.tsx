@@ -16,10 +16,3 @@ export default ProgressMeta
 type Story = StoryObj<typeof Progress>
 
 export const Default: Story = {}
-
-export const CustomText: Story = {
-  args: {
-    text: 'attacker - turn 2',
-    currentStep: 8
-  }
-}
