@@ -1,9 +1,9 @@
+import { LinearGradient } from 'expo-linear-gradient'
 import { Link } from 'expo-router'
 import { type LucideIcon } from 'lucide-react-native'
 import InnerBorder from '../InnerBorder'
 import Text from '../Text'
-import { HStack, Icon, LinearGradient, Pressable, VStack } from '../ui'
-
+import { HStack, Icon, Pressable, themeColors, VStack } from '../ui'
 type BaseButton = {
   disabled?: boolean
 } & (
@@ -63,8 +63,10 @@ const ButtonContent = ({ text, icon }: Pick<ButtonProps, 'icon' | 'text'>) => (
     <InnerBorder>
       <LinearGradient
         className='bg-gradient-to-br from-tertiary-600 to-tertiary-800'
-        from='bg-tertiary-600'
-        to='bg-tertiary-950'
+        colors={[
+          themeColors.default.tertiary[600],
+          themeColors.default.tertiary[950]
+        ]}
         start={{ x: 0.3, y: 1 }}
         end={{ x: 1, y: 3 }}
       >

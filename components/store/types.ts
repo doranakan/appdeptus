@@ -1,28 +1,5 @@
-type ThemeName =
-  | 'default'
-  | 'adeptaSororitas'
-  | 'adeptusCustodes'
-  | 'adeptusMechanicus'
-  | 'aeldari'
-  | 'agentsOfTheImperium'
-  | 'astraMilitarum'
-  | 'blackTemplars'
-  | 'bloodAngels'
-  | 'chaosDaemons'
-  | 'chaosSpaceMarines'
-  | 'darkAngels'
-  | 'deathGuard'
-  | 'drukhari'
-  | 'genestealerCults'
-  | 'greyKnights'
-  | 'leaguesOfVotann'
-  | 'necrons'
-  | 'orks'
-  | 'spaceMarines'
-  | 'spaceWolves'
-  | 'tauEmpire'
-  | 'thousandSons'
-  | 'tyranids'
-  | 'worldEaters'
+import type { themes } from 'appdeptus/constants'
+
+type ThemeName = (typeof themes)[number]
 
 export type { ThemeName }

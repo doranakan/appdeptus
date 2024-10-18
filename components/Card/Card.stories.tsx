@@ -21,3 +21,13 @@ export default CardMeta
 type Story = StoryObj<typeof Card>
 
 export const Default: Story = {}
+export const Selectabled: Story = {
+  args: {
+    variant: 'selectable'
+  }
+}
+export const Selected: Story = {
+  args: {
+    variant: 'selected'
+  }
+}
