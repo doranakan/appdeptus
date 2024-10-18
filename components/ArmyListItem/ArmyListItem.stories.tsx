@@ -10,7 +10,7 @@ const CardMeta: Meta<typeof ArmyListItem> = {
     }
   },
   args: {
-    codex: 'Space Wolves',
+    codex: 'Space Marines',
     name: 'Combat patrol',
     points: 1500
   }
@@ -21,3 +21,13 @@ export default CardMeta
 type Story = StoryObj<typeof ArmyListItem>
 
 export const Default: Story = {}
+export const Selectabled: Story = {
+  args: {
+    variant: 'selectable'
+  }
+}
+export const Selected: Story = {
+  args: {
+    variant: 'selected'
+  }
+}

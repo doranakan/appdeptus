@@ -36,13 +36,13 @@ const Progress = ({ currentStep, steps, text }: ProgressProps) => {
 
   return (
     <View className='h-4 w-full'>
-      <InnerBorder className='rounded-full'>
+      <InnerBorder rounded='rounded-full'>
         <View className='h-full w-full items-center justify-center overflow-hidden rounded-full bg-primary-800'>
           <Text className='z-2 relative text-xs uppercase color-primary-50'>
             {text}
           </Text>
           <Animated.View style={[styles.gradientWrapper, rStyle]}>
-            <InnerBorder className='rounded-l-full'>
+            <InnerBorder rounded='rounded-l-full'>
               <LinearGradient
                 start={{ x: 0, y: 1 }}
                 end={{ x: 1, y: 0 }}
