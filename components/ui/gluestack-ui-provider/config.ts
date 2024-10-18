@@ -128,29 +128,35 @@ const hexToRgb = (hex: string) => {
     : null
 }
 
-const config: GluestackUIConfig = {} as unknown as GluestackUIConfig
-
-for (const themeName of Object.keys(colors)) {
-  let theme = {}
-  for (const variant of Object.keys(colors[themeName as ThemeName])) {
-    for (const shade of Object.keys(
-      colors[themeName as ThemeName][variant as ColorVariant]
-    )) {
-      const rgbColor = hexToRgb(
-        colors[themeName as ThemeName][variant as ColorVariant][
-          shade as unknown as Shade
-        ]
-      )
-      theme = {
-        ...theme,
-        [`--color-${variant}-${shade}`]: `${rgbColor?.r} ${rgbColor?.g} ${rgbColor?.b}`
-      }
-    }
-  }
-  config[themeName as ThemeName] = vars({
-    ...baseTokens,
-    ...theme
-  })
-}
+const config = Object.keys(colors).reduce<GluestackUIConfig>(
+  (completeConfig, themeName) => {
+    const theme = Object.keys(colors[themeName as ThemeName]).reduce(
+      (accTheme, variant) => {
+        const newTheme = Object.keys(
+          colors[themeName as ThemeName][variant as ColorVariant]
+        ).reduce((accShade, shade) => {
+          const rgbColor = hexToRgb(
+            colors[themeName as ThemeName][variant as ColorVariant][
+              shade as unknown as Shade
+            ]
+          )
+          return {
+            ...accShade,
+            [`--color-${variant}-${shade}`]: `${rgbColor?.r} ${rgbColor?.g} ${rgbColor?.b}`
+          }
+        }, {})
+        return { ...accTheme, ...newTheme }
+      },
+      {}
+    )
+    completeConfig[themeName as ThemeName] = vars({
+      ...baseTokens,
+      ...theme
+    })
+    return completeConfig
+  },
+  // @ts-expect-error :GluestackUIConfig
+  {}
+) as unknown as GluestackUIConfig
 
 export { config }
