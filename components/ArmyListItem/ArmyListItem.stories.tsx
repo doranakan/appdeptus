@@ -11,6 +11,7 @@ const CardMeta: Meta<typeof ArmyListItem> = {
   },
   args: {
     codex: 'Space Marines',
+    detachment: 'Detachment',
     name: 'Combat patrol',
     points: 1500
   }
