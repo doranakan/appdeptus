@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Link } from 'expo-router'
 import { type LucideIcon } from 'lucide-react-native'
@@ -7,6 +8,7 @@ import { HStack, Icon, Pressable, themeColors, VStack } from '../ui'
 type BaseButton = {
   color?: 'primary' | 'secondary' | 'tertiary'
   disabled?: boolean
+  size?: 'md' | 'sm'
 } & (
   | {
       icon: LucideIcon
@@ -62,10 +64,16 @@ const Button = (props: ButtonProps) => {
 const ButtonContent = ({
   color = 'tertiary',
   icon,
+  size = 'md',
   text
-}: Pick<ButtonProps, 'icon' | 'text' | 'color'>) => (
+}: Omit<ButtonProps, 'variant' | 'link' | 'onPress' | 'disabled'>) => (
   <VStack className='overflow-hidden'>
-    <InnerBorder rounded='rounded-2xl'>
+    <InnerBorder
+      rounded={clsx([
+        size === 'md' && 'rounded-2xl',
+        size === 'sm' && 'rounded-xl'
+      ])}
+    >
       <LinearGradient
         className='bg-gradient-to-br from-tertiary-600 to-tertiary-800'
         colors={[
@@ -76,7 +84,11 @@ const ButtonContent = ({
         end={{ x: 1, y: 3 }}
       >
         <HStack
-          className='items-center p-3'
+          className={clsx([
+            'items-center',
+            size === 'md' && 'p-3',
+            size === 'sm' && 'px-2 py-1'
+          ])}
           space='md'
         >
           {icon ? (
@@ -86,7 +98,14 @@ const ButtonContent = ({
               size='xl'
             />
           ) : null}
-          {text ? <Text>{text}</Text> : null}
+          {text ? (
+            <Text
+              className='uppercase'
+              family='body-bold'
+            >
+              {text}
+            </Text>
+          ) : null}
         </HStack>
       </LinearGradient>
     </InnerBorder>

@@ -33,3 +33,10 @@ export const Text = {
     text: 'For the Emperor!'
   }
 }
+
+export const Small = {
+  args: {
+    text: 'For the Emperor!',
+    size: 'sm'
+  }
+}
