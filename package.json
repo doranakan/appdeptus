@@ -13,6 +13,7 @@
     "@expo-google-fonts/ibm-plex-mono": "^0.2.3",
     "@expo-google-fonts/silkscreen": "^0.2.3",
     "@expo/html-elements": "^0.9.1",
+    "@gluestack-ui/avatar": "^0.1.17",
     "@gluestack-ui/icon": "^0.1.22",
     "@gluestack-ui/nativewind-utils": "^1.0.24",
     "@gluestack-ui/overlay": "^0.1.15",

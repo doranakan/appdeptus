@@ -4,11 +4,13 @@ import Text from '../Text'
 import { HStack, themeColors, VStack } from '../ui'
 
 type BadgeProps = {
-  codex?: CodexName
   text: string
+
+  codex?: CodexName
+  variant?: 'primary' | 'secondary' | 'tertiary'
 }
 
-const Badge = ({ codex, text }: BadgeProps) => (
+const Badge = ({ codex, text, variant = 'secondary' }: BadgeProps) => (
   <HStack
     className={clsx([
       'overflow-hidden rounded-full border-[1px]',
@@ -22,12 +24,12 @@ const Badge = ({ codex, text }: BadgeProps) => (
   >
     <VStack
       className={clsx([
-        'absolute h-full w-full opacity-40',
-        !codex && 'bg-secondary-500/40'
+        'absolute h-full w-full opacity-60',
+        !codex && 'bg-secondary-500/60'
       ])}
       style={
         codex && {
-          backgroundColor: themeColors[codex].secondary[500]
+          backgroundColor: themeColors[codex][variant][500]
         }
       }
     />
