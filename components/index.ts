@@ -1,3 +1,4 @@
+export { default as ArmyBackground } from './ArmyBackground'
 export { default as ArmyListItem } from './ArmyListItem'
 export { default as Avatar } from './Avatar'
 export { default as Badge } from './Badge'

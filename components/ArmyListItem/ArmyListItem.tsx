@@ -1,13 +1,11 @@
 import { type CodexName } from 'appdeptus/models'
-import clsx from 'clsx'
-import { Image } from 'expo-image'
-import { snakeCase } from 'lodash'
+
 import { type ComponentProps } from 'react'
-import { StyleSheet } from 'react-native'
+import ArmyBackground from '../ArmyBackground'
 import Badge from '../Badge'
 import Card from '../Card'
 import Text from '../Text'
-import { HStack, themeColors, VStack } from '../ui'
+import { HStack, VStack } from '../ui'
 
 type ArmyListItemProps = {
   codex: CodexName
@@ -25,18 +23,9 @@ const ArmyListItem = ({
   variant
 }: ArmyListItemProps) => (
   <Card variant={variant}>
-    <Image
-      source={snakeCase(codex)}
-      style={styles.image}
-    />
-    <VStack
-      className={clsx(
-        'absolute h-full w-full',
-        variant === 'selected' ? 'opacity-40' : 'opacity-60'
-      )}
-      style={{
-        backgroundColor: themeColors[codex].primary[900]
-      }}
+    <ArmyBackground
+      codex={codex}
+      opacity={variant === 'selected' ? 'opacity-60' : undefined}
     />
     <VStack
       className='p-4'
@@ -68,9 +57,5 @@ const ArmyListItem = ({
     </VStack>
   </Card>
 )
-
-const styles = StyleSheet.create({
-  image: { position: 'absolute', width: '100%', height: '100%' }
-})
 
 export default ArmyListItem

@@ -14,18 +14,18 @@ const Badge = ({ codex, text, variant = 'secondary' }: BadgeProps) => (
   <HStack
     className={clsx([
       'overflow-hidden rounded-full border-[1px]',
-      !codex && 'border-secondary-500'
+      !codex && `border-${variant}-500`
     ])}
     style={
       codex && {
-        borderColor: themeColors[codex].secondary[500]
+        borderColor: themeColors[codex][variant][500]
       }
     }
   >
     <VStack
       className={clsx([
         'absolute h-full w-full opacity-60',
-        !codex && 'bg-secondary-500/60'
+        !codex && `bg-${variant}-500/60`
       ])}
       style={
         codex && {
