@@ -35,7 +35,7 @@ const Progress = ({ currentStep, steps, text }: ProgressProps) => {
   }))
 
   return (
-    <View className='h-4 w-full'>
+    <View className='h-4 max-h-4 w-full flex-1'>
       <InnerBorder rounded='rounded-full'>
         <View className='h-full w-full items-center justify-center overflow-hidden rounded-full bg-primary-800'>
           <Text className='z-2 relative text-xs uppercase color-primary-50'>
