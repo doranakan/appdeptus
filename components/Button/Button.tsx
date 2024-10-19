@@ -5,6 +5,7 @@ import InnerBorder from '../InnerBorder'
 import Text from '../Text'
 import { HStack, Icon, Pressable, themeColors, VStack } from '../ui'
 type BaseButton = {
+  color?: 'primary' | 'secondary' | 'tertiary'
   disabled?: boolean
 } & (
   | {
@@ -58,20 +59,24 @@ const Button = (props: ButtonProps) => {
   }
 }
 
-const ButtonContent = ({ text, icon }: Pick<ButtonProps, 'icon' | 'text'>) => (
-  <VStack className='overflow-hidden rounded-2xl'>
-    <InnerBorder>
+const ButtonContent = ({
+  color = 'tertiary',
+  icon,
+  text
+}: Pick<ButtonProps, 'icon' | 'text' | 'color'>) => (
+  <VStack className='overflow-hidden'>
+    <InnerBorder rounded='rounded-2xl'>
       <LinearGradient
         className='bg-gradient-to-br from-tertiary-600 to-tertiary-800'
         colors={[
-          themeColors.default.tertiary[600],
-          themeColors.default.tertiary[950]
+          themeColors.default[color][600],
+          themeColors.default[color][950]
         ]}
         start={{ x: 0.3, y: 1 }}
         end={{ x: 1, y: 3 }}
       >
         <HStack
-          className='items-center p-4'
+          className='items-center p-3'
           space='md'
         >
           {icon ? (
