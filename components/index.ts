@@ -9,6 +9,7 @@ export { default as NavigationHeader } from './NavigationHeader'
 export { default as Progress } from './Progress'
 export { default as Text } from './Text'
 export { default as UnitSelector } from './UnitSelector'
+export { default as TabMenu } from './TabMenu'
 
 export * from './store'
 export * from './ui'
