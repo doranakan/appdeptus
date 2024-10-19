@@ -3,39 +3,11 @@ import {
   Pressable,
   selectThemeName,
   setTheme,
-  Text,
-  type ThemeName
+  Text
 } from 'appdeptus/components'
+import { themes } from 'appdeptus/constants'
 import { ScrollView } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
-
-const themes: ThemeName[] = [
-  'default',
-  'adeptaSororitas',
-  'adeptusCustodes',
-  'adeptusMechanicus',
-  'aeldari',
-  'agentsOfTheImperium',
-  'astraMilitarum',
-  'blackTemplars',
-  'bloodAngels',
-  'chaosDaemons',
-  'chaosSpaceMarines',
-  'darkAngels',
-  'deathGuard',
-  'drukhari',
-  'genestealerCults',
-  'greyKnights',
-  'leaguesOfVotann',
-  'necrons',
-  'orks',
-  'spaceMarines',
-  'spaceWolves',
-  'tauEmpire',
-  'thousandSons',
-  'tyranids',
-  'worldEaters'
-]
 
 const ThemeSelector = () => {
   const dispatch = useDispatch()
@@ -49,7 +21,7 @@ const ThemeSelector = () => {
         horizontal
         showsHorizontalScrollIndicator={false}
       >
-        <HStack space='lg'>
+        <HStack space='4xl'>
           {themes.map((theme) => (
             <Pressable
               key={theme}
