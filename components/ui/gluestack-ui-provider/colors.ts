@@ -3,7 +3,7 @@ import { type ThemeName } from 'appdeptus/components/store'
 type ColorVariant = 'primary' | 'secondary' | 'tertiary'
 type Shade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950
 
-const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
+const colors = {
   default: {
     primary: {
       50: '#f5f7fa',
@@ -1030,7 +1030,10 @@ const colors: Record<ThemeName, Record<ColorVariant, Record<Shade, string>>> = {
       950: '#10231e'
     }
   }
-}
+} as const satisfies Record<
+  ThemeName,
+  Record<ColorVariant, Record<Shade, string>>
+>
 
 export default colors
 export type { ColorVariant, Shade }
