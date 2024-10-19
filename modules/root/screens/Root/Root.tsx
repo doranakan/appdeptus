@@ -1,5 +1,4 @@
-import { Card, VStack } from 'appdeptus/components'
-import { Text } from 'react-native'
+import { Card, Text, VStack } from 'appdeptus/components'
 
 const RootScreen = () => (
   <VStack className='flex-1 items-center justify-center bg-primary-950 p-4'>
@@ -8,22 +7,8 @@ const RootScreen = () => (
         className='p-4'
         space='md'
       >
-        <Text
-          className='text-typography-50'
-          style={{
-            fontFamily: 'Silkscreen_400Regular'
-          }}
-        >
-          Appdeptus
-        </Text>
-        <Text
-          className='text-typography-50'
-          style={{
-            fontFamily: 'IBMPlexMono_400Regular'
-          }}
-        >
-          Munitorum at work
-        </Text>
+        <Text family='heading-regular'>Appdeptus</Text>
+        <Text>Munitorum at work</Text>
       </VStack>
     </Card>
   </VStack>

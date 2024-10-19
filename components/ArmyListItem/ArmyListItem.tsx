@@ -33,14 +33,14 @@ const ArmyListItem = ({
     >
       <HStack className='items-center justify-between'>
         <Text
-          className='uppercase text-typography-50'
+          className='uppercase'
           family='body-bold'
           size='lg'
         >
           {codex}
         </Text>
         <Text
-          className='uppercase text-typography-50'
+          className='uppercase'
           family='body-bold'
           size='lg'
         >
@@ -48,7 +48,7 @@ const ArmyListItem = ({
         </Text>
       </HStack>
       <HStack className='items-center justify-between'>
-        <Text className='text-typography-50'>{name}</Text>
+        <Text>{name}</Text>
         <Badge
           codex={codex}
           text={detachment}

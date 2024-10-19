@@ -9,7 +9,7 @@ const CardMeta: Meta<typeof Card> = {
     <Card {...props}>
       <VStack>
         <VStack className='p-4'>
-          <Text className='text-typography-50'>For the Emperor!</Text>
+          <Text>For the Emperor!</Text>
         </VStack>
       </VStack>
     </Card>

@@ -33,7 +33,7 @@ const Badge = ({ codex, text, variant = 'secondary' }: BadgeProps) => (
         }
       }
     />
-    <Text className='px-3 py-1 text-typography-50'>{text}</Text>
+    <Text className='px-3 py-1'>{text}</Text>
   </HStack>
 )
 

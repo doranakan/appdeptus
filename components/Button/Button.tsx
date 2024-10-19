@@ -86,7 +86,7 @@ const ButtonContent = ({
               size='xl'
             />
           ) : null}
-          {text ? <Text className='text-typography-50'>{text}</Text> : null}
+          {text ? <Text>{text}</Text> : null}
         </HStack>
       </LinearGradient>
     </InnerBorder>
