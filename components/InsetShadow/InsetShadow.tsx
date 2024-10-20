@@ -38,8 +38,8 @@ const InsetShadow = ({
           color='transparent'
         >
           <BoxShadow
-            dx={-1}
-            dy={-1}
+            dx={0}
+            dy={0}
             blur={8}
             color='#262626'
             inner
