@@ -35,7 +35,7 @@ type Team = {
 type Warlord = Character | Leader
 
 type Unit = Omit<Character | Leader | Squad | Transport | Vehicle, 'tier'> & {
-  tiers: Tier[]
+  tiers: [Tier, ...Tier[]]
 }
 
 type Tier = {
