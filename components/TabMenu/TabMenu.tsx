@@ -1,6 +1,6 @@
-import { type LayoutChangeEvent, StyleSheet, View } from 'react-native'
+import { type LayoutChangeEvent, View } from 'react-native'
 import TabMenuItem from './TabMenuItem'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -17,6 +17,7 @@ const TabMenu = ({ options, onOptionSelected }: TabMenuProps) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [wrapperWidth, setWrapperWidth] = useState(0)
   const translationX = useSharedValue(0)
+
   useEffect(() => {
     const selectedOption = options.at(selectedIndex)
     if (!selectedOption) {
@@ -38,9 +39,13 @@ const TabMenu = ({ options, onOptionSelected }: TabMenuProps) => {
     []
   )
 
-  const style = {
-    width: (wrapperWidth - 16) / options.length
-  }
+  const style = useMemo(
+    () => ({
+      width: (wrapperWidth - 16) / options.length
+    }),
+    [options.length, wrapperWidth]
+  )
+
   const rStyle = useAnimatedStyle(() => ({
     transform: [
       {
@@ -51,6 +56,8 @@ const TabMenu = ({ options, onOptionSelected }: TabMenuProps) => {
       }
     ]
   }))
+
+  const selectorStyle = useMemo(() => [style, rStyle], [rStyle, style])
 
   return (
     <View
@@ -69,8 +76,8 @@ const TabMenu = ({ options, onOptionSelected }: TabMenuProps) => {
       ))}
       <Animated.View
         pointerEvents='none'
-        className='absolute -z-10 h-full rounded-2xl bg-primary-950'
-        style={[style, rStyle]}
+        className='absolute -z-10 h-full rounded-2xl bg-primary-950 shadow'
+        style={selectorStyle}
       >
         <InnerBorder rounded='rounded-2xl'>
           <View className='h-full w-full' />
