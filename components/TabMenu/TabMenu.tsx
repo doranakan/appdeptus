@@ -7,6 +7,7 @@ import Animated, {
   withSpring
 } from 'react-native-reanimated'
 import InnerBorder from '../InnerBorder'
+import InsetShadow from '../InsetShadow'
 
 type TabMenuProps = {
   options: string[]
@@ -60,30 +61,35 @@ const TabMenu = ({ options, onOptionSelected }: TabMenuProps) => {
   const selectorStyle = useMemo(() => [style, rStyle], [rStyle, style])
 
   return (
-    <View
-      className='w-full flex-row items-center rounded-3xl bg-primary-800 p-2'
-      onLayout={onLayout}
+    <InsetShadow
+      borderRadius={24}
+      className='rounded-3xl'
     >
-      {options.map((opt, idx) => (
-        <TabMenuItem
-          key={opt}
-          onPress={() => {
-            setSelectedIndex(idx)
-          }}
-          option={opt}
-          isSelected={selectedIndex === idx}
-        />
-      ))}
-      <Animated.View
-        pointerEvents='none'
-        className='absolute -z-10 h-full rounded-2xl bg-primary-950 shadow'
-        style={selectorStyle}
+      <View
+        className='w-full flex-row items-center rounded-3xl bg-primary-800 p-2'
+        onLayout={onLayout}
       >
-        <InnerBorder rounded='rounded-2xl'>
-          <View className='h-full w-full' />
-        </InnerBorder>
-      </Animated.View>
-    </View>
+        {options.map((opt, idx) => (
+          <TabMenuItem
+            key={opt}
+            onPress={() => {
+              setSelectedIndex(idx)
+            }}
+            option={opt}
+            isSelected={selectedIndex === idx}
+          />
+        ))}
+        <Animated.View
+          pointerEvents='none'
+          className='absolute -z-10 h-full rounded-2xl bg-primary-950 shadow'
+          style={selectorStyle}
+        >
+          <InnerBorder rounded='rounded-2xl'>
+            <View className='h-full w-full' />
+          </InnerBorder>
+        </Animated.View>
+      </View>
+    </InsetShadow>
   )
 }
 
