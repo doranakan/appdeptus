@@ -1,5 +1,11 @@
-import { type ComponentProps } from 'react'
+import {
+  type ForwardRefRenderFunction,
+  type ComponentProps,
+  forwardRef,
+  memo
+} from 'react'
 import { GSText } from '../ui'
+import { type Text as RNTextType } from 'react-native'
 
 type TextProps = ComponentProps<typeof GSText> & {
   family?:
@@ -12,10 +18,14 @@ type TextProps = ComponentProps<typeof GSText> & {
     | 'heading-regular'
 }
 
-const Text = ({ family = 'body-regular', ...props }: TextProps) => (
+const Text: ForwardRefRenderFunction<RNTextType, TextProps> = (
+  { family = 'body-regular', ...props },
+  ref
+) => (
   <GSText
     {...props}
     style={{ fontFamily: fontFamilyMap[family] }}
+    ref={ref}
   />
 )
 
@@ -29,4 +39,4 @@ const fontFamilyMap: Record<NonNullable<TextProps['family']>, string> = {
   'heading-regular': 'Silkscreen_400Regular'
 }
 
-export default Text
+export default memo(forwardRef(Text))
