@@ -7,7 +7,7 @@ const InsetShadowMeta: Meta<typeof InsetShadow> = {
   title: 'InsetShadow',
   args: {
     borderRadius: 16,
-    className: 'justify-center items-center'
+    className: 'justify-center items-center h-full'
   },
   component: (props) => (
     <View className='h-24 w-full items-center rounded-2xl bg-primary-700'>
