@@ -1,4 +1,4 @@
-import { useCallback, useState, type PropsWithChildren } from 'react'
+import { memo, useCallback, useState, type PropsWithChildren } from 'react'
 import { type LayoutChangeEvent, StyleSheet, View } from 'react-native'
 import { Canvas, Box, BoxShadow, rect, rrect } from '@shopify/react-native-skia'
 import clsx from 'clsx'
@@ -27,25 +27,31 @@ const InsetShadow = ({
     },
     []
   )
+
   return (
     <View
-      className={clsx('h-full w-full', className)}
+      className={clsx('w-full', className)}
       onLayout={onLayout}
     >
-      <Canvas style={[styles.canvas, { width, height }]}>
-        <Box
-          box={rrect(rect(0, 0, width, height), borderRadius, borderRadius)}
-          color='transparent'
-        >
-          <BoxShadow
-            dx={0}
-            dy={0}
-            blur={8}
-            color='#262626'
-            inner
-          />
-        </Box>
-      </Canvas>
+      <View
+        pointerEvents='none'
+        style={styles.canvas}
+      >
+        <Canvas style={{ width, height }}>
+          <Box
+            box={rrect(rect(0, 0, width, height), borderRadius, borderRadius)}
+            color='transparent'
+          >
+            <BoxShadow
+              dx={0}
+              dy={0}
+              blur={4}
+              color='#262626'
+              inner
+            />
+          </Box>
+        </Canvas>
+      </View>
       {children}
     </View>
   )
@@ -56,8 +62,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     top: 0,
-    pointerEvents: 'none'
+    zIndex: 10
   }
 })
 
-export default InsetShadow
+export default memo(InsetShadow)
