@@ -39,13 +39,14 @@ const TabMenuItem = ({ isSelected, option, onPress }: TabMenuItemProps) => {
 
   return (
     <Pressable
-      className='flex-1 items-center justify-center rounded-2xl px-4 py-2 shadow-soft-1'
+      className='flex-1 items-center justify-center rounded-2xl px-4 py-2'
       onPress={() => {
         onPress(option)
       }}
     >
       <AnimatedText
-        className='text-sm uppercase'
+        className='text-ellipsis text-sm uppercase'
+        numberOfLines={1}
         family='body-bold'
         style={rStyle}
       >
