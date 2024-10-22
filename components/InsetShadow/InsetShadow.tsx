@@ -44,9 +44,9 @@ const InsetShadow = ({
           >
             <BoxShadow
               dx={0}
-              dy={0}
-              blur={4}
-              color='#262626'
+              dy={1}
+              blur={3}
+              color='#222'
               inner
             />
           </Box>
