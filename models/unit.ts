@@ -1,5 +1,3 @@
-import { type UnitUpgrade } from './unitUpgrade'
-
 type BaseUnit = {
   id: string
   name: string
@@ -32,9 +30,11 @@ type Team = {
   bodyguard: Squad
 }
 
-type Warlord = Character | Leader
+type Warlord = Character | Leader | Team
 
-type Unit = Omit<Character | Leader | Squad | Transport | Vehicle, 'tier'> & {
+type Unit = Character | Leader | Squad | Transport | Vehicle
+
+type SelectableUnit = Omit<Unit, 'tier'> & {
   tiers: [Tier, ...Tier[]]
 }
 
@@ -44,9 +44,16 @@ type Tier = {
   points: number
 }
 
+type UnitUpgrade = {
+  id: string
+  name: string
+  points: number
+}
+
 export type {
   Character,
   Leader,
+  SelectableUnit,
   Squad,
   Team,
   Transport,

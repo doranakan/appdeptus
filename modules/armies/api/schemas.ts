@@ -137,7 +137,7 @@ const codexUnitSchema = baseUnitSchema.and(
         z.literal('transport'),
         z.literal('vehicle')
       ]),
-      unit_tiers: z.array(tierSchema),
+      unit_tiers: z.tuple([tierSchema, z.any()]),
       unit_upgrades: z.array(upgradeSchema)
     })
     .transform(({ unit_tiers, unit_upgrades, ...rest }) => ({
