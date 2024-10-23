@@ -18,7 +18,9 @@ const UnitSelectorMeta: Meta<typeof UnitSelector> = {
       ],
       type: 'leader',
       upgrades: []
-    }
+    },
+    onAdd: () => {},
+    onEdit: () => {}
   }
 }
 
