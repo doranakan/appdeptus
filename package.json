@@ -26,12 +26,14 @@
     "@expo/html-elements": "^0.9.1",
     "@gluestack-ui/avatar": "^0.1.17",
     "@gluestack-ui/icon": "^0.1.22",
+    "@gluestack-ui/input": "^0.1.31",
     "@gluestack-ui/nativewind-utils": "^1.0.24",
     "@gluestack-ui/overlay": "^0.1.15",
     "@gluestack-ui/pressable": "^0.1.16",
     "@gluestack-ui/toast": "^1.0.7",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@reduxjs/toolkit": "^2.1.0",
+    "@shopify/react-native-skia": "1.2.3",
     "@supabase/supabase-js": "^2.39.3",
     "ahooks": "^3.7.10",
     "babel-plugin-inline-import": "^3.0.0",
@@ -70,8 +72,7 @@
     "react-native-web": "~0.19.6",
     "react-redux": "^9.1.0",
     "tailwindcss": "^3.4.13",
-    "zod": "^3.22.4",
-    "@shopify/react-native-skia": "1.2.3"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@babel/core": "^7.24.0",
