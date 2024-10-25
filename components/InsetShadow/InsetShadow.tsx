@@ -1,17 +1,17 @@
-import { memo, useCallback, useState, type PropsWithChildren } from 'react'
-import { type LayoutChangeEvent, StyleSheet, View } from 'react-native'
-import { Canvas, Box, BoxShadow, rect, rrect } from '@shopify/react-native-skia'
+import { Box, BoxShadow, Canvas, rect, rrect } from '@shopify/react-native-skia'
 import clsx from 'clsx'
+import { memo, useCallback, useState, type PropsWithChildren } from 'react'
+import { StyleSheet, View, type LayoutChangeEvent } from 'react-native'
 
 type InsetShadowProps = PropsWithChildren<{
+  borderRadius?: number
   className?: string
-  borderRadius: number
 }>
 
 const InsetShadow = ({
   children,
   className,
-  borderRadius
+  borderRadius = 16
 }: InsetShadowProps) => {
   const [{ width, height }, setWrapperDimensions] = useState({
     width: 0,
