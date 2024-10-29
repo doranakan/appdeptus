@@ -47,7 +47,7 @@ const Scoreboard = ({ playerOne, playerTwo }: ScoreboardProps) => (
   </HStack>
 )
 
-const codexToScoreboardName: Record<CodexName, string> = {
+const codexToScoreboardName = {
   'Adepta Sororitas': 'sor',
   'Adeptus Custodes': 'cus',
   'Adeptus Mechanicus': 'mec',
@@ -72,6 +72,6 @@ const codexToScoreboardName: Record<CodexName, string> = {
   'Thousand Sons': 'ths',
   Tyranids: 'tyr',
   'World Eaters': 'wre'
-}
+} as const satisfies Record<CodexName, string>
 
 export default Scoreboard

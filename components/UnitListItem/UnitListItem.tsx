@@ -92,12 +92,12 @@ const UnitDetail = ({ unit, warlord }: UnitDetailProps) => (
   </HStack>
 )
 
-const unitTypeToIcon: Record<SelectableUnit['type'], LucideIcon> = {
+const unitTypeToIcon = {
   character: UserRound,
   leader: Shield,
   squad: UsersRound,
   transport: Bus,
   vehicle: Car
-}
+} as const satisfies Record<SelectableUnit['type'], LucideIcon>
 
 export default UnitListItem

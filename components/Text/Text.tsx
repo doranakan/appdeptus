@@ -1,11 +1,11 @@
 import {
-  type ForwardRefRenderFunction,
   type ComponentProps,
   forwardRef,
+  type ForwardRefRenderFunction,
   memo
 } from 'react'
-import { GSText } from '../ui'
 import { type Text as RNTextType } from 'react-native'
+import { GSText } from '../ui'
 
 type TextProps = ComponentProps<typeof GSText> & {
   family?:
@@ -29,7 +29,7 @@ const Text: ForwardRefRenderFunction<RNTextType, TextProps> = (
   />
 )
 
-const fontFamilyMap: Record<NonNullable<TextProps['family']>, string> = {
+const fontFamilyMap = {
   'body-bold': 'IBMPlexMono_700Bold',
   'body-bold-italic': 'IBMPlexMono_700Bold_Italic',
   'body-medium': 'IBMPlexMono_500Medium',
@@ -37,6 +37,6 @@ const fontFamilyMap: Record<NonNullable<TextProps['family']>, string> = {
   'body-regular': 'IBMPlexMono_400Regular',
   'body-regular-italic': 'IBMPlexMono_400Regular_Italic',
   'heading-regular': 'Silkscreen_400Regular'
-}
+} as const satisfies Record<NonNullable<TextProps['family']>, string>
 
 export default memo(forwardRef(Text))
