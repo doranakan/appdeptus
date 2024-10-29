@@ -38,10 +38,7 @@ const nextTurn = (builder: CoreEndpointBuilder<GamesApiTag>) =>
     ]
   })
 
-const mapNextTurn: Record<
-  ActiveGame['status'],
-  ActiveGame['status'] | EndedGame['status']
-> = {
+const mapNextTurn = {
   turn1_p1: 'turn1_p2',
   turn1_p2: 'turn2_p1',
   turn2_p1: 'turn2_p2',
@@ -52,6 +49,9 @@ const mapNextTurn: Record<
   turn4_p2: 'turn5_p1',
   turn5_p1: 'turn5_p2',
   turn5_p2: 'ended'
-}
+} as const satisfies Record<
+  ActiveGame['status'],
+  ActiveGame['status'] | EndedGame['status']
+>
 
 export default nextTurn
