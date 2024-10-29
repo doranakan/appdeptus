@@ -1,5 +1,5 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
-import { type Unit } from 'appdeptus/models'
+import { type SelectableUnit } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
@@ -7,7 +7,7 @@ import { unitListSchema } from '../schemas'
 import type ArmiesApiTag from '../tags'
 
 const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
-  builder.query<Unit[], string>({
+  builder.query<SelectableUnit[], string>({
     queryFn: async (codexId) => {
       try {
         const { data, error } = await supabase

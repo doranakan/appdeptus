@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { type SelectableUnit } from 'appdeptus/models'
 import { z } from 'zod'
 
 const idSchema = z.number().transform(String)
@@ -137,7 +138,9 @@ const codexUnitSchema = baseUnitSchema.and(
         z.literal('transport'),
         z.literal('vehicle')
       ]),
-      unit_tiers: z.array(tierSchema),
+      unit_tiers: z.custom<SelectableUnit['tiers']>(
+        (val) => z.array(tierSchema).min(1).safeParse(val).success
+      ),
       unit_upgrades: z.array(upgradeSchema)
     })
     .transform(({ unit_tiers, unit_upgrades, ...rest }) => ({
