@@ -3,3 +3,9 @@
 android
 ios
 node_modules
+dist
+
+# macOS
+*.DS_Store
+.AppleDouble
+.LSOverride
