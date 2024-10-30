@@ -1,4 +1,4 @@
-import { type ComponentProps, type ReactElement } from 'react'
+import { memo, type ComponentProps, type ReactElement } from 'react'
 import type Button from '../Button'
 import InnerBorder from '../InnerBorder'
 import { HStack, VStack } from '../ui'
@@ -23,4 +23,4 @@ const ButtonGroup = ({ children }: ButtonGroupProps) => (
   </VStack>
 )
 
-export default ButtonGroup
+export default memo(ButtonGroup)

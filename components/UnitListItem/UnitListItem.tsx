@@ -10,6 +10,7 @@ import {
   UsersRound
 } from 'lucide-react-native'
 import pluralize from 'pluralize'
+import { memo } from 'react'
 import Card from '../Card'
 import IconBadge from '../IconBadge'
 import Text from '../Text'
@@ -100,4 +101,4 @@ const unitTypeToIcon = {
   vehicle: Car
 } as const satisfies Record<SelectableUnit['type'], LucideIcon>
 
-export default UnitListItem
+export default memo(UnitListItem)

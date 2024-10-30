@@ -1,6 +1,6 @@
 import { type CodexName } from 'appdeptus/models'
 
-import { type ComponentProps } from 'react'
+import { memo, type ComponentProps } from 'react'
 import ArmyBackground from '../ArmyBackground'
 import Badge from '../Badge'
 import Card from '../Card'
@@ -58,4 +58,4 @@ const ArmyListItem = ({
   </Card>
 )
 
-export default ArmyListItem
+export default memo(ArmyListItem)

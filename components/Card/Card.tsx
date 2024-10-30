@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { LinearGradient } from 'expo-linear-gradient'
-import { type PropsWithChildren } from 'react'
+import { memo, type PropsWithChildren } from 'react'
 import { useSelector } from 'react-redux'
 import InnerBorder from '../InnerBorder'
 import { selectThemeName } from '../store'
@@ -37,4 +37,4 @@ const Card = ({ children, variant }: CardProps) => {
   )
 }
 
-export default Card
+export default memo(Card)

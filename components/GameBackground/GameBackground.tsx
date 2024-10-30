@@ -1,5 +1,6 @@
 import { type CodexName } from 'appdeptus/models'
 import { LinearGradient } from 'expo-linear-gradient'
+import { memo } from 'react'
 import { useSelector } from 'react-redux'
 import ArmyBackground from '../ArmyBackground'
 import { selectThemeName } from '../store'
@@ -40,4 +41,4 @@ const GameBackground = ({ codexOne, codexTwo }: GameBackgroundProps) => {
   )
 }
 
-export default GameBackground
+export default memo(GameBackground)

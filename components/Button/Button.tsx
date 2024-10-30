@@ -2,14 +2,19 @@ import clsx from 'clsx'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Link } from 'expo-router'
 import { type LucideIcon } from 'lucide-react-native'
+import { memo } from 'react'
+import { ActivityIndicator } from 'react-native'
 import { useSelector } from 'react-redux'
 import InnerBorder from '../InnerBorder'
 import { selectThemeName } from '../store'
 import Text from '../Text'
 import { HStack, Icon, Pressable, themeColors, VStack } from '../ui'
+
 type BaseButton = {
+  className?: string
   color?: 'primary' | 'secondary' | 'tertiary'
   disabled?: boolean
+  loading?: boolean
   size?: 'md' | 'sm'
 } & (
   | {
@@ -24,7 +29,7 @@ type BaseButton = {
 
 type CallbackButton = {
   variant: 'callback'
-  onPress: () => void | Promise<void>
+  onPress: () => unknown
 } & BaseButton
 
 type LinkButton = {
@@ -34,15 +39,23 @@ type LinkButton = {
 
 type ButtonProps = CallbackButton | LinkButton
 
-const Button = (props: ButtonProps) => {
+const Button = ({ className, size = 'md', ...props }: ButtonProps) => {
+  const style = clsx(
+    'active:opacity-80 disabled:opacity-70 bg-primary-500 shadow-md',
+    sizeToRoundedMap[size],
+    className
+  )
   switch (props.variant) {
     case 'callback':
       return (
         <Pressable
           {...props}
-          className='active:opacity-80 disabled:opacity-70'
+          className={style}
         >
-          <ButtonContent {...props} />
+          <ButtonContent
+            size={size}
+            {...props}
+          />
         </Pressable>
       )
 
@@ -54,9 +67,12 @@ const Button = (props: ButtonProps) => {
         >
           <Pressable
             {...props}
-            className='active:opacity-80 disabled:opacity-70'
+            className={style}
           >
-            <ButtonContent {...props} />
+            <ButtonContent
+              size={size}
+              {...props}
+            />
           </Pressable>
         </Link>
       )
@@ -66,18 +82,16 @@ const Button = (props: ButtonProps) => {
 const ButtonContent = ({
   color = 'tertiary',
   icon,
-  size = 'md',
+  size,
+  loading,
   text
-}: Omit<ButtonProps, 'variant' | 'link' | 'onPress' | 'disabled'>) => {
+}: Omit<ButtonProps, 'variant' | 'link' | 'onPress' | 'disabled'> & {
+  size: NonNullable<ButtonProps['size']>
+}) => {
   const themeName = useSelector(selectThemeName)
   return (
     <VStack className='overflow-hidden'>
-      <InnerBorder
-        rounded={clsx([
-          size === 'md' && 'rounded-2xl',
-          size === 'sm' && 'rounded-xl'
-        ])}
-      >
+      <InnerBorder rounded={sizeToRoundedMap[size]}>
         <LinearGradient
           className='bg-gradient-to-br from-tertiary-600 to-tertiary-800'
           colors={[
@@ -88,21 +102,18 @@ const ButtonContent = ({
           end={{ x: 1, y: 3 }}
         >
           <HStack
-            className={clsx([
-              'items-center',
-              size === 'md' && 'p-3',
-              size === 'sm' && 'px-2 py-1'
-            ])}
+            className={clsx(['justify-center', sizeToPaddingMap[size]])}
             space='md'
           >
-            {icon ? (
+            {loading ? <ActivityIndicator color='white' /> : null}
+            {!loading && icon ? (
               <Icon
                 className='color-primary-50'
                 as={icon}
                 size='xl'
               />
             ) : null}
-            {text ? (
+            {!loading && text ? (
               <Text
                 className='uppercase'
                 family='body-bold'
@@ -116,4 +127,15 @@ const ButtonContent = ({
     </VStack>
   )
 }
-export default Button
+
+const sizeToRoundedMap = {
+  md: 'rounded-2xl',
+  sm: 'rounded-xl'
+} as const satisfies Record<NonNullable<ButtonProps['size']>, string>
+
+const sizeToPaddingMap = {
+  md: 'p-3',
+  sm: 'px-2 py-1'
+} as const satisfies Record<NonNullable<ButtonProps['size']>, string>
+
+export default memo(Button)

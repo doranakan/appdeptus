@@ -1,5 +1,6 @@
 import { type CodexName } from 'appdeptus/models'
 import { type Player } from 'appdeptus/models/game'
+import { memo } from 'react'
 import Text from '../Text'
 import { HStack } from '../ui'
 
@@ -74,4 +75,4 @@ const codexToScoreboardName = {
   'World Eaters': 'wre'
 } as const satisfies Record<CodexName, string>
 
-export default Scoreboard
+export default memo(Scoreboard)

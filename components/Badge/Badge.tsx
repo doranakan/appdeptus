@@ -1,5 +1,6 @@
 import { type CodexName } from 'appdeptus/models'
 import clsx from 'clsx'
+import { memo } from 'react'
 import Text from '../Text'
 import { HStack, themeColors, VStack } from '../ui'
 
@@ -37,4 +38,4 @@ const Badge = ({ codex, text, variant = 'secondary' }: BadgeProps) => (
   </HStack>
 )
 
-export default Badge
+export default memo(Badge)

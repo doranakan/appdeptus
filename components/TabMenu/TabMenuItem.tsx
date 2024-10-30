@@ -1,5 +1,5 @@
+import { memo, useEffect } from 'react'
 import { Pressable } from 'react-native'
-import Text from '../Text'
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
@@ -8,8 +8,8 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useSelector } from 'react-redux'
 import { selectThemeName } from '../store'
+import Text from '../Text'
 import { themeColors } from '../ui'
-import { useEffect } from 'react'
 
 type TabMenuItemProps = {
   option: string
@@ -56,4 +56,4 @@ const TabMenuItem = ({ isSelected, option, onPress }: TabMenuItemProps) => {
   )
 }
 
-export default TabMenuItem
+export default memo(TabMenuItem)

@@ -2,6 +2,7 @@ import { type CodexName } from 'appdeptus/models'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { snakeCase } from 'lodash'
+import { memo } from 'react'
 import { StyleSheet } from 'react-native'
 import { themeColors, VStack } from '../ui'
 type ArmyBackgroundProps = {
@@ -36,4 +37,4 @@ const styles = StyleSheet.create({
   gradient: { width: '100%', height: '100%' },
   image: { position: 'absolute', width: '100%', height: '100%' }
 })
-export default ArmyBackground
+export default memo(ArmyBackground)

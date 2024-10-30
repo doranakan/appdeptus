@@ -1,5 +1,5 @@
 import { LinearGradient } from 'expo-linear-gradient'
-import { useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Progress
+export default memo(Progress)

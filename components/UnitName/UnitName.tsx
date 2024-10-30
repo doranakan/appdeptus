@@ -8,6 +8,7 @@ import {
   UserRound,
   UsersRound
 } from 'lucide-react-native'
+import { memo } from 'react'
 import IconBadge from '../IconBadge'
 import Text from '../Text'
 import { HStack } from '../ui'
@@ -34,4 +35,4 @@ const unitTypeToIcon = {
   vehicle: Car
 } as const satisfies Record<SelectableUnit['type'], LucideIcon>
 
-export default UnitName
+export default memo(UnitName)

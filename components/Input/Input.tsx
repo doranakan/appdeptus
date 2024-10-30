@@ -1,4 +1,5 @@
 import { type LucideIcon } from 'lucide-react-native'
+import { memo, type ComponentProps } from 'react'
 import { StyleSheet } from 'react-native'
 import InnerBorder from '../InnerBorder'
 import InsetShadow from '../InsetShadow'
@@ -16,9 +17,17 @@ type InputProps = {
   value: string
 
   disabled?: boolean
-}
+} & ComponentProps<typeof InputField>
 
-const Input = ({ Icon, onChangeText, value, disabled }: InputProps) => (
+const Input = ({
+  Icon,
+  onChangeText,
+  value,
+
+  disabled,
+  placeholder,
+  ...props
+}: InputProps) => (
   <VStack className='w-full'>
     <InnerBorder>
       <VStack className='bg-primary-800'>
@@ -34,8 +43,9 @@ const Input = ({ Icon, onChangeText, value, disabled }: InputProps) => (
               <InputIcon as={Icon} />
             </InputSlot>
             <InputField
+              {...props}
               className='text-primary-50'
-              placeholder='Enter Text here...'
+              placeholder={placeholder}
               onChangeText={onChangeText}
               style={styles.textField}
               value={value}
@@ -53,4 +63,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Input
+export default memo(Input)

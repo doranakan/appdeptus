@@ -1,4 +1,5 @@
 import { type UserProfile } from 'appdeptus/models'
+import { memo } from 'react'
 import { View } from 'react-native'
 import InnerBorder from '../InnerBorder'
 import { AvatarFallbackText, AvatarImage, Avatar as GSAvatar } from '../ui'
@@ -24,4 +25,4 @@ const Avatar = ({ user }: AvatarProps) => (
   </View>
 )
 
-export default Avatar
+export default memo(Avatar)

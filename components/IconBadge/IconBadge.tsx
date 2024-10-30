@@ -1,4 +1,5 @@
 import { type LucideIcon } from 'lucide-react-native'
+import { memo } from 'react'
 import InnerBorder from '../InnerBorder'
 import { Icon as GSIcon, VStack } from '../ui'
 
@@ -20,4 +21,4 @@ const IconBadge = ({ Icon }: IconBadgeProps) => (
   </VStack>
 )
 
-export default IconBadge
+export default memo(IconBadge)

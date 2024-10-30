@@ -1,6 +1,6 @@
 import { VStack } from 'appdeptus/components/ui'
 import clsx from 'clsx'
-import { type PropsWithChildren } from 'react'
+import { memo, type PropsWithChildren } from 'react'
 
 type InnerBorderProps = PropsWithChildren<{
   rounded?: string
@@ -22,4 +22,4 @@ const InnerBorder = ({
   </VStack>
 )
 
-export default InnerBorder
+export default memo(InnerBorder)

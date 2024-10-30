@@ -1,6 +1,6 @@
 import { type UserProfile } from 'appdeptus/models'
 import { ChevronLeft, ChevronRight } from 'lucide-react-native'
-import { type ComponentProps } from 'react'
+import { memo, type ComponentProps } from 'react'
 import Avatar from '../Avatar'
 import Button from '../Button'
 import Progress from '../Progress'
@@ -57,4 +57,4 @@ const NavigationHeader = ({
   </HStack>
 )
 
-export default NavigationHeader
+export default memo(NavigationHeader)
