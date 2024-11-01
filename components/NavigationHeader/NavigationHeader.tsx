@@ -19,7 +19,7 @@ type NavigationHeaderProps = {
     }
   | {
       variant: 'avatar'
-      user: UserProfile
+      user: UserProfile | undefined
     }
 )
 
