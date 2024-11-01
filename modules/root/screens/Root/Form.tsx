@@ -23,6 +23,8 @@ const Form = () => {
         Icon={AtSign}
         onChangeText={setEmail}
         placeholder='munitorum@imperium.gov'
+        keyboardType='email-address'
+        autoCorrect={false}
         value={email}
       />
       <Input
@@ -30,6 +32,8 @@ const Form = () => {
         onChangeText={setPassword}
         onSubmitEditing={handleSignIn}
         placeholder='classified_authority_code'
+        textContentType='password'
+        secureTextEntry={true}
         type='password'
         value={password}
       />
