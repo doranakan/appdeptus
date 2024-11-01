@@ -10,7 +10,7 @@ type CardProps = PropsWithChildren<{
   variant?: 'default' | 'selectable' | 'selected'
 }>
 
-const Card = ({ children, variant }: CardProps) => {
+const Card = ({ children, variant = 'default' }: CardProps) => {
   const themeName = useSelector(selectThemeName)
 
   return (
