@@ -9,6 +9,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import { type NewArmy } from 'appdeptus/models'
+import { memo } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { FlatList, RefreshControl } from 'react-native'
 import { useGetDetachmentListQuery } from '../../api'
@@ -67,4 +68,4 @@ const DetachmentList = () => {
   )
 }
 
-export default DetachmentList
+export default memo(DetachmentList)

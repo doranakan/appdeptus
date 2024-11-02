@@ -8,7 +8,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import { Search } from 'lucide-react-native'
-import { useMemo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import { useGetArmyListQuery } from '../../api'
 import Empty from './Empty'
@@ -123,4 +123,4 @@ const pointFiltersToLimits = {
   }
 >
 
-export default ArmyList
+export default memo(ArmyList)

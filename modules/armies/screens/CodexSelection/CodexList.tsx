@@ -6,7 +6,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import { type factions } from 'appdeptus/constants'
-import { useMemo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import { useGetCodexListQuery } from '../../api'
 import CodexListItem from './CodexListItem'
@@ -64,4 +64,4 @@ const factionFilter = ['all', 'imperium', 'chaos', 'xenos'] as const satisfies (
   | (typeof factions)[number]
 )[]
 
-export default CodexList
+export default memo(CodexList)

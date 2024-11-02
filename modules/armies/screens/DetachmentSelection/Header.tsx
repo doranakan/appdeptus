@@ -1,6 +1,7 @@
 import { NavigationHeader } from 'appdeptus/components'
 import { type NewArmy } from 'appdeptus/models'
 import { ChevronRight } from 'lucide-react-native'
+import { memo } from 'react'
 import { useWatch } from 'react-hook-form'
 
 const Header = () => {
@@ -25,4 +26,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default memo(Header)
