@@ -2,6 +2,8 @@ import clsx from 'clsx'
 import { LinearGradient } from 'expo-linear-gradient'
 import React, { type ComponentProps, type PropsWithChildren } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSelector } from 'react-redux'
+import { selectThemeName } from '../store'
 import { themeColors, VStack } from '../ui'
 
 type ScreenContainerProps = {
@@ -15,6 +17,8 @@ const ScreenContainer = ({
   ...props
 }: PropsWithChildren<ScreenContainerProps>) => {
   const { top, bottom } = useSafeAreaInsets()
+
+  const themeName = useSelector(selectThemeName)
 
   return (
     <>
@@ -32,14 +36,14 @@ const ScreenContainer = ({
       </VStack>
       <LinearGradient
         colors={[
-          `${themeColors.default.primary[950]}00`,
-          themeColors.default.primary[950]
+          `${themeColors[themeName].primary[950]}00`,
+          themeColors[themeName].primary[950]
         ]}
         style={{
           position: 'absolute',
           height: 40,
           width: '100%',
-          bottom: 0
+          bottom: safeAreaInsets?.includes('bottom') ? bottom : 0
         }}
       />
     </>

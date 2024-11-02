@@ -1,6 +1,8 @@
 import danger from 'appdeptus/assets/lotties/danger.json'
-import { Text, VStack } from 'appdeptus/components'
+
 import LottieView from 'lottie-react-native'
+import Text from '../Text'
+import { VStack } from '../ui'
 
 const Error = () => (
   <VStack className='flex-1 items-center justify-center'>

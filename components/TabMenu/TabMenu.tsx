@@ -1,6 +1,5 @@
-import { type LayoutChangeEvent, View } from 'react-native'
-import TabMenuItem from './TabMenuItem'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { type LayoutChangeEvent, View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -8,13 +7,17 @@ import Animated, {
 } from 'react-native-reanimated'
 import InnerBorder from '../InnerBorder'
 import InsetShadow from '../InsetShadow'
+import TabMenuItem from './TabMenuItem'
 
-type TabMenuProps = {
-  options: string[]
-  onOptionSelected: (opt: string) => void
+type TabMenuProps<T extends string> = {
+  options: readonly T[]
+  onOptionSelected: (opt: T) => void
 }
 
-const TabMenu = ({ options, onOptionSelected }: TabMenuProps) => {
+const TabMenu = <T extends string>({
+  options,
+  onOptionSelected
+}: TabMenuProps<T>) => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [wrapperWidth, setWrapperWidth] = useState(0)
   const translationX = useSharedValue(0)
