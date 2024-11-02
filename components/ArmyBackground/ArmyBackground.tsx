@@ -16,7 +16,7 @@ const ArmyBackground = ({
 }: ArmyBackgroundProps) => (
   <VStack className='absolute h-full w-full'>
     <Image
-      source={snakeCase(codex)}
+      source={snakeCase(codex.toLowerCase().replace("'", ''))}
       style={styles.image}
     />
     <VStack className={opacity}>
