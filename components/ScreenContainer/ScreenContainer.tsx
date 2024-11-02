@@ -39,7 +39,7 @@ const ScreenContainer = ({
           position: 'absolute',
           height: 40,
           width: '100%',
-          bottom: 0
+          bottom: safeAreaInsets?.includes('bottom') ? bottom : 0
         }}
       />
     </>
