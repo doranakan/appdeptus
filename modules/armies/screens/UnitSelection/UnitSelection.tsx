@@ -1,9 +1,9 @@
 import { ScreenContainer, Text } from 'appdeptus/components'
 
-const CompositionSelectionScreen = () => (
+const UnitSelectionScreen = () => (
   <ScreenContainer className='items-center justify-center'>
-    <Text>Composition selector</Text>
+    <Text>Unit selection</Text>
   </ScreenContainer>
 )
 
-export default CompositionSelectionScreen
+export default UnitSelectionScreen

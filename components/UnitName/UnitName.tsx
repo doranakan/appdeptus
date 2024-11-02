@@ -19,11 +19,18 @@ type UnitNameProps = Pick<SelectableUnit, 'name' | 'type'> & {
 
 const UnitName = ({ name, type, warlord }: UnitNameProps) => (
   <HStack
-    className='items-center'
+    className='flex-1 items-center'
     space='md'
   >
     <IconBadge Icon={warlord ? Crown : unitTypeToIcon[type]} />
-    <Text family='body-bold'>{name}</Text>
+    <Text
+      className='flex-1'
+      family='body-bold'
+      numberOfLines={2}
+      size='lg'
+    >
+      {name}
+    </Text>
   </HStack>
 )
 
