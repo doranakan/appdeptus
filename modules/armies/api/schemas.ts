@@ -57,13 +57,13 @@ const upgradeSchema = z.object({
 })
 
 const enhancementSchema = z.object({
-  id: z.string(),
+  id: idSchema,
   name: z.string(),
   points: z.number()
 })
 
 const baseDetachmentSchema = z.object({
-  id: z.string(),
+  id: idSchema,
   name: z.string()
 })
 
