@@ -25,7 +25,10 @@ const RootScreen = () => (
         </VStack>
         <VStack className='flex-1' />
       </VStack>
-      <ScreenContainer className='bg-transparent p-4'>
+      <ScreenContainer
+        className='bg-transparent p-4'
+        safeAreaInsets={['bottom', 'top']}
+      >
         <VStack
           className='flex-1 items-center justify-center'
           space='4xl'

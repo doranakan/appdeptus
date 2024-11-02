@@ -5,7 +5,7 @@ import { Table } from 'appdeptus/utils/supabase'
 import { userProfileSchema } from '../schemas'
 
 const getUserProfile = (builder: CoreEndpointBuilder) =>
-  builder.query<UserProfile | null, void>({
+  builder.query<UserProfile, void>({
     queryFn: async () => {
       try {
         const res = await getUserId()

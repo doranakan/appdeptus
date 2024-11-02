@@ -54,6 +54,7 @@
     "expo-system-ui": "~3.0.7",
     "hermes-engine": "^0.5.2-rc1",
     "lodash": "^4.17.21",
+    "lottie-react-native": "6.7.0",
     "lucide-react-native": "^0.395.0",
     "moti": "^0.29.0",
     "nativewind": "4.0.36",

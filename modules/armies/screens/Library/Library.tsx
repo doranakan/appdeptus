@@ -1,23 +1,22 @@
-import { Button, ScreenContainer, Text } from 'appdeptus/components'
-import { useSignOutMutation } from 'appdeptus/modules/root/api'
+import { ScreenContainer, Text } from 'appdeptus/components'
+import ArmyList from './ArmyList'
+import Header from './Header'
 
-const ArmyLibrary = () => {
-  const [signOut, { isLoading }] = useSignOutMutation()
-
-  return (
-    <ScreenContainer
-      className='items-center justify-center'
-      space='md'
+const ArmyLibraryScreen = () => (
+  <ScreenContainer
+    className='p-4'
+    safeAreaInsets={['top']}
+    space='md'
+  >
+    <Header />
+    <Text
+      family='heading-regular'
+      size='4xl'
     >
-      <Text>Army Library</Text>
-      <Button
-        loading={isLoading}
-        onPress={signOut}
-        text='Sign out'
-        variant='callback'
-      />
-    </ScreenContainer>
-  )
-}
+      army library
+    </Text>
+    <ArmyList />
+  </ScreenContainer>
+)
 
-export default ArmyLibrary
+export default ArmyLibraryScreen

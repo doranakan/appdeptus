@@ -1,26 +1,48 @@
 import clsx from 'clsx'
-import { type ComponentProps, type PropsWithChildren } from 'react'
+import { LinearGradient } from 'expo-linear-gradient'
+import React, { type ComponentProps, type PropsWithChildren } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { VStack } from '../ui'
+import { themeColors, VStack } from '../ui'
+
+type ScreenContainerProps = {
+  safeAreaInsets?: ('top' | 'bottom')[]
+} & ComponentProps<typeof VStack>
 
 const ScreenContainer = ({
   children,
   className,
+  safeAreaInsets,
   ...props
-}: PropsWithChildren<ComponentProps<typeof VStack>>) => {
+}: PropsWithChildren<ScreenContainerProps>) => {
   const { top, bottom } = useSafeAreaInsets()
 
   return (
-    <VStack
-      className={clsx('flex-1 bg-primary-950', className)}
-      style={{
-        paddingBottom: bottom,
-        paddingTop: top
-      }}
-      {...props}
-    >
-      {children}
-    </VStack>
+    <>
+      <VStack
+        className={clsx('flex-1 bg-primary-950', className)}
+        style={{
+          paddingBottom: safeAreaInsets?.includes('bottom')
+            ? bottom
+            : undefined,
+          paddingTop: safeAreaInsets?.includes('top') ? top : undefined
+        }}
+        {...props}
+      >
+        {children}
+      </VStack>
+      <LinearGradient
+        colors={[
+          `${themeColors.default.primary[950]}00`,
+          themeColors.default.primary[950]
+        ]}
+        style={{
+          position: 'absolute',
+          height: 40,
+          width: '100%',
+          bottom: 0
+        }}
+      />
+    </>
   )
 }
 
