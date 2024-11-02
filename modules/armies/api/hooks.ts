@@ -5,6 +5,7 @@ const {
   useDeleteArmyMutation,
   useGetArmyListQuery,
   useGetCodexListQuery,
+  useGetDetachmentListQuery,
   useGetUnitListQuery,
   useUpdateArmyMutation
 } = armiesApi
@@ -14,6 +15,7 @@ export {
   useDeleteArmyMutation,
   useGetArmyListQuery,
   useGetCodexListQuery,
+  useGetDetachmentListQuery,
   useGetUnitListQuery,
   useUpdateArmyMutation
 }

@@ -1,4 +1,4 @@
-import { ScreenContainer, Text } from 'appdeptus/components'
+import { ScreenContainer, ScreenTitle } from 'appdeptus/components'
 import ArmyList from './ArmyList'
 import Header from './Header'
 
@@ -9,12 +9,7 @@ const ArmyLibraryScreen = () => (
     space='md'
   >
     <Header />
-    <Text
-      family='heading-regular'
-      size='4xl'
-    >
-      army library
-    </Text>
+    <ScreenTitle>army library</ScreenTitle>
     <ArmyList />
   </ScreenContainer>
 )

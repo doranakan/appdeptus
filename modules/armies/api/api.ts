@@ -4,6 +4,7 @@ import {
   deleteArmy,
   getArmyList,
   getCodexList,
+  getDetachmentList,
   getUnitList,
   updateArmy
 } from './endpoints'
@@ -19,6 +20,7 @@ const armiesApi = coreApi
       deleteArmy: deleteArmy(builder),
       getArmyList: getArmyList(builder),
       getCodexList: getCodexList(builder),
+      getDetachmentList: getDetachmentList(builder),
       getUnitList: getUnitList(builder),
       updateArmy: updateArmy(builder)
     }),

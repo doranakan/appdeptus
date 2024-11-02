@@ -17,8 +17,7 @@ const Card = ({ children, variant = 'default' }: CardProps) => {
     <VStack
       className={clsx([
         'w-full rounded-3xl bg-primary-700',
-        variant === 'default' && 'shadow-lg',
-        variant === 'selectable' && 'opacity-60 shadow-sm'
+        variantToShadow[variant]
       ])}
     >
       <InnerBorder opacity={variant === 'selected' ? 'opacity-40' : undefined}>
@@ -32,9 +31,18 @@ const Card = ({ children, variant = 'default' }: CardProps) => {
         >
           {children}
         </LinearGradient>
+        {variant === 'selectable' ? (
+          <VStack className='absolute h-full w-full bg-primary-950/40' />
+        ) : undefined}
       </InnerBorder>
     </VStack>
   )
 }
+
+const variantToShadow = {
+  default: 'shadow-lg',
+  selectable: 'shadow-sm',
+  selected: 'shadow-xl'
+} as const satisfies Record<NonNullable<CardProps['variant']>, string>
 
 export default memo(Card)
