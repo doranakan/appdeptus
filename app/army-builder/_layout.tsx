@@ -12,6 +12,7 @@ const ArmyBuilderLayout = () => {
       >
         <Stack.Screen name='index' />
         <Stack.Screen name='detachment-selection' />
+        <Stack.Screen name='composition-selection' />
       </Stack>
     </FormProvider>
   )
