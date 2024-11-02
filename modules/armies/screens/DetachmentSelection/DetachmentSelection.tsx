@@ -1,8 +1,8 @@
 import { useUnmount } from 'ahooks'
 import {
   ScreenContainer,
+  ScreenSubtitle,
   ScreenTitle,
-  Text,
   VStack
 } from 'appdeptus/components'
 import { type NewArmy } from 'appdeptus/models'
@@ -31,13 +31,7 @@ const DetachmentSelectionScreen = () => {
       >
         <Header />
         <ScreenTitle>{selectedCodex.name}</ScreenTitle>
-        <Text
-          className='uppercase text-primary-200'
-          family='body-bold'
-          size='lg'
-        >
-          detachments
-        </Text>
+        <ScreenSubtitle>detachments</ScreenSubtitle>
         <DetachmentList />
       </VStack>
     </ScreenContainer>
