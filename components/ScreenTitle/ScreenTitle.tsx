@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import Text from '../Text'
 
 type ScreenTitleProps = {
@@ -13,4 +14,4 @@ const ScreenTitle = ({ children }: ScreenTitleProps) => (
   </Text>
 )
 
-export default ScreenTitle
+export default memo(ScreenTitle)
