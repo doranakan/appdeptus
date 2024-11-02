@@ -28,12 +28,7 @@ const CodexSelectionScreen = () => {
         space='md'
       >
         <Header />
-        <Text
-          family='heading-regular'
-          size='4xl'
-        >
-          new army
-        </Text>
+      <ScreenTitle>new army</ScreenTitle>
         <CodexList />
       </VStack>
     </ScreenContainer>
