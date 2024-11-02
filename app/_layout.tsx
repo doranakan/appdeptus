@@ -18,6 +18,7 @@ import { useGetSessionQuery } from 'appdeptus/modules/root/api'
 import { store } from 'appdeptus/store'
 import { SplashScreen, Stack, router } from 'expo-router'
 import { type PropsWithChildren, useEffect } from 'react'
+import { StatusBar } from 'react-native'
 import {
   SafeAreaProvider,
   initialWindowMetrics
@@ -50,6 +51,11 @@ const App = ({ children }: PropsWithChildren) => {
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+      <StatusBar
+        animated
+        barStyle='light-content'
+        translucent
+      />
       <Provider store={store}>
         <GluestackUIProvider>{children}</GluestackUIProvider>
       </Provider>
@@ -68,7 +74,7 @@ const RootLayout = () => {
         return
       }
       case !!session: {
-        // router.replace('whatever')
+        router.replace('armies')
         return
       }
       case !session: {
@@ -87,14 +93,18 @@ const RootLayout = () => {
       initialRouteName='index'
       screenOptions={{ headerShown: false }}
     >
-      <Stack.Screen name='index' />
+      <Stack.Screen
+        name='index'
+        options={{
+          animationTypeForReplace: 'pop'
+        }}
+      />
     </Stack>
   )
 }
 
 const EntryPoint =
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-expect-error
   // eslint-disable-next-line @typescript-eslint/dot-notation
   process.env['EXPO_PUBLIC_STORYBOOK_ENABLED'] === 'true'
     ? require('../.storybook').default

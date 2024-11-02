@@ -1,17 +1,73 @@
-import { Card, Text, VStack } from 'appdeptus/components'
+import { logo } from 'appdeptus/assets'
+import {
+  Background,
+  Card,
+  ScreenContainer,
+  Text,
+  VStack
+} from 'appdeptus/components'
+import { KeyboardAvoidingView } from 'react-native'
+import { SvgXml } from 'react-native-svg'
+import Form from './Form'
 
 const RootScreen = () => (
-  <VStack className='flex-1 items-center justify-center bg-primary-950 p-4'>
-    <Card>
-      <VStack
-        className='p-4'
-        space='md'
-      >
-        <Text family='heading-regular'>Appdeptus</Text>
-        <Text>Munitorum at work</Text>
+  <KeyboardAvoidingView
+    behavior='padding'
+    style={{ flex: 1 }}
+  >
+    <VStack className='flex-1 bg-primary-950'>
+      <VStack className='absolute h-full w-full opacity-60'>
+        <VStack className='flex-1'>
+          <Background
+            source='sign_in'
+            gradient
+          />
+        </VStack>
+        <VStack className='flex-1' />
       </VStack>
-    </Card>
-  </VStack>
+      <ScreenContainer className='bg-transparent p-4'>
+        <VStack
+          className='flex-1 items-center justify-center'
+          space='4xl'
+        >
+          <SvgXml
+            xml={logo}
+            height={100}
+            width={100}
+          />
+          <VStack space='md'>
+            <Text
+              className='text-center'
+              family='heading-regular'
+              size='4xl'
+            >
+              Appdeptus
+            </Text>
+            <Text className='text-center'>
+              {'Unofficial Warhammer 40.000™\ncompanion app'}
+            </Text>
+          </VStack>
+        </VStack>
+        <VStack
+          className='flex-1 justify-between'
+          space='md'
+        >
+          <Card>
+            <Form />
+          </Card>
+          <Text size='xs'>
+            This app is a fan-made project and is not affiliated with or
+            endorsed by Games Workshop Group PLC. Warhammer 40,000 and all
+            related trademarks, logos, and imagery are the property of Games
+            Workshop. All rights to the original content, including but not
+            limited to characters, names, and game mechanics, are owned by Games
+            Workshop Group PLC. This app is intended for entertainment and
+            informational purposes only and is made by fans for fans.
+          </Text>
+        </VStack>
+      </ScreenContainer>
+    </VStack>
+  </KeyboardAvoidingView>
 )
 
 export default RootScreen
