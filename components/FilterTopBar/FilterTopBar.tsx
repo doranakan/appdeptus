@@ -6,7 +6,7 @@ import { HStack, Pressable, VStack } from '../ui'
 type FilterTopBarProps<T extends string> = {
   onPress: (value: T) => void
   selectedValue: T
-  values: T[]
+  values: readonly T[]
 }
 
 const FilterTopBar = <T extends string>({
