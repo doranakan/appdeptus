@@ -1,8 +1,26 @@
-import { ScreenContainer, Text, VStack } from 'appdeptus/components'
+import { useUnmount } from 'ahooks'
+import {
+  resetTheme,
+  ScreenContainer,
+  selectThemeName,
+  Text,
+  VStack
+} from 'appdeptus/components'
+import { useDispatch, useSelector } from 'react-redux'
 import CodexList from './CodexList'
 import Header from './Header'
 
 const CodexSelectionScreen = () => {
+  const themeName = useSelector(selectThemeName)
+
+  const dispatch = useDispatch()
+
+  useUnmount(() => {
+    if (themeName !== 'default') {
+      dispatch(resetTheme())
+    }
+  })
+
   return (
     <ScreenContainer safeAreaInsets={['top', 'bottom']}>
       <VStack
