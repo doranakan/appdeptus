@@ -18,7 +18,7 @@ const Header = () => {
           : 'select detachment'
       }}
       rightButton={{
-        href: 'army-builder/composition-selection',
+        href: 'army-builder/enhancement-selection',
         disabled: !watch.composition?.detachment,
         icon: ChevronRight
       }}

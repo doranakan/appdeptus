@@ -47,7 +47,7 @@ const DetachmentList = () => {
       renderItem={({ item }) => (
         <Pressable
           onPress={() => {
-            setValue('composition.detachment', item)
+            setValue('composition.detachment', { ...item, enhancements: [] })
           }}
         >
           <Card
