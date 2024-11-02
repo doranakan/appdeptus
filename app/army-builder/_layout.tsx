@@ -32,8 +32,9 @@ const ArmyBuilderLayout = () => {
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name='index' />
-        <Stack.Screen name='detachment-selection' />
-        <Stack.Screen name='composition-selection' />
+        <Stack.Screen name='enhancement-selection' />
+        <Stack.Screen name='leader-selection' />
+        <Stack.Screen name='unit-selection' />
       </Stack>
     </FormProvider>
   )
