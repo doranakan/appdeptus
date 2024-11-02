@@ -1,11 +1,11 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
-import { type Army } from 'appdeptus/models'
+import { type NewArmy } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import ArmiesApiTag from '../tags'
 
 const createArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
-  builder.mutation<null, Army>({
+  builder.mutation<null, NewArmy>({
     queryFn: async ({ codex, ...army }) => {
       try {
         const { data, error: armiesError } = await supabase

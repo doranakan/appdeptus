@@ -27,4 +27,6 @@ type Army = {
   points: number
 }
 
-export type { Army }
+type NewArmy = Omit<Army, 'id'>
+
+export type { Army, NewArmy }

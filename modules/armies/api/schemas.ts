@@ -31,6 +31,11 @@ const codexSchema = z.object({
     z.literal('Thousand Sons'),
     z.literal('Tyranids'),
     z.literal('World Eaters')
+  ]),
+  faction: z.union([
+    z.literal('chaos'),
+    z.literal('imperium'),
+    z.literal('xenos')
   ])
 })
 
