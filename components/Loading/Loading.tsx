@@ -1,7 +1,8 @@
 import dedicatedServer from 'appdeptus/assets/lotties/dedicated-server.json'
-import { Text, VStack } from 'appdeptus/components'
 import LottieView from 'lottie-react-native'
 import { memo } from 'react'
+import Text from '../Text'
+import { VStack } from '../ui'
 
 const Loading = () => (
   <VStack className='flex-1 items-center justify-center'>

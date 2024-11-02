@@ -1,7 +1,9 @@
 import {
   ArmyListItem,
+  Error,
   FilterTopBar,
   Input,
+  Loading,
   themeColors,
   VStack
 } from 'appdeptus/components'
@@ -10,8 +12,6 @@ import { useMemo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import { useGetArmyListQuery } from '../../api'
 import Empty from './Empty'
-import Error from './Error'
-import Loading from './Loading'
 
 const ArmyList = () => {
   const [searchString, setSearchString] = useState('')
@@ -59,7 +59,7 @@ const ArmyList = () => {
       />
       <FlatList
         className='container flex-1'
-        contentContainerStyle={{ flex: 1 }}
+        contentContainerStyle={!data?.length ? { flex: 1 } : undefined}
         data={filteredData}
         keyExtractor={({ id }) => id}
         ItemSeparatorComponent={() => <VStack className='h-4' />}
