@@ -31,7 +31,7 @@ const TabMenuItem = ({ isSelected, option, onPress }: TabMenuItemProps) => {
     } else {
       color.value = withTiming(0, { duration: 200 })
     }
-  })
+  }, [color, isSelected])
 
   const rStyle = useAnimatedStyle(() => ({
     color: interpolateColor(color.value, [0, 1], [inactiveColor, selectedColor])
