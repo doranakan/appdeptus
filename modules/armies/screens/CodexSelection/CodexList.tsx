@@ -6,7 +6,7 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
-import { type factions } from 'appdeptus/constants'
+import { CustomFadeIn, CustomFadeOut, type factions } from 'appdeptus/constants'
 import { type Codex, type NewArmy } from 'appdeptus/models'
 import { memo, useCallback, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -14,11 +14,7 @@ import { RefreshControl } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useGetCodexListQuery } from '../../api'
 import CodexListItem from './CodexListItem'
-import Animated, {
-  FadeIn,
-  FadeOut,
-  LinearTransition
-} from 'react-native-reanimated'
+import Animated, { Easing, LinearTransition } from 'react-native-reanimated'
 
 const CodexList = () => {
   const { data, isFetching, isError, isLoading, refetch } =
@@ -77,11 +73,13 @@ const CodexList = () => {
             />
           ) : undefined
         }
-        itemLayoutAnimation={LinearTransition}
+        itemLayoutAnimation={LinearTransition.easing(Easing.out(Easing.cubic))
+          .duration(300)
+          .delay(100)}
         renderItem={({ item }) => (
           <Animated.View
-            exiting={FadeOut}
-            entering={FadeIn}
+            exiting={CustomFadeOut}
+            entering={CustomFadeIn}
           >
             <CodexListItem
               codex={item}
