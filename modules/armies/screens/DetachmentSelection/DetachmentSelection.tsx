@@ -7,13 +7,15 @@ import DetachmentList from './DetachmentList'
 import Header from './Header'
 
 const DetachmentSelectionScreen = () => {
-  const { watch, reset } = useFormContext<ArmyBuilder>()
+  const { watch, reset, getValues } = useFormContext<ArmyBuilder>()
 
   const selectedCodex = watch('codex')
 
   useUnmount(() => {
     reset({
-      codex: selectedCodex
+      ...getValues(),
+      detachment: undefined,
+      units: []
     })
   })
 
