@@ -1,15 +1,15 @@
-import { Card, Pressable, Text, VStack } from 'appdeptus/components'
-import { type NewArmy } from 'appdeptus/models'
+import { Card, HStack, Pressable, Text, VStack } from 'appdeptus/components'
+import { type ArmyBuilder } from 'appdeptus/models'
 import { memo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList } from 'react-native'
 import { useGetDetachmentListQuery } from '../../api'
 
 const EnhancementList = () => {
-  const { setValue, watch } = useFormContext<NewArmy>()
+  const { setValue, watch } = useFormContext<ArmyBuilder>()
 
   const selectedCodex = watch('codex.id')
-  const selectedDetachment = watch('composition.detachment.id')
+  const selectedDetachment = watch('detachment.id')
 
   const { enhancements } = useGetDetachmentListQuery(selectedCodex, {
     selectFromResult: ({ data }) => ({
@@ -18,7 +18,7 @@ const EnhancementList = () => {
     })
   })
 
-  const selectedEnhancements = watch('composition.detachment.enhancements')
+  const selectedEnhancements = watch('detachment.enhancements')
 
   return (
     <FlatList
@@ -34,15 +34,12 @@ const EnhancementList = () => {
 
             if (index > -1) {
               setValue(
-                'composition.detachment.enhancements',
+                'detachment.enhancements',
                 selectedEnhancements.filter(({ id }) => id !== item.id)
               )
               return
             }
-            setValue('composition.detachment.enhancements', [
-              ...selectedEnhancements,
-              item
-            ])
+            setValue('detachment.enhancements', [...selectedEnhancements, item])
           }}
         >
           <Card

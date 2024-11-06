@@ -1,10 +1,10 @@
 import { NavigationHeader } from 'appdeptus/components'
-import { type NewArmy } from 'appdeptus/models'
+import { type ArmyBuilder } from 'appdeptus/models'
 import { ChevronRight } from 'lucide-react-native'
 import { useWatch } from 'react-hook-form'
 
 const Header = () => {
-  const watch = useWatch<NewArmy>()
+  const watch = useWatch<ArmyBuilder>()
 
   const selectedCodex = watch.codex?.name
 

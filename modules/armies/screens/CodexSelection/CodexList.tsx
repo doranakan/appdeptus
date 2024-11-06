@@ -7,14 +7,14 @@ import {
   VStack
 } from 'appdeptus/components'
 import { CustomFadeIn, CustomFadeOut, type factions } from 'appdeptus/constants'
-import { type Codex, type NewArmy } from 'appdeptus/models'
+import { type ArmyBuilder, type Codex } from 'appdeptus/models'
 import { memo, useCallback, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { RefreshControl } from 'react-native'
+import Animated, { Easing, LinearTransition } from 'react-native-reanimated'
 import { useDispatch } from 'react-redux'
 import { useGetCodexListQuery } from '../../api'
 import CodexListItem from './CodexListItem'
-import Animated, { Easing, LinearTransition } from 'react-native-reanimated'
 
 const CodexList = () => {
   const { data, isFetching, isError, isLoading, refetch } =
@@ -31,7 +31,7 @@ const CodexList = () => {
     [data, selectedFactions]
   )
 
-  const { setValue, watch } = useFormContext<NewArmy>()
+  const { setValue, watch } = useFormContext<ArmyBuilder>()
 
   const selectedCodex = watch('codex.name')
 

@@ -1,25 +1,25 @@
 import { NavigationHeader } from 'appdeptus/components'
-import { type NewArmy } from 'appdeptus/models'
+import { type ArmyBuilder } from 'appdeptus/models'
 import { ChevronRight } from 'lucide-react-native'
 import { memo } from 'react'
 import { useWatch } from 'react-hook-form'
 
 const Header = () => {
-  const watch = useWatch<NewArmy>()
+  const watch = useWatch<ArmyBuilder>()
 
   return (
     <NavigationHeader
       variant='backButton'
       progress={{
-        currentStep: watch.composition?.detachment ? 4 : 3,
+        currentStep: watch.detachment ? 4 : 3,
         steps: 10,
-        text: watch.composition?.detachment?.name
-          ? `selected: ${watch.composition?.detachment?.name}`
+        text: watch.detachment?.name
+          ? `selected: ${watch.detachment?.name}`
           : 'select detachment'
       }}
       rightButton={{
         href: 'army-builder/enhancement-selection',
-        disabled: !watch.composition?.detachment,
+        disabled: !watch.detachment,
         icon: ChevronRight
       }}
     />

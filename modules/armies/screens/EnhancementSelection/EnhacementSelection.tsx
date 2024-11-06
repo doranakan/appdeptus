@@ -12,19 +12,18 @@ import EnhancementList from './EnhancementList'
 import Header from './Header'
 
 const EnhancementSelectionScreen = () => {
-  const { reset, watch, getValues } = useFormContext<NewArmy>()
+  const { reset, watch, getValues } = useFormContext<ArmyBuilder>()
 
   const selectedCodex = watch('codex.name')
-  const selectedDetachment = watch('composition.detachment')
+  const selectedDetachment = watch('detachment')
 
   useUnmount(() => {
     reset({
       ...getValues(),
-      composition: {
+
         detachment: {
           ...selectedDetachment,
           enhancements: []
-        }
       }
     })
   })

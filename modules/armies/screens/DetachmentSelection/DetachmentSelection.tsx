@@ -12,7 +12,7 @@ import DetachmentList from './DetachmentList'
 import Header from './Header'
 
 const DetachmentSelectionScreen = () => {
-  const { watch, reset } = useFormContext<NewArmy>()
+  const { watch, reset } = useFormContext<ArmyBuilder>()
 
   const selectedCodex = watch('codex')
 

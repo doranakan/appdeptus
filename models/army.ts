@@ -6,12 +6,19 @@ import {
   type Squad,
   type Team,
   type Transport,
+  type Unit,
   type Vehicle,
   type Warlord
 } from './unit'
 
-type Army = {
+type BaseArmy = {
   codex: Codex
+  id: string
+  name: string
+  points: number
+}
+
+type Army = BaseArmy & {
   composition: {
     characters: Character[]
     detachment: Detachment
@@ -22,11 +29,12 @@ type Army = {
     vehicles: Vehicle[]
     warlord: Warlord
   }
-  id: string
-  name: string
-  points: number
 }
 
-type NewArmy = Omit<Army, 'id'>
+type ArmyBuilder = BaseArmy & {
+  units: Unit[]
+  warlord: Warlord
+  detachment: Detachment
+}
 
-export type { Army, NewArmy }
+export type { Army, ArmyBuilder }
