@@ -32,7 +32,10 @@ const Card = ({ children, variant = 'default' }: CardProps) => {
           {children}
         </LinearGradient>
         {variant === 'selectable' ? (
-          <VStack className='absolute h-full w-full bg-primary-950/40' />
+          <VStack
+            className='absolute h-full w-full bg-primary-950/40'
+            pointerEvents='none'
+          />
         ) : undefined}
       </InnerBorder>
     </VStack>
