@@ -49,9 +49,13 @@ const EnhancementList = () => {
                 : 'selectable'
             }
           >
-            <VStack className='p-4'>
+            <HStack className='justify-between p-4'>
               <Text family='body-bold'>{item.name}</Text>
-            </VStack>
+              <Text
+                className='uppercase'
+                family='body-bold'
+              >{`${item.points}pts`}</Text>
+            </HStack>
           </Card>
         </Pressable>
       )}
