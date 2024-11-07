@@ -6,14 +6,15 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
-import { type factions } from 'appdeptus/constants'
+import { CustomFadeIn, CustomFadeOut, type factions } from 'appdeptus/constants'
 import { type Codex, type NewArmy } from 'appdeptus/models'
 import { memo, useCallback, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { FlatList, RefreshControl } from 'react-native'
+import { RefreshControl } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useGetCodexListQuery } from '../../api'
 import CodexListItem from './CodexListItem'
+import Animated, { Easing, LinearTransition } from 'react-native-reanimated'
 
 const CodexList = () => {
   const { data, isFetching, isError, isLoading, refetch } =
@@ -54,7 +55,7 @@ const CodexList = () => {
         onOptionSelected={setSelectedFactions}
         options={factionFilter}
       />
-      <FlatList
+      <Animated.FlatList
         data={filteredData}
         contentContainerStyle={!data?.length ? { flex: 1 } : undefined}
         ItemSeparatorComponent={() => <VStack className='h-4' />}
@@ -72,12 +73,20 @@ const CodexList = () => {
             />
           ) : undefined
         }
+        itemLayoutAnimation={LinearTransition.easing(Easing.out(Easing.cubic))
+          .duration(300)
+          .delay(100)}
         renderItem={({ item }) => (
-          <CodexListItem
-            codex={item}
-            onPress={handlePress}
-            selected={selectedCodex === item.name}
-          />
+          <Animated.View
+            exiting={CustomFadeOut}
+            entering={CustomFadeIn}
+          >
+            <CodexListItem
+              codex={item}
+              onPress={handlePress}
+              selected={selectedCodex === item.name}
+            />
+          </Animated.View>
         )}
         showsVerticalScrollIndicator={false}
       />
