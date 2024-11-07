@@ -8,16 +8,16 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
-import { type NewArmy } from 'appdeptus/models'
+import { type ArmyBuilder } from 'appdeptus/models'
 import { memo } from 'react'
 import { useFormContext, useWatch } from 'react-hook-form'
 import { FlatList, RefreshControl } from 'react-native'
 import { useGetDetachmentListQuery } from '../../api'
 
 const DetachmentList = () => {
-  const { setValue } = useFormContext<NewArmy>()
+  const { setValue } = useFormContext<ArmyBuilder>()
 
-  const watch = useWatch<NewArmy>()
+  const watch = useWatch<ArmyBuilder>()
 
   const selectedCodex = watch.codex?.id
 
@@ -47,14 +47,12 @@ const DetachmentList = () => {
       renderItem={({ item }) => (
         <Pressable
           onPress={() => {
-            setValue('composition.detachment', { ...item, enhancements: [] })
+            setValue('detachment', { ...item, enhancements: [] })
           }}
         >
           <Card
             variant={
-              item.id === watch.composition?.detachment?.id
-                ? 'selected'
-                : 'selectable'
+              item.id === watch.detachment?.id ? 'selected' : 'selectable'
             }
           >
             <VStack className='p-4'>

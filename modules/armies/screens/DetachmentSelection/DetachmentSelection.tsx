@@ -1,24 +1,21 @@
 import { useUnmount } from 'ahooks'
-import {
-  ScreenContainer,
-  ScreenSubtitle,
-  ScreenTitle,
-  VStack
-} from 'appdeptus/components'
-import { type NewArmy } from 'appdeptus/models'
+import { ScreenContainer, VStack } from 'appdeptus/components'
+import { type ArmyBuilder } from 'appdeptus/models'
 import { useFormContext } from 'react-hook-form'
-import { ArmyBuilderBackground } from '../../components'
+import { ArmyBuilderBackground, TopBar } from '../../components'
 import DetachmentList from './DetachmentList'
 import Header from './Header'
 
 const DetachmentSelectionScreen = () => {
-  const { watch, reset } = useFormContext<NewArmy>()
+  const { watch, reset, getValues } = useFormContext<ArmyBuilder>()
 
   const selectedCodex = watch('codex')
 
   useUnmount(() => {
     reset({
-      codex: selectedCodex
+      ...getValues(),
+      detachment: undefined,
+      units: []
     })
   })
 
@@ -30,8 +27,10 @@ const DetachmentSelectionScreen = () => {
         space='md'
       >
         <Header />
-        <ScreenTitle>{selectedCodex.name}</ScreenTitle>
-        <ScreenSubtitle>detachments</ScreenSubtitle>
+        <TopBar
+          subtitle='detachmentSelection'
+          title={selectedCodex.name}
+        />
         <DetachmentList />
       </VStack>
     </ScreenContainer>

@@ -11,6 +11,7 @@ import {
   useFonts
 } from '@expo-google-fonts/ibm-plex-mono'
 import { Silkscreen_400Regular } from '@expo-google-fonts/silkscreen'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { coreApi } from 'appdeptus/api'
 import { GluestackUIProvider } from 'appdeptus/components/ui'
 import 'appdeptus/global.css'
@@ -19,6 +20,7 @@ import { store } from 'appdeptus/store'
 import { SplashScreen, Stack, router } from 'expo-router'
 import { type PropsWithChildren, useEffect } from 'react'
 import { StatusBar } from 'react-native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import {
   SafeAreaProvider,
   initialWindowMetrics
@@ -57,7 +59,11 @@ const App = ({ children }: PropsWithChildren) => {
         translucent
       />
       <Provider store={store}>
-        <GluestackUIProvider>{children}</GluestackUIProvider>
+        <GluestackUIProvider>
+          <GestureHandlerRootView>
+            <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
+          </GestureHandlerRootView>
+        </GluestackUIProvider>
       </Provider>
     </SafeAreaProvider>
   )
