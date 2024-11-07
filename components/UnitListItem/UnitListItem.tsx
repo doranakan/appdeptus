@@ -10,7 +10,7 @@ import {
   UsersRound
 } from 'lucide-react-native'
 import pluralize from 'pluralize'
-import { memo } from 'react'
+import { type ComponentProps, memo } from 'react'
 import Card from '../Card'
 import IconBadge from '../IconBadge'
 import Text from '../Text'
@@ -19,13 +19,18 @@ import { HStack, Icon, VStack } from '../ui'
 type UnitListItemProps = {
   unitOrTeam: Unit | Team
 
+  variant?: ComponentProps<typeof Card>['variant']
   warlord?: boolean
 }
 
-const UnitListItem = ({ unitOrTeam, ...props }: UnitListItemProps) => {
-  if ('leader' in unitOrTeam) {
+const UnitListItem = ({
+  unitOrTeam,
+  variant = 'default',
+  ...props
+}: UnitListItemProps) => {
+  if (unitOrTeam.type === 'team') {
     return (
-      <Card>
+      <Card variant={variant}>
         <VStack className='p-4'>
           <UnitDetail
             unit={unitOrTeam.leader}
@@ -49,7 +54,7 @@ const UnitListItem = ({ unitOrTeam, ...props }: UnitListItemProps) => {
   }
 
   return (
-    <Card>
+    <Card variant={variant}>
       <VStack className='p-4'>
         <UnitDetail
           unit={unitOrTeam}

@@ -17,10 +17,7 @@ const UnitSelectionScreen = () => {
     useState<(typeof unitTypes)[number]>('character')
 
   return (
-    <ScreenContainer
-      className='overflow-hidden'
-      safeAreaInsets={['bottom', 'top']}
-    >
+    <ScreenContainer safeAreaInsets={['bottom', 'top']}>
       <ArmyBuilderBackground />
       <VStack
         className='flex-1 px-4 pb-0 pt-4'
