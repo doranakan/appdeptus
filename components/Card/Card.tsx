@@ -7,7 +7,7 @@ import { selectThemeName } from '../store'
 import { themeColors, VStack } from '../ui'
 
 type CardProps = PropsWithChildren<{
-  variant?: 'default' | 'selectable' | 'selected'
+  variant?: 'default' | 'disabled' | 'selectable' | 'selected'
 }>
 
 const Card = ({ children, variant = 'default' }: CardProps) => {
@@ -20,7 +20,10 @@ const Card = ({ children, variant = 'default' }: CardProps) => {
         variantToShadow[variant]
       ])}
     >
-      <InnerBorder opacity={variant === 'selected' ? 'opacity-40' : undefined}>
+      <InnerBorder
+        opacity={variant === 'selected' ? 'opacity-40' : undefined}
+        selected={variant === 'selected'}
+      >
         <LinearGradient
           colors={[
             themeColors[themeName].primary[700],
@@ -31,9 +34,15 @@ const Card = ({ children, variant = 'default' }: CardProps) => {
         >
           {children}
         </LinearGradient>
+        {variant === 'disabled' ? (
+          <VStack
+            className='absolute h-full w-full bg-primary-950/70'
+            pointerEvents='none'
+          />
+        ) : undefined}
         {variant === 'selectable' ? (
           <VStack
-            className='absolute h-full w-full bg-primary-950/40'
+            className='absolute h-full w-full bg-secondary-950/20'
             pointerEvents='none'
           />
         ) : undefined}
@@ -44,6 +53,7 @@ const Card = ({ children, variant = 'default' }: CardProps) => {
 
 const variantToShadow = {
   default: 'shadow-lg',
+  disabled: 'shadow-sm',
   selectable: 'shadow-sm',
   selected: 'shadow-xl'
 } as const satisfies Record<NonNullable<CardProps['variant']>, string>
