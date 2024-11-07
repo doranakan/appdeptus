@@ -1,4 +1,5 @@
 import {
+  Badge,
   BottomSheet,
   bottomSheetRef,
   Button,
@@ -14,9 +15,9 @@ import clsx from 'clsx'
 import {
   Circle,
   CircleDot,
+  Link,
   Square,
-  SquareCheck,
-  Trash2
+  SquareCheck
 } from 'lucide-react-native'
 import pluralize from 'pluralize'
 import React, { memo, useEffect, useMemo } from 'react'
@@ -34,7 +35,7 @@ const UnitCustomizationBottomSheet = ({
   const units = watch('units')
 
   const selectedUnits = useMemo(
-    () => units?.filter(({ name }) => name === selectedUnit.name) ?? [],
+    () => units.filter(({ name }) => name === selectedUnit.name),
     [selectedUnit.name, units]
   )
 
@@ -59,6 +60,20 @@ const UnitCustomizationBottomSheet = ({
               className='p-4'
               space='md'
             >
+              {unit.teamId ? (
+                <HStack className='justify-end'>
+                  <Badge
+                    text={
+                      units.find(
+                        ({ id, teamId }) =>
+                          id !== unit.id && teamId === unit.teamId
+                      )?.name ?? ''
+                    }
+                    Icon={Link}
+                  />
+                </HStack>
+              ) : null}
+
               <VStack space='sm'>
                 <Text
                   className='uppercase'
@@ -172,12 +187,34 @@ const UnitCustomizationBottomSheet = ({
               <Button
                 className='shadow-sm'
                 color='secondary'
-                icon={Trash2}
                 onPress={() => {
-                  setValue('units', [
-                    ...units.filter(({ id }) => id !== unit.id)
-                  ])
+                  const teamId = unit.teamId
+                  if (teamId) {
+                    const pairedUnit = units.find(
+                      ({ id: pairedUnitId, teamId: pairedUnitTeamId }) =>
+                        pairedUnitId !== unit.id && teamId === pairedUnitTeamId
+                    )
+                    if (pairedUnit) {
+                      setValue('units', [
+                        ...units.filter(
+                          ({ id }) => id !== unit.id && id !== pairedUnit.id
+                        ),
+                        {
+                          ...pairedUnit,
+                          teamId: undefined
+                        }
+                      ])
+                    }
+
+                    return
+                  }
+
+                  setValue(
+                    'units',
+                    units.filter(({ id }) => id !== unit.id)
+                  )
                 }}
+                text='delete'
                 size='sm'
                 variant='callback'
               />
