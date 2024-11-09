@@ -69,7 +69,7 @@ const baseDetachmentSchema = z.object({
 
 const detachmentListSchema = z.array(
   baseDetachmentSchema
-    .and(
+    .merge(
       z.object({
         detachment_enhancements: z.array(enhancementSchema)
       })
@@ -80,7 +80,7 @@ const detachmentListSchema = z.array(
     }))
 )
 
-const armyUnitSchema = baseUnitSchema.and(
+const armyUnitSchema = baseUnitSchema.merge(
   z.object({
     selectionId: z.string(),
     tier: tierSchema,
@@ -88,15 +88,23 @@ const armyUnitSchema = baseUnitSchema.and(
   })
 )
 
-const characterSchema = armyUnitSchema.and(
+const characterSchema = armyUnitSchema.merge(
   z.object({ type: z.literal('character') })
 )
-const leaderSchema = armyUnitSchema.and(z.object({ type: z.literal('leader') }))
-const squadSchema = armyUnitSchema.and(z.object({ type: z.literal('squad') }))
-const transportSchema = armyUnitSchema.and(
+const leaderSchema = armyUnitSchema.merge(
+  z.object({ type: z.literal('leader') })
+)
+const squadSchema = armyUnitSchema.merge(z.object({ type: z.literal('squad') }))
+const teamSchema = z.object({
+  id: z.string(),
+  bodyguard: squadSchema,
+  leader: leaderSchema,
+  type: z.literal('team')
+})
+const transportSchema = armyUnitSchema.merge(
   z.object({ type: z.literal('transport') })
 )
-const vehicleSchema = armyUnitSchema.and(
+const vehicleSchema = armyUnitSchema.merge(
   z.object({ type: z.literal('vehicle') })
 )
 
@@ -104,7 +112,7 @@ const armySchema = z.object({
   codex: codexSchema,
   composition: z.object({
     characters: z.array(characterSchema),
-    detachment: baseDetachmentSchema.and(
+    detachment: baseDetachmentSchema.merge(
       z.object({
         enhancements: z.array(enhancementSchema)
       })
@@ -112,20 +120,13 @@ const armySchema = z.object({
     leaders: z.array(leaderSchema),
     squads: z.array(squadSchema),
     transports: z.array(transportSchema),
-    teams: z.array(
-      z.object({
-        id: z.string(),
-        bodyguard: squadSchema,
-        leader: leaderSchema,
-        type: z.literal('team')
-      })
-    ),
+    teams: z.array(teamSchema),
     vehicles: z.array(vehicleSchema),
-    warlord: armyUnitSchema.and(
-      z.object({
-        type: z.union([z.literal('character'), z.literal('leader')])
-      })
-    )
+    warlord: z.discriminatedUnion('type', [
+      teamSchema,
+      leaderSchema,
+      characterSchema
+    ])
   }),
   id: idSchema,
   name: z.string(),
@@ -136,9 +137,9 @@ const armyListSchema = z.array(armySchema)
 
 const codexListSchema = z.array(codexSchema)
 
-const codexUnitSchema = baseUnitSchema.and(
-  z
-    .object({
+const codexUnitSchema = baseUnitSchema
+  .merge(
+    z.object({
       type: z.union([
         z.literal('character'),
         z.literal('leader'),
@@ -151,12 +152,12 @@ const codexUnitSchema = baseUnitSchema.and(
       ),
       unit_upgrades: z.array(upgradeSchema)
     })
-    .transform(({ unit_tiers, unit_upgrades, ...rest }) => ({
-      ...rest,
-      tiers: unit_tiers,
-      upgrades: unit_upgrades
-    }))
-)
+  )
+  .transform(({ unit_tiers, unit_upgrades, ...rest }) => ({
+    ...rest,
+    tiers: unit_tiers,
+    upgrades: unit_upgrades
+  }))
 
 const unitListSchema = z.array(codexUnitSchema)
 
