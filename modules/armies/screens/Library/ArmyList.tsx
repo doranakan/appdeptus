@@ -4,9 +4,11 @@ import {
   FilterTopBar,
   Input,
   Loading,
+  Pressable,
   themeColors,
   VStack
 } from 'appdeptus/components'
+import { Link } from 'expo-router'
 import { Search } from 'lucide-react-native'
 import { memo, useMemo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
@@ -80,12 +82,19 @@ const ArmyList = () => {
           />
         }
         renderItem={({ item }) => (
-          <ArmyListItem
-            codex={item.codex.name}
-            detachment={item.composition.detachment.name}
-            name={item.name}
-            points={item.points}
-          />
+          <Link
+            asChild
+            href={`army/${item.id}`}
+          >
+            <Pressable>
+              <ArmyListItem
+                codex={item.codex.name}
+                detachment={item.composition.detachment.name}
+                name={item.name}
+                points={item.points}
+              />
+            </Pressable>
+          </Link>
         )}
         scrollEnabled={!isFetching}
         showsVerticalScrollIndicator={false}
