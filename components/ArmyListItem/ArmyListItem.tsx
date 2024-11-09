@@ -23,10 +23,7 @@ const ArmyListItem = ({
   variant
 }: ArmyListItemProps) => (
   <Card variant={variant}>
-    <ArmyBackground
-      codex={codex}
-      opacity={variant === 'selected' ? 'opacity-60' : undefined}
-    />
+    <ArmyBackground codex={codex} />
     <VStack
       className='p-4'
       space='sm'

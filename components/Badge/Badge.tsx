@@ -23,7 +23,7 @@ const Badge = ({ codex, Icon, text, variant = 'secondary' }: BadgeProps) => (
     space='sm'
     style={
       codex && {
-        backgroundColor: `${themeColors[codex][variant][500]}/60`,
+        backgroundColor: `${themeColors[codex][variant][500]}60`,
         borderColor: themeColors[codex][variant][500]
       }
     }

@@ -6,6 +6,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import { type Codex } from 'appdeptus/models'
+import clsx from 'clsx'
 import { memo } from 'react'
 
 type CodexListItemProps = {
@@ -22,7 +23,11 @@ const CodexListItem = ({ codex, onPress, selected }: CodexListItemProps) => (
     }}
   >
     <Card variant={selected ? 'selected' : 'selectable'}>
-      <ArmyBackground codex={codex.name} />
+      <VStack
+        className={clsx(['absolute h-full w-full', selected && 'opacity-20'])}
+      >
+        <ArmyBackground codex={codex.name} />
+      </VStack>
       <VStack className='p-4'>
         <Text
           family='body-bold'
