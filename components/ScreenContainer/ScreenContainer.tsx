@@ -43,7 +43,7 @@ const ScreenContainer = ({
           position: 'absolute',
           height: 40,
           width: '100%',
-          bottom: safeAreaInsets?.includes('bottom') ? bottom : 0
+          bottom: safeAreaInsets?.includes('bottom') ? bottom - 1 : 0 // this shitty -1 is a workaround to make sure that the gradient meats the safe area correctly
         }}
       />
     </>
