@@ -89,7 +89,9 @@ const LeaderSelectionList = () => {
 
             setValue('units', [
               ...units.filter(
-                ({ id }) => id !== unit.id && id !== selectedLeader?.id
+                ({ selectionId }) =>
+                  selectionId !== unit.selectionId &&
+                  selectionId !== selectedLeader?.selectionId
               ),
               { ...unit, teamId },
               { ...selectedLeader, teamId }
@@ -102,7 +104,9 @@ const LeaderSelectionList = () => {
         case 'team': {
           setValue('units', [
             ...units.filter(
-              ({ id }) => id !== unit.bodyguard.id && id !== unit.leader.id
+              ({ selectionId }) =>
+                selectionId !== unit.bodyguard.selectionId &&
+                selectionId !== unit.leader.selectionId
             ),
             { ...unit.bodyguard, teamId: undefined },
             { ...unit.leader, teamId: undefined }
@@ -145,7 +149,7 @@ const LeaderSelectionList = () => {
       >
         {leaderList.map((leader) => (
           <Pressable
-            key={leader.id}
+            key={leader.selectionId}
             onPress={() => {
               handlePress(leader)
             }}
@@ -155,7 +159,7 @@ const LeaderSelectionList = () => {
               variant={
                 !selectedLeader
                   ? 'selectable'
-                  : selectedLeader.id === leader.id
+                  : selectedLeader.selectionId === leader.selectionId
                     ? 'selected'
                     : 'disabled'
               }
@@ -171,7 +175,7 @@ const LeaderSelectionList = () => {
         {squadList.map((squad) => (
           <Pressable
             disabled={!selectedLeader}
-            key={squad.id}
+            key={squad.selectionId}
             onPress={() => {
               handlePress(squad)
             }}

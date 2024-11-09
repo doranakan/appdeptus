@@ -24,10 +24,12 @@ const EnhancementList = () => {
     <FlatList
       data={enhancements}
       ItemSeparatorComponent={() => <VStack className='h-4' />}
-      keyExtractor={({ id }) => id}
+      keyExtractor={({ id }) => String(id)}
       renderItem={({ item }) => (
         <Pressable
           onPress={() => {
+            const points = watch('points')
+
             const index = selectedEnhancements.findIndex(
               ({ id }) => id === item.id
             )
@@ -37,9 +39,12 @@ const EnhancementList = () => {
                 'detachment.enhancements',
                 selectedEnhancements.filter(({ id }) => id !== item.id)
               )
+              setValue('points', points - item.points)
               return
             }
+
             setValue('detachment.enhancements', [...selectedEnhancements, item])
+            setValue('points', points + item.points)
           }}
         >
           <Card
