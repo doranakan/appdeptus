@@ -19,9 +19,10 @@ const Header = () => {
           : 'select a codex'
       }}
       rightButton={{
+        disabled: !selectedCodex?.length,
         icon: ChevronRight,
         href: 'army-builder/detachment-selection',
-        disabled: !selectedCodex?.length
+        variant: 'link'
       }}
     />
   )

@@ -12,7 +12,8 @@ const Header = () => {
       user={data}
       rightButton={{
         href: 'army-builder',
-        icon: Plus
+        icon: Plus,
+        variant: 'link'
       }}
     />
   )

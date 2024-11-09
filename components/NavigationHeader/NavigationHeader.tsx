@@ -8,11 +8,7 @@ import { HStack } from '../ui'
 
 type NavigationHeaderProps = {
   progress?: ComponentProps<typeof Progress>
-  rightButton?: {
-    href: string
-    icon?: ComponentProps<typeof Button>['icon']
-    disabled?: ComponentProps<typeof Button>['disabled']
-  }
+  rightButton?: ComponentProps<typeof Button>
 } & (
   | {
       variant: 'backButton'
@@ -50,7 +46,6 @@ const NavigationHeader = ({
     {rightButton ? (
       <Button
         {...rightButton}
-        variant='link'
         icon={rightButton.icon ?? ChevronRight}
       />
     ) : null}

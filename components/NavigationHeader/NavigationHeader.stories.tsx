@@ -27,8 +27,10 @@ export const Avatar: Story = {
 export const RightButton: Story = {
   args: {
     rightButton: {
-      href: '../',
-      disabled: true
+      disabled: true,
+      onPress: () => {},
+      text: 'B',
+      variant: 'callback'
     }
   }
 }

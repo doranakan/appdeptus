@@ -26,6 +26,7 @@ const Header = () => {
         href: shouldAssignLeaders
           ? 'army-builder/leader-selection'
           : 'army-builder/warlord-selection',
+        variant: 'link',
         icon: ChevronRight
       }}
     />

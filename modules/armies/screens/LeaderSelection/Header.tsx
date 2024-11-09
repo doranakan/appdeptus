@@ -12,7 +12,8 @@ const Header = () => (
     }}
     rightButton={{
       href: 'army-builder/warlord-selection',
-      icon: ChevronRight
+      icon: ChevronRight,
+      variant: 'link'
     }}
   />
 )
