@@ -5,7 +5,7 @@ import { type RealTimeGame } from '../types'
 
 type GameUpdatesParams = {
   eventHandler: (payload: RealtimePostgresUpdatePayload<RealTimeGame>) => void
-  gameId: string
+  gameId: number
 }
 
 const gameUpdates = ({ eventHandler, gameId }: GameUpdatesParams) =>

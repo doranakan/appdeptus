@@ -34,7 +34,7 @@ const DetachmentList = () => {
         isError ? <Error /> : isFetching ? <Loading /> : null
       }
       ListFooterComponent={() => <VStack className='h-8' />}
-      keyExtractor={({ id }) => id}
+      keyExtractor={({ id }) => String(id)}
       refreshControl={
         isError ? (
           <RefreshControl

@@ -8,10 +8,11 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
     playerOne: {
       army: {
         codex: {
-          id: 'id',
-          name: 'Adepta Sororitas'
+          id: 0,
+          name: 'Adepta Sororitas',
+          faction: 'imperium'
         },
-        id: 'id',
+        id: 0,
         name: 'Army One',
         points: 2000,
         composition: {} as unknown as Army['composition']
@@ -23,10 +24,11 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
     playerTwo: {
       army: {
         codex: {
-          id: 'id',
-          name: 'Adeptus Mechanicus'
+          id: 0,
+          name: 'Adeptus Mechanicus',
+          faction: 'imperium'
         },
-        id: 'id',
+        id: 0,
         name: 'Army Two',
         points: 1990,
         composition: {} as unknown as Army['composition']

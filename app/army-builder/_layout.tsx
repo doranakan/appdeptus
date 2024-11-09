@@ -9,10 +9,11 @@ const ArmyBuilderLayout = () => {
   const form = useForm<ArmyBuilder>({
     defaultValues: {
       codex: undefined,
-      units: [],
       detachment: undefined,
       name: '',
-      points: 0
+      points: 0,
+      units: [],
+      warlord: undefined
     }
   })
 

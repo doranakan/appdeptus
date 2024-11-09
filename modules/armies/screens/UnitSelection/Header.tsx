@@ -14,6 +14,13 @@ const Header = () => {
     [watch.units]
   )
 
+  const disabled = useMemo(
+    () =>
+      !watch.units?.filter(({ type }) => type === 'leader').length &&
+      !watch.units?.filter(({ type }) => type === 'character').length,
+    [watch.units]
+  )
+
   return (
     <NavigationHeader
       variant='backButton'
@@ -23,9 +30,11 @@ const Header = () => {
         text: 'select units'
       }}
       rightButton={{
+        disabled,
         href: shouldAssignLeaders
           ? 'army-builder/leader-selection'
           : 'army-builder/warlord-selection',
+        variant: 'link',
         icon: ChevronRight
       }}
     />

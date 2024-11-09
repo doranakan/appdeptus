@@ -38,6 +38,7 @@ const UnitList = ({ type }: UnitListProps) => {
       setUnitToEdit(unit)
 
       const selectedUnits = watch('units')
+      const points = watch('points')
 
       setValue('units', [
         ...selectedUnits,
@@ -46,9 +47,10 @@ const UnitList = ({ type }: UnitListProps) => {
           type,
           tier: unit.tiers[0],
           upgrades: [],
-          id: uniqueId()
+          selectionId: uniqueId()
         }
       ])
+      setValue('points', points + unit.tiers[0].points)
     },
     [setValue, type, watch]
   )
@@ -88,7 +90,7 @@ const UnitList = ({ type }: UnitListProps) => {
           isError ? <Error /> : isFetching ? <Loading /> : null
         }
         ListFooterComponent={() => <VStack className='h-8' />}
-        keyExtractor={({ id }) => id}
+        keyExtractor={({ id }) => String(id)}
         refreshControl={
           isError ? (
             <RefreshControl

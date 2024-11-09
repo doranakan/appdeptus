@@ -55,7 +55,7 @@ const UnitCustomizationBottomSheet = ({
           {selectedUnit.name}
         </Text>
         {selectedUnits.map((unit) => (
-          <Card key={unit.id}>
+          <Card key={unit.selectionId}>
             <VStack
               className='p-4'
               space='md'
@@ -65,8 +65,9 @@ const UnitCustomizationBottomSheet = ({
                   <Badge
                     text={
                       units.find(
-                        ({ id, teamId }) =>
-                          id !== unit.id && teamId === unit.teamId
+                        ({ selectionId, teamId }) =>
+                          selectionId !== unit.selectionId &&
+                          teamId === unit.teamId
                       )?.name ?? ''
                     }
                     Icon={Link}
@@ -89,10 +90,25 @@ const UnitCustomizationBottomSheet = ({
                       className={clsx(unit.tier.id !== id && 'opacity-60')}
                       key={id}
                       onPress={() => {
-                        setValue('units', [
-                          ...units.filter(({ id }) => id !== unit.id),
-                          { ...unit, tier: { id, models, points } }
-                        ])
+                        const totalPoints = watch('points')
+
+                        setValue(
+                          'points',
+                          totalPoints - unit.tier.points + points
+                        )
+
+                        setValue(
+                          'units',
+                          units.map((u) => {
+                            if (u.selectionId === unit.selectionId) {
+                              return {
+                                ...unit,
+                                tier: { id, models, points }
+                              }
+                            }
+                            return u
+                          })
+                        )
                       }}
                     >
                       <HStack
@@ -127,39 +143,56 @@ const UnitCustomizationBottomSheet = ({
                   </Text>
                   <VStack space='md'>
                     {selectedUnit.upgrades.map(({ id, name, points }) => {
-                      const isUpgradeSelected = !!unit.upgrades.find(
+                      const isUpgradeAlreadySelected = !!unit.upgrades.find(
                         ({ id: selectedUpgradeId }) => selectedUpgradeId === id
                       )
                       return (
                         <Pressable
-                          className={clsx(!isUpgradeSelected && 'opacity-60')}
+                          className={clsx(
+                            !isUpgradeAlreadySelected && 'opacity-60'
+                          )}
                           key={id}
                           onPress={() => {
-                            if (isUpgradeSelected) {
-                              setValue('units', [
-                                ...units.filter(({ id }) => id !== unit.id),
-                                {
-                                  ...unit,
-                                  upgrades: [
-                                    ...unit.upgrades.filter(
-                                      ({ id: selectedUpgradeId }) =>
-                                        selectedUpgradeId !== id
-                                    )
-                                  ]
-                                }
-                              ])
+                            const totalPoints = watch('points')
+
+                            if (isUpgradeAlreadySelected) {
+                              setValue(
+                                'units',
+                                units.map((u) => {
+                                  if (u.selectionId === unit.selectionId) {
+                                    return {
+                                      ...unit,
+                                      upgrades: unit.upgrades.filter(
+                                        ({ id: selectedUpgradeId }) =>
+                                          selectedUpgradeId !== id
+                                      )
+                                    }
+                                  }
+                                  return u
+                                })
+                              )
+
+                              setValue('points', totalPoints - points)
                               return
                             }
-                            setValue('units', [
-                              ...units.filter(({ id }) => id !== unit.id),
-                              {
-                                ...unit,
-                                upgrades: [
-                                  ...unit.upgrades,
-                                  { id, name, points }
-                                ]
-                              }
-                            ])
+
+                            setValue(
+                              'units',
+                              units.map((u) => {
+                                if (u.selectionId === unit.selectionId) {
+                                  return {
+                                    ...unit,
+                                    upgrades: [
+                                      ...unit.upgrades,
+                                      { id, name, points }
+                                    ]
+                                  }
+                                }
+                                return u
+                              })
+                            )
+
+                            setValue('points', totalPoints + points)
                           }}
                         >
                           <HStack
@@ -167,7 +200,9 @@ const UnitCustomizationBottomSheet = ({
                             space='md'
                           >
                             <Icon
-                              as={isUpgradeSelected ? SquareCheck : Square}
+                              as={
+                                isUpgradeAlreadySelected ? SquareCheck : Square
+                              }
                               className='text-primary-50'
                             />
                             <HStack className='flex-1 justify-between'>
@@ -189,15 +224,24 @@ const UnitCustomizationBottomSheet = ({
                 color='secondary'
                 onPress={() => {
                   const teamId = unit.teamId
+
+                  const totalPoints = watch('points')
+
                   if (teamId) {
                     const pairedUnit = units.find(
-                      ({ id: pairedUnitId, teamId: pairedUnitTeamId }) =>
-                        pairedUnitId !== unit.id && teamId === pairedUnitTeamId
+                      ({
+                        selectionId: pairedUnitSelectionId,
+                        teamId: pairedUnitTeamId
+                      }) =>
+                        pairedUnitSelectionId !== unit.selectionId &&
+                        teamId === pairedUnitTeamId
                     )
                     if (pairedUnit) {
                       setValue('units', [
                         ...units.filter(
-                          ({ id }) => id !== unit.id && id !== pairedUnit.id
+                          ({ selectionId }) =>
+                            selectionId !== unit.selectionId &&
+                            selectionId !== pairedUnit.selectionId
                         ),
                         {
                           ...pairedUnit,
@@ -211,7 +255,19 @@ const UnitCustomizationBottomSheet = ({
 
                   setValue(
                     'units',
-                    units.filter(({ id }) => id !== unit.id)
+                    units.filter(
+                      ({ selectionId }) => selectionId !== unit.selectionId
+                    )
+                  )
+
+                  const upgradePoints = unit.upgrades.reduce(
+                    (acc, upgrade) => (acc += upgrade.points),
+                    0
+                  )
+
+                  setValue(
+                    'points',
+                    totalPoints - unit.tier.points - upgradePoints
                   )
                 }}
                 text='delete'

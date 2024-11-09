@@ -1,11 +1,11 @@
 type Detachment = {
-  id: string
+  id: number
   name: string
   enhancements: Enhancement[]
 }
 
 type Enhancement = {
-  id: string
+  id: number
   name: string
   points: number
 }

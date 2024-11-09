@@ -32,25 +32,27 @@ const Input = ({
     <InnerBorder>
       <VStack className='bg-primary-800'>
         <InsetShadow>
-          <InputContainer
-            className='border-0 px-4'
-            variant='outline'
-            isDisabled={disabled}
-            isInvalid={false}
-            isReadOnly={false}
-          >
-            <InputSlot>
-              <InputIcon as={Icon} />
-            </InputSlot>
-            <InputField
-              {...props}
-              className='text-primary-50'
-              placeholder={placeholder}
-              onChangeText={onChangeText}
-              style={styles.textField}
-              value={value}
-            />
-          </InputContainer>
+          <VStack className='p-1 px-4'>
+            <InputContainer
+              className='border-0'
+              variant='outline'
+              isDisabled={disabled}
+              isInvalid={false}
+              isReadOnly={false}
+            >
+              <InputSlot>
+                <InputIcon as={Icon} />
+              </InputSlot>
+              <InputField
+                {...props}
+                className='text-primary-50'
+                placeholder={placeholder}
+                onChangeText={onChangeText}
+                style={styles.textField}
+                value={value}
+              />
+            </InputContainer>
+          </VStack>
         </InsetShadow>
       </VStack>
     </InnerBorder>

@@ -8,7 +8,7 @@ import {
 } from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
 import { Info } from 'lucide-react-native'
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 type TopBarProps = {
@@ -19,27 +19,7 @@ type TopBarProps = {
 const TopBar = ({ subtitle, title }: TopBarProps) => {
   const { watch } = useFormContext<ArmyBuilder>()
 
-  const detachment = watch('detachment')
-
-  const units = watch('units')
-
-  const points = useMemo(() => {
-    const enhancementPoints =
-      detachment?.enhancements.reduce(
-        (acc, enhancement) => (acc += enhancement.points),
-        0
-      ) ?? 0
-
-    const unitPoints = units.reduce(
-      (total, unit) =>
-        (total +=
-          unit.tier.points +
-          unit.upgrades.reduce((acc, upgrade) => (acc += upgrade.points), 0)),
-      0
-    )
-
-    return enhancementPoints + unitPoints
-  }, [detachment?.enhancements, units])
+  const points = watch('points')
 
   return (
     <VStack space='md'>
