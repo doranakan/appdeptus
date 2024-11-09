@@ -28,7 +28,7 @@ const DetachmentSelectionScreen = () => {
       >
         <Header />
         <TopBar
-          subtitle='detachmentSelection'
+          subtitle='detachments'
           title={selectedCodex.name}
         />
         <DetachmentList />
