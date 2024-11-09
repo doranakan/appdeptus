@@ -4,8 +4,8 @@ import { Table } from 'appdeptus/utils/supabase'
 import GamesApiTag from '../tags'
 
 type StartGameRequest = {
-  armyId: string
-  gameId: string
+  armyId: number
+  gameId: number
 }
 
 const startGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>

@@ -1,7 +1,7 @@
 import { armySchema } from 'appdeptus/modules/armies/api/schemas'
 import { z } from 'zod'
 
-const idSchema = z.number().transform(String)
+const idSchema = z.number()
 
 const playerSchema = z.object({
   name: z.string()

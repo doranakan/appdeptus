@@ -2,7 +2,7 @@
 import { type SelectableUnit } from 'appdeptus/models'
 import { z } from 'zod'
 
-const idSchema = z.number().transform(String)
+const idSchema = z.number()
 
 const codexSchema = z.object({
   id: idSchema,
@@ -82,6 +82,7 @@ const detachmentListSchema = z.array(
 
 const armyUnitSchema = baseUnitSchema.and(
   z.object({
+    selectionId: z.string(),
     tier: tierSchema,
     upgrades: z.array(upgradeSchema)
   })
@@ -113,8 +114,10 @@ const armySchema = z.object({
     transports: z.array(transportSchema),
     teams: z.array(
       z.object({
+        id: z.string(),
+        bodyguard: squadSchema,
         leader: leaderSchema,
-        bodyguard: squadSchema
+        type: z.literal('team')
       })
     ),
     vehicles: z.array(vehicleSchema),

@@ -13,7 +13,7 @@ import {
 
 type BaseArmy = {
   codex: Codex
-  id: string
+  id: number
   name: string
   points: number
 }

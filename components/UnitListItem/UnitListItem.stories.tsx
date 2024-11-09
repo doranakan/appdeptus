@@ -16,9 +16,10 @@ type Story = StoryObj<typeof UnitListItem>
 export const Character: Story = {
   args: {
     unitOrTeam: {
-      id: 'id',
+      id: 0,
       name: 'Angron',
-      tier: { id: 'id', models: 1, points: 415 },
+      selectionId: 'id',
+      tier: { id: 0, models: 1, points: 415 },
       type: 'character',
       upgrades: []
     }
@@ -27,9 +28,10 @@ export const Character: Story = {
 export const Leader: Story = {
   args: {
     unitOrTeam: {
-      id: 'id',
+      id: 0,
       name: 'Khârn the Betrayer',
-      tier: { id: 'id', models: 1, points: 95 },
+      selectionId: 'id',
+      tier: { id: 0, models: 1, points: 95 },
       type: 'leader',
       upgrades: []
     }
@@ -38,9 +40,10 @@ export const Leader: Story = {
 export const Squad: Story = {
   args: {
     unitOrTeam: {
-      id: 'id',
+      id: 0,
       name: 'Khorne Berzerkers',
-      tier: { id: 'id', models: 10, points: 230 },
+      selectionId: 'id',
+      tier: { id: 0, models: 10, points: 230 },
       type: 'squad',
       upgrades: []
     }
@@ -49,17 +52,21 @@ export const Squad: Story = {
 export const Team: Story = {
   args: {
     unitOrTeam: {
+      id: 'id',
+      type: 'team',
       leader: {
-        id: 'id',
+        id: 0,
         name: 'Khârn the Betrayer',
-        tier: { id: 'id', models: 1, points: 85 },
+        selectionId: 'id',
+        tier: { id: 0, models: 1, points: 85 },
         type: 'leader',
         upgrades: []
       },
       bodyguard: {
-        id: 'id',
+        id: 0,
         name: 'Khorne Berzerker',
-        tier: { id: 'id', models: 1, points: 85 },
+        selectionId: 'id',
+        tier: { id: 0, models: 1, points: 85 },
         type: 'squad',
         upgrades: []
       }
@@ -69,9 +76,10 @@ export const Team: Story = {
 export const Transport: Story = {
   args: {
     unitOrTeam: {
-      id: 'id',
+      id: 0,
       name: 'World Eaters Rhino',
-      tier: { id: 'id', models: 1, points: 85 },
+      selectionId: 'id',
+      tier: { id: 0, models: 1, points: 85 },
       type: 'transport',
       upgrades: []
     }
@@ -80,9 +88,10 @@ export const Transport: Story = {
 export const Vehicle: Story = {
   args: {
     unitOrTeam: {
-      id: 'id',
+      id: 0,
       name: 'World Eaters Maulerfiend',
-      tier: { id: 'id', models: 1, points: 175 },
+      selectionId: 'id',
+      tier: { id: 0, models: 1, points: 175 },
       type: 'vehicle',
       upgrades: []
     }

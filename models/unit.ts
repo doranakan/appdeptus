@@ -1,8 +1,9 @@
 type BaseUnit = {
-  id: string
+  id: number
   name: string
-  upgrades: UnitUpgrade[]
+  selectionId: string
   tier: Tier
+  upgrades: UnitUpgrade[]
 
   teamId?: string
 }
@@ -38,18 +39,18 @@ type Warlord = Character | Leader | Team
 
 type Unit = Character | Leader | Squad | Transport | Vehicle
 
-type SelectableUnit = Omit<Unit, 'tier' | 'teamId'> & {
+type SelectableUnit = Omit<Unit, 'selectionId' | 'tier' | 'teamId'> & {
   tiers: [Tier, ...Tier[]]
 }
 
 type Tier = {
-  id: string
+  id: number
   models: number
   points: number
 }
 
 type UnitUpgrade = {
-  id: string
+  id: number
   name: string
   points: number
 }

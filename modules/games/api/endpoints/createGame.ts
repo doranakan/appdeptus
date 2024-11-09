@@ -1,11 +1,12 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
+import { type Army } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { createGameSchema } from '../schemas'
 import type GamesApiTag from '../tags'
 
 const createGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
-  builder.mutation<string, string>({
+  builder.mutation<Army['id'], Army['id']>({
     queryFn: async (armyId) => {
       try {
         const { data, error } = await supabase

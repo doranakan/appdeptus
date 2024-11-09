@@ -1,7 +1,7 @@
 import { type codexes, type factions } from 'appdeptus/constants'
 
 type Codex = {
-  id: string
+  id: number
   name: CodexName
   faction: Faction
 }

@@ -2,7 +2,7 @@ import { type Army } from './army'
 import { type UserProfile } from './userProfile'
 
 type BaseGame = {
-  id: string
+  id: number
   lastUpdate: string
   playerOne: Player
 }

@@ -61,7 +61,7 @@ const ArmyList = () => {
         className='container flex-1'
         contentContainerStyle={!data?.length ? { flex: 1 } : undefined}
         data={filteredData}
-        keyExtractor={({ id }) => id}
+        keyExtractor={({ id }) => String(id)}
         ItemSeparatorComponent={() => <VStack className='h-4' />}
         ListEmptyComponent={
           isError ? (

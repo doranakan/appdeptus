@@ -54,9 +54,7 @@ const getGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
         const games = await getGamesSchema.parseAsync(data)
 
         return {
-          data: games.sort(
-            ({ id: id1 }, { id: id2 }) => Number(id2) - Number(id1)
-          )
+          data: games.sort(({ id: id1 }, { id: id2 }) => id2 - id1)
         }
       } catch (error) {
         return { error }
