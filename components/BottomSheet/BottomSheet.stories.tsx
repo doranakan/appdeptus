@@ -15,7 +15,7 @@ const Wrapper = () => (
       variant='callback'
       text='show'
     />
-    <BottomSheet ref={ref}>
+    <BottomSheet>
       <VStack className='mb-32 p-4'>
         <Text>This is a bottom sheet</Text>
       </VStack>
