@@ -149,7 +149,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
               />
               <VStack space='md'>
                 <ScreenTitle>{army.name}</ScreenTitle>
-                <Card mode='blur'>
+                <Card>
                   <VStack
                     className='p-4'
                     space='md'

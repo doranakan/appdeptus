@@ -1,29 +1,22 @@
 import clsx from 'clsx'
-import { BlurView } from 'expo-blur'
 import { LinearGradient } from 'expo-linear-gradient'
 import { memo, type PropsWithChildren } from 'react'
-import { Platform } from 'react-native'
 import { useSelector } from 'react-redux'
 import InnerBorder from '../InnerBorder'
 import { selectThemeName } from '../store'
 import { themeColors, VStack } from '../ui'
 
 type CardProps = PropsWithChildren<{
-  mode?: 'blur' | 'gradient'
   variant?: 'default' | 'disabled' | 'selectable' | 'selected'
 }>
 
-const Card = ({
-  children,
-  mode = 'gradient',
-  variant = 'default'
-}: CardProps) => {
+const Card = ({ children, variant = 'default' }: CardProps) => {
   const themeName = useSelector(selectThemeName)
 
   return (
     <VStack
       className={clsx([
-        'w-full rounded-3xl bg-primary-700/10',
+        'w-full rounded-3xl bg-primary-700',
         variantToShadow[variant]
       ])}
     >
@@ -31,25 +24,16 @@ const Card = ({
         opacity={variant === 'selected' ? 'opacity-40' : undefined}
         selected={variant === 'selected'}
       >
-        {mode === 'gradient' ? (
-          <LinearGradient
-            colors={[
-              themeColors[themeName].primary[700],
-              themeColors[themeName].primary[950]
-            ]}
-            start={{ x: 0.3, y: 1 }}
-            end={{ x: 1, y: 3 }}
-          >
-            {children}
-          </LinearGradient>
-        ) : (
-          <BlurView
-            intensity={Platform.OS === 'android' ? 40 : 10}
-            tint='regular'
-          >
-            {children}
-          </BlurView>
-        )}
+        <LinearGradient
+          colors={[
+            themeColors[themeName].primary[700],
+            themeColors[themeName].primary[950]
+          ]}
+          start={{ x: 0.3, y: 1 }}
+          end={{ x: 1, y: 3 }}
+        >
+          {children}
+        </LinearGradient>
         {variant === 'disabled' ? (
           <VStack
             className='absolute h-full w-full bg-primary-950/70'
