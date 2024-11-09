@@ -1,4 +1,4 @@
-import { Card, HStack, Pressable, Text, VStack } from 'appdeptus/components'
+import { EnhancementListItem, Pressable, VStack } from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
 import { memo } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -47,21 +47,14 @@ const EnhancementList = () => {
             setValue('points', points + item.points)
           }}
         >
-          <Card
+          <EnhancementListItem
+            enhancement={item}
             variant={
               selectedEnhancements.map(({ id }) => id).includes(item.id)
                 ? 'selected'
                 : 'selectable'
             }
-          >
-            <HStack className='justify-between p-4'>
-              <Text family='body-bold'>{item.name}</Text>
-              <Text
-                className='uppercase'
-                family='body-bold'
-              >{`${item.points}pts`}</Text>
-            </HStack>
-          </Card>
+          />
         </Pressable>
       )}
       showsVerticalScrollIndicator={false}
