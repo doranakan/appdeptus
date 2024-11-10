@@ -1,14 +1,28 @@
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
+import { type BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { BlurView } from 'expo-blur'
-import { memo, type PropsWithChildren } from 'react'
+import {
+  forwardRef,
+  type ForwardRefRenderFunction,
+  memo,
+  type PropsWithChildren
+} from 'react'
 import { Platform, StyleSheet, useWindowDimensions } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import InnerBorder from '../InnerBorder'
 import { Pressable, VStack } from '../ui'
-import ref from './ref'
 
-const BottomSheet = ({ children }: PropsWithChildren) => {
+type BottomSheetProps = {
+  onPressBackdrop: () => void
+
+  scrollDisabled?: boolean
+}
+
+const BottomSheet: ForwardRefRenderFunction<
+  BottomSheetModalMethods,
+  PropsWithChildren<BottomSheetProps>
+> = ({ children, onPressBackdrop, scrollDisabled }, ref) => {
   const window = useWindowDimensions()
 
   const { bottom, top } = useSafeAreaInsets()
@@ -25,17 +39,15 @@ const BottomSheet = ({ children }: PropsWithChildren) => {
       backdropComponent={() => (
         <Pressable
           className='absolute h-full w-full'
-          onPress={() => {
-            ref.current?.dismiss()
-          }}
+          onPress={onPressBackdrop}
         />
       )}
     >
       <BottomSheetView style={styles.container}>
         <InnerBorder>
           <BlurView
-            intensity={Platform.OS === 'android' ? 40 : 10}
-            tint='regular'
+            intensity={Platform.OS === 'android' ? 80 : 20}
+            tint='systemChromeMaterialDark'
           >
             <VStack
               className='overflow-visible p-4'
@@ -43,6 +55,7 @@ const BottomSheet = ({ children }: PropsWithChildren) => {
             >
               <VStack className='z-10 h-1 w-16 self-center rounded-full bg-primary-50' />
               <ScrollView
+                scrollEnabled={!scrollDisabled}
                 showsVerticalScrollIndicator={false}
                 style={{ paddingBottom: bottom }}
               >
@@ -63,4 +76,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default memo(BottomSheet)
+export default memo(forwardRef(BottomSheet))

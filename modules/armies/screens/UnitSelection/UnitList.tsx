@@ -1,10 +1,4 @@
-import {
-  bottomSheetRef,
-  Error,
-  Loading,
-  themeColors,
-  VStack
-} from 'appdeptus/components'
+import { Error, Loading, themeColors, VStack } from 'appdeptus/components'
 import { type ArmyBuilder, type SelectableUnit } from 'appdeptus/models'
 import { uniqueId } from 'lodash'
 import React, { memo, useCallback, useState } from 'react'
@@ -13,6 +7,7 @@ import { FlatList, type ListRenderItem, RefreshControl } from 'react-native'
 import { useGetUnitListQuery } from '../../api'
 import UnitCustomizationBottomSheet from './UnitCustomizationBottomSheet'
 import UnitListItem from './UnitListItem'
+import ref from './ref'
 
 type UnitListProps = {
   type: 'character' | 'leader' | 'squad' | 'transport' | 'vehicle'
@@ -59,7 +54,7 @@ const UnitList = ({ type }: UnitListProps) => {
 
   const handleEdit = useCallback((unit: SelectableUnit) => {
     setUnitToEdit(unit)
-    bottomSheetRef.current?.present()
+    ref.current?.present()
   }, [])
 
   const renderItem = useCallback<ListRenderItem<SelectableUnit>>(
