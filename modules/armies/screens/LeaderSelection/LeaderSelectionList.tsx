@@ -5,7 +5,8 @@ import {
   type Squad,
   type Team
 } from 'appdeptus/models'
-import { sortBy, uniqueId } from 'lodash'
+import * as Crypto from 'expo-crypto'
+import { sortBy } from 'lodash'
 import {
   memo,
   type PropsWithChildren,
@@ -85,7 +86,7 @@ const LeaderSelectionList = () => {
         }
         case 'squad': {
           if (selectedLeader) {
-            const teamId = uniqueId()
+            const teamId = Crypto.randomUUID()
 
             setValue('units', [
               ...units.filter(

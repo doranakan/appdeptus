@@ -1,6 +1,6 @@
 import { Error, Loading, themeColors, VStack } from 'appdeptus/components'
 import { type ArmyBuilder, type SelectableUnit } from 'appdeptus/models'
-import { uniqueId } from 'lodash'
+import * as Crypto from 'expo-crypto'
 import React, { memo, useCallback, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FlatList, type ListRenderItem, RefreshControl } from 'react-native'
@@ -42,7 +42,7 @@ const UnitList = ({ type }: UnitListProps) => {
           type,
           tier: unit.tiers[0],
           upgrades: [],
-          selectionId: uniqueId()
+          selectionId: Crypto.randomUUID()
         }
       ])
       setValue('points', points + unit.tiers[0].points)
