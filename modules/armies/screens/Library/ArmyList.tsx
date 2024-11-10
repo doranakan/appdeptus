@@ -31,12 +31,15 @@ const ArmyList = () => {
     const { lowerLimit, upperLimit } = pointFiltersToLimits[pointFilter]
 
     return data
+      .filter(
+        ({ codex, name }) =>
+          name.includes(searchString) || codex.name.includes(searchString)
+      )
       .filter(({ points }) =>
         pointFilter === 'all'
           ? true
           : points > lowerLimit && points <= upperLimit
       )
-      .filter(({ name }) => name.includes(searchString))
   }, [data, pointFilter, searchString])
 
   return (
