@@ -1,7 +1,6 @@
 import {
   Badge,
   BottomSheet,
-  bottomSheetRef,
   Button,
   Card,
   HStack,
@@ -22,6 +21,7 @@ import {
 import pluralize from 'pluralize'
 import React, { memo, useEffect, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
+import ref from './ref'
 
 type UnitCustomizationBottomSheetProps = {
   selectedUnit: SelectableUnit
@@ -41,12 +41,15 @@ const UnitCustomizationBottomSheet = ({
 
   useEffect(() => {
     if (!selectedUnits.length) {
-      bottomSheetRef.current?.dismiss()
+      ref.current?.dismiss()
     }
   }, [selectedUnits.length])
 
   return (
-    <BottomSheet>
+    <BottomSheet
+      ref={ref}
+      onPressBackdrop={() => ref.current?.dismiss()}
+    >
       <VStack space='md'>
         <Text
           className='text-center text-primary-50'

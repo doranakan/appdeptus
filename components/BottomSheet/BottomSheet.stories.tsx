@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import React from 'react'
+import ref from '../../modules/armies/screens/UnitSelection/ref'
 import Button from '../Button'
 import Text from '../Text'
 import { VStack } from '../ui'
 import BottomSheet from './BottomSheet'
-import ref from './ref'
 
 const Wrapper = () => (
   <>
