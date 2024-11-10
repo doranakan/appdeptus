@@ -74,6 +74,7 @@ const ArmyList = () => {
             <Empty variant={data?.length ? 'search' : 'data'} />
           )
         }
+        ListFooterComponent={() => <VStack className='h-4' />}
         refreshControl={
           <RefreshControl
             tintColor={themeColors.default.primary[300]}

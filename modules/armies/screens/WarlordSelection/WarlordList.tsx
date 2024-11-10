@@ -28,6 +28,7 @@ const WarlordList = () => {
       data={potentialWarlords}
       keyExtractor={({ selectionId }) => selectionId}
       ItemSeparatorComponent={() => <VStack className='h-4' />}
+      ListFooterComponent={() => <VStack className='h-4' />}
       renderItem={({ item }) => {
         const isWarlord =
           (warlord?.type !== 'team' &&

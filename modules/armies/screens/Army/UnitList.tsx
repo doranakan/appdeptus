@@ -19,6 +19,7 @@ const UnitList = ({ units, warlord }: UnitListProps) => (
       }
       return unit.id
     }}
+    ListFooterComponent={() => <VStack className='h-4' />}
     ListHeaderComponent={() => (
       <>
         <UnitListItem

@@ -25,6 +25,7 @@ const EnhancementList = () => {
       data={enhancements}
       ItemSeparatorComponent={() => <VStack className='h-4' />}
       keyExtractor={({ id }) => String(id)}
+      ListFooterComponent={() => <VStack className='h-4' />}
       renderItem={({ item }) => (
         <Pressable
           onPress={() => {
