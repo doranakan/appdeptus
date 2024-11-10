@@ -1,5 +1,6 @@
 import { EnhancementListItem, VStack } from 'appdeptus/components'
 import { type Enhancement } from 'appdeptus/models'
+import { memo } from 'react'
 
 type EnhancementListProps = {
   enhancements: Enhancement[]
@@ -16,4 +17,4 @@ const EnhancementList = ({ enhancements }: EnhancementListProps) => (
   </VStack>
 )
 
-export default EnhancementList
+export default memo(EnhancementList)
