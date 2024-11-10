@@ -1,11 +1,13 @@
 import { useUnmount } from 'ahooks'
 import { resetTheme, selectThemeName } from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
-import { Stack } from 'expo-router'
+import { Stack, useGlobalSearchParams } from 'expo-router'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 
 const ArmyBuilderLayout = () => {
+  const { id } = useGlobalSearchParams()
+
   const form = useForm<ArmyBuilder>({
     defaultValues: {
       codex: undefined,
@@ -22,7 +24,7 @@ const ArmyBuilderLayout = () => {
   const dispatch = useDispatch()
 
   useUnmount(() => {
-    if (themeName !== 'default') {
+    if (themeName !== 'default' && !id) {
       dispatch(resetTheme())
     }
   })
@@ -35,6 +37,7 @@ const ArmyBuilderLayout = () => {
       >
         <Stack.Screen name='index' />
         <Stack.Screen name='detachment-selection' />
+        <Stack.Screen name='[id]' />
         <Stack.Screen name='enhancement-selection' />
         <Stack.Screen name='leader-selection' />
         <Stack.Screen name='unit-selection' />

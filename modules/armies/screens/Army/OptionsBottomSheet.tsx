@@ -26,6 +26,12 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
   const [deletePromptVisible, { setFalse: hidePrompt, setTrue: showPrompt }] =
     useBoolean()
 
+  const editArmy = useCallback(() => {
+    ref.current?.dismiss()
+
+    router.push(`army-builder/${army.id}`)
+  }, [army.id])
+
   const handleDelete = useCallback(async () => {
     const res = await deleteArmy(army.id)
 
@@ -89,11 +95,11 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
             space='xs'
           >
             <Button
-              href=''
-              variant='link'
-              disabled
-              icon={Settings}
               color='secondary'
+              onPress={editArmy}
+              disabled={deletePromptVisible}
+              icon={Settings}
+              variant='callback'
             />
             <Text size='sm'>Edit</Text>
           </VStack>
