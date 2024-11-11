@@ -1,13 +1,15 @@
 import toxicFree from 'appdeptus/assets/lotties/toxic-free.json'
-import { Text, VStack } from 'appdeptus/components'
 import LottieView from 'lottie-react-native'
 import { memo } from 'react'
+import Text from '../Text'
+import { VStack } from '../ui'
 
 type EmptyProps = {
-  variant: 'data' | 'search'
+  subtitle: string
+  title: string
 }
 
-const Empty = ({ variant }: EmptyProps) => (
+const Empty = ({ subtitle, title }: EmptyProps) => (
   <VStack className='h-full w-full items-center justify-center'>
     <LottieView
       autoPlay
@@ -24,29 +26,12 @@ const Empty = ({ variant }: EmptyProps) => (
           family='heading-regular'
           size='2xl'
         >
-          {variantToText[variant].title}
+          {title}
         </Text>
-        <Text className='text-center'>{variantToText[variant].subtitle}</Text>
+        <Text className='text-center'>{subtitle}</Text>
       </VStack>
     </VStack>
   </VStack>
 )
-
-const variantToText = {
-  data: {
-    subtitle: 'You have no army!\nPress "+" to add your first.',
-    title: 'Heresy!'
-  },
-  search: {
-    subtitle: 'Your research leads to nothing!',
-    title: 'Search error'
-  }
-} as const satisfies Record<
-  EmptyProps['variant'],
-  {
-    subtitle: string
-    title: string
-  }
->
 
 export default memo(Empty)
