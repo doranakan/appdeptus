@@ -1,17 +1,19 @@
 import { type UserProfile } from 'appdeptus/models'
-import React, { memo } from 'react'
+import React, { type ComponentProps, memo } from 'react'
 import { ActivityIndicator, View } from 'react-native'
 import InnerBorder from '../InnerBorder'
 import { AvatarFallbackText, AvatarImage, Avatar as GSAvatar } from '../ui'
 
 type AvatarProps = {
   user: UserProfile | undefined
+
+  size?: ComponentProps<typeof GSAvatar>['size']
 }
 
-const Avatar = ({ user }: AvatarProps) => (
+const Avatar = ({ size, user }: AvatarProps) => (
   <View>
     <InnerBorder rounded='rounded-full'>
-      <GSAvatar>
+      <GSAvatar size={size}>
         {user ? (
           <>
             <AvatarFallbackText>{user.name}</AvatarFallbackText>

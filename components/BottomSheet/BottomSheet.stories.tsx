@@ -1,10 +1,12 @@
+import { type BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import type { Meta, StoryObj } from '@storybook/react'
-import React from 'react'
-import ref from '../../modules/armies/screens/UnitSelection/ref'
+import React, { createRef } from 'react'
 import Button from '../Button'
 import Text from '../Text'
 import { VStack } from '../ui'
 import BottomSheet from './BottomSheet'
+
+const ref = createRef<BottomSheetModalMethods>()
 
 const Wrapper = () => (
   <>
@@ -15,7 +17,10 @@ const Wrapper = () => (
       variant='callback'
       text='show'
     />
-    <BottomSheet>
+    <BottomSheet
+      ref={ref}
+      onPressBackdrop={() => ref.current?.dismiss()}
+    >
       <VStack className='mb-32 p-4'>
         <Text>This is a bottom sheet</Text>
       </VStack>

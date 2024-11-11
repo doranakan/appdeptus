@@ -40,7 +40,7 @@
     "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-module-resolver": "^5.0.2",
     "clsx": "^2.1.1",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.1.0",
     "expo": "~51.0.38",
     "expo-application": "~5.9.1",
     "expo-asset": "~10.0.9",

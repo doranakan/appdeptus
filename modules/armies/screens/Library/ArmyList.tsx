@@ -1,5 +1,6 @@
 import {
   ArmyListItem,
+  EmptyListItem,
   Error,
   FilterTopBar,
   Input,
@@ -13,7 +14,6 @@ import { Search } from 'lucide-react-native'
 import { memo, useMemo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import { useGetArmyListQuery } from '../../api'
-import Empty from './Empty'
 
 const ArmyList = () => {
   const [searchString, setSearchString] = useState('')
@@ -74,7 +74,12 @@ const ArmyList = () => {
           ) : !data && isLoading ? (
             <Loading />
           ) : (
-            <Empty variant={data?.length ? 'search' : 'data'} />
+            <EmptyListItem
+              subtitle={
+                emptyListLabels[data?.length ? 'search' : 'data'].subtitle
+              }
+              title={emptyListLabels[data?.length ? 'search' : 'data'].title}
+            />
           )
         }
         ListFooterComponent={() => <VStack className='h-4' />}
@@ -135,5 +140,16 @@ const pointFiltersToLimits = {
     upperLimit: number
   }
 >
+
+const emptyListLabels = {
+  data: {
+    subtitle: 'You have no army!\nPress "+" to add your first.',
+    title: 'Heresy!'
+  },
+  search: {
+    subtitle: 'Your research leads to nothing!',
+    title: 'Search error'
+  }
+} as const
 
 export default memo(ArmyList)
