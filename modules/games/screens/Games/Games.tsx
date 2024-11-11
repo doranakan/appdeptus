@@ -1,13 +1,17 @@
-import { ScreenContainer, Text } from 'appdeptus/components'
+import { ScreenContainer, ScreenTitle } from 'appdeptus/components'
+import GameList from './GameList'
+import Header from './Header'
 
 const Games = () => {
   return (
     <ScreenContainer
-      className='items-center justify-center'
+      className='p-4'
       safeAreaInsets={['top']}
       space='md'
     >
-      <Text>Games</Text>
+      <Header />
+      <ScreenTitle>games</ScreenTitle>
+      <GameList />
     </ScreenContainer>
   )
 }

@@ -36,19 +36,7 @@ const baseGameSchema = z
 const gameSchema = baseGameSchema.and(
   z
     .object({
-      status: z.enum([
-        'turn1_p1',
-        'turn1_p2',
-        'turn2_p1',
-        'turn2_p2',
-        'turn3_p1',
-        'turn3_p2',
-        'turn4_p1',
-        'turn4_p2',
-        'turn5_p1',
-        'turn5_p2',
-        'ended'
-      ]),
+      status: z.enum(['ended']),
       army_two: armySchema,
       cp_two: z.number(),
       player_two: playerSchema,
