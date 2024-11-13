@@ -63,25 +63,31 @@ const TabMenu = <T extends string>({
 
   const selectorStyle = useMemo(() => [style, rStyle], [rStyle, style])
 
+  const items = useMemo(
+    () =>
+      options.map((opt, idx) => (
+        <TabMenuItem
+          key={opt}
+          onPress={() => {
+            setSelectedIndex(idx)
+          }}
+          option={opt}
+          isSelected={selectedIndex === idx}
+        />
+      )),
+    [options, selectedIndex]
+  )
+
   return (
     <InsetShadow
       borderRadius={24}
       className='rounded-3xl'
     >
       <View
-        className='w-full flex-row items-center rounded-3xl bg-primary-800 p-2'
+        className='z-10 w-full flex-row items-center rounded-3xl bg-primary-800 p-2'
         onLayout={onLayout}
       >
-        {options.map((opt, idx) => (
-          <TabMenuItem
-            key={opt}
-            onPress={() => {
-              setSelectedIndex(idx)
-            }}
-            option={opt}
-            isSelected={selectedIndex === idx}
-          />
-        ))}
+        {items}
         <Animated.View
           pointerEvents='none'
           className='absolute -z-10 h-full rounded-2xl bg-primary-950 shadow'

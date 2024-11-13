@@ -2,6 +2,7 @@
   "expo": {
     "owner": "appdeptus",
     "name": "appdeptus",
+    "newArchEnabled": true,
     "slug": "appdeptus",
     "version": "0.0.1",
     "scheme": "appdeptus",
@@ -36,10 +37,7 @@
       [
         "expo-asset",
         {
-          "assets": [
-            "./assets/resources/armies",
-            "./assets/resources/misc"
-          ]
+          "assets": ["./assets/resources/armies", "./assets/resources/misc"]
         }
       ]
     ],
