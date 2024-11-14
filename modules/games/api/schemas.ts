@@ -18,7 +18,7 @@ const baseGameSchema = z
     cp_one: z.number(),
     player_one: playerSchema,
     score_one: z.number(),
-    updated_at: z.string()
+    updated_at: z.string().nullable()
   })
   .transform(
     ({ army_one, player_one, cp_one, score_one, updated_at, ...rest }) => ({
@@ -29,7 +29,7 @@ const baseGameSchema = z
         army: army_one,
         score: score_one
       },
-      lastUpdate: updated_at
+      lastUpdate: updated_at ?? new Date().toISOString()
     })
   )
 

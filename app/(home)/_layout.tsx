@@ -1,47 +1,58 @@
 import dice from 'appdeptus/assets/lotties/dice.json'
 import plan from 'appdeptus/assets/lotties/plan.json'
-import { themeColors } from 'appdeptus/components'
+import { selectThemeName, themeColors } from 'appdeptus/components'
 import { Tabs } from 'expo-router'
 import LottieView, { type AnimationObject } from 'lottie-react-native'
 import { type ComponentProps, useEffect, useRef } from 'react'
+import { StyleSheet } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSelector } from 'react-redux'
 
-const ArmiesLayout = () => (
-  <Tabs
-    initialRouteName='armies-tab'
-    screenOptions={{
-      headerShown: false,
-      tabBarStyle: {
-        backgroundColor: themeColors.default.primary['950'],
-        borderTopWidth: 0
-      }
-    }}
-  >
-    <Tabs.Screen
-      name='armies-tab'
-      options={{
-        tabBarLabel: '',
-        tabBarIcon: ({ focused }) => (
-          <TabIcon
-            focused={focused}
-            routeName='armies-tab'
-          />
-        )
+const ArmiesLayout = () => {
+  const themeName = useSelector(selectThemeName)
+
+  const { bottom } = useSafeAreaInsets()
+
+  return (
+    <Tabs
+      initialRouteName='armies-tab'
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: themeColors[themeName].primary['950'],
+          borderTopWidth: 0,
+          height: 60 + bottom,
+          padding: 16
+        }
       }}
-    />
-    <Tabs.Screen
-      name='games-tab'
-      options={{
-        tabBarLabel: '',
-        tabBarIcon: ({ focused }) => (
-          <TabIcon
-            focused={focused}
-            routeName='games-tab'
-          />
-        )
-      }}
-    />
-  </Tabs>
-)
+    >
+      <Tabs.Screen
+        name='armies-tab'
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              focused={focused}
+              routeName='armies-tab'
+            />
+          )
+        }}
+      />
+      <Tabs.Screen
+        name='games-tab'
+        options={{
+          tabBarLabel: '',
+          tabBarIcon: ({ focused }) => (
+            <TabIcon
+              focused={focused}
+              routeName='games-tab'
+            />
+          )
+        }}
+      />
+    </Tabs>
+  )
+}
 
 type TabIconProps = {
   focused: boolean
@@ -63,16 +74,20 @@ const TabIcon = ({ focused, routeName }: TabIconProps) => {
     <LottieView
       loop={false}
       ref={animation}
-      style={{
-        width: 46,
-        height: 46
-      }}
+      style={styles.lottieView}
       source={config?.source}
       colorFilters={!focused ? config?.colorFilters : undefined}
       speed={2}
     />
   )
 }
+
+const styles = StyleSheet.create({
+  lottieView: {
+    height: 46,
+    width: 46
+  }
+})
 
 const tabNameToIconMap: Record<
   string,

@@ -42,7 +42,7 @@ const getGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           )
           .or(`player_one.eq.${userId},player_two.eq.${userId}`)
           .limit(10)
-          .not('status', 'eq', 'new')
+          .eq('status', 'ended')
 
         if (error) {
           return { error }

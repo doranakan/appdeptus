@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { FlatList, StyleSheet } from 'react-native'
 import Text from '../Text'
 import { HStack } from '../ui'
@@ -58,4 +59,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default GameDataTable
+export default memo(GameDataTable)

@@ -1,5 +1,6 @@
 import { type CodexName } from 'appdeptus/models'
 import { LinearGradient } from 'expo-linear-gradient'
+import { memo } from 'react'
 import { StyleSheet } from 'react-native'
 import ArmyBackground from '../ArmyBackground'
 import { HStack, VStack, themeColors } from '../ui'
@@ -46,4 +47,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default VersusBackground
+export default memo(VersusBackground)
