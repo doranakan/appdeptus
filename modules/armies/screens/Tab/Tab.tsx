@@ -4,7 +4,7 @@ import Header from './Header'
 
 const ArmiesTab = () => (
   <ScreenContainer
-    className='p-4'
+    className='px-4'
     safeAreaInsets={['top']}
     space='md'
   >
