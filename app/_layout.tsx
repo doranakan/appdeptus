@@ -80,7 +80,7 @@ const RootLayout = () => {
         return
       }
       case !!session: {
-        router.replace('army-library')
+        router.replace('armies-tab')
         return
       }
       case !session: {

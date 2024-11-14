@@ -26,7 +26,7 @@ const Header = () => {
         return
       }
 
-      router.navigate('army-library')
+      router.navigate('armies-tab')
     },
     [createArmy]
   )

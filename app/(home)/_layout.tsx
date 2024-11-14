@@ -7,7 +7,7 @@ import { type ComponentProps, useEffect, useRef } from 'react'
 
 const ArmiesLayout = () => (
   <Tabs
-    initialRouteName='army-library'
+    initialRouteName='armies-tab'
     screenOptions={{
       headerShown: false,
       tabBarStyle: {
@@ -17,25 +17,25 @@ const ArmiesLayout = () => (
     }}
   >
     <Tabs.Screen
-      name='army-library'
+      name='armies-tab'
       options={{
         tabBarLabel: '',
         tabBarIcon: ({ focused }) => (
           <TabIcon
             focused={focused}
-            routeName='army-library'
+            routeName='armies-tab'
           />
         )
       }}
     />
     <Tabs.Screen
-      name='games'
+      name='games-tab'
       options={{
         tabBarLabel: '',
         tabBarIcon: ({ focused }) => (
           <TabIcon
             focused={focused}
-            routeName='games'
+            routeName='games-tab'
           />
         )
       }}
@@ -81,7 +81,7 @@ const tabNameToIconMap: Record<
     colorFilters: NonNullable<ComponentProps<typeof LottieView>['colorFilters']>
   }
 > = {
-  'army-library': {
+  'armies-tab': {
     source: plan,
     colorFilters: [
       {
@@ -102,7 +102,7 @@ const tabNameToIconMap: Record<
       }
     ]
   },
-  games: {
+  'games-tab': {
     source: dice,
     colorFilters: [
       {

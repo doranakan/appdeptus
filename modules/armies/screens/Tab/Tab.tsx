@@ -2,7 +2,7 @@ import { ScreenContainer, ScreenTitle } from 'appdeptus/components'
 import ArmyList from './ArmyList'
 import Header from './Header'
 
-const ArmyLibraryScreen = () => (
+const ArmiesTab = () => (
   <ScreenContainer
     className='p-4'
     safeAreaInsets={['top']}
@@ -14,4 +14,4 @@ const ArmyLibraryScreen = () => (
   </ScreenContainer>
 )
 
-export default ArmyLibraryScreen
+export default ArmiesTab

@@ -2,7 +2,7 @@ import { ScreenContainer, ScreenTitle } from 'appdeptus/components'
 import GameList from './GameList'
 import Header from './Header'
 
-const Games = () => {
+const GamesTab = () => {
   return (
     <ScreenContainer
       className='p-4'
@@ -16,4 +16,4 @@ const Games = () => {
   )
 }
 
-export default Games
+export default GamesTab
