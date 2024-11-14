@@ -1,3 +1,4 @@
+import noWar from 'appdeptus/assets/lotties/no-war.json'
 import {
   EmptyListItem,
   Error,
@@ -69,8 +70,11 @@ const GameList = () => {
             <Loading />
           ) : (
             <EmptyListItem
-              subtitle='You never played a game!\nPress "⚔️" to start your first.'
-              title='Heresy!'
+              lottieSource={noWar}
+              subtitle={
+                "You have never faced the trials of war!\nPress '⚔️' to step onto the battlefield for the first time!"
+              }
+              title='By the Emperor’s light!'
             />
           )
         }

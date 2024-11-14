@@ -1,3 +1,4 @@
+import toxicFree from 'appdeptus/assets/lotties/toxic-free.json'
 import {
   ArmyListItem,
   EmptyListItem,
@@ -75,6 +76,7 @@ const ArmyList = () => {
             <Loading />
           ) : (
             <EmptyListItem
+              lottieSource={toxicFree}
               subtitle={
                 emptyListLabels[data?.length ? 'search' : 'data'].subtitle
               }
