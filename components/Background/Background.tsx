@@ -7,17 +7,19 @@ import { selectThemeName } from '../store'
 import { themeColors, VStack } from '../ui'
 
 type BackgroundProps = {
+  blurhash: string
   source: string
 
   gradient?: boolean
 }
 
-const Background = ({ source, gradient }: BackgroundProps) => {
+const Background = ({ blurhash, source, gradient }: BackgroundProps) => {
   const themeName = useSelector(selectThemeName)
 
   return (
     <VStack className='absolute h-full w-full'>
       <Image
+        placeholder={{ blurhash }}
         source={source}
         style={styles.image}
       />

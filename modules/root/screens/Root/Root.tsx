@@ -19,6 +19,7 @@ const RootScreen = () => (
       <VStack className='absolute h-full w-full opacity-60'>
         <VStack className='flex-1'>
           <Background
+            blurhash='L58gQuMxoMsVS6wbNHNH4;SP};%0'
             source='sign_in'
             gradient
           />
