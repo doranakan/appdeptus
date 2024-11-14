@@ -6,9 +6,11 @@ import {
   VStack
 } from 'appdeptus/components'
 import { type NewGame } from 'appdeptus/models/game'
+import { router } from 'expo-router'
+import { memo } from 'react'
 import { useWindowDimensions } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { useDeleteGameMutation } from '../../api'
+import { useDeleteGameMutation, useGameUpdateListener } from '../../api'
 import ref from './ref'
 type QRCodeBottomSheetProps = {
   gameId: NewGame['id']
@@ -18,6 +20,16 @@ const QRCodeBottomSheet = ({ gameId }: QRCodeBottomSheetProps) => {
   const window = useWindowDimensions()
 
   const [deleteGame] = useDeleteGameMutation()
+
+  useGameUpdateListener({
+    eventHandler: ({ new: { status } }) => {
+      if (status) {
+        ref.current?.dismiss()
+        router.replace(`games/${gameId}`)
+      }
+    },
+    gameId
+  })
 
   return (
     <BottomSheet
@@ -31,6 +43,7 @@ const QRCodeBottomSheet = ({ gameId }: QRCodeBottomSheetProps) => {
         <Text
           className='text-center'
           family='body-bold'
+          size='lg'
         >
           Summon Reinforcements
         </Text>
@@ -58,4 +71,4 @@ const QRCodeBottomSheet = ({ gameId }: QRCodeBottomSheetProps) => {
   )
 }
 
-export default QRCodeBottomSheet
+export default memo(QRCodeBottomSheet)
