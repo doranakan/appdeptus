@@ -1,15 +1,15 @@
-import toxicFree from 'appdeptus/assets/lotties/toxic-free.json'
-import LottieView from 'lottie-react-native'
+import LottieView, { type LottieViewProps } from 'lottie-react-native'
 import { memo } from 'react'
 import Text from '../Text'
 import { VStack } from '../ui'
 
 type EmptyProps = {
+  lottieSource: LottieViewProps['source']
   subtitle: string
   title: string
 }
 
-const Empty = ({ subtitle, title }: EmptyProps) => (
+const Empty = ({ lottieSource, subtitle, title }: EmptyProps) => (
   <VStack className='h-full w-full items-center justify-center'>
     <LottieView
       autoPlay
@@ -17,7 +17,7 @@ const Empty = ({ subtitle, title }: EmptyProps) => (
         width: 100,
         height: 100
       }}
-      source={toxicFree}
+      source={lottieSource}
     />
     <VStack space='2xl'>
       <VStack>

@@ -14,15 +14,15 @@ import InnerBorder from '../InnerBorder'
 import { Pressable, VStack } from '../ui'
 
 type BottomSheetProps = {
-  onPressBackdrop: () => void
-
+  onDismiss?: () => void
+  onPressBackdrop?: () => void
   scrollDisabled?: boolean
 }
 
 const BottomSheet: ForwardRefRenderFunction<
   BottomSheetModalMethods,
   PropsWithChildren<BottomSheetProps>
-> = ({ children, onPressBackdrop, scrollDisabled }, ref) => {
+> = ({ children, onDismiss, onPressBackdrop, scrollDisabled }, ref) => {
   const window = useWindowDimensions()
 
   const { bottom, top } = useSafeAreaInsets()
@@ -36,6 +36,7 @@ const BottomSheet: ForwardRefRenderFunction<
       detached={false}
       overDragResistanceFactor={0}
       maxDynamicContentSize={window.height - top}
+      onDismiss={onDismiss}
       backdropComponent={() => (
         <Pressable
           className='absolute h-full w-full'

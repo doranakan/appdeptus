@@ -1,4 +1,5 @@
 export { default as createGame } from './createGame'
+export { default as deleteGame } from './deleteGame'
 export { default as endGame } from './endGame'
 export { default as getGameList } from './getGameList'
 export { default as getNewGame } from './getNewGame'

@@ -1,17 +1,14 @@
 import {
-  ArmyBackground,
   Badge,
   Card,
   HStack,
   PlayerTag,
   Scoreboard,
-  themeColors,
+  VersusBackground,
   VStack
 } from 'appdeptus/components'
 import { type EndedGame } from 'appdeptus/models/game'
 import { formatDistanceToNow } from 'date-fns'
-import { LinearGradient } from 'expo-linear-gradient'
-import { StyleSheet } from 'react-native'
 
 type GameListItemProps = {
   game: EndedGame
@@ -20,32 +17,10 @@ type GameListItemProps = {
 const GameListItem = ({ game }: GameListItemProps) => (
   <Card>
     <VStack className='shadow-md'>
-      <HStack className='absolute h-full w-full'>
-        <VStack className='flex-1'>
-          <ArmyBackground codex={game.playerOne.army.codex.name} />
-          <LinearGradient
-            colors={[
-              `${themeColors.default.primary[950]}00`,
-              themeColors.default.primary[950]
-            ]}
-            start={{ x: 0, y: 1 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.gradient}
-          />
-        </VStack>
-        <VStack className='flex-1'>
-          <ArmyBackground codex={game.playerTwo.army.codex.name} />
-          <LinearGradient
-            colors={[
-              themeColors.default.primary[950],
-              `${themeColors.default.primary[950]}00`
-            ]}
-            start={{ x: 0, y: 1 }}
-            end={{ x: 1, y: 1 }}
-            style={styles.gradient}
-          />
-        </VStack>
-      </HStack>
+      <VersusBackground
+        codexOne={game.playerOne.army.codex.name}
+        codexTwo={game.playerTwo.army.codex.name}
+      />
       <VStack
         className='p-4'
         space='md'
@@ -73,13 +48,5 @@ const GameListItem = ({ game }: GameListItemProps) => (
     </HStack>
   </Card>
 )
-
-const styles = StyleSheet.create({
-  gradient: {
-    position: 'absolute',
-    height: '100%',
-    width: '100%'
-  }
-})
 
 export default GameListItem

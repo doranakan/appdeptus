@@ -21,7 +21,11 @@ const Card = ({ children, variant = 'default' }: CardProps) => {
       ])}
     >
       <InnerBorder
-        opacity={variant === 'selected' ? 'opacity-40' : undefined}
+        opacity={
+          variant === 'selected' || variant === 'selectable'
+            ? 'opacity-40'
+            : undefined
+        }
         selected={variant === 'selected'}
       >
         <LinearGradient
@@ -42,7 +46,7 @@ const Card = ({ children, variant = 'default' }: CardProps) => {
         ) : undefined}
         {variant === 'selectable' ? (
           <VStack
-            className='absolute h-full w-full bg-secondary-950/20'
+            className='absolute h-full w-full bg-secondary-950/60'
             pointerEvents='none'
           />
         ) : undefined}
