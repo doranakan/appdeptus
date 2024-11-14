@@ -6,7 +6,7 @@ const signOut = (builder: SessionEndpointBuilder<SessionApiTag>) =>
   builder.mutation<null, void>({
     queryFn: async () => {
       try {
-        const { error } = await supabase.auth.signOut()
+        const { error } = await supabase.auth.signOut({ scope: 'local' })
 
         if (error) {
           return { error }
