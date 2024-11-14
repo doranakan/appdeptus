@@ -41,7 +41,7 @@ const ArmyListItem = ({
           family='body-bold'
           size='lg'
         >
-          {`${points} pts`}
+          {`${points}pts`}
         </Text>
       </HStack>
       <HStack className='items-center justify-between'>

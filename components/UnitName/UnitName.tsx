@@ -26,6 +26,7 @@ const UnitName = ({ name, type, warlord }: UnitNameProps) => (
     <Text
       className='flex-1'
       family='body-bold'
+      adjustsFontSizeToFit
       numberOfLines={2}
       size='lg'
     >

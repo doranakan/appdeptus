@@ -18,16 +18,17 @@ const GameDataTable = ({ data }: GameDataTableProps) => (
     ItemSeparatorComponent={Line}
     ListFooterComponent={Line}
     renderItem={({ item }) => (
-      <HStack className='py-2'>
+      <HStack className='items-center py-2'>
         <Text
           className='flex-1'
           family='body-bold'
           size='lg'
+          numberOfLines={1}
         >
           {item.valueL}
         </Text>
         <Text
-          className='flex-1 text-center'
+          className='px-2 text-center'
           size='lg'
         >
           {item.title}
@@ -35,6 +36,7 @@ const GameDataTable = ({ data }: GameDataTableProps) => (
         <Text
           className='flex-1 text-right'
           size='lg'
+          numberOfLines={1}
         >
           {item.valueR}
         </Text>

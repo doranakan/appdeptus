@@ -22,13 +22,13 @@ const EnhancementListItem = ({
       space='md'
     >
       <HStack
-        className='items-center'
+        className='flex-1 items-center'
         space='md'
       >
         <IconBadge Icon={CircleFadingPlus} />
         <Text
+          className='line-clamp-1 flex-1'
           family='body-bold'
-          className='line-clamp-1'
         >
           {enhancement.name}
         </Text>
