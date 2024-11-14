@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { type LayoutChangeEvent, View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
@@ -69,7 +69,7 @@ const TabMenu = <T extends string>({
       className='rounded-3xl'
     >
       <View
-        className='w-full flex-row items-center rounded-3xl bg-primary-800 p-2'
+        className='z-10 w-full flex-row items-center rounded-3xl bg-primary-800 p-2'
         onLayout={onLayout}
       >
         {options.map((opt, idx) => (
@@ -96,4 +96,4 @@ const TabMenu = <T extends string>({
   )
 }
 
-export default TabMenu
+export default memo(TabMenu)
