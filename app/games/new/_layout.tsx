@@ -2,10 +2,11 @@ import { Stack } from 'expo-router'
 
 const ArmyBuilderLayout = () => (
   <Stack
-    initialRouteName='new'
+    initialRouteName='index'
     screenOptions={{ headerShown: false }}
   >
-    <Stack.Screen name='new' />
+    <Stack.Screen name='index' />
+    <Stack.Screen name='[gameId]' />
   </Stack>
 )
 
