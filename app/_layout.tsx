@@ -18,8 +18,8 @@ import 'appdeptus/global.css'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
 import { store } from 'appdeptus/store'
 import { SplashScreen, Stack, router } from 'expo-router'
+import { StatusBar } from 'expo-status-bar'
 import { type PropsWithChildren, useEffect } from 'react'
-import { StatusBar } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import {
   SafeAreaProvider,
@@ -53,11 +53,6 @@ const App = ({ children }: PropsWithChildren) => {
 
   return (
     <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <StatusBar
-        animated
-        barStyle='light-content'
-        translucent
-      />
       <Provider store={store}>
         <GluestackUIProvider>
           <GestureHandlerRootView>
@@ -65,6 +60,11 @@ const App = ({ children }: PropsWithChildren) => {
           </GestureHandlerRootView>
         </GluestackUIProvider>
       </Provider>
+      <StatusBar
+        animated
+        style='light'
+        translucent
+      />
     </SafeAreaProvider>
   )
 }
