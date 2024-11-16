@@ -7,7 +7,12 @@ import { selectThemeName } from '../store'
 import { themeColors, VStack } from '../ui'
 
 type CardProps = PropsWithChildren<{
-  variant?: 'default' | 'disabled' | 'selectable' | 'selected'
+  variant?:
+    | 'default'
+    | 'disabled'
+    | 'selectable'
+    | 'selectable-alt'
+    | 'selected'
 }>
 
 const Card = ({ children, variant = 'default' }: CardProps) => {
@@ -36,6 +41,12 @@ const Card = ({ children, variant = 'default' }: CardProps) => {
           start={{ x: 0.3, y: 1 }}
           end={{ x: 1, y: 3 }}
         >
+          {variant === 'selectable' ? (
+            <VStack
+              className='absolute h-full w-full bg-secondary-950/60'
+              pointerEvents='none'
+            />
+          ) : undefined}
           {children}
         </LinearGradient>
         {variant === 'disabled' ? (
@@ -44,9 +55,9 @@ const Card = ({ children, variant = 'default' }: CardProps) => {
             pointerEvents='none'
           />
         ) : undefined}
-        {variant === 'selectable' ? (
+        {variant === 'selectable-alt' ? (
           <VStack
-            className='absolute h-full w-full bg-secondary-950/60'
+            className='absolute h-full w-full bg-secondary-950/50'
             pointerEvents='none'
           />
         ) : undefined}
@@ -59,6 +70,7 @@ const variantToShadow = {
   default: 'shadow-lg',
   disabled: 'shadow-sm',
   selectable: 'shadow-sm',
+  'selectable-alt': 'shadow-sm',
   selected: 'shadow-xl'
 } as const satisfies Record<NonNullable<CardProps['variant']>, string>
 

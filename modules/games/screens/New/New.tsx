@@ -110,7 +110,11 @@ const NewGameScreen = () => {
             >
               <ArmyListItem
                 variant={
-                  item.id === selectedArmy?.id ? 'selected' : 'selectable'
+                  !selectedArmy
+                    ? 'selectable'
+                    : item.id === selectedArmy.id
+                      ? 'selected'
+                      : 'selectable-alt'
                 }
                 codex={item.codex.name}
                 detachment={item.composition.detachment.name}

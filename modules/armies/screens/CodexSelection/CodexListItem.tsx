@@ -12,7 +12,8 @@ import { memo } from 'react'
 type CodexListItemProps = {
   codex: Codex
   onPress: (codex: Codex) => void
-  selected: boolean
+
+  selected?: boolean
 }
 
 const CodexListItem = ({ codex, onPress, selected }: CodexListItemProps) => (
@@ -22,7 +23,15 @@ const CodexListItem = ({ codex, onPress, selected }: CodexListItemProps) => (
       onPress(codex)
     }}
   >
-    <Card variant={selected ? 'selected' : 'selectable'}>
+    <Card
+      variant={
+        selected === undefined
+          ? 'selectable'
+          : selected
+            ? 'selected'
+            : 'selectable-alt'
+      }
+    >
       <VStack
         className={clsx(['absolute h-full w-full', selected && 'opacity-20'])}
       >

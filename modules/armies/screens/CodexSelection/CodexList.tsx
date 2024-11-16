@@ -84,7 +84,11 @@ const CodexList = () => {
             <CodexListItem
               codex={item}
               onPress={handlePress}
-              selected={selectedCodex === item.name}
+              selected={
+                selectedCodex === undefined
+                  ? undefined
+                  : selectedCodex === item.name
+              }
             />
           </Animated.View>
         )}
