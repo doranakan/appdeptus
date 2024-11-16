@@ -1,10 +1,20 @@
 import dice from 'appdeptus/assets/lotties/dice.json'
 import plan from 'appdeptus/assets/lotties/plan.json'
-import { selectThemeName, themeColors } from 'appdeptus/components'
+import {
+  Pressable,
+  selectThemeName,
+  themeColors,
+  VStack
+} from 'appdeptus/components'
 import { Tabs } from 'expo-router'
 import LottieView, { type AnimationObject } from 'lottie-react-native'
-import { type ComponentProps, useEffect, useRef } from 'react'
-import { StyleSheet } from 'react-native'
+import {
+  type ComponentProps,
+  type PropsWithChildren,
+  useEffect,
+  useRef
+} from 'react'
+import { type GestureResponderEvent, StyleSheet } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
 
@@ -18,11 +28,11 @@ const ArmiesLayout = () => {
       initialRouteName='armies-tab'
       screenOptions={{
         headerShown: false,
+        tabBarButton: TabBarButton,
         tabBarStyle: {
           backgroundColor: themeColors[themeName].primary['950'],
           borderTopWidth: 0,
-          height: 60 + bottom,
-          padding: 16
+          height: 60 + bottom
         }
       }}
     >
@@ -53,6 +63,21 @@ const ArmiesLayout = () => {
     </Tabs>
   )
 }
+
+type TabBarButtonProps = PropsWithChildren<{
+  onPress?: (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent> | GestureResponderEvent
+  ) => void
+}>
+
+const TabBarButton = ({ children, onPress }: TabBarButtonProps) => (
+  <Pressable
+    className=''
+    onPress={onPress}
+  >
+    <VStack className='self-center bg-primary-950 py-4'>{children}</VStack>
+  </Pressable>
+)
 
 type TabIconProps = {
   focused: boolean
