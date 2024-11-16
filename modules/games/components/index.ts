@@ -1,1 +1,1 @@
-export { default as ArmySelectionTopContainer } from './ArmySelectionTopContainer'
+export { default as GameDetail } from './GameDetail'

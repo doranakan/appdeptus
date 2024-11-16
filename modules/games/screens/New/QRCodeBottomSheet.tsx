@@ -10,7 +10,7 @@ import { router } from 'expo-router'
 import { memo } from 'react'
 import { useWindowDimensions } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { useDeleteGameMutation, useGameUpdateListener } from '../../api'
+import { useGameUpdateListener } from '../../api'
 import ref from './ref'
 type QRCodeBottomSheetProps = {
   gameId: NewGame['id']
@@ -18,8 +18,6 @@ type QRCodeBottomSheetProps = {
 
 const QRCodeBottomSheet = ({ gameId }: QRCodeBottomSheetProps) => {
   const window = useWindowDimensions()
-
-  const [deleteGame] = useDeleteGameMutation()
 
   useGameUpdateListener({
     eventHandler: ({ new: { status } }) => {
@@ -33,9 +31,6 @@ const QRCodeBottomSheet = ({ gameId }: QRCodeBottomSheetProps) => {
 
   return (
     <BottomSheet
-      onDismiss={() => {
-        deleteGame(gameId)
-      }}
       ref={ref}
       scrollDisabled
     >

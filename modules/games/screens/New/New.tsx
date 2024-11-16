@@ -9,6 +9,7 @@ import {
   ScreenTitle,
   setTheme,
   Text,
+  VersusBackground,
   VStack
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
@@ -16,10 +17,9 @@ import { useGetArmyListQuery } from 'appdeptus/modules/armies/api'
 import { QrCode } from 'lucide-react-native'
 import { useState } from 'react'
 import { FlatList } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { useDispatch } from 'react-redux'
 import { useCreateGameMutation } from '../../api'
-import { ArmySelectionTopContainer } from '../../components'
+import { GameDetail } from '../../components'
 import QRCodeBottomSheet from './QRCodeBottomSheet'
 import ref from './ref'
 
@@ -32,71 +32,70 @@ const NewGameScreen = () => {
 
   const [createGame, { isLoading }] = useCreateGameMutation()
 
-  const [newGameId, setNewGame] = useState<number>(0)
+  const [newGameId, setNewGameId] = useState<number>(0)
 
   useUnmount(() => dispatch(resetTheme()))
 
   return (
-    <ScreenContainer
-      safeAreaInsets={['bottom']}
-      space='md'
-    >
-      {selectedArmy ? (
-        <ArmySelectionTopContainer
-          armyOne={selectedArmy}
-          player='one'
-          rightButton={{
-            onPress: async () => {
-              const res = await createGame(selectedArmy.id)
-
-              if ('error' in res) {
-                return
-              }
-
-              setNewGame(res.data)
-
-              ref.current?.present()
-            },
-            icon: QrCode,
-            loading: isLoading,
-            variant: 'callback'
-          }}
-        />
-      ) : (
-        <SafeAreaView edges={['top']}>
-          <VStack
-            className='px-4'
-            space='md'
-          >
-            <NavigationHeader
-              variant='backButton'
-              rightButton={{
-                disabled: true,
-                onPress: () => {},
-                variant: 'callback',
-                icon: QrCode
-              }}
+    <VStack className='flex-1'>
+      <VStack className='absolute h-full w-full bg-primary-950'>
+        <VStack className='flex-1'>
+          {selectedArmy ? (
+            <VersusBackground
+              codexOne={selectedArmy.codex.name}
+              player='one'
             />
-            <ScreenTitle>new game</ScreenTitle>
-          </VStack>
-        </SafeAreaView>
-      )}
-
-      <VStack
-        className='flex-1 px-4'
+          ) : null}
+        </VStack>
+        <VStack className='flex-1' />
+      </VStack>
+      <ScreenContainer
+        className='bg-transparent p-4'
+        safeAreaInsets={['top', 'bottom']}
         space='md'
       >
-        <ScreenSubtitle>choose your warhost</ScreenSubtitle>
-        {!selectedArmy ? (
-          <Text family='body-regular-italic'>
-            Assemble your forces, warrior of the Imperium. When your army stands
-            ready, tap the QR Seal of the Omnissiah in the top right. This
-            sacred glyph shall encode your war protocols. Let your opponent scan
-            it, and the rites of battle shall commence.
-          </Text>
-        ) : null}
+        <NavigationHeader
+          variant='backButton'
+          rightButton={{
+            disabled: !selectedArmy,
+            loading: isLoading,
+            onPress: async () => {
+              if (selectedArmy) {
+                const res = await createGame(selectedArmy.id)
+
+                if ('error' in res) {
+                  return
+                }
+
+                setNewGameId(res.data)
+                ref.current?.present()
+              }
+            },
+            variant: 'callback',
+            icon: QrCode
+          }}
+        />
+
+        {selectedArmy ? (
+          <GameDetail armyOne={selectedArmy} />
+        ) : (
+          <VStack
+            className='py-4'
+            space='md'
+          >
+            <ScreenTitle>new game</ScreenTitle>
+            <ScreenSubtitle>choose your warhost</ScreenSubtitle>
+            <Text family='body-regular-italic'>
+              Assemble your forces, warrior of the Imperium. When your army
+              stands ready, tap the QR Seal of the Omnissiah in the top right.
+              This sacred glyph shall encode your war protocols. Let your
+              opponent scan it, and the rites of battle shall commence.
+            </Text>
+          </VStack>
+        )}
+
         <FlatList
-          className='container flex-1'
+          className='container'
           data={data}
           keyExtractor={({ id }) => String(id)}
           ItemSeparatorComponent={() => <VStack className='h-4' />}
@@ -125,9 +124,9 @@ const NewGameScreen = () => {
           )}
           showsVerticalScrollIndicator={false}
         />
-      </VStack>
-      <QRCodeBottomSheet gameId={newGameId} />
-    </ScreenContainer>
+        <QRCodeBottomSheet gameId={newGameId} />
+      </ScreenContainer>
+    </VStack>
   )
 }
 

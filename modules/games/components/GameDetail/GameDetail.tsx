@@ -1,0 +1,75 @@
+import {
+  Badge,
+  GameDataTable,
+  HStack,
+  Text,
+  VStack
+} from 'appdeptus/components'
+import { shortCodexNames } from 'appdeptus/constants'
+
+import { type Army } from 'appdeptus/models'
+import { memo } from 'react'
+
+type GameDetailProps = {
+  armyOne: Army
+
+  armyTwo?: Army
+}
+
+const GameDetail = ({ armyOne, armyTwo }: GameDetailProps) => (
+  <VStack space='md'>
+    <HStack className='justify-between'>
+      <Text
+        className='uppercase'
+        family='body-bold'
+        size='4xl'
+      >
+        {shortCodexNames[armyOne.codex.name]}
+      </Text>
+      {armyTwo ? (
+        <Text
+          className='uppercase'
+          family='body-bold'
+          size='4xl'
+        >
+          {shortCodexNames[armyTwo.codex.name]}
+        </Text>
+      ) : null}
+    </HStack>
+    <HStack className='justify-between'>
+      <Badge
+        text={armyOne.composition.detachment.name}
+        codex={armyOne.codex.name}
+      />
+      {armyTwo ? (
+        <Badge
+          text={armyTwo.composition.detachment.name}
+          codex={armyTwo.codex.name}
+        />
+      ) : null}
+    </HStack>
+    <GameDataTable
+      data={[
+        {
+          title: 'Warlord',
+          valueL:
+            armyOne.composition.warlord.type === 'team'
+              ? armyOne.composition.warlord.leader.name
+              : armyOne.composition.warlord.name,
+          valueR: armyTwo
+            ? armyTwo.composition.warlord.type === 'team'
+              ? armyTwo.composition.warlord.leader.name
+              : armyTwo.composition.warlord.name
+            : ''
+        },
+        {
+          title: 'Points',
+          valueL: `${armyOne.points}PTS`,
+          valueR: armyTwo ? `${armyTwo.points}PTS` : ''
+        }
+      ]}
+    />
+  </VStack>
+)
+
+export default memo(GameDetail)

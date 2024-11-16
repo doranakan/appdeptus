@@ -23,20 +23,14 @@ const GameDataTable = ({ data }: GameDataTableProps) => (
         <Text
           className='flex-1'
           family='body-bold'
-          size='lg'
           numberOfLines={1}
         >
           {item.valueL}
         </Text>
-        <Text
-          className='px-2 text-center'
-          size='lg'
-        >
-          {item.title}
-        </Text>
+        <Text className='px-2 text-center'>{item.title}</Text>
         <Text
           className='flex-1 text-right'
-          size='lg'
+          family='body-bold'
           numberOfLines={1}
         >
           {item.valueR}

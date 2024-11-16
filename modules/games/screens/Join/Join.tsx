@@ -3,11 +3,13 @@ import { useUnmount } from 'ahooks'
 import {
   ArmyListItem,
   Loading,
+  NavigationHeader,
   Pressable,
   resetTheme,
   ScreenContainer,
   ScreenSubtitle,
   setTheme,
+  VersusBackground,
   VStack
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
@@ -18,7 +20,7 @@ import { useState } from 'react'
 import { FlatList } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useGetNewGameQuery, useStartGameMutation } from '../../api'
-import { ArmySelectionTopContainer } from '../../components'
+import { GameDetail } from '../../components'
 
 const JoinGameScreen = () => {
   const { gameId } = useLocalSearchParams<{ gameId: string }>()
@@ -53,40 +55,50 @@ const JoinGameScreen = () => {
   }
 
   return (
-    <ScreenContainer
-      safeAreaInsets={['bottom']}
-      space='md'
-    >
-      <ArmySelectionTopContainer
-        armyOne={game.playerOne.army}
-        armyTwo={selectedArmy}
-        player='two'
-        rightButton={{
-          disabled: !selectedArmy,
-          loading: isLoading,
-          onPress: async () => {
-            if (!selectedArmy) {
-              return
-            }
-            const res = await startGame({
-              armyId: selectedArmy.id,
-              gameId: Number(gameId)
-            })
-
-            if ('error' in res) {
-              return
-            }
-
-            router.replace(`games/${gameId}`)
-          },
-          icon: Swords,
-          variant: 'callback'
-        }}
-      />
-      <VStack
-        className='flex-1 px-4'
+    <VStack className='flex-1'>
+      <VStack className='absolute h-full w-full bg-primary-950'>
+        <VStack className='flex-1'>
+          <VersusBackground
+            codexOne={game.playerOne.army.codex.name}
+            codexTwo={selectedArmy?.codex.name}
+            player='two'
+          />
+        </VStack>
+        <VStack className='flex-1' />
+      </VStack>
+      <ScreenContainer
+        className='bg-transparent p-4'
+        safeAreaInsets={['bottom', 'top']}
         space='md'
       >
+        <NavigationHeader
+          variant='backButton'
+          rightButton={{
+            disabled: !selectedArmy,
+            loading: isLoading,
+            onPress: async () => {
+              if (selectedArmy) {
+                const res = await startGame({
+                  armyId: selectedArmy.id,
+                  gameId: game.id
+                })
+
+                if ('error' in res) {
+                  return
+                }
+
+                router.replace(`games/${game.id}`)
+              }
+            },
+            variant: 'callback',
+            icon: Swords
+          }}
+        />
+
+        <GameDetail
+          armyOne={game.playerOne.army}
+          armyTwo={selectedArmy}
+        />
         <ScreenSubtitle>choose your warhost</ScreenSubtitle>
         <FlatList
           className='container flex-1'
@@ -103,7 +115,11 @@ const JoinGameScreen = () => {
             >
               <ArmyListItem
                 variant={
-                  item.id === selectedArmy?.id ? 'selected' : 'selectable'
+                  !selectedArmy
+                    ? 'selectable'
+                    : item.id === selectedArmy?.id
+                      ? 'selected'
+                      : 'selectable-alt'
                 }
                 codex={item.codex.name}
                 detachment={item.composition.detachment.name}
@@ -114,8 +130,8 @@ const JoinGameScreen = () => {
           )}
           showsVerticalScrollIndicator={false}
         />
-      </VStack>
-    </ScreenContainer>
+      </ScreenContainer>
+    </VStack>
   )
 }
 
