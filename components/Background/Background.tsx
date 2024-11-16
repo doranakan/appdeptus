@@ -1,7 +1,7 @@
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { memo } from 'react'
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import { selectThemeName } from '../store'
 import { themeColors, VStack } from '../ui'
@@ -19,9 +19,14 @@ const Background = ({ blurhash, source, gradient }: BackgroundProps) => {
   return (
     <VStack className='absolute h-full w-full'>
       <Image
-        placeholder={{ blurhash }}
+        placeholder={
+          Platform.OS === 'ios'
+            ? { blurhash, isAnimated: true, cacheKey: source }
+            : undefined
+        }
         source={source}
         style={styles.image}
+        transition={200}
       />
       {gradient ? (
         <LinearGradient

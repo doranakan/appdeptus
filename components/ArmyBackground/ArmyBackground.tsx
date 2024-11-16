@@ -1,9 +1,8 @@
 import { type CodexName } from 'appdeptus/models'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
-import { snakeCase } from 'lodash'
 import { memo } from 'react'
-import { StyleSheet } from 'react-native'
+import { Platform, StyleSheet } from 'react-native'
 import { themeColors, VStack } from '../ui'
 type ArmyBackgroundProps = {
   codex: CodexName
@@ -11,14 +10,15 @@ type ArmyBackgroundProps = {
 const ArmyBackground = ({ codex }: ArmyBackgroundProps) => (
   <VStack className='absolute h-full w-full'>
     <Image
-      source={snakeCase(codex.toLowerCase().replace("'", ''))}
+      source={source[codex]}
       style={styles.image}
-      placeholder={{
-        blurhash: blurHash[codex],
-        isAnimated: true,
-        cacheKey: codex
-      }}
-      transition={500}
+      placeholder={
+        Platform.OS === 'ios'
+          ? { blurhash: blurhash[codex], isAnimated: true, cacheKey: source }
+          : undefined
+      }
+      cachePolicy='memory-disk'
+      transition={200}
     />
 
     <LinearGradient
@@ -35,10 +35,40 @@ const ArmyBackground = ({ codex }: ArmyBackgroundProps) => (
 
 const styles = StyleSheet.create({
   gradient: { width: '100%', height: '100%', opacity: 0.8 },
-  image: { position: 'absolute', width: '100%', height: '100%' }
+  image: { position: 'absolute', width: '100%', height: '100%', flex: 1 }
 })
 
-const blurHash = {
+const source = {
+  'Adepta Sororitas': 'adepta_sororitas',
+  'Adeptus Custodes': 'adeptus_custodes',
+  'Adeptus Mechanicus': 'adeptus_mechanicus',
+  Aeldari: 'aeldari',
+  'Astra Militarum': 'astra_militarum',
+  'Black Templars': 'black_templars',
+  'Blood Angels': 'blood_angels',
+  'Chaos Daemons': 'chaos_daemons',
+  'Chaos Knights': 'chaos_knights',
+  'Chaos Space Marines': 'chaos_space_marines',
+  'Dark Angels': 'dark_angels',
+  'Death Guard': 'death_guard',
+  Drukhari: 'drukhari',
+  "Emperor's Children": 'emperors_children',
+  'Genestealer Cults': 'genestealer_cults',
+  'Grey Knights': 'grey_knights',
+  'Imperial Agents': 'imperial_agents',
+  'Imperial Knights': 'imperial_knights',
+  'Leagues Of Votann': 'leagues_of_votann',
+  Necrons: 'necrons',
+  Orks: 'orks',
+  'Space Marines': 'space_marines',
+  'Space Wolves': 'space_wolves',
+  "T'au Empire": 'tau_empire',
+  'Thousand Sons': 'thousand_sons',
+  Tyranids: 'tyranids',
+  'World Eaters': 'world_eaters'
+} as const satisfies Record<CodexName, string>
+
+const blurhash = {
   'Adepta Sororitas': 'L79??;%LD%D%?^%2v#Mx9axaM{ae',
   'Adeptus Custodes': 'L1Cru~bb0pt500s:00WB-,WV|:WB',
   'Adeptus Mechanicus': 'L9EnbisocYniG[xG}[NHE1ay9t$*',
