@@ -7,7 +7,7 @@ import {
   memo,
   type PropsWithChildren
 } from 'react'
-import { Platform, StyleSheet, useWindowDimensions } from 'react-native'
+import { StyleSheet, useWindowDimensions } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import InnerBorder from '../InnerBorder'
@@ -47,8 +47,9 @@ const BottomSheet: ForwardRefRenderFunction<
       <BottomSheetView style={styles.container}>
         <InnerBorder>
           <BlurView
-            intensity={Platform.OS === 'android' ? 80 : 20}
-            tint='systemChromeMaterialDark'
+            experimentalBlurMethod='dimezisBlurView'
+            blurReductionFactor={8}
+            intensity={20}
           >
             <VStack
               className='overflow-visible p-4'
