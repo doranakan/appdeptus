@@ -36,6 +36,7 @@ const GameListItem = ({ game }: GameListItemProps) => (
         <Scoreboard
           playerOne={game.playerOne}
           playerTwo={game.playerTwo}
+          final
         />
       </VStack>
     </VStack>

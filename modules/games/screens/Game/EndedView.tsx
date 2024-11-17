@@ -57,7 +57,10 @@ const EndedViewScreen = ({ game }: EndedViewScreenProps) => {
         space='md'
       >
         <NavigationHeader variant='backButton' />
-        <Scoreboard {...game} />
+        <Scoreboard
+          {...game}
+          final
+        />
         <ArmyRoster
           composition={
             selectedPlayer === 'one'
