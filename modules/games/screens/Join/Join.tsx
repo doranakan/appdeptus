@@ -20,7 +20,7 @@ import { useState } from 'react'
 import { FlatList } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { useGetNewGameQuery, useStartGameMutation } from '../../api'
-import { GameDetail } from '../../components'
+import { GamePreview } from '../../components'
 
 const JoinGameScreen = () => {
   const { gameId } = useLocalSearchParams<{ gameId: string }>()
@@ -61,7 +61,6 @@ const JoinGameScreen = () => {
           <VersusBackground
             codexOne={game.playerOne.army.codex.name}
             codexTwo={selectedArmy?.codex.name}
-            player='two'
           />
         </VStack>
         <VStack className='flex-1' />
@@ -95,7 +94,7 @@ const JoinGameScreen = () => {
           }}
         />
 
-        <GameDetail
+        <GamePreview
           armyOne={game.playerOne.army}
           armyTwo={selectedArmy}
         />
