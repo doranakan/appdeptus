@@ -11,7 +11,7 @@ import TabMenuItem from './TabMenuItem'
 
 type TabMenuProps<T extends string> = {
   options: readonly T[]
-  onOptionSelected: (opt: T) => void
+  onOptionSelected: (opt: T, index: number) => void
 }
 
 const TabMenu = <T extends string>({
@@ -29,7 +29,7 @@ const TabMenu = <T extends string>({
     }
     translationX.value =
       8 + ((wrapperWidth - 16) / options.length) * selectedIndex
-    onOptionSelected(selectedOption)
+    onOptionSelected(selectedOption, selectedIndex)
   }, [onOptionSelected, options, selectedIndex, translationX, wrapperWidth])
 
   const onLayout = useCallback(

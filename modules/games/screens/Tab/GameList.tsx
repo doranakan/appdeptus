@@ -8,25 +8,15 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
-import { type EndedGame } from 'appdeptus/models/game'
 import { Link } from 'expo-router'
 import { useMemo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
-import { useGetGameListQuery } from '../../api'
+import { useGetEndedGameListQuery } from '../../api'
 import GameListItem from './GameListItem'
 
 const GameList = () => {
-  const { data, isLoading, isError, isFetching, refetch } = useGetGameListQuery(
-    undefined,
-    {
-      selectFromResult: ({ data, ...rest }) => ({
-        ...rest,
-        data: data?.filter<EndedGame>(
-          (game): game is EndedGame => game.status === 'ended'
-        )
-      })
-    }
-  )
+  const { data, isLoading, isError, isFetching, refetch } =
+    useGetEndedGameListQuery()
 
   const [selectedFilter, setSelectedFilter] =
     useState<(typeof winLossFilter)[number]>('all')
@@ -91,7 +81,7 @@ const GameList = () => {
             asChild
             href={`games/${item.id}`}
           >
-            <Pressable disabled>
+            <Pressable>
               <GameListItem game={item} />
             </Pressable>
           </Link>

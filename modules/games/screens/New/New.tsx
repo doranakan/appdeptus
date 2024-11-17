@@ -14,10 +14,10 @@ import {
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { useGetArmyListQuery } from 'appdeptus/modules/armies/api'
+import { useAppDispatch } from 'appdeptus/store'
 import { QrCode } from 'lucide-react-native'
 import { useState } from 'react'
 import { FlatList } from 'react-native'
-import { useDispatch } from 'react-redux'
 import { useCreateGameMutation } from '../../api'
 import { GamePreview } from '../../components'
 import QRCodeBottomSheet from './QRCodeBottomSheet'
@@ -28,7 +28,7 @@ const NewGameScreen = () => {
 
   const [selectedArmy, setSelectedArmy] = useState<Army>()
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const [createGame, { isLoading }] = useCreateGameMutation()
 
