@@ -33,7 +33,7 @@ type NewGame = BaseGame & {
 
 type Player = {
   cp: number
-  name: UserProfile['name']
+  profile: UserProfile
   army: Army
   score: number
 }
