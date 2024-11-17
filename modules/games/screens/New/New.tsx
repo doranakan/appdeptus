@@ -9,7 +9,6 @@ import {
   ScreenTitle,
   setTheme,
   Text,
-  VersusBackground,
   VStack
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
@@ -19,7 +18,7 @@ import { QrCode } from 'lucide-react-native'
 import { useState } from 'react'
 import { FlatList } from 'react-native'
 import { useCreateGameMutation } from '../../api'
-import { GamePreview } from '../../components'
+import { Background, GamePreview } from '../../components'
 import QRCodeBottomSheet from './QRCodeBottomSheet'
 import ref from './ref'
 
@@ -37,15 +36,8 @@ const NewGameScreen = () => {
   useUnmount(() => dispatch(resetTheme()))
 
   return (
-    <VStack className='flex-1'>
-      <VStack className='absolute h-full w-full bg-primary-950'>
-        <VStack className='flex-1'>
-          {selectedArmy ? (
-            <VersusBackground codexOne={selectedArmy.codex.name} />
-          ) : null}
-        </VStack>
-        <VStack className='flex-1' />
-      </VStack>
+    <VStack className='flex-1 bg-primary-950'>
+      {selectedArmy ? <Background codexOne={selectedArmy.codex.name} /> : null}
       <ScreenContainer
         className='bg-transparent p-4'
         safeAreaInsets={['top', 'bottom']}
