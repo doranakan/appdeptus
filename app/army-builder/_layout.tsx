@@ -1,9 +1,10 @@
 import { useUnmount } from 'ahooks'
 import { resetTheme, selectThemeName } from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
+import { useAppDispatch } from 'appdeptus/store'
 import { Stack, useGlobalSearchParams } from 'expo-router'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const ArmyBuilderLayout = () => {
   const { id } = useGlobalSearchParams()
@@ -21,7 +22,7 @@ const ArmyBuilderLayout = () => {
 
   const themeName = useSelector(selectThemeName)
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useUnmount(() => {
     if (themeName !== 'default' && !id) {

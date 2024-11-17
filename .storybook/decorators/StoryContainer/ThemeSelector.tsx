@@ -6,11 +6,12 @@ import {
   Text
 } from 'appdeptus/components'
 import { themes } from 'appdeptus/constants'
+import { useAppDispatch } from 'appdeptus/store'
 import { ScrollView } from 'react-native'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 const ThemeSelector = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const selectedTheme = useSelector(selectThemeName)
 

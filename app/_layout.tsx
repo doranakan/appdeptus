@@ -16,7 +16,7 @@ import { coreApi } from 'appdeptus/api'
 import { GluestackUIProvider } from 'appdeptus/components/ui'
 import 'appdeptus/global.css'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
-import { store } from 'appdeptus/store'
+import { store, useAppDispatch } from 'appdeptus/store'
 import { SplashScreen, Stack, router } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { type PropsWithChildren, useEffect } from 'react'
@@ -25,7 +25,7 @@ import {
   SafeAreaProvider,
   initialWindowMetrics
 } from 'react-native-safe-area-context'
-import { Provider, useDispatch } from 'react-redux'
+import { Provider } from 'react-redux'
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 SplashScreen.preventAutoHideAsync()
@@ -70,7 +70,7 @@ const App = ({ children }: PropsWithChildren) => {
 }
 
 const RootLayout = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const { data: session, isFetching, isUninitialized } = useGetSessionQuery()
 

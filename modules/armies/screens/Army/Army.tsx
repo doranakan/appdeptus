@@ -9,11 +9,11 @@ import {
   VStack
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
+import { useAppDispatch } from 'appdeptus/store'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useLocalSearchParams } from 'expo-router'
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
-import { useDispatch } from 'react-redux'
 import { useGetArmyListQuery } from '../../api'
 import CompositionTab from './CompositionTab'
 import OptionsBottomSheet from './OptionsBottomSheet'
@@ -59,7 +59,7 @@ type ArmyContainerProps = {
 }
 
 const ArmyContainer = ({ army }: ArmyContainerProps) => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     dispatch(setTheme(army.codex.name))

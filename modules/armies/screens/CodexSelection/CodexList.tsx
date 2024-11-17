@@ -8,11 +8,11 @@ import {
 } from 'appdeptus/components'
 import { CustomFadeIn, CustomFadeOut, type factions } from 'appdeptus/constants'
 import { type ArmyBuilder, type Codex } from 'appdeptus/models'
+import { useAppDispatch } from 'appdeptus/store'
 import { memo, useCallback, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { RefreshControl } from 'react-native'
 import Animated, { Easing, LinearTransition } from 'react-native-reanimated'
-import { useDispatch } from 'react-redux'
 import { useGetCodexListQuery } from '../../api'
 import CodexListItem from './CodexListItem'
 
@@ -35,7 +35,7 @@ const CodexList = () => {
 
   const selectedCodex = watch('codex.name')
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const handlePress = useCallback(
     (codex: Codex) => {
