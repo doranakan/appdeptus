@@ -2,10 +2,10 @@ import { getUserId, type CoreEndpointBuilder } from 'appdeptus/api'
 import { type EndedGame } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import { getGamesSchema } from '../schemas'
+import { getEndedGameListSchema } from '../schemas'
 import GamesApiTag from '../tags'
 
-const getGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
+const getEndedGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
   builder.query<EndedGame[], void>({
     queryFn: async () => {
       try {
@@ -21,6 +21,7 @@ const getGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
             `
             *,
             player_one (
+              id,
               name
             ),
             army_one (
@@ -30,6 +31,7 @@ const getGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
               )
             ),
             player_two (
+              id,
               name
             ),
             army_two (
@@ -48,7 +50,7 @@ const getGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           return { error }
         }
 
-        const games = await getGamesSchema.parseAsync(data)
+        const games = await getEndedGameListSchema.parseAsync(data)
 
         return {
           data: games.sort(({ id: id1 }, { id: id2 }) => id2 - id1)
@@ -60,4 +62,4 @@ const getGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
     providesTags: [GamesApiTag.GAME_LIST]
   })
 
-export default getGameList
+export default getEndedGameList

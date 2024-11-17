@@ -4,6 +4,7 @@ import { z } from 'zod'
 const idSchema = z.number()
 
 const playerSchema = z.object({
+  id: z.string(),
   name: z.string()
 })
 
@@ -25,7 +26,7 @@ const baseGameSchema = z
       ...rest,
       playerOne: {
         cp: cp_one,
-        name: player_one.name,
+        profile: player_one,
         army: army_one,
         score: score_one
       },
@@ -33,10 +34,10 @@ const baseGameSchema = z
     })
   )
 
-const gameSchema = baseGameSchema.and(
+const endedGameSchema = baseGameSchema.and(
   z
     .object({
-      status: z.enum(['ended']),
+      status: z.literal('ended'),
       army_two: armySchema,
       cp_two: z.number(),
       player_two: playerSchema,
@@ -46,7 +47,38 @@ const gameSchema = baseGameSchema.and(
       ...rest,
       playerTwo: {
         cp: cp_two,
-        name: player_two.name,
+        profile: player_two,
+        army: army_two,
+        score: score_two
+      }
+    }))
+)
+
+const activeGameSchema = baseGameSchema.and(
+  z
+    .object({
+      status: z.union([
+        z.literal('turn1_p1'),
+        z.literal('turn1_p2'),
+        z.literal('turn2_p1'),
+        z.literal('turn2_p2'),
+        z.literal('turn3_p1'),
+        z.literal('turn3_p2'),
+        z.literal('turn4_p1'),
+        z.literal('turn4_p2'),
+        z.literal('turn5_p1'),
+        z.literal('turn5_p2')
+      ]),
+      army_two: armySchema,
+      cp_two: z.number(),
+      player_two: playerSchema,
+      score_two: z.number()
+    })
+    .transform(({ army_two, cp_two, player_two, score_two, ...rest }) => ({
+      ...rest,
+      playerTwo: {
+        cp: cp_two,
+        profile: player_two,
         army: army_two,
         score: score_two
       }
@@ -59,10 +91,15 @@ const newGameSchema = baseGameSchema.and(
   })
 )
 
-const getGamesSchema = z.array(gameSchema)
+const getGameSchema = activeGameSchema.or(endedGameSchema)
 
-const getGameSchema = gameSchema
+const getEndedGameListSchema = z.array(endedGameSchema)
 
 const getNewGameSchema = newGameSchema
 
-export { createGameSchema, getGameSchema, getGamesSchema, getNewGameSchema }
+export {
+  createGameSchema,
+  getEndedGameListSchema,
+  getGameSchema,
+  getNewGameSchema
+}
