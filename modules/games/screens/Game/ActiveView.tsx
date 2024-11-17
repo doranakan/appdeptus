@@ -6,7 +6,6 @@ import {
   ScreenContainer,
   setTheme,
   TabMenu,
-  VersusBackground,
   VStack
 } from 'appdeptus/components'
 import { type UserProfile } from 'appdeptus/models'
@@ -19,6 +18,7 @@ import {
   useGameUpdates,
   useNextTurnMutation
 } from '../../api'
+import { Background } from '../../components'
 import Commands from './Commands'
 import GameDetail from './GameDetail'
 
@@ -60,15 +60,10 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
 
   return (
     <VStack className='flex-1 bg-primary-950'>
-      <VStack className='absolute h-full w-full bg-primary-950'>
-        <VStack className='flex-1'>
-          <VersusBackground
-            codexOne={game.playerOne.army.codex.name}
-            codexTwo={game.playerTwo.army.codex.name}
-          />
-        </VStack>
-        <VStack className='flex-1' />
-      </VStack>
+      <Background
+        codexOne={game.playerOne.army.codex.name}
+        codexTwo={game.playerTwo.army.codex.name}
+      />
 
       <ScreenContainer
         className='bg-transparent p-4'

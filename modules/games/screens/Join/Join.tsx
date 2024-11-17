@@ -9,7 +9,6 @@ import {
   ScreenContainer,
   ScreenSubtitle,
   setTheme,
-  VersusBackground,
   VStack
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
@@ -20,7 +19,7 @@ import { Swords } from 'lucide-react-native'
 import { useState } from 'react'
 import { FlatList } from 'react-native'
 import { useGetNewGameQuery, useStartGameMutation } from '../../api'
-import { GamePreview } from '../../components'
+import { Background, GamePreview } from '../../components'
 
 const JoinGameScreen = () => {
   const { gameId } = useLocalSearchParams<{ gameId: string }>()
@@ -55,16 +54,11 @@ const JoinGameScreen = () => {
   }
 
   return (
-    <VStack className='flex-1'>
-      <VStack className='absolute h-full w-full bg-primary-950'>
-        <VStack className='flex-1'>
-          <VersusBackground
-            codexOne={game.playerOne.army.codex.name}
-            codexTwo={selectedArmy?.codex.name}
-          />
-        </VStack>
-        <VStack className='flex-1' />
-      </VStack>
+    <VStack className='flex-1 bg-primary-950'>
+      <Background
+        codexOne={game.playerOne.army.codex.name}
+        codexTwo={selectedArmy?.codex.name}
+      />
       <ScreenContainer
         className='bg-transparent p-4'
         safeAreaInsets={['bottom', 'top']}
