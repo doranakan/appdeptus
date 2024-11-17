@@ -18,6 +18,7 @@ const GameDataTable = ({ data }: GameDataTableProps) => (
     ListHeaderComponent={Line}
     ItemSeparatorComponent={Line}
     ListFooterComponent={Line}
+    scrollEnabled={false}
     renderItem={({ item }) => (
       <HStack className='items-center py-2'>
         <Text
