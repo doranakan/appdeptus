@@ -1,10 +1,13 @@
 import {
   ArmyBackground,
+  ArmyRoster,
   Error,
   Loading,
+  NavigationHeader,
   resetTheme,
   ScreenContainer,
   setTheme,
+  Text,
   themeColors,
   VStack
 } from 'appdeptus/components'
@@ -12,12 +15,14 @@ import { type Army } from 'appdeptus/models'
 import { useAppDispatch } from 'appdeptus/store'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useLocalSearchParams } from 'expo-router'
+import { EllipsisVertical } from 'lucide-react-native'
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { useGetArmyListQuery } from '../../api'
-import CompositionTab from './CompositionTab'
+import EnhancementList from './EnhancementList'
 import OptionsBottomSheet from './OptionsBottomSheet'
 import TopContainer from './TopContainer'
+import ref from './ref'
 
 const ArmyScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -31,23 +36,17 @@ const ArmyScreen = () => {
 
   if (!id) {
     return (
-      <ScreenContainer
-        safeAreaInsets={['bottom']}
-        className='items-center justify-center'
-      >
+      <VStack className='items-center justify-center'>
         <Error />
-      </ScreenContainer>
+      </VStack>
     )
   }
 
   if (!army) {
     return (
-      <ScreenContainer
-        safeAreaInsets={['bottom']}
-        className='items-center justify-center'
-      >
+      <VStack className='items-center justify-center'>
         <Loading />
-      </ScreenContainer>
+      </VStack>
     )
   }
 
@@ -69,11 +68,8 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
   })
 
   return (
-    <ScreenContainer safeAreaInsets={['bottom']}>
-      <VStack
-        className='flex-1'
-        space='md'
-      >
+    <ScreenContainer safeAreaInsets={['bottom', 'top']}>
+      <VStack className='absolute h-full w-full'>
         <VStack className='flex-1'>
           <ArmyBackground codex={army.codex.name} />
           <LinearGradient
@@ -83,11 +79,48 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
             ]}
             style={styles.gradient}
           />
-          <TopContainer army={army} />
         </VStack>
-        <VStack className='flex-1 px-4'>
-          <CompositionTab composition={army.composition} />
-        </VStack>
+        <VStack className='flex-1' />
+      </VStack>
+      <VStack className='flex-1 px-4'>
+        <NavigationHeader
+          variant='backButton'
+          rightButton={{
+            onPress: () => ref.current?.present(),
+            variant: 'callback',
+            icon: EllipsisVertical
+          }}
+        />
+        <ArmyRoster
+          ListHeaderComponent={
+            <VStack
+              className='py-4'
+              space='md'
+            >
+              <TopContainer army={army} />
+              {army.composition.detachment.enhancements.length > 0 ? (
+                <VStack space='md'>
+                  <Text
+                    className='uppercase'
+                    family='body-bold'
+                  >
+                    enhancements
+                  </Text>
+                  <EnhancementList
+                    enhancements={army.composition.detachment.enhancements}
+                  />
+                </VStack>
+              ) : null}
+              <Text
+                className='uppercase'
+                family='body-bold'
+              >
+                units
+              </Text>
+            </VStack>
+          }
+          composition={army.composition}
+        />
       </VStack>
       <OptionsBottomSheet army={army} />
     </ScreenContainer>
@@ -97,7 +130,6 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
 const styles = StyleSheet.create({
   gradient: {
     height: '100%',
-    position: 'absolute',
     width: '100%'
   }
 })
