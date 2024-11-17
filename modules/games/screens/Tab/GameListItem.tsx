@@ -16,7 +16,7 @@ type GameListItemProps = {
 
 const GameListItem = ({ game }: GameListItemProps) => (
   <Card>
-    <VStack className='shadow-md'>
+    <VStack className='bg-primary-950 shadow-md'>
       <VersusBackground
         codexOne={game.playerOne.army.codex.name}
         codexTwo={game.playerTwo.army.codex.name}
@@ -39,10 +39,10 @@ const GameListItem = ({ game }: GameListItemProps) => (
         />
       </VStack>
     </VStack>
-    <HStack className='justify-between p-4 py-2'>
-      <PlayerTag player={game.playerOne} />
+    <HStack className='justify-between bg-primary-950/80 p-4 py-2'>
+      <PlayerTag player={game.playerOne.profile} />
       <PlayerTag
-        player={game.playerTwo}
+        player={game.playerTwo.profile}
         reversed
       />
     </HStack>

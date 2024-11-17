@@ -11,14 +11,9 @@ type VersusBackgroundProps = {
   codexOne: CodexName
 
   codexTwo?: CodexName
-  player?: 'one' | 'two'
 }
 
-const VersusBackground = ({
-  codexOne,
-  codexTwo,
-  player
-}: VersusBackgroundProps) => {
+const VersusBackground = ({ codexOne, codexTwo }: VersusBackgroundProps) => {
   const themeName = useSelector(selectThemeName)
   return (
     <HStack className='absolute h-full w-full'>
@@ -48,9 +43,8 @@ const VersusBackground = ({
       </VStack>
       <LinearGradient
         colors={[
-          `${themeColors[player === 'one' ? codexOne : (codexTwo ?? 'default')].primary[950]}00`,
-          themeColors[player === 'one' ? codexOne : (codexTwo ?? 'default')]
-            .primary[950]
+          `${themeColors[themeName].primary[950]}00`,
+          themeColors[themeName].primary[950]
         ]}
         style={styles.bottomGradient}
       />
@@ -66,7 +60,7 @@ const styles = StyleSheet.create({
   },
   bottomGradient: {
     bottom: 0,
-    height: '10%',
+    height: '25%',
     position: 'absolute',
     width: '100%'
   }

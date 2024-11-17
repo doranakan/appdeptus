@@ -14,13 +14,13 @@ import {
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { useGetArmyListQuery } from 'appdeptus/modules/armies/api'
+import { useAppDispatch } from 'appdeptus/store'
 import { router, useLocalSearchParams } from 'expo-router'
 import { Swords } from 'lucide-react-native'
 import { useState } from 'react'
 import { FlatList } from 'react-native'
-import { useDispatch } from 'react-redux'
 import { useGetNewGameQuery, useStartGameMutation } from '../../api'
-import { GameDetail } from '../../components'
+import { GamePreview } from '../../components'
 
 const JoinGameScreen = () => {
   const { gameId } = useLocalSearchParams<{ gameId: string }>()
@@ -38,7 +38,7 @@ const JoinGameScreen = () => {
 
   const [selectedArmy, setSelectedArmy] = useState<Army>()
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useUnmount(() => dispatch(resetTheme()))
 
@@ -61,7 +61,6 @@ const JoinGameScreen = () => {
           <VersusBackground
             codexOne={game.playerOne.army.codex.name}
             codexTwo={selectedArmy?.codex.name}
-            player='two'
           />
         </VStack>
         <VStack className='flex-1' />
@@ -95,7 +94,7 @@ const JoinGameScreen = () => {
           }}
         />
 
-        <GameDetail
+        <GamePreview
           armyOne={game.playerOne.army}
           armyTwo={selectedArmy}
         />

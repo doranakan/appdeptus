@@ -1,8 +1,7 @@
-import { TabMenu, VStack } from 'appdeptus/components'
+import { ArmyRoster, TabMenu, VStack } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
-import { memo, useMemo, useState } from 'react'
+import { memo, useState } from 'react'
 import EnhancementList from './EnhancementList'
-import UnitList from './UnitList'
 
 type CompositionTabProps = {
   composition: Army['composition']
@@ -12,20 +11,6 @@ const CompositionTab = ({ composition }: CompositionTabProps) => {
   const [selectedTab, setSelectedTab] = useState<'units' | 'enhancement'>(
     'units'
   )
-
-  const units = useMemo(() => {
-    const { characters, leaders, squads, teams, transports, vehicles } =
-      composition
-
-    return [
-      ...teams,
-      ...characters,
-      ...leaders,
-      ...squads,
-      ...transports,
-      ...vehicles
-    ]
-  }, [composition])
 
   return (
     <VStack
@@ -37,10 +22,7 @@ const CompositionTab = ({ composition }: CompositionTabProps) => {
         options={['units', 'enhancement']}
       />
       {selectedTab === 'units' ? (
-        <UnitList
-          units={units}
-          warlord={composition.warlord}
-        />
+        <ArmyRoster composition={composition} />
       ) : (
         <EnhancementList enhancements={composition.detachment.enhancements} />
       )}

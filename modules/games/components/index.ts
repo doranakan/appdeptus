@@ -1,1 +1,1 @@
-export { default as GameDetail } from './GameDetail'
+export { default as GamePreview } from './GamePreview'

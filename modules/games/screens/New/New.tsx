@@ -14,12 +14,12 @@ import {
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { useGetArmyListQuery } from 'appdeptus/modules/armies/api'
+import { useAppDispatch } from 'appdeptus/store'
 import { QrCode } from 'lucide-react-native'
 import { useState } from 'react'
 import { FlatList } from 'react-native'
-import { useDispatch } from 'react-redux'
 import { useCreateGameMutation } from '../../api'
-import { GameDetail } from '../../components'
+import { GamePreview } from '../../components'
 import QRCodeBottomSheet from './QRCodeBottomSheet'
 import ref from './ref'
 
@@ -28,7 +28,7 @@ const NewGameScreen = () => {
 
   const [selectedArmy, setSelectedArmy] = useState<Army>()
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const [createGame, { isLoading }] = useCreateGameMutation()
 
@@ -41,10 +41,7 @@ const NewGameScreen = () => {
       <VStack className='absolute h-full w-full bg-primary-950'>
         <VStack className='flex-1'>
           {selectedArmy ? (
-            <VersusBackground
-              codexOne={selectedArmy.codex.name}
-              player='one'
-            />
+            <VersusBackground codexOne={selectedArmy.codex.name} />
           ) : null}
         </VStack>
         <VStack className='flex-1' />
@@ -77,7 +74,7 @@ const NewGameScreen = () => {
         />
 
         {selectedArmy ? (
-          <GameDetail armyOne={selectedArmy} />
+          <GamePreview armyOne={selectedArmy} />
         ) : (
           <VStack
             className='py-4'

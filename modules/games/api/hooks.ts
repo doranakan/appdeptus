@@ -1,6 +1,9 @@
+import { type ActiveGame } from 'appdeptus/models/game'
+import { useAppDispatch } from 'appdeptus/store'
 import { useEffect } from 'react'
 import gamesApi from './api'
 import { gameUpdates } from './realtime'
+import { realtimeGameSchema } from './schemas'
 
 const useGameUpdateListener = (args: Parameters<typeof gameUpdates>[0]) => {
   useEffect(() => {
@@ -12,12 +15,52 @@ const useGameUpdateListener = (args: Parameters<typeof gameUpdates>[0]) => {
   })
 }
 
+const useGameUpdates = (gameId: ActiveGame['id']) => {
+  const dispatch = useAppDispatch()
+
+  useGameUpdateListener({
+    eventHandler: ({ new: newData }) => {
+      dispatch(
+        gamesApi.util.updateQueryData(
+          'getGame',
+          gameId,
+          (data) => {
+            if (!data) {
+              return data
+            }
+
+            const parsedData = realtimeGameSchema.parse(newData)
+
+            return {
+              ...data,
+              lastUpdate: parsedData.lastUpdate,
+              playerOne: {
+                ...data.playerOne,
+                ...parsedData.playerOne
+              },
+              playerTwo: {
+                ...data.playerTwo,
+                ...parsedData.playerTwo
+              },
+              status: parsedData.status
+            }
+          },
+          true
+        )
+      )
+      return newData
+    },
+    gameId
+  })
+}
+
 const {
   useCreateGameMutation,
   useDeleteGameMutation,
   useEndGameMutation,
-  useGetGameListQuery,
+  useGetEndedGameListQuery,
   useGetNewGameQuery,
+  useGetGameQuery,
   useNextTurnMutation,
   useStartGameMutation,
   useUpdateScoreAndCPMutation
@@ -28,7 +71,9 @@ export {
   useDeleteGameMutation,
   useEndGameMutation,
   useGameUpdateListener,
-  useGetGameListQuery,
+  useGameUpdates,
+  useGetEndedGameListQuery,
+  useGetGameQuery,
   useGetNewGameQuery,
   useNextTurnMutation,
   useStartGameMutation,
