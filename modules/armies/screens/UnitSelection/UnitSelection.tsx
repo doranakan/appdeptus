@@ -4,7 +4,6 @@ import pluralize, { singular } from 'pluralize'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { ArmyBuilderBackground, TopBar } from '../../components'
-import Header from './Header'
 import UnitList from './UnitList'
 
 const UnitSelectionScreen = () => {
@@ -17,14 +16,12 @@ const UnitSelectionScreen = () => {
     useState<(typeof unitTypes)[number]>('character')
 
   return (
-    <ScreenContainer safeAreaInsets={['bottom', 'top']}>
+    <ScreenContainer safeAreaInsets={['bottom']}>
       <ArmyBuilderBackground />
       <VStack
         className='flex-1 px-4 pb-0 pt-4'
         space='md'
       >
-        <Header />
-
         <TopBar
           subtitle={selectedDetachment.name}
           title={selectedCodex}

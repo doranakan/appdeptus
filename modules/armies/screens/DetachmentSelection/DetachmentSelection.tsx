@@ -8,7 +8,6 @@ import { useFormContext } from 'react-hook-form'
 import { useGetArmyListQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
 import DetachmentList from './DetachmentList'
-import Header from './Header'
 
 const DetachmentSelectionScreen = () => {
   const { watch, reset, getValues } = useFormContext<ArmyBuilder>()
@@ -72,13 +71,12 @@ const DetachmentSelectionScreen = () => {
   })
 
   return (
-    <ScreenContainer safeAreaInsets={['bottom', 'top']}>
+    <ScreenContainer safeAreaInsets={['bottom']}>
       <ArmyBuilderBackground />
       <VStack
         className='flex-1 px-4 pb-0 pt-4'
         space='md'
       >
-        <Header />
         <TopBar
           subtitle='detachments'
           title={selectedCodex?.name}

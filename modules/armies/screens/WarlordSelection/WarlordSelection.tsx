@@ -2,7 +2,6 @@ import { ScreenContainer, Text, VStack } from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
 import { useFormContext } from 'react-hook-form'
 import { ArmyBuilderBackground, TopBar } from '../../components'
-import Header from './Header'
 import NameInput from './NameInput'
 import WarlordList from './WarlordList'
 
@@ -13,14 +12,12 @@ const WarlordSelectionScreen = () => {
   const selectedDetachment = watch('detachment')
 
   return (
-    <ScreenContainer safeAreaInsets={['bottom', 'top']}>
+    <ScreenContainer safeAreaInsets={['bottom']}>
       <ArmyBuilderBackground />
       <VStack
         className='flex-1 px-4 pb-0 pt-4'
         space='md'
       >
-        <Header />
-
         <TopBar
           subtitle={selectedDetachment.name}
           title={selectedCodex}

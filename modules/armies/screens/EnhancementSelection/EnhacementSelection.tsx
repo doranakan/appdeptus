@@ -4,7 +4,6 @@ import { type ArmyBuilder } from 'appdeptus/models'
 import { useFormContext } from 'react-hook-form'
 import { ArmyBuilderBackground, TopBar } from '../../components'
 import EnhancementList from './EnhancementList'
-import Header from './Header'
 
 const EnhancementSelectionScreen = () => {
   const { reset, watch, getValues } = useFormContext<ArmyBuilder>()
@@ -23,13 +22,12 @@ const EnhancementSelectionScreen = () => {
   })
 
   return (
-    <ScreenContainer safeAreaInsets={['bottom', 'top']}>
+    <ScreenContainer safeAreaInsets={['bottom']}>
       <ArmyBuilderBackground />
       <VStack
         className='flex-1 px-4 pb-0 pt-4'
         space='md'
       >
-        <Header />
         <TopBar
           subtitle={selectedDetachment.name}
           title={selectedCodex}
