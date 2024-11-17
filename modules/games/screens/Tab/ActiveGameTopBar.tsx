@@ -7,24 +7,49 @@ import {
   VersusBackground,
   VStack
 } from 'appdeptus/components'
+import { type ActiveGame } from 'appdeptus/models/game'
 import { LinearGradient } from 'expo-linear-gradient'
-import { Link } from 'expo-router'
-import { memo } from 'react'
+import { Link, useFocusEffect } from 'expo-router'
+import { memo, useCallback } from 'react'
 import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useGetGameQuery } from '../../api'
+import { useGameUpdates, useGetGameQuery } from '../../api'
 
 const ActiveGameTopBar = () => {
-  const { data } = useGetGameQuery()
+  const { data: game, refetch } = useGetGameQuery()
 
-  if (!data) {
+  useFocusEffect(
+    useCallback(() => {
+      if (!game) {
+        refetch()
+      }
+    }, [game, refetch])
+  )
+
+  if (!game || game.status === 'ended') {
+    return null
+  }
+
+  return <ActiveGameTopBarContent gameId={game.id} />
+}
+
+type ActiveGameTopBarContentProps = {
+  gameId: ActiveGame['id']
+}
+
+const ActiveGameTopBarContent = ({ gameId }: ActiveGameTopBarContentProps) => {
+  useGameUpdates(gameId)
+
+  const { data: game } = useGetGameQuery(gameId)
+
+  if (!game) {
     return null
   }
 
   return (
     <Link
       asChild
-      href={`games/${data.id}`}
+      href={`games/${game.id}`}
     >
       <Pressable>
         <VStack
@@ -32,14 +57,14 @@ const ActiveGameTopBar = () => {
           style={styles.container}
         >
           <VersusBackground
-            codexOne={data.playerOne.army.codex.name}
-            codexTwo={data.playerTwo.army.codex.name}
+            codexOne={game.playerOne.army.codex.name}
+            codexTwo={game.playerTwo.army.codex.name}
           />
           <SafeAreaView edges={['top']}>
             <VStack className='p-4'>
               <Scoreboard
-                playerOne={data.playerOne}
-                playerTwo={data.playerTwo}
+                playerOne={game.playerOne}
+                playerTwo={game.playerTwo}
               />
             </VStack>
             <HStack

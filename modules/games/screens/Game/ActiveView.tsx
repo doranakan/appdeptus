@@ -11,22 +11,29 @@ import {
 } from 'appdeptus/components'
 import { type UserProfile } from 'appdeptus/models'
 import { type ActiveGame } from 'appdeptus/models/game'
+import { useAppDispatch } from 'appdeptus/store'
 import { ArrowBigRightDash } from 'lucide-react-native'
 import { useCallback, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useEndGameMutation, useNextTurnMutation } from '../../api'
+import {
+  useEndGameMutation,
+  useGameUpdates,
+  useNextTurnMutation
+} from '../../api'
+import Commands from './Commands'
 import GameDetail from './GameDetail'
 
-type ActiveGameViewProps = {
+type ActiveViewProps = {
   game: ActiveGame
   user: UserProfile
 }
 
-const ActiveGameView = ({ game, user }: ActiveGameViewProps) => {
+const ActiveView = ({ game, user }: ActiveViewProps) => {
+  useGameUpdates(game.id)
+
   const [nextTurn, { isLoading: isMovingToNextTurn }] = useNextTurnMutation()
   const [endGame, { isLoading: isGameEnding }] = useEndGameMutation()
 
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const [selectedPlayer, setSelectedPlayer] = useState<'one' | 'two'>('one')
 
@@ -76,6 +83,7 @@ const ActiveGameView = ({ game, user }: ActiveGameViewProps) => {
             text: turnName[game.status]
           }}
           rightButton={{
+            disabled: isMovingToNextTurn || isGameEnding,
             onPress: advanceTurnOrComplete,
             variant: 'callback',
             loading: isMovingToNextTurn || isGameEnding,
@@ -90,8 +98,12 @@ const ActiveGameView = ({ game, user }: ActiveGameViewProps) => {
               : game.playerTwo.army.composition
           }
           ListHeaderComponent={
-            <VStack>
+            <VStack space='md'>
               <GameDetail {...game} />
+              <Commands
+                game={game}
+                user={user}
+              />
               <VStack className='py-4'>
                 <TabMenu
                   onOptionSelected={(_, index) => {
@@ -137,4 +149,4 @@ const turnToStep = {
   turn5_p2: 10
 } as const satisfies Record<ActiveGame['status'], number>
 
-export default ActiveGameView
+export default ActiveView

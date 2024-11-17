@@ -1,6 +1,13 @@
 import { skipToken } from '@reduxjs/toolkit/query'
-import { Error, Loading, ScreenContainer } from 'appdeptus/components'
+import { useUnmount } from 'ahooks'
+import {
+  Error,
+  Loading,
+  resetTheme,
+  ScreenContainer
+} from 'appdeptus/components'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
+import { useAppDispatch } from 'appdeptus/store'
 import { useLocalSearchParams } from 'expo-router'
 import { useGetGameQuery } from '../../api'
 import ActiveView from './ActiveView'
@@ -12,14 +19,18 @@ const GameScreen = () => {
   const {
     data: game,
     isError,
-    isFetching
+    isLoading
   } = useGetGameQuery(Number(gameId) ?? skipToken)
   const { data: user } = useGetUserProfileQuery()
+
+  const dispatch = useAppDispatch()
+
+  useUnmount(() => dispatch(resetTheme()))
 
   if (!game || !user) {
     return (
       <ScreenContainer className='items-center justify-center'>
-        {isFetching ? <Loading /> : null}
+        {isLoading ? <Loading /> : null}
         {isError ? <Error /> : null}
       </ScreenContainer>
     )

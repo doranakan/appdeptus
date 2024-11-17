@@ -3,6 +3,21 @@ import { z } from 'zod'
 
 const idSchema = z.number()
 
+const activeGameStatusSchema = z.union([
+  z.literal('turn1_p1'),
+  z.literal('turn1_p2'),
+  z.literal('turn2_p1'),
+  z.literal('turn2_p2'),
+  z.literal('turn3_p1'),
+  z.literal('turn3_p2'),
+  z.literal('turn4_p1'),
+  z.literal('turn4_p2'),
+  z.literal('turn5_p1'),
+  z.literal('turn5_p2')
+])
+
+const endedGameStatusSchema = z.literal('ended')
+
 const playerSchema = z.object({
   id: z.string(),
   name: z.string()
@@ -37,7 +52,7 @@ const baseGameSchema = z
 const endedGameSchema = baseGameSchema.and(
   z
     .object({
-      status: z.literal('ended'),
+      status: endedGameStatusSchema,
       army_two: armySchema,
       cp_two: z.number(),
       player_two: playerSchema,
@@ -57,18 +72,7 @@ const endedGameSchema = baseGameSchema.and(
 const activeGameSchema = baseGameSchema.and(
   z
     .object({
-      status: z.union([
-        z.literal('turn1_p1'),
-        z.literal('turn1_p2'),
-        z.literal('turn2_p1'),
-        z.literal('turn2_p2'),
-        z.literal('turn3_p1'),
-        z.literal('turn3_p2'),
-        z.literal('turn4_p1'),
-        z.literal('turn4_p2'),
-        z.literal('turn5_p1'),
-        z.literal('turn5_p2')
-      ]),
+      status: activeGameStatusSchema,
       army_two: armySchema,
       cp_two: z.number(),
       player_two: playerSchema,
@@ -85,6 +89,29 @@ const activeGameSchema = baseGameSchema.and(
     }))
 )
 
+const realtimeGameSchema = z
+  .object({
+    cp_one: z.number(),
+    cp_two: z.number(),
+    score_one: z.number(),
+    score_two: z.number(),
+    status: activeGameStatusSchema.or(endedGameStatusSchema),
+    updated_at: z.string()
+  })
+  .transform(
+    ({ cp_one, cp_two, score_one, score_two, status, updated_at }) => ({
+      status,
+      lastUpdate: updated_at,
+      playerOne: {
+        cp: cp_one,
+        score: score_one
+      },
+      playerTwo: {
+        cp: cp_two,
+        score: score_two
+      }
+    })
+  )
 const newGameSchema = baseGameSchema.and(
   z.object({
     status: z.literal('new')
@@ -98,8 +125,10 @@ const getEndedGameListSchema = z.array(endedGameSchema)
 const getNewGameSchema = newGameSchema
 
 export {
+  activeGameSchema,
   createGameSchema,
   getEndedGameListSchema,
   getGameSchema,
-  getNewGameSchema
+  getNewGameSchema,
+  realtimeGameSchema
 }
