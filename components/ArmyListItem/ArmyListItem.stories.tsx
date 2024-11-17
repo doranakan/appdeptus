@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import ArmyListItem from './ArmyListItem'
 
-const CardMeta: Meta<typeof ArmyListItem> = {
+const ArmyListItemMeta: Meta<typeof ArmyListItem> = {
   title: 'ArmyListItem',
   component: ArmyListItem,
   argTypes: {
@@ -17,7 +17,7 @@ const CardMeta: Meta<typeof ArmyListItem> = {
   }
 }
 
-export default CardMeta
+export default ArmyListItemMeta
 
 type Story = StoryObj<typeof ArmyListItem>
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import Background from './Background'
 
-const CardMeta: Meta<typeof Background> = {
+const BackgroundMeta: Meta<typeof Background> = {
   title: 'Background',
   component: Background,
   args: {
@@ -9,7 +9,7 @@ const CardMeta: Meta<typeof Background> = {
   }
 }
 
-export default CardMeta
+export default BackgroundMeta
 
 type Story = StoryObj<typeof Background>
 

@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react'
 import { Search } from 'lucide-react-native'
 import Input from './Input'
 
-const CardMeta: Meta<typeof Input> = {
+const InputMeta: Meta<typeof Input> = {
   title: 'Input',
   component: (props) => (
     <Input
@@ -16,7 +16,7 @@ const CardMeta: Meta<typeof Input> = {
   }
 }
 
-export default CardMeta
+export default InputMeta
 
 type Story = StoryObj<typeof Input>
 
