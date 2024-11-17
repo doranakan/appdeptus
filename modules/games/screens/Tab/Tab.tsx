@@ -11,7 +11,7 @@ const GamesTab = () => {
     <VStack className='flex-1'>
       <ActiveGameTopBar />
       <ScreenContainer
-        className='p-4'
+        className='px-4'
         safeAreaInsets={!data ? ['top'] : undefined}
         space='md'
       >
