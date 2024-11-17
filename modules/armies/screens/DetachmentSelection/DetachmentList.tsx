@@ -47,6 +47,13 @@ const DetachmentList = () => {
       renderItem={({ item }) => (
         <Pressable
           onPress={() => {
+            const points =
+              watch.detachment?.enhancements?.reduce(
+                (acc, { points }) => (points ? (acc += points) : acc),
+                0
+              ) ?? 0
+
+            setValue('points', watch.points ? watch.points - points : 0)
             setValue('detachment', { ...item, enhancements: [] })
           }}
         >

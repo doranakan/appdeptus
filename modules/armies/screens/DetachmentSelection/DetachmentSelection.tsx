@@ -66,7 +66,8 @@ const DetachmentSelectionScreen = () => {
     reset({
       ...getValues(),
       detachment: undefined,
-      units: []
+      units: [],
+      points: 0
     })
   })
 

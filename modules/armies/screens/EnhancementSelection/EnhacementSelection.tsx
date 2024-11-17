@@ -17,8 +17,7 @@ const EnhancementSelectionScreen = () => {
       ...getValues(),
 
       detachment: {
-        ...selectedDetachment,
-        enhancements: []
+        ...selectedDetachment
       }
     })
   })
