@@ -18,6 +18,7 @@ export const Avatar: Story = {
   args: {
     variant: 'avatar',
     user: {
+      id: '',
       name: 'doranakan',
       image:
         'https://cdnb.artstation.com/p/assets/images/images/025/662/505/large/johannes-helgeson-horusver02-06.jpg?1586525189'

@@ -6,6 +6,7 @@ const PlayerTagMeta: Meta<typeof PlayerTag> = {
   component: PlayerTag,
   args: {
     player: {
+      id: '',
       name: 'doranakan'
     }
   }

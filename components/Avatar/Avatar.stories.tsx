@@ -6,6 +6,7 @@ const AvatarMeta: Meta<typeof Avatar> = {
   component: Avatar,
   args: {
     user: {
+      id: '',
       name: 'doranakan',
       image:
         'https://cdnb.artstation.com/p/assets/images/images/025/662/505/large/johannes-helgeson-horusver02-06.jpg?1586525189'
@@ -21,6 +22,7 @@ export const Default: Story = {}
 export const Fallback: Story = {
   args: {
     user: {
+      id: '',
       name: 'doranakan',
       image: undefined
     }
