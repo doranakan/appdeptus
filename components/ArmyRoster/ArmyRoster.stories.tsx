@@ -6,7 +6,21 @@ const ArmyRosterMeta: Meta<typeof ArmyRoster> = {
   component: ArmyRoster,
   args: {
     composition: {
-      characters: [],
+      characters: [
+        {
+          id: 0,
+          name: 'Angron',
+          selectionId: '0',
+          tier: {
+            id: 0,
+            models: 1,
+            points: 435
+          },
+          upgrades: [],
+          type: 'character',
+          warlord: true
+        }
+      ],
       detachment: {
         enhancements: [],
         id: 0,
@@ -16,18 +30,6 @@ const ArmyRosterMeta: Meta<typeof ArmyRoster> = {
       teams: [],
       transports: [],
       vehicles: [],
-      warlord: {
-        id: 0,
-        name: 'Angron',
-        selectionId: '0',
-        tier: {
-          id: 0,
-          models: 1,
-          points: 435
-        },
-        upgrades: [],
-        type: 'leader'
-      },
       squads: [
         {
           id: 1,

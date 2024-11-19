@@ -8,6 +8,7 @@ import {
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { memo, useMemo } from 'react'
+import useWarlord from '../../hooks'
 
 type TopContainerProps = {
   army: Army
@@ -24,39 +25,36 @@ const TopContainer = ({ army }: TopContainerProps) => {
       squads.length +
       teams.length * 2 + // every team has 2 units
       transports.length +
-      vehicles.length +
-      1 // warlord
+      vehicles.length
     )
   }, [army.composition])
 
-  const numberOfModels = useMemo(() => {
-    const {
-      characters,
-      leaders,
-      squads,
-      teams,
-      transports,
-      vehicles,
-      warlord
-    } = army.composition
+  const units = useMemo(() => {
+    const { characters, leaders, squads, teams, transports, vehicles } =
+      army.composition
 
-    const units = [
+    return [
       ...characters,
       ...leaders,
       ...squads,
       ...teams,
       ...transports,
-      ...vehicles,
-      warlord
+      ...vehicles
     ]
-
-    return units.reduce((acc, unit) => {
-      if (unit.type === 'team') {
-        return acc + unit.leader.tier.models + unit.bodyguard.tier.models
-      }
-      return acc + unit.tier.models
-    }, 0)
   }, [army.composition])
+
+  const numberOfModels = useMemo(
+    () =>
+      units.reduce((acc, unit) => {
+        if (unit.type === 'team') {
+          return acc + unit.leader.tier.models + unit.bodyguard.tier.models
+        }
+        return acc + unit.tier.models
+      }, 0),
+    [units]
+  )
+
+  const warlord = useWarlord(units)
 
   return (
     <VStack space='md'>
@@ -89,9 +87,7 @@ const TopContainer = ({ army }: TopContainerProps) => {
           <HStack space='md'>
             <Text>Warlord:</Text>
             <Text family='body-bold'>
-              {army.composition.warlord.type === 'team'
-                ? army.composition.warlord.leader.name
-                : army.composition.warlord.name}
+              {warlord?.type === 'team' ? warlord.leader.name : warlord?.name}
             </Text>
           </HStack>
           <HStack space='md'>

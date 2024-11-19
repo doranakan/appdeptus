@@ -44,7 +44,8 @@ const codexSchema = z.object({
 
 const baseUnitSchema = z.object({
   id: idSchema,
-  name: z.string()
+  name: z.string(),
+  warlord: z.boolean().optional()
 })
 
 const tierSchema = z.object({
@@ -124,12 +125,7 @@ const armySchema = z.object({
     squads: z.array(squadSchema),
     transports: z.array(transportSchema),
     teams: z.array(teamSchema),
-    vehicles: z.array(vehicleSchema),
-    warlord: z.discriminatedUnion('type', [
-      teamSchema,
-      leaderSchema,
-      characterSchema
-    ])
+    vehicles: z.array(vehicleSchema)
   }),
   id: idSchema,
   name: z.string(),

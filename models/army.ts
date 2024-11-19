@@ -7,8 +7,7 @@ import {
   type Team,
   type Transport,
   type Unit,
-  type Vehicle,
-  type Warlord
+  type Vehicle
 } from './unit'
 
 type BaseArmy = {
@@ -27,13 +26,11 @@ type Army = BaseArmy & {
     teams: Team[]
     transports: Transport[]
     vehicles: Vehicle[]
-    warlord: Warlord
   }
 }
 
 type ArmyBuilder = BaseArmy & {
   units: Unit[]
-  warlord: Warlord
   detachment: Detachment
 }
 

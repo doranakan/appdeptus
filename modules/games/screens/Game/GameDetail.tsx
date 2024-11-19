@@ -17,17 +17,17 @@ type GameDetailProps = {
 const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
   const data = useMemo<ComponentProps<typeof GameDataTable>['data']>(
     () => [
-      {
-        title: 'Warlord',
-        valueL:
-          playerOne.army.composition.warlord.type === 'team'
-            ? playerOne.army.composition.warlord.leader.name
-            : playerOne.army.composition.warlord.name,
-        valueR:
-          playerTwo.army.composition.warlord.type === 'team'
-            ? playerTwo.army.composition.warlord.leader.name
-            : playerTwo.army.composition.warlord.name
-      },
+      // {
+      //   title: 'Warlord',
+      //   valueL:
+      //     playerOne.army.composition.warlord.type === 'team'
+      //       ? playerOne.army.composition.warlord.leader.name
+      //       : playerOne.army.composition.warlord.name,
+      //   valueR:
+      //     playerTwo.army.composition.warlord.type === 'team'
+      //       ? playerTwo.army.composition.warlord.leader.name
+      //       : playerTwo.army.composition.warlord.name
+      // },
       {
         title: 'Points',
         valueL: `${playerOne.army.points}PTS`,
@@ -104,11 +104,9 @@ const calcNumberOfUnits = (composition: Army['composition']) => {
   const transports = composition.transports.length
   const vehicles = composition.vehicles.length
 
-  const warlord = composition.warlord.type === 'team' ? 2 : 1
-
   const teams = composition.teams.length * 2
 
-  return characters + leaders + squads + transports + vehicles + warlord + teams
+  return characters + leaders + squads + transports + vehicles + teams
 }
 
 const calcNumberOfModels = (composition: Army['composition']) =>
@@ -118,9 +116,6 @@ const calcNumberOfModels = (composition: Army['composition']) =>
     ...composition.squads,
     ...composition.transports,
     ...composition.vehicles,
-    ...(composition.warlord.type === 'team'
-      ? [composition.warlord.leader, composition.warlord.bodyguard]
-      : [composition.warlord]),
     ...composition.teams.flatMap(({ bodyguard, leader }) => [bodyguard, leader])
   ].reduce((acc, { tier }) => (acc += tier.models), 0)
 

@@ -19,18 +19,18 @@ type GamePreviewProps = {
 const GamePreview = ({ armyOne, armyTwo }: GamePreviewProps) => {
   const data = useMemo<ComponentProps<typeof GameDataTable>['data']>(
     () => [
-      {
-        title: 'Warlord',
-        valueL:
-          armyOne.composition.warlord.type === 'team'
-            ? armyOne.composition.warlord.leader.name
-            : armyOne.composition.warlord.name,
-        valueR: armyTwo
-          ? armyTwo.composition.warlord.type === 'team'
-            ? armyTwo.composition.warlord.leader.name
-            : armyTwo.composition.warlord.name
-          : ''
-      },
+      // {
+      //   title: 'Warlord',
+      //   valueL:
+      //     armyOne.composition.warlord.type === 'team'
+      //       ? armyOne.composition.warlord.leader.name
+      //       : armyOne.composition.warlord.name,
+      //   valueR: armyTwo
+      //     ? armyTwo.composition.warlord.type === 'team'
+      //       ? armyTwo.composition.warlord.leader.name
+      //       : armyTwo.composition.warlord.name
+      //     : ''
+      // },
       {
         title: 'Points',
         valueL: `${armyOne.points}PTS`,

@@ -28,8 +28,7 @@ const ArmyBuilderLayout = () => {
       detachment: undefined,
       name: '',
       points: 0,
-      units: [],
-      warlord: undefined
+      units: []
     }
   })
 
@@ -80,8 +79,7 @@ const ArmyBuilderLayout = () => {
   const detachment = watch('detachment')
   const units = watch('units')
   const name = watch('name')
-  const warlord = watch('warlord')
-
+  const warlord = useMemo(() => units.find(({ warlord }) => warlord), [units])
   const shouldAssignLeaders = useMemo(
     () =>
       !!units?.filter(({ type }) => type === 'leader').length &&

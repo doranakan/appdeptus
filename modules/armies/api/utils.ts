@@ -10,11 +10,10 @@ import {
 
 const mapArmyBuilderToArmyComposition = ({
   detachment,
-  units,
-  warlord
+  units
 }: ArmyBuilder) => {
   const leaders = units.filter<Leader>(
-    (unit): unit is Leader => unit.type === 'leader' && warlord.id !== unit.id
+    (unit): unit is Leader => unit.type === 'leader'
   )
 
   const squads = units.filter<Squad>(
@@ -23,8 +22,7 @@ const mapArmyBuilderToArmyComposition = ({
 
   return {
     characters: units.filter<Character>(
-      (unit): unit is Character =>
-        unit.type === 'character' && warlord.id !== unit.id
+      (unit): unit is Character => unit.type === 'character'
     ),
     leaders: leaders.filter((leader) => !leader.teamId),
     squads: squads.filter((squad) => !squad.teamId),
@@ -34,30 +32,25 @@ const mapArmyBuilderToArmyComposition = ({
     vehicles: units.filter<Vehicle>(
       (unit): unit is Vehicle => unit.type === 'vehicle'
     ),
-    teams: leaders
-      .reduce<Team[]>((acc, leader) => {
-        if (leader.teamId) {
-          const bodyguard = squads.find(
-            ({ teamId }) => teamId === leader.teamId
-          )
-          if (bodyguard) {
-            return [
-              ...acc,
-              {
-                id: leader.teamId,
-                bodyguard,
-                leader,
-                type: 'team'
-              }
-            ]
-          }
-          return []
+    teams: leaders.reduce<Team[]>((acc, leader) => {
+      if (leader.teamId) {
+        const bodyguard = squads.find(({ teamId }) => teamId === leader.teamId)
+        if (bodyguard) {
+          return [
+            ...acc,
+            {
+              id: leader.teamId,
+              bodyguard,
+              leader,
+              type: 'team'
+            }
+          ]
         }
-        return acc
-      }, [])
-      .filter(({ id }) => id !== warlord.id),
-    detachment,
-    warlord
+        return []
+      }
+      return acc
+    }, []),
+    detachment
   }
 }
 

@@ -11,18 +11,10 @@ type UnitRosterProps = {
 
 const UnitRoster = ({ composition, ListHeaderComponent }: UnitRosterProps) => {
   const units = useMemo(() => {
-    const {
-      characters,
-      leaders,
-      squads,
-      teams,
-      transports,
-      vehicles,
-      warlord
-    } = composition
+    const { characters, leaders, squads, teams, transports, vehicles } =
+      composition
 
     return [
-      warlord,
       ...teams,
       ...characters,
       ...leaders,

@@ -6,6 +6,7 @@ type BaseUnit = {
   upgrades: UnitUpgrade[]
 
   teamId?: string
+  warlord?: boolean
 }
 
 type Character = BaseUnit & {
@@ -35,8 +36,6 @@ type Team = {
   type: 'team'
 }
 
-type Warlord = Character | Leader | Team
-
 type Unit = Character | Leader | Squad | Transport | Vehicle
 
 type SelectableUnit = Omit<Unit, 'selectionId' | 'tier' | 'teamId'> & {
@@ -63,6 +62,5 @@ export type {
   Team,
   Transport,
   Unit,
-  Vehicle,
-  Warlord
+  Vehicle
 }

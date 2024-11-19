@@ -31,7 +31,6 @@ const DetachmentSelectionScreen = () => {
         id: army.id,
         name: army.name,
         points: army.points,
-        warlord: army.composition.warlord,
         units: [
           ...army.composition.characters,
           ...army.composition.leaders,
@@ -41,21 +40,7 @@ const DetachmentSelectionScreen = () => {
             { ...bodyguard, teamId: id }
           ]),
           ...army.composition.transports,
-          ...army.composition.vehicles,
-          ...[
-            army.composition.warlord.type === 'team'
-              ? [
-                  {
-                    ...army.composition.warlord.leader,
-                    teamId: army.composition.warlord.id
-                  },
-                  {
-                    ...army.composition.warlord.bodyguard,
-                    teamId: army.composition.warlord.id
-                  }
-                ]
-              : army.composition.warlord
-          ].flat()
+          ...army.composition.vehicles
         ]
       })
     }
