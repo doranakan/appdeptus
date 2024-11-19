@@ -1,7 +1,7 @@
-import { type Team, type Unit } from 'appdeptus/models'
+import { type Army } from 'appdeptus/models'
 import { useMemo } from 'react'
 
-const useWarlord = (units: (Unit | Team)[]) =>
+const useWarlord = (units: Army['units']) =>
   useMemo(
     () =>
       units.find((unit) => {

@@ -1,5 +1,5 @@
 import {
-  type ArmyBuilder,
+  type Army,
   type Character,
   type Leader,
   type Squad,
@@ -8,10 +8,7 @@ import {
   type Vehicle
 } from 'appdeptus/models'
 
-const mapArmyBuilderToArmyComposition = ({
-  detachment,
-  units
-}: ArmyBuilder) => {
+const mapArmyBuilderToArmyComposition = ({ detachment, units }: Army) => {
   const leaders = units.filter<Leader>(
     (unit): unit is Leader => unit.type === 'leader'
   )

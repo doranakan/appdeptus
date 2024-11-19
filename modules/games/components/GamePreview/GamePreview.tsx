@@ -8,6 +8,7 @@ import {
 import { shortCodexNames } from 'appdeptus/constants'
 
 import { type Army } from 'appdeptus/models'
+import { useWarlord } from 'appdeptus/modules/armies/hooks'
 import { type ComponentProps, memo, useMemo } from 'react'
 
 type GamePreviewProps = {
@@ -17,27 +18,29 @@ type GamePreviewProps = {
 }
 
 const GamePreview = ({ armyOne, armyTwo }: GamePreviewProps) => {
+  const warlordOne = useWarlord(armyOne.units)
+  const warlordTwo = useWarlord(armyTwo?.units ?? [])
+
   const data = useMemo<ComponentProps<typeof GameDataTable>['data']>(
     () => [
-      // {
-      //   title: 'Warlord',
-      //   valueL:
-      //     armyOne.composition.warlord.type === 'team'
-      //       ? armyOne.composition.warlord.leader.name
-      //       : armyOne.composition.warlord.name,
-      //   valueR: armyTwo
-      //     ? armyTwo.composition.warlord.type === 'team'
-      //       ? armyTwo.composition.warlord.leader.name
-      //       : armyTwo.composition.warlord.name
-      //     : ''
-      // },
+      {
+        title: 'Warlord',
+        valueL:
+          warlordOne?.type === 'team'
+            ? warlordOne.leader.name
+            : (warlordOne?.name ?? ''),
+        valueR:
+          warlordTwo?.type === 'team'
+            ? warlordTwo.leader.name
+            : (warlordTwo?.name ?? '')
+      },
       {
         title: 'Points',
         valueL: `${armyOne.points}PTS`,
         valueR: armyTwo ? `${armyTwo.points}PTS` : ''
       }
     ],
-    [armyOne, armyTwo]
+    [armyOne.points, armyTwo, warlordOne, warlordTwo]
   )
 
   return (
@@ -62,12 +65,12 @@ const GamePreview = ({ armyOne, armyTwo }: GamePreviewProps) => {
       </HStack>
       <HStack className='justify-between'>
         <Badge
-          text={armyOne.composition.detachment.name}
+          text={armyOne.detachment.name}
           codex={armyOne.codex.name}
         />
         {armyTwo ? (
           <Badge
-            text={armyTwo.composition.detachment.name}
+            text={armyTwo.detachment.name}
             codex={armyTwo.codex.name}
           />
         ) : null}

@@ -25,24 +25,15 @@ const DetachmentSelectionScreen = () => {
 
   useEffect(() => {
     if (army) {
-      reset({
-        codex: army.codex,
-        detachment: army.composition.detachment,
-        id: army.id,
-        name: army.name,
-        points: army.points,
-        units: [
-          ...army.composition.characters,
-          ...army.composition.leaders,
-          ...army.composition.squads,
-          ...army.composition.teams.flatMap(({ id, leader, bodyguard }) => [
-            { ...leader, teamId: id },
-            { ...bodyguard, teamId: id }
-          ]),
-          ...army.composition.transports,
-          ...army.composition.vehicles
-        ]
-      })
+      const units = army.units.reduce<ArmyBuilder['units']>((acc, curr) => {
+        if (curr.type !== 'team') {
+          return [...acc, curr]
+        }
+
+        return [...acc, curr.bodyguard, curr.leader]
+      }, [])
+
+      reset({ ...army, units })
     }
   }, [army, reset])
 

@@ -6,7 +6,7 @@ import {
   Text,
   VStack
 } from 'appdeptus/components'
-import { type ArmyBuilder } from 'appdeptus/models'
+import { type Army } from 'appdeptus/models'
 import { Info } from 'lucide-react-native'
 import { memo } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -17,7 +17,7 @@ type TopBarProps = {
 }
 
 const TopBar = ({ subtitle, title }: TopBarProps) => {
-  const { watch } = useFormContext<ArmyBuilder>()
+  const { watch } = useFormContext<Army>()
 
   const points = watch('points')
 

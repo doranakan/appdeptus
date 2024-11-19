@@ -98,7 +98,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
               space='md'
             >
               <TopContainer army={army} />
-              {army.composition.detachment.enhancements.length > 0 ? (
+              {army.detachment.enhancements.length > 0 ? (
                 <VStack space='md'>
                   <Text
                     className='uppercase'
@@ -107,7 +107,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
                     enhancements
                   </Text>
                   <EnhancementList
-                    enhancements={army.composition.detachment.enhancements}
+                    enhancements={army.detachment.enhancements}
                   />
                 </VStack>
               ) : null}
@@ -119,7 +119,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
               </Text>
             </VStack>
           }
-          composition={army.composition}
+          units={army.units}
         />
       </VStack>
       <OptionsBottomSheet army={army} />

@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import { type Army } from 'appdeptus/models'
 import Scoreboard from './Scoreboard'
 
 const ScoreboardMeta: Meta<typeof Scoreboard> = {
@@ -13,9 +12,14 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
           faction: 'imperium'
         },
         id: 0,
+        detachment: {
+          enhancements: [],
+          id: 0,
+          name: ''
+        },
         name: 'Army One',
         points: 2000,
-        composition: {} as unknown as Army['composition']
+        units: []
       },
       cp: 12,
       profile: {
@@ -32,9 +36,14 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
           faction: 'imperium'
         },
         id: 0,
+        detachment: {
+          enhancements: [],
+          id: 0,
+          name: ''
+        },
         name: 'Army Two',
         points: 1990,
-        composition: {} as unknown as Army['composition']
+        units: []
       },
       cp: 12,
       profile: {

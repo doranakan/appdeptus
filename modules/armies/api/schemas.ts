@@ -114,19 +114,21 @@ const vehicleSchema = armyUnitSchema.merge(
 
 const armySchema = z.object({
   codex: codexSchema,
-  composition: z.object({
-    characters: z.array(characterSchema),
-    detachment: baseDetachmentSchema.merge(
-      z.object({
-        enhancements: z.array(enhancementSchema)
-      })
-    ),
-    leaders: z.array(leaderSchema),
-    squads: z.array(squadSchema),
-    transports: z.array(transportSchema),
-    teams: z.array(teamSchema),
-    vehicles: z.array(vehicleSchema)
-  }),
+  units: z.array(
+    z.union([
+      characterSchema,
+      leaderSchema,
+      squadSchema,
+      transportSchema,
+      teamSchema,
+      vehicleSchema
+    ])
+  ),
+  detachment: baseDetachmentSchema.merge(
+    z.object({
+      enhancements: z.array(enhancementSchema)
+    })
+  ),
   id: idSchema,
   name: z.string(),
   points: z.number()
