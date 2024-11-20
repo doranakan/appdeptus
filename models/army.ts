@@ -1,6 +1,6 @@
 import { type Codex } from './codex'
 import { type Detachment } from './detachment'
-import { type Team, type Unit } from './unit'
+import { type Carried, type Team, type Unit } from './unit'
 
 type BaseArmy = {
   codex: Codex
@@ -10,7 +10,7 @@ type BaseArmy = {
   detachment: Detachment
 }
 type Army = BaseArmy & {
-  units: (Unit | Team)[]
+  units: (Unit | Team | Carried)[]
 }
 
 type ArmyBuilder = BaseArmy & {

@@ -15,7 +15,7 @@ type Story = StoryObj<typeof UnitListItem>
 
 export const Character: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 0,
       name: 'Angron',
       selectionId: 'id',
@@ -28,7 +28,7 @@ export const Character: Story = {
 }
 export const Leader: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 0,
       name: 'Khârn the Betrayer',
       selectionId: 'id',
@@ -41,7 +41,7 @@ export const Leader: Story = {
 }
 export const Squad: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 0,
       name: 'Khorne Berzerkers',
       selectionId: 'id',
@@ -53,7 +53,7 @@ export const Squad: Story = {
 }
 export const Team: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 'id',
       type: 'team',
       leader: {
@@ -78,7 +78,7 @@ export const Team: Story = {
 }
 export const Transport: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 0,
       name: 'World Eaters Rhino',
       selectionId: 'id',
@@ -90,7 +90,7 @@ export const Transport: Story = {
 }
 export const Vehicle: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 0,
       name: 'World Eaters Maulerfiend',
       selectionId: 'id',

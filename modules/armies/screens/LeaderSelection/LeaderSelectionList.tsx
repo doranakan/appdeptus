@@ -138,7 +138,7 @@ const LeaderSelectionList = () => {
                 handlePress(team)
               }}
             >
-              <UnitListItem unitOrTeam={team} />
+              <UnitListItem item={team} />
             </Pressable>
           ))}
         </VStack>
@@ -156,7 +156,7 @@ const LeaderSelectionList = () => {
             }}
           >
             <UnitListItem
-              unitOrTeam={leader}
+              item={leader}
               variant={
                 !selectedLeader
                   ? 'selectable'
@@ -182,7 +182,7 @@ const LeaderSelectionList = () => {
             }}
           >
             <UnitListItem
-              unitOrTeam={squad}
+              item={squad}
               variant={selectedLeader ? 'selectable' : 'disabled'}
             />
           </Pressable>

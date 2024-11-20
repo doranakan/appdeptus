@@ -1,16 +1,12 @@
 import { type Army } from 'appdeptus/models'
 import { useMemo } from 'react'
+import useAllUnits from './useAllUnits'
 
-const useWarlord = (units: Army['units']) =>
-  useMemo(
-    () =>
-      units.find((unit) => {
-        if (unit.type === 'team') {
-          return unit.leader.warlord
-        }
-        return unit.warlord
-      }),
-    [units]
-  )
+const useWarlord = (units: Army['units']) => {
+  const allUnits = useAllUnits(units)
+  return useMemo(() => {
+    return allUnits.find(({ warlord }) => warlord)
+  }, [allUnits])
+}
 
 export default useWarlord

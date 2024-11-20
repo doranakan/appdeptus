@@ -8,8 +8,8 @@ type BaseUnit = {
   upgrades: UnitUpgrade[]
 
   teamId?: string
+  transportId?: string
   warlord?: boolean
-  hero?: boolean
 }
 
 type Hero = {
@@ -43,6 +43,8 @@ type Vehicle = BaseUnit & {
   type: 'vehicle'
 }
 
+type Unit = Character | Leader | Squad | Transport | Vehicle
+
 type Team = {
   id: string
   leader: Leader
@@ -50,7 +52,12 @@ type Team = {
   type: 'team'
 }
 
-type Unit = Character | Leader | Squad | Transport | Vehicle
+type Carried = {
+  id: string
+  transport: Transport
+  carried: (Unit | Team)[]
+  type: 'carried'
+}
 
 type SelectableUnit = Omit<Unit, 'selectionId' | 'tier' | 'teamId'> & {
   tiers: [Tier, ...Tier[]]
@@ -69,6 +76,7 @@ type UnitUpgrade = {
 }
 
 export type {
+  Carried,
   Character,
   Leader,
   SelectableUnit,

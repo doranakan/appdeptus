@@ -15,16 +15,19 @@ const UnitRoster = ({ units, ListHeaderComponent }: UnitRosterProps) => (
     showsVerticalScrollIndicator={false}
     ItemSeparatorComponent={() => <VStack className='h-4' />}
     keyExtractor={(unit) => {
-      if (unit.type !== 'team') {
-        return unit.selectionId
+      switch (unit.type) {
+        case 'carried':
+        case 'team':
+          return unit.id
+        default:
+          return unit.selectionId
       }
-      return unit.id
     }}
     ListFooterComponent={() => <VStack className='h-4' />}
     ListHeaderComponent={ListHeaderComponent}
     renderItem={({ item, index }) => (
       <UnitListItem
-        unitOrTeam={item}
+        item={item}
         warlord={index === 0}
       />
     )}

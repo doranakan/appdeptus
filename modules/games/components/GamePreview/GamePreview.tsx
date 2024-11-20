@@ -25,14 +25,8 @@ const GamePreview = ({ armyOne, armyTwo }: GamePreviewProps) => {
     () => [
       {
         title: 'Warlord',
-        valueL:
-          warlordOne?.type === 'team'
-            ? warlordOne.leader.name
-            : (warlordOne?.name ?? ''),
-        valueR:
-          warlordTwo?.type === 'team'
-            ? warlordTwo.leader.name
-            : (warlordTwo?.name ?? '')
+        valueL: warlordOne?.name ?? '',
+        valueR: warlordTwo?.name ?? ''
       },
       {
         title: 'Points',

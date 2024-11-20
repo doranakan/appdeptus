@@ -51,9 +51,7 @@ const TopContainer = ({ army }: TopContainerProps) => {
           </HStack>
           <HStack space='md'>
             <Text>Warlord:</Text>
-            <Text family='body-bold'>
-              {warlord?.type === 'team' ? warlord.leader.name : warlord?.name}
-            </Text>
+            <Text family='body-bold'>{warlord?.name}</Text>
           </HStack>
           <HStack space='md'>
             <Text>

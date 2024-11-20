@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useGetArmyListQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
+import { useAllUnits } from '../../hooks'
 import DetachmentList from './DetachmentList'
 
 const DetachmentSelectionScreen = () => {
@@ -23,19 +24,13 @@ const DetachmentSelectionScreen = () => {
     })
   })
 
+  const units = useAllUnits(army?.units ?? [])
+
   useEffect(() => {
     if (army) {
-      const units = army.units.reduce<ArmyBuilder['units']>((acc, curr) => {
-        if (curr.type !== 'team') {
-          return [...acc, curr]
-        }
-
-        return [...acc, curr.bodyguard, curr.leader]
-      }, [])
-
       reset({ ...army, units })
     }
-  }, [army, reset])
+  }, [army, reset, units])
 
   useUnmount(() => {
     reset({
