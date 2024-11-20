@@ -5,7 +5,7 @@ const ArmyRosterMeta: Meta<typeof ArmyRoster> = {
   title: 'ArmyRoster',
   component: ArmyRoster,
   args: {
-    units: [
+    roster: [
       {
         id: 0,
         name: 'Angron',

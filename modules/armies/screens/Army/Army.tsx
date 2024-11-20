@@ -119,7 +119,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
               </Text>
             </VStack>
           }
-          units={army.roster}
+          roster={army.roster}
         />
       </VStack>
       <OptionsBottomSheet army={army} />

@@ -87,7 +87,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
         />
         <Scoreboard {...game} />
         <ArmyRoster
-          units={
+          roster={
             selectedPlayer === 'one'
               ? game.playerOne.army.roster
               : game.playerTwo.army.roster

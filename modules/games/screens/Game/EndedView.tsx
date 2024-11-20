@@ -62,7 +62,7 @@ const EndedViewScreen = ({ game }: EndedViewScreenProps) => {
           final
         />
         <ArmyRoster
-          units={
+          roster={
             selectedPlayer === 'one'
               ? game.playerOne.army.roster
               : game.playerTwo.army.roster

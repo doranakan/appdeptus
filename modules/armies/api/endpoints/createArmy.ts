@@ -14,8 +14,6 @@ const createArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           ...rest
         })
 
-        console.log({ data, error })
-
         if (error) {
           return { error }
         }
