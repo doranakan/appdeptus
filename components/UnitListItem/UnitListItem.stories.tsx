@@ -15,31 +15,33 @@ type Story = StoryObj<typeof UnitListItem>
 
 export const Character: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 0,
       name: 'Angron',
       selectionId: 'id',
       tier: { id: 0, models: 1, points: 415 },
       type: 'character',
-      upgrades: []
+      upgrades: [],
+      hero: true
     }
   }
 }
 export const Leader: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 0,
       name: 'Khârn the Betrayer',
       selectionId: 'id',
       tier: { id: 0, models: 1, points: 95 },
       type: 'leader',
-      upgrades: []
+      upgrades: [],
+      hero: true
     }
   }
 }
 export const Squad: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 0,
       name: 'Khorne Berzerkers',
       selectionId: 'id',
@@ -51,7 +53,7 @@ export const Squad: Story = {
 }
 export const Team: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 'id',
       type: 'team',
       leader: {
@@ -60,7 +62,8 @@ export const Team: Story = {
         selectionId: 'id',
         tier: { id: 0, models: 1, points: 85 },
         type: 'leader',
-        upgrades: []
+        upgrades: [],
+        hero: true
       },
       bodyguard: {
         id: 0,
@@ -75,7 +78,7 @@ export const Team: Story = {
 }
 export const Transport: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 0,
       name: 'World Eaters Rhino',
       selectionId: 'id',
@@ -87,7 +90,7 @@ export const Transport: Story = {
 }
 export const Vehicle: Story = {
   args: {
-    unitOrTeam: {
+    item: {
       id: 0,
       name: 'World Eaters Maulerfiend',
       selectionId: 'id',

@@ -1,5 +1,9 @@
 import { Error, Loading, themeColors, VStack } from 'appdeptus/components'
-import { type ArmyBuilder, type SelectableUnit } from 'appdeptus/models'
+import {
+  type ArmyBuilder,
+  type SelectableUnit,
+  type Unit
+} from 'appdeptus/models'
 import * as Crypto from 'expo-crypto'
 import React, { memo, useCallback, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -35,16 +39,19 @@ const UnitList = ({ type }: UnitListProps) => {
       const selectedUnits = watch('units')
       const points = watch('points')
 
+      const { tiers: _, ...rest } = unit
+
       setValue('units', [
         ...selectedUnits,
         {
-          ...unit,
+          ...rest,
           type,
           tier: unit.tiers[0],
           upgrades: [],
           selectionId: Crypto.randomUUID()
-        }
+        } as unknown as Unit
       ])
+
       setValue('points', points + unit.tiers[0].points)
     },
     [setValue, type, watch]

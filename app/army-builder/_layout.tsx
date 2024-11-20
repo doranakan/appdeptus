@@ -12,6 +12,7 @@ import {
   useCreateArmyMutation,
   useUpdateArmyMutation
 } from 'appdeptus/modules/armies/api'
+import { useWarlord } from 'appdeptus/modules/armies/hooks'
 import { useAppDispatch } from 'appdeptus/store'
 import { router, Stack, useGlobalSearchParams, useSegments } from 'expo-router'
 import { Check, ChevronRight } from 'lucide-react-native'
@@ -28,8 +29,7 @@ const ArmyBuilderLayout = () => {
       detachment: undefined,
       name: '',
       points: 0,
-      units: [],
-      warlord: undefined
+      units: []
     }
   })
 
@@ -80,8 +80,7 @@ const ArmyBuilderLayout = () => {
   const detachment = watch('detachment')
   const units = watch('units')
   const name = watch('name')
-  const warlord = watch('warlord')
-
+  const warlord = useWarlord(units ?? [])
   const shouldAssignLeaders = useMemo(
     () =>
       !!units?.filter(({ type }) => type === 'leader').length &&

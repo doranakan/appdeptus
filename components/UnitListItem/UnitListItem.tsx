@@ -1,4 +1,9 @@
-import { type SelectableUnit, type Team, type Unit } from 'appdeptus/models'
+import {
+  type Embarked,
+  type SelectableUnit,
+  type Team,
+  type Unit
+} from 'appdeptus/models'
 import {
   Bus,
   Car,
@@ -17,57 +22,61 @@ import Text from '../Text'
 import { HStack, Icon, VStack } from '../ui'
 
 type UnitListItemProps = {
-  unitOrTeam: Unit | Team
+  item: Unit | Team | Embarked
 
   variant?: ComponentProps<typeof Card>['variant']
   warlord?: boolean
 }
 
 const UnitListItem = ({
-  unitOrTeam,
+  item,
   variant = 'default',
   ...props
 }: UnitListItemProps) => {
-  if (unitOrTeam.type === 'team') {
-    return (
-      <Card variant={variant}>
-        <VStack className='p-4'>
-          <UnitDetail
-            unit={unitOrTeam.leader}
-            {...props}
-          />
-          <VStack className='p-2'>
-            <Icon
-              as={Link}
-              className='color-primary-50'
-              size='md'
+  switch (item.type) {
+    case 'embarked':
+      return null
+    case 'team':
+      return (
+        <Card variant={variant}>
+          <VStack className='p-4'>
+            <UnitDetail
+              unit={item.leader}
+              {...props}
+            />
+            <VStack className='p-2'>
+              <Icon
+                as={Link}
+                className='color-primary-50'
+                size='md'
+              />
+            </VStack>
+            <UnitDetail
+              {...props}
+              unit={item.bodyguard}
+              warlord={false}
             />
           </VStack>
-          <UnitDetail
-            {...props}
-            unit={unitOrTeam.bodyguard}
-            warlord={false}
-          />
-        </VStack>
-      </Card>
-    )
-  }
+        </Card>
+      )
 
-  return (
-    <Card variant={variant}>
-      <VStack className='p-4'>
-        <UnitDetail
-          unit={unitOrTeam}
-          {...props}
-        />
-      </VStack>
-    </Card>
-  )
+    default:
+      return (
+        <Card variant={variant}>
+          <VStack className='p-4'>
+            <UnitDetail
+              unit={item}
+              {...props}
+            />
+          </VStack>
+        </Card>
+      )
+  }
 }
 
 type UnitDetailProps = {
   unit: Unit
-} & Omit<UnitListItemProps, 'unitOrTeam'>
+} & Omit<UnitListItemProps, 'item'>
 
 const UnitDetail = ({ unit, warlord }: UnitDetailProps) => (
   <HStack

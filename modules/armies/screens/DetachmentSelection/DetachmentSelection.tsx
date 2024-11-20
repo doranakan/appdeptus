@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useGetArmyListQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
+import { useAllUnits } from '../../hooks'
 import DetachmentList from './DetachmentList'
 
 const DetachmentSelectionScreen = () => {
@@ -23,43 +24,13 @@ const DetachmentSelectionScreen = () => {
     })
   })
 
+  const units = useAllUnits(army?.roster ?? [])
+
   useEffect(() => {
     if (army) {
-      reset({
-        codex: army.codex,
-        detachment: army.composition.detachment,
-        id: army.id,
-        name: army.name,
-        points: army.points,
-        warlord: army.composition.warlord,
-        units: [
-          ...army.composition.characters,
-          ...army.composition.leaders,
-          ...army.composition.squads,
-          ...army.composition.teams.flatMap(({ id, leader, bodyguard }) => [
-            { ...leader, teamId: id },
-            { ...bodyguard, teamId: id }
-          ]),
-          ...army.composition.transports,
-          ...army.composition.vehicles,
-          ...[
-            army.composition.warlord.type === 'team'
-              ? [
-                  {
-                    ...army.composition.warlord.leader,
-                    teamId: army.composition.warlord.id
-                  },
-                  {
-                    ...army.composition.warlord.bodyguard,
-                    teamId: army.composition.warlord.id
-                  }
-                ]
-              : army.composition.warlord
-          ].flat()
-        ]
-      })
+      reset({ ...army, units })
     }
-  }, [army, reset])
+  }, [army, reset, units])
 
   useUnmount(() => {
     reset({

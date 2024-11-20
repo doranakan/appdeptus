@@ -72,7 +72,7 @@ const JoinGameScreen = () => {
             onPress: async () => {
               if (selectedArmy) {
                 const res = await startGame({
-                  armyId: selectedArmy.id,
+                  army: selectedArmy,
                   gameId: game.id
                 })
 
@@ -115,7 +115,7 @@ const JoinGameScreen = () => {
                       : 'selectable-alt'
                 }
                 codex={item.codex.name}
-                detachment={item.composition.detachment.name}
+                detachment={item.detachment.name}
                 name={item.name}
                 points={item.points}
               />

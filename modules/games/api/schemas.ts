@@ -23,6 +23,9 @@ const playerSchema = z.object({
   name: z.string()
 })
 
+const createGameArmy = z.object({
+  id: idSchema
+})
 const createGameSchema = z.object({
   id: idSchema
 })
@@ -126,6 +129,7 @@ const getNewGameSchema = newGameSchema
 
 export {
   activeGameSchema,
+  createGameArmy,
   createGameSchema,
   getEndedGameListSchema,
   getGameSchema,

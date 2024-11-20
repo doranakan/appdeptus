@@ -1,3 +1,5 @@
+import { type Enhancement } from './detachment'
+
 type BaseUnit = {
   id: number
   name: string
@@ -6,15 +8,28 @@ type BaseUnit = {
   upgrades: UnitUpgrade[]
 
   teamId?: string
+  transportId?: string
+  warlord?: boolean
 }
 
-type Character = BaseUnit & {
-  type: 'character'
+type Hero = {
+  hero: true
 }
 
-type Leader = BaseUnit & {
-  type: 'leader'
+type Enhanceable = {
+  enhancement?: Enhancement
+  hero: false
 }
+
+type Character = BaseUnit &
+  (Hero | Enhanceable) & {
+    type: 'character'
+  }
+
+type Leader = BaseUnit &
+  (Hero | Enhanceable) & {
+    type: 'leader'
+  }
 
 type Squad = BaseUnit & {
   type: 'squad'
@@ -28,6 +43,8 @@ type Vehicle = BaseUnit & {
   type: 'vehicle'
 }
 
+type Unit = Character | Leader | Squad | Transport | Vehicle
+
 type Team = {
   id: string
   leader: Leader
@@ -35,9 +52,12 @@ type Team = {
   type: 'team'
 }
 
-type Warlord = Character | Leader | Team
-
-type Unit = Character | Leader | Squad | Transport | Vehicle
+type Embarked = {
+  id: string
+  transport: Transport
+  embarked: (Unit | Team)[]
+  type: 'embarked'
+}
 
 type SelectableUnit = Omit<Unit, 'selectionId' | 'tier' | 'teamId'> & {
   tiers: [Tier, ...Tier[]]
@@ -57,12 +77,12 @@ type UnitUpgrade = {
 
 export type {
   Character,
+  Embarked,
   Leader,
   SelectableUnit,
   Squad,
   Team,
   Transport,
   Unit,
-  Vehicle,
-  Warlord
+  Vehicle
 }

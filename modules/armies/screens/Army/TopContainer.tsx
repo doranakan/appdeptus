@@ -7,56 +7,19 @@ import {
   VStack
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
-import { memo, useMemo } from 'react'
+import { memo } from 'react'
+import { useModelCount, useUnitCount, useWarlord } from '../../hooks'
 
 type TopContainerProps = {
   army: Army
 }
 
 const TopContainer = ({ army }: TopContainerProps) => {
-  const numberOfUnits = useMemo(() => {
-    const { characters, leaders, squads, teams, transports, vehicles } =
-      army.composition
+  const unitCount = useUnitCount(army.roster)
 
-    return (
-      characters.length +
-      leaders.length +
-      squads.length +
-      teams.length * 2 + // every team has 2 units
-      transports.length +
-      vehicles.length +
-      1 // warlord
-    )
-  }, [army.composition])
+  const numberOfModels = useModelCount(army.roster)
 
-  const numberOfModels = useMemo(() => {
-    const {
-      characters,
-      leaders,
-      squads,
-      teams,
-      transports,
-      vehicles,
-      warlord
-    } = army.composition
-
-    const units = [
-      ...characters,
-      ...leaders,
-      ...squads,
-      ...teams,
-      ...transports,
-      ...vehicles,
-      warlord
-    ]
-
-    return units.reduce((acc, unit) => {
-      if (unit.type === 'team') {
-        return acc + unit.leader.tier.models + unit.bodyguard.tier.models
-      }
-      return acc + unit.tier.models
-    }, 0)
-  }, [army.composition])
+  const warlord = useWarlord(army.roster)
 
   return (
     <VStack space='md'>
@@ -82,21 +45,17 @@ const TopContainer = ({ army }: TopContainerProps) => {
           >
             <Text>Detachment:</Text>
             <Badge
-              text={army.composition.detachment.name}
+              text={army.detachment.name}
               variant='tertiary'
             />
           </HStack>
           <HStack space='md'>
             <Text>Warlord:</Text>
-            <Text family='body-bold'>
-              {army.composition.warlord.type === 'team'
-                ? army.composition.warlord.leader.name
-                : army.composition.warlord.name}
-            </Text>
+            <Text family='body-bold'>{warlord?.name}</Text>
           </HStack>
           <HStack space='md'>
             <Text>
-              Units: <Text family='body-bold'>{numberOfUnits}</Text>
+              Units: <Text family='body-bold'>{unitCount}</Text>
             </Text>
             <Text>|</Text>
             <Text>

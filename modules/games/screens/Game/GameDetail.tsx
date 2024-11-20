@@ -5,8 +5,12 @@ import {
   PlayerTag,
   VStack
 } from 'appdeptus/components'
-import { type Army } from 'appdeptus/models'
 import { type Player } from 'appdeptus/models/game'
+import {
+  useModelCount,
+  useUnitCount,
+  useWarlord
+} from 'appdeptus/modules/armies/hooks'
 import { type ComponentProps, memo, useMemo } from 'react'
 
 type GameDetailProps = {
@@ -15,23 +19,26 @@ type GameDetailProps = {
 }
 
 const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
+  const warlordOne = useWarlord(playerOne.army.roster)
+  const warlordTwo = useWarlord(playerTwo.army.roster ?? [])
+
+  const unitCountOne = useUnitCount(playerOne.army.roster)
+  const unitCountTwo = useUnitCount(playerTwo.army.roster)
+
+  const modelCountOne = useModelCount(playerOne.army.roster)
+  const modelCountTwo = useModelCount(playerTwo.army.roster)
+
   const data = useMemo<ComponentProps<typeof GameDataTable>['data']>(
     () => [
       {
         title: 'Warlord',
-        valueL:
-          playerOne.army.composition.warlord.type === 'team'
-            ? playerOne.army.composition.warlord.leader.name
-            : playerOne.army.composition.warlord.name,
-        valueR:
-          playerTwo.army.composition.warlord.type === 'team'
-            ? playerTwo.army.composition.warlord.leader.name
-            : playerTwo.army.composition.warlord.name
+        valueL: warlordOne?.name ?? '',
+        valueR: warlordTwo?.name ?? ''
       },
       {
         title: 'Points',
         valueL: `${playerOne.army.points}PTS`,
-        valueR: `${playerOne.army.points}PTS`
+        valueR: `${playerTwo.army.points}PTS`
       },
       {
         title: 'Command points',
@@ -50,26 +57,35 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
       },
       {
         title: 'Units',
-        valueL: String(calcNumberOfUnits(playerOne.army.composition)),
-        valueR: String(calcNumberOfUnits(playerTwo.army.composition))
+        valueL: String(unitCountOne),
+        valueR: String(unitCountTwo)
       },
       {
         title: 'Units Left',
-        valueL: String(calcNumberOfUnits(playerOne.army.composition)),
-        valueR: String(calcNumberOfUnits(playerTwo.army.composition))
+        valueL: String(unitCountOne),
+        valueR: String(unitCountTwo)
       },
       {
         title: 'Models',
-        valueL: String(calcNumberOfModels(playerOne.army.composition)),
-        valueR: String(calcNumberOfModels(playerTwo.army.composition))
+        valueL: String(modelCountOne),
+        valueR: String(modelCountTwo)
       },
       {
         title: 'Models Left',
-        valueL: String(calcNumberOfModels(playerOne.army.composition)),
-        valueR: String(calcNumberOfModels(playerTwo.army.composition))
+        valueL: String(modelCountOne),
+        valueR: String(modelCountTwo)
       }
     ],
-    [playerOne, playerTwo]
+    [
+      playerOne,
+      playerTwo,
+      warlordOne,
+      warlordTwo,
+      unitCountOne,
+      unitCountTwo,
+      modelCountOne,
+      modelCountTwo
+    ]
   )
 
   return (
@@ -83,12 +99,12 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
       </HStack>
       <HStack className='justify-between'>
         <Badge
-          text={playerOne.army.composition.detachment.name}
+          text={playerOne.army.detachment.name}
           codex={playerOne.army.codex.name}
         />
 
         <Badge
-          text={playerTwo.army.composition.detachment.name}
+          text={playerTwo.army.detachment.name}
           codex={playerTwo.army.codex.name}
         />
       </HStack>
@@ -96,32 +112,5 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
     </VStack>
   )
 }
-
-const calcNumberOfUnits = (composition: Army['composition']) => {
-  const characters = composition.characters.length
-  const leaders = composition.leaders.length
-  const squads = composition.squads.length
-  const transports = composition.transports.length
-  const vehicles = composition.vehicles.length
-
-  const warlord = composition.warlord.type === 'team' ? 2 : 1
-
-  const teams = composition.teams.length * 2
-
-  return characters + leaders + squads + transports + vehicles + warlord + teams
-}
-
-const calcNumberOfModels = (composition: Army['composition']) =>
-  [
-    ...composition.characters,
-    ...composition.leaders,
-    ...composition.squads,
-    ...composition.transports,
-    ...composition.vehicles,
-    ...(composition.warlord.type === 'team'
-      ? [composition.warlord.leader, composition.warlord.bodyguard]
-      : [composition.warlord]),
-    ...composition.teams.flatMap(({ bodyguard, leader }) => [bodyguard, leader])
-  ].reduce((acc, { tier }) => (acc += tier.models), 0)
 
 export default memo(GameDetail)

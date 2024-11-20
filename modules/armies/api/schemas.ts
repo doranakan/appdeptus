@@ -44,7 +44,8 @@ const codexSchema = z.object({
 
 const baseUnitSchema = z.object({
   id: idSchema,
-  name: z.string()
+  name: z.string(),
+  warlord: z.boolean().optional()
 })
 
 const tierSchema = z.object({
@@ -91,19 +92,23 @@ const armyUnitSchema = baseUnitSchema.merge(
   })
 )
 
-const characterSchema = armyUnitSchema.merge(
-  z.object({ type: z.literal('character') })
-)
-const leaderSchema = armyUnitSchema.merge(
-  z.object({ type: z.literal('leader') })
-)
+const heroOrEnhanceableSchema = z.discriminatedUnion('hero', [
+  z.object({
+    hero: z.literal(false),
+    enhancement: enhancementSchema.optional()
+  }),
+  z.object({
+    hero: z.literal(true)
+  })
+])
+
+const characterSchema = armyUnitSchema
+  .merge(z.object({ type: z.literal('character') }))
+  .and(heroOrEnhanceableSchema)
+const leaderSchema = armyUnitSchema
+  .merge(z.object({ type: z.literal('leader') }))
+  .and(heroOrEnhanceableSchema)
 const squadSchema = armyUnitSchema.merge(z.object({ type: z.literal('squad') }))
-const teamSchema = z.object({
-  id: z.string(),
-  bodyguard: squadSchema,
-  leader: leaderSchema,
-  type: z.literal('team')
-})
 const transportSchema = armyUnitSchema.merge(
   z.object({ type: z.literal('transport') })
 )
@@ -111,26 +116,36 @@ const vehicleSchema = armyUnitSchema.merge(
   z.object({ type: z.literal('vehicle') })
 )
 
+const unitSchema = z.union([
+  characterSchema,
+  leaderSchema,
+  squadSchema,
+  transportSchema,
+  vehicleSchema
+])
+
+const teamSchema = z.object({
+  id: z.string(),
+  bodyguard: squadSchema,
+  leader: leaderSchema,
+  type: z.literal('team')
+})
+
+const embarkedSchema = z.object({
+  id: z.string(),
+  transport: transportSchema,
+  embarked: z.array(z.union([unitSchema, teamSchema])),
+  type: z.literal('embarked')
+})
+
 const armySchema = z.object({
   codex: codexSchema,
-  composition: z.object({
-    characters: z.array(characterSchema),
-    detachment: baseDetachmentSchema.merge(
-      z.object({
-        enhancements: z.array(enhancementSchema)
-      })
-    ),
-    leaders: z.array(leaderSchema),
-    squads: z.array(squadSchema),
-    transports: z.array(transportSchema),
-    teams: z.array(teamSchema),
-    vehicles: z.array(vehicleSchema),
-    warlord: z.discriminatedUnion('type', [
-      teamSchema,
-      leaderSchema,
-      characterSchema
-    ])
-  }),
+  roster: z.array(z.union([unitSchema, teamSchema, embarkedSchema])),
+  detachment: baseDetachmentSchema.merge(
+    z.object({
+      enhancements: z.array(enhancementSchema)
+    })
+  ),
   id: idSchema,
   name: z.string(),
   points: z.number()
@@ -140,16 +155,29 @@ const armyListSchema = z.array(armySchema)
 
 const codexListSchema = z.array(codexSchema)
 
-const codexUnitSchema = baseUnitSchema
-  .merge(
+const selectableCharacterSchema = z.object({
+  type: z.literal('character'),
+  hero: z.boolean()
+})
+
+const selectableLeaderSchema = z.object({
+  type: z.literal('leader'),
+  hero: z.boolean()
+})
+
+const selectableSquadSchema = z.object({
+  type: z.literal('squad')
+})
+const selectableTransportSchema = z.object({
+  type: z.literal('transport')
+})
+const selectableVehicleSchema = z.object({
+  type: z.literal('vehicle')
+})
+
+const baseSelectableUnitSchema = baseUnitSchema
+  .and(
     z.object({
-      type: z.union([
-        z.literal('character'),
-        z.literal('leader'),
-        z.literal('squad'),
-        z.literal('transport'),
-        z.literal('vehicle')
-      ]),
       unit_tiers: z.custom<SelectableUnit['tiers']>(
         (val) => z.array(tierSchema).min(1).safeParse(val).success
       ),
@@ -162,14 +190,24 @@ const codexUnitSchema = baseUnitSchema
     upgrades: unit_upgrades
   }))
 
-const unitListSchema = z.array(codexUnitSchema)
+const selectableUnitSchema = baseSelectableUnitSchema.and(
+  z.discriminatedUnion('type', [
+    selectableCharacterSchema,
+    selectableLeaderSchema,
+    selectableSquadSchema,
+    selectableTransportSchema,
+    selectableVehicleSchema
+  ])
+)
+
+const unitListSchema = z.array(selectableUnitSchema)
 
 export {
   armyListSchema,
   armySchema,
   codexListSchema,
   codexSchema,
-  codexUnitSchema,
   detachmentListSchema,
+  selectableUnitSchema,
   unitListSchema
 }

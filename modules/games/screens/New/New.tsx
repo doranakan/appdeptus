@@ -50,7 +50,7 @@ const NewGameScreen = () => {
             loading: isLoading,
             onPress: async () => {
               if (selectedArmy) {
-                const res = await createGame(selectedArmy.id)
+                const res = await createGame(selectedArmy)
 
                 if ('error' in res) {
                   return
@@ -105,7 +105,7 @@ const NewGameScreen = () => {
                       : 'selectable-alt'
                 }
                 codex={item.codex.name}
-                detachment={item.composition.detachment.name}
+                detachment={item.detachment.name}
                 name={item.name}
                 points={item.points}
               />

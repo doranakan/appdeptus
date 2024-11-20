@@ -87,10 +87,10 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
         />
         <Scoreboard {...game} />
         <ArmyRoster
-          composition={
+          roster={
             selectedPlayer === 'one'
-              ? game.playerOne.army.composition
-              : game.playerTwo.army.composition
+              ? game.playerOne.army.roster
+              : game.playerTwo.army.roster
           }
           ListHeaderComponent={
             <VStack space='md'>

@@ -2,25 +2,41 @@ import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Army } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import { createGameSchema } from '../schemas'
+import { createGameArmy, createGameSchema } from '../schemas'
 import type GamesApiTag from '../tags'
 
 const createGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
-  builder.mutation<Army['id'], Army['id']>({
-    queryFn: async (armyId) => {
+  builder.mutation<Army['id'], Army>({
+    queryFn: async ({ id: _, codex, ...rest }) => {
       try {
-        const { data, error } = await supabase
-          .from(Table.GAMES)
+        const { data: gameArmyData, error: gameArmyError } = await supabase
+          .from(Table.GAME_ARMIES)
           .insert({
-            army_one: armyId
+            codex: codex.id,
+            ...rest
           })
           .select('id')
 
-        if (error) {
-          return { error }
+        if (gameArmyError) {
+          return { error: gameArmyError }
         }
 
-        const { id } = await createGameSchema.parseAsync(data[0])
+        const { id: gameArmyId } = await createGameArmy.parseAsync(
+          gameArmyData[0]
+        )
+
+        const { data: gameData, error: gameError } = await supabase
+          .from(Table.GAMES)
+          .insert({
+            army_one: gameArmyId
+          })
+          .select('id')
+
+        if (gameError) {
+          return { error: gameError }
+        }
+
+        const { id } = await createGameSchema.parseAsync(gameData[0])
 
         return { data: id }
       } catch (error) {
