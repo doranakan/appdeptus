@@ -19,14 +19,14 @@ type GameDetailProps = {
 }
 
 const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
-  const warlordOne = useWarlord(playerTwo.army.units)
-  const warlordTwo = useWarlord(playerTwo.army.units ?? [])
+  const warlordOne = useWarlord(playerTwo.army.roster)
+  const warlordTwo = useWarlord(playerTwo.army.roster ?? [])
 
-  const unitCountOne = useUnitCount(playerOne.army.units)
-  const unitCountTwo = useUnitCount(playerTwo.army.units)
+  const unitCountOne = useUnitCount(playerOne.army.roster)
+  const unitCountTwo = useUnitCount(playerTwo.army.roster)
 
-  const modelCountOne = useModelCount(playerOne.army.units)
-  const modelCountTwo = useModelCount(playerTwo.army.units)
+  const modelCountOne = useModelCount(playerOne.army.roster)
+  const modelCountTwo = useModelCount(playerTwo.army.roster)
 
   const data = useMemo<ComponentProps<typeof GameDataTable>['data']>(
     () => [

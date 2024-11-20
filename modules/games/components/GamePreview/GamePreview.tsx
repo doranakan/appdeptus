@@ -18,8 +18,8 @@ type GamePreviewProps = {
 }
 
 const GamePreview = ({ armyOne, armyTwo }: GamePreviewProps) => {
-  const warlordOne = useWarlord(armyOne.units)
-  const warlordTwo = useWarlord(armyTwo?.units ?? [])
+  const warlordOne = useWarlord(armyOne.roster)
+  const warlordTwo = useWarlord(armyTwo?.roster ?? [])
 
   const data = useMemo<ComponentProps<typeof GameDataTable>['data']>(
     () => [

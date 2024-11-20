@@ -1,7 +1,7 @@
 import { type Army } from 'appdeptus/models'
 import { useMemo } from 'react'
 
-const useModelCount = (units: Army['units']) =>
+const useModelCount = (units: Army['roster']) =>
   useMemo(
     () =>
       units.reduce((acc, unit) => {

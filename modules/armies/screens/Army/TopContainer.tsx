@@ -15,11 +15,11 @@ type TopContainerProps = {
 }
 
 const TopContainer = ({ army }: TopContainerProps) => {
-  const unitCount = useUnitCount(army.units)
+  const unitCount = useUnitCount(army.roster)
 
-  const numberOfModels = useModelCount(army.units)
+  const numberOfModels = useModelCount(army.roster)
 
-  const warlord = useWarlord(army.units)
+  const warlord = useWarlord(army.roster)
 
   return (
     <VStack space='md'>

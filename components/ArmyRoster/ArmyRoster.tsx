@@ -5,7 +5,7 @@ import { VStack } from '../ui'
 import UnitListItem from '../UnitListItem'
 
 type UnitRosterProps = {
-  units: Army['units']
+  units: Army['roster']
   ListHeaderComponent?: ComponentProps<typeof FlatList>['ListHeaderComponent']
 }
 

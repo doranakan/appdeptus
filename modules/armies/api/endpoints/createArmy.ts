@@ -1,25 +1,18 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
-import { type Army } from 'appdeptus/models'
+import { type ArmyBuilder } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import ArmiesApiTag from '../tags'
-import { mapArmyBuilderToArmyComposition } from '../utils'
 
 const createArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
-  builder.mutation<null, Army>({
-    queryFn: async (armyBuilder) => {
+  builder.mutation<null, ArmyBuilder>({
+    queryFn: async ({ codex, units, ...rest }) => {
       try {
-        const composition = mapArmyBuilderToArmyComposition(armyBuilder)
-
-        const { codex, name, points } = armyBuilder
-
         const { data, error: armiesError } = await supabase
           .from(Table.ARMIES)
           .insert({
             codex: codex.id,
-            composition,
-            name,
-            points
+            ...rest
           })
 
         if (armiesError) {

@@ -10,7 +10,7 @@ type BaseArmy = {
   detachment: Detachment
 }
 type Army = BaseArmy & {
-  units: (Unit | Team | Carried)[]
+  roster: (Unit | Team | Carried)[]
 }
 
 type ArmyBuilder = BaseArmy & {

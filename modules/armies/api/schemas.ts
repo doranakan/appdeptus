@@ -124,7 +124,7 @@ const vehicleSchema = armyUnitSchema.merge(
 
 const armySchema = z.object({
   codex: codexSchema,
-  units: z.array(
+  roster: z.array(
     z.union([
       characterSchema,
       leaderSchema,

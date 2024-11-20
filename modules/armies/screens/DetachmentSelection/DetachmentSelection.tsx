@@ -24,7 +24,7 @@ const DetachmentSelectionScreen = () => {
     })
   })
 
-  const units = useAllUnits(army?.units ?? [])
+  const units = useAllUnits(army?.roster ?? [])
 
   useEffect(() => {
     if (army) {

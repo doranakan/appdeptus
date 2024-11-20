@@ -19,7 +19,7 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
         },
         name: 'Army One',
         points: 2000,
-        units: []
+        roster: []
       },
       cp: 12,
       profile: {
@@ -43,7 +43,7 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
         },
         name: 'Army Two',
         points: 1990,
-        units: []
+        roster: []
       },
       cp: 12,
       profile: {

@@ -64,8 +64,8 @@ const EndedViewScreen = ({ game }: EndedViewScreenProps) => {
         <ArmyRoster
           units={
             selectedPlayer === 'one'
-              ? game.playerOne.army.units
-              : game.playerTwo.army.units
+              ? game.playerOne.army.roster
+              : game.playerTwo.army.roster
           }
           ListHeaderComponent={
             <VStack space='md'>
