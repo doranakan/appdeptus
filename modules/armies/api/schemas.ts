@@ -92,12 +92,22 @@ const armyUnitSchema = baseUnitSchema.merge(
   })
 )
 
-const characterSchema = armyUnitSchema.merge(
-  z.object({ type: z.literal('character') })
-)
-const leaderSchema = armyUnitSchema.merge(
-  z.object({ type: z.literal('leader') })
-)
+const heroOrEnhanceableSchema = z.discriminatedUnion('hero', [
+  z.object({
+    hero: z.literal(false),
+    enhancement: enhancementSchema.optional()
+  }),
+  z.object({
+    hero: z.literal(true)
+  })
+])
+
+const characterSchema = armyUnitSchema
+  .merge(z.object({ type: z.literal('character') }))
+  .and(heroOrEnhanceableSchema)
+const leaderSchema = armyUnitSchema
+  .merge(z.object({ type: z.literal('leader') }))
+  .and(heroOrEnhanceableSchema)
 const squadSchema = armyUnitSchema.merge(z.object({ type: z.literal('squad') }))
 const teamSchema = z.object({
   id: z.string(),

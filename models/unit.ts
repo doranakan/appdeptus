@@ -1,3 +1,5 @@
+import { type Enhancement } from './detachment'
+
 type BaseUnit = {
   id: number
   name: string
@@ -7,15 +9,27 @@ type BaseUnit = {
 
   teamId?: string
   warlord?: boolean
+  hero?: boolean
 }
 
-type Character = BaseUnit & {
-  type: 'character'
+type Hero = {
+  hero: true
 }
 
-type Leader = BaseUnit & {
-  type: 'leader'
+type Enhanceable = {
+  enhancement?: Enhancement
+  hero: false
 }
+
+type Character = BaseUnit &
+  (Hero | Enhanceable) & {
+    type: 'character'
+  }
+
+type Leader = BaseUnit &
+  (Hero | Enhanceable) & {
+    type: 'leader'
+  }
 
 type Squad = BaseUnit & {
   type: 'squad'

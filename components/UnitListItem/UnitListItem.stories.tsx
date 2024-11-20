@@ -21,7 +21,8 @@ export const Character: Story = {
       selectionId: 'id',
       tier: { id: 0, models: 1, points: 415 },
       type: 'character',
-      upgrades: []
+      upgrades: [],
+      hero: true
     }
   }
 }
@@ -33,7 +34,8 @@ export const Leader: Story = {
       selectionId: 'id',
       tier: { id: 0, models: 1, points: 95 },
       type: 'leader',
-      upgrades: []
+      upgrades: [],
+      hero: true
     }
   }
 }
@@ -60,7 +62,8 @@ export const Team: Story = {
         selectionId: 'id',
         tier: { id: 0, models: 1, points: 85 },
         type: 'leader',
-        upgrades: []
+        upgrades: [],
+        hero: true
       },
       bodyguard: {
         id: 0,

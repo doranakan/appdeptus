@@ -17,7 +17,8 @@ const ArmyRosterMeta: Meta<typeof ArmyRoster> = {
         },
         upgrades: [],
         type: 'character',
-        warlord: true
+        warlord: true,
+        hero: true
       },
       {
         id: 1,
