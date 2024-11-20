@@ -1,21 +1,44 @@
-import { type CoreEndpointBuilder } from 'appdeptus/api'
+import { getUserId, type CoreEndpointBuilder } from 'appdeptus/api'
+import { type Army } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
+import { createGameArmy } from '../schemas'
 import GamesApiTag from '../tags'
 
 type StartGameRequest = {
-  armyId: number
+  army: Army
   gameId: number
 }
 
 const startGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
   builder.mutation<null, StartGameRequest>({
-    queryFn: async ({ armyId, gameId }) => {
+    queryFn: async ({ army, gameId }) => {
       try {
+        const { id: _, codex, ...rest } = army
+
+        const { data: gameArmyData, error: gameArmyError } = await supabase
+          .from(Table.GAME_ARMIES)
+          .insert({
+            codex: codex.id,
+            ...rest
+          })
+          .select('id')
+
+        if (gameArmyError) {
+          return { error: gameArmyError }
+        }
+
+        const { id: gameArmyId } = await createGameArmy.parseAsync(
+          gameArmyData[0]
+        )
+
+        const userId = await getUserId()
+
         const { data, error } = await supabase
           .from(Table.GAMES)
           .update({
-            army_two: armyId,
+            army_two: gameArmyId,
+            player_two: userId,
             status: 'turn1_p1'
           })
           .eq('id', gameId)

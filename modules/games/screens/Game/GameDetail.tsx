@@ -19,7 +19,7 @@ type GameDetailProps = {
 }
 
 const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
-  const warlordOne = useWarlord(playerTwo.army.roster)
+  const warlordOne = useWarlord(playerOne.army.roster)
   const warlordTwo = useWarlord(playerTwo.army.roster ?? [])
 
   const unitCountOne = useUnitCount(playerOne.army.roster)
@@ -38,7 +38,7 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
       {
         title: 'Points',
         valueL: `${playerOne.army.points}PTS`,
-        valueR: `${playerOne.army.points}PTS`
+        valueR: `${playerTwo.army.points}PTS`
       },
       {
         title: 'Command points',

@@ -50,7 +50,7 @@ const NewGameScreen = () => {
             loading: isLoading,
             onPress: async () => {
               if (selectedArmy) {
-                const res = await createGame(selectedArmy.id)
+                const res = await createGame(selectedArmy)
 
                 if ('error' in res) {
                   return

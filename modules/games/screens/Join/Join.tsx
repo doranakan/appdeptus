@@ -72,7 +72,7 @@ const JoinGameScreen = () => {
             onPress: async () => {
               if (selectedArmy) {
                 const res = await startGame({
-                  armyId: selectedArmy.id,
+                  army: selectedArmy,
                   gameId: game.id
                 })
 
