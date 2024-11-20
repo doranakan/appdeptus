@@ -6,12 +6,14 @@ const useAllUnits = (units: Army['roster']) =>
     () =>
       units.reduce<Unit[]>((acc, curr) => {
         switch (curr.type) {
-          case 'carried':
+          case 'embarked':
             return [
               ...acc,
               curr.transport,
-              ...curr.carried.flatMap((carr) =>
-                carr.type === 'team' ? [carr.leader, carr.bodyguard] : carr
+              ...curr.embarked.flatMap((embarked) =>
+                embarked.type === 'team'
+                  ? [embarked.leader, embarked.bodyguard]
+                  : embarked
               )
             ]
 

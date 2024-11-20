@@ -14,9 +14,7 @@ const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           .from(Table.UNITS)
           .select(
             `
-              id,
-              name,
-              type,
+              *,
               unit_tiers(
                 id,
                 models,

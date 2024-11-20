@@ -7,16 +7,15 @@ import { FlatList } from 'react-native'
 const WarlordList = () => {
   const { setValue, watch } = useFormContext<ArmyBuilder>()
 
+  const units = watch('units')
   const potentialWarlords = useMemo(
     () =>
-      watch('units').filter<Character | Leader>(
+      units.filter<Character | Leader>(
         (unit): unit is Character | Leader =>
           unit.type === 'character' || unit.type === 'leader'
       ),
-    [watch]
+    [units]
   )
-
-  const units = watch('units')
 
   return (
     <FlatList
@@ -31,6 +30,10 @@ const WarlordList = () => {
             setValue(
               'units',
               units.map((unit) => {
+                if (unit.warlord) {
+                  return { ...unit, warlord: false }
+                }
+
                 if (unit.id !== item.id) {
                   return unit
                 }

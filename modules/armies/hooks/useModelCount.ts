@@ -6,11 +6,11 @@ const useModelCount = (units: Army['roster']) =>
     () =>
       units.reduce((acc, unit) => {
         switch (unit.type) {
-          case 'carried':
+          case 'embarked':
             return (
               acc +
               unit.transport.tier.models +
-              unit.carried.reduce((a, c) => {
+              unit.embarked.reduce((a, c) => {
                 if (c.type === 'team') {
                   return a + c.bodyguard.tier.models + c.leader.tier.models
                 }

@@ -8,15 +8,16 @@ const createArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.mutation<null, ArmyBuilder>({
     queryFn: async ({ codex, units, ...rest }) => {
       try {
-        const { data, error: armiesError } = await supabase
-          .from(Table.ARMIES)
-          .insert({
-            codex: codex.id,
-            ...rest
-          })
+        const { data, error } = await supabase.from(Table.ARMIES).insert({
+          codex: codex.id,
+          roster: units,
+          ...rest
+        })
 
-        if (armiesError) {
-          return { error: armiesError }
+        console.log({ data, error })
+
+        if (error) {
+          return { error }
         }
 
         return { data }

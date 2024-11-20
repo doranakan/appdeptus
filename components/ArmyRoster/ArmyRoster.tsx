@@ -16,7 +16,7 @@ const UnitRoster = ({ units, ListHeaderComponent }: UnitRosterProps) => (
     ItemSeparatorComponent={() => <VStack className='h-4' />}
     keyExtractor={(unit) => {
       switch (unit.type) {
-        case 'carried':
+        case 'embarked':
         case 'team':
           return unit.id
         default:

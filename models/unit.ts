@@ -52,11 +52,11 @@ type Team = {
   type: 'team'
 }
 
-type Carried = {
+type Embarked = {
   id: string
   transport: Transport
-  carried: (Unit | Team)[]
-  type: 'carried'
+  embarked: (Unit | Team)[]
+  type: 'embarked'
 }
 
 type SelectableUnit = Omit<Unit, 'selectionId' | 'tier' | 'teamId'> & {
@@ -76,8 +76,8 @@ type UnitUpgrade = {
 }
 
 export type {
-  Carried,
   Character,
+  Embarked,
   Leader,
   SelectableUnit,
   Squad,

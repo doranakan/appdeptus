@@ -39,10 +39,12 @@ const UnitList = ({ type }: UnitListProps) => {
       const selectedUnits = watch('units')
       const points = watch('points')
 
+      const { tiers: _, ...rest } = unit
+
       setValue('units', [
         ...selectedUnits,
         {
-          ...unit,
+          ...rest,
           type,
           tier: unit.tiers[0],
           upgrades: [],

@@ -1,5 +1,5 @@
 import {
-  type Carried,
+  type Embarked,
   type SelectableUnit,
   type Team,
   type Unit
@@ -22,7 +22,7 @@ import Text from '../Text'
 import { HStack, Icon, VStack } from '../ui'
 
 type UnitListItemProps = {
-  item: Unit | Team | Carried
+  item: Unit | Team | Embarked
 
   variant?: ComponentProps<typeof Card>['variant']
   warlord?: boolean
@@ -34,7 +34,7 @@ const UnitListItem = ({
   ...props
 }: UnitListItemProps) => {
   switch (item.type) {
-    case 'carried':
+    case 'embarked':
       return null
     case 'team':
       return (
