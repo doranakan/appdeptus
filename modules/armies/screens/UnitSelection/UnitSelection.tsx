@@ -1,10 +1,10 @@
 import { skipToken } from '@reduxjs/toolkit/query'
-import { useUnmount } from 'ahooks'
+import { useMount, useUnmount } from 'ahooks'
 import { FilterTopBar, ScreenContainer, VStack } from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
 import pluralize, { singular } from 'pluralize'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useGetArmyListQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
@@ -29,11 +29,11 @@ const UnitSelectionScreen = () => {
 
   const units = useAllUnits(army?.roster ?? [])
 
-  useEffect(() => {
+  useMount(() => {
     if (army) {
       reset({ ...army, units })
     }
-  }, [army, reset, units])
+  })
 
   useUnmount(() => {
     reset({

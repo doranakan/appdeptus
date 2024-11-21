@@ -7,6 +7,7 @@ import {
 import {
   Bus,
   Car,
+  CircleFadingPlus,
   Crown,
   Link,
   type LucideIcon,
@@ -83,7 +84,12 @@ const UnitDetail = ({ unit, warlord }: UnitDetailProps) => (
     className='items-center'
     space='md'
   >
-    <IconBadge Icon={warlord ? Crown : unitTypeToIcon[unit.type]} />
+    <IconBadge
+      Icon={warlord ? Crown : unitTypeToIcon[unit.type]}
+      OptionIcon={
+        'enhancement' in unit && unit.enhancement ? CircleFadingPlus : undefined
+      }
+    />
     <VStack className='flex-1'>
       <Text
         family='body-bold'
@@ -91,6 +97,15 @@ const UnitDetail = ({ unit, warlord }: UnitDetailProps) => (
       >
         {unit.name}
       </Text>
+      {'enhancement' in unit && unit.enhancement ? (
+        <Text
+          className='line-clamp-1'
+          family='body-bold-italic'
+          size='sm'
+        >
+          {unit.enhancement.name}
+        </Text>
+      ) : null}
       <HStack space='sm'>
         <Text size='sm'>{`${unit.tier.models} ${pluralize('model', unit.tier.models)}`}</Text>
         {/* This stupid workaround is required since on iOS the dotted border is support only on all sides */}
@@ -101,7 +116,7 @@ const UnitDetail = ({ unit, warlord }: UnitDetailProps) => (
           className='uppercase'
           family='body-bold'
           size='sm'
-        >{`${unit.tier.points}pts`}</Text>
+        >{`${unit.tier.points + ('enhancement' in unit ? (unit.enhancement?.points ?? 0) : 0)}pts`}</Text>
       </HStack>
     </VStack>
   </HStack>

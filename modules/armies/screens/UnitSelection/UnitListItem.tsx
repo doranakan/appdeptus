@@ -30,7 +30,13 @@ const UnitListItem = ({
       return unit.tiers[0].points
     }
 
-    return selectedUnits?.reduce((acc, unit) => (acc += unit.tier.points), 0)
+    return selectedUnits?.reduce(
+      (acc, unit) =>
+        (acc +=
+          unit.tier.points +
+          ('enhancement' in unit ? (unit.enhancement?.points ?? 0) : 0)),
+      0
+    )
   }, [count, selectedUnits, unit.tiers])
 
   return (

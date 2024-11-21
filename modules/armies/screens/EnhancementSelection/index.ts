@@ -1,1 +1,1 @@
-export { default } from './EnhacementSelection'
+export { default } from './EnhancementSelection'
