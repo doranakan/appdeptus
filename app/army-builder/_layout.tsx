@@ -81,12 +81,6 @@ const ArmyBuilderLayout = () => {
   const units = watch('units')
   const name = watch('name')
   const warlord = useWarlord(units ?? [])
-  const shouldAssignLeaders = useMemo(
-    () =>
-      !!units?.filter(({ type }) => type === 'leader').length &&
-      !!units?.filter(({ type }) => type === 'squad').length,
-    [units]
-  )
 
   const unitSelectionButtonDisabled = useMemo(
     () =>
@@ -114,11 +108,8 @@ const ArmyBuilderLayout = () => {
       case 'unit-selection': {
         return unitSelectionButtonDisabled ? 6 : 7
       }
-      case 'leader-selection': {
-        return 8
-      }
       case 'warlord-selection': {
-        return 9 + (name ? 1 : 0) + (warlord ? 1 : 0)
+        return 8 + (name ? 1 : 0) + (warlord ? 1 : 0)
       }
       default:
         return 0
@@ -139,9 +130,6 @@ const ArmyBuilderLayout = () => {
       }
       case 'unit-selection': {
         return 'select units'
-      }
-      case 'leader-selection': {
-        return 'assign leaders'
       }
       case 'warlord-selection': {
         return 'select name & warlord'
@@ -181,15 +169,6 @@ const ArmyBuilderLayout = () => {
         return {
           disabled: unitSelectionButtonDisabled,
           icon: ChevronRight,
-          href: shouldAssignLeaders
-            ? 'army-builder/leader-selection'
-            : 'army-builder/warlord-selection',
-          variant: 'link'
-        }
-      }
-      case 'leader-selection': {
-        return {
-          icon: ChevronRight,
           href: 'army-builder/warlord-selection',
           variant: 'link'
         }
@@ -216,7 +195,6 @@ const ArmyBuilderLayout = () => {
     name,
     newArmy,
     routeName,
-    shouldAssignLeaders,
     unitSelectionButtonDisabled,
     warlord
   ])
@@ -237,7 +215,7 @@ const ArmyBuilderLayout = () => {
           variant='backButton'
           progress={{
             currentStep,
-            steps: 11,
+            steps: 10,
             text
           }}
           rightButton={rightButton}
@@ -252,7 +230,6 @@ const ArmyBuilderLayout = () => {
           <Stack.Screen name='detachment-selection' />
           <Stack.Screen name='[id]' />
           <Stack.Screen name='enhancement-selection' />
-          <Stack.Screen name='leader-selection' />
           <Stack.Screen name='unit-selection' />
           <Stack.Screen name='warlord-selection' />
         </Stack>
