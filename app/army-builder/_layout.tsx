@@ -99,14 +99,14 @@ const ArmyBuilderLayout = () => {
         return !codex ? 1 : 2
       }
       case '[id]':
+      case 'unit-selection': {
+        return unitSelectionButtonDisabled ? 3 : 4
+      }
       case 'detachment-selection': {
-        return !detachment ? 3 : 4
+        return !detachment ? 5 : 6
       }
       case 'enhancement-selection': {
-        return 5
-      }
-      case 'unit-selection': {
-        return unitSelectionButtonDisabled ? 6 : 7
+        return 7
       }
       case 'warlord-selection': {
         return 8 + (name ? 1 : 0) + (warlord ? 1 : 0)
@@ -122,14 +122,14 @@ const ArmyBuilderLayout = () => {
         return codex ? `selected: ${codex.name}` : 'select codex'
       }
       case '[id]':
+      case 'unit-selection': {
+        return 'select units'
+      }
       case 'detachment-selection': {
         return detachment ? `selected: ${detachment.name}` : 'select detachment'
       }
       case 'enhancement-selection': {
         return 'select enhancements'
-      }
-      case 'unit-selection': {
-        return 'select units'
       }
       case 'warlord-selection': {
         return 'select name & warlord'
@@ -145,11 +145,19 @@ const ArmyBuilderLayout = () => {
         return {
           disabled: !codex,
           icon: ChevronRight,
-          href: 'army-builder/detachment-selection',
+          href: 'army-builder/unit-selection',
           variant: 'link'
         }
       }
       case '[id]':
+      case 'unit-selection': {
+        return {
+          disabled: unitSelectionButtonDisabled,
+          icon: ChevronRight,
+          href: 'army-builder/detachment-selection',
+          variant: 'link'
+        }
+      }
       case 'detachment-selection': {
         return {
           disabled: !detachment,
@@ -160,14 +168,6 @@ const ArmyBuilderLayout = () => {
       }
       case 'enhancement-selection': {
         return {
-          icon: ChevronRight,
-          href: 'army-builder/unit-selection',
-          variant: 'link'
-        }
-      }
-      case 'unit-selection': {
-        return {
-          disabled: unitSelectionButtonDisabled,
           icon: ChevronRight,
           href: 'army-builder/warlord-selection',
           variant: 'link'

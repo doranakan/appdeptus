@@ -14,7 +14,7 @@ import clsx from 'clsx'
 import {
   Circle,
   CircleDot,
-  Link,
+  CircleFadingPlus,
   Square,
   SquareCheck
 } from 'lucide-react-native'
@@ -63,17 +63,11 @@ const UnitCustomizationBottomSheet = ({
               className='p-4'
               space='md'
             >
-              {unit.teamId ? (
+              {'enhancement' in unit && unit.enhancement ? (
                 <HStack className='justify-end'>
                   <Badge
-                    text={
-                      units.find(
-                        ({ selectionId, teamId }) =>
-                          selectionId !== unit.selectionId &&
-                          teamId === unit.teamId
-                      )?.name ?? ''
-                    }
-                    Icon={Link}
+                    text={`${unit.enhancement.name} - ${unit.enhancement.points}PTS`}
+                    Icon={CircleFadingPlus}
                   />
                 </HStack>
               ) : null}
@@ -226,35 +220,7 @@ const UnitCustomizationBottomSheet = ({
                 className='shadow-sm'
                 color='secondary'
                 onPress={() => {
-                  const teamId = unit.teamId
-
                   const totalPoints = watch('points')
-
-                  if (teamId) {
-                    const pairedUnit = units.find(
-                      ({
-                        selectionId: pairedUnitSelectionId,
-                        teamId: pairedUnitTeamId
-                      }) =>
-                        pairedUnitSelectionId !== unit.selectionId &&
-                        teamId === pairedUnitTeamId
-                    )
-                    if (pairedUnit) {
-                      setValue('units', [
-                        ...units.filter(
-                          ({ selectionId }) =>
-                            selectionId !== unit.selectionId &&
-                            selectionId !== pairedUnit.selectionId
-                        ),
-                        {
-                          ...pairedUnit,
-                          teamId: undefined
-                        }
-                      ])
-                    }
-
-                    return
-                  }
 
                   setValue(
                     'units',
@@ -268,10 +234,24 @@ const UnitCustomizationBottomSheet = ({
                     0
                   )
 
+                  const enhancement =
+                    'enhancement' in unit ? unit.enhancement : undefined
+
                   setValue(
                     'points',
-                    totalPoints - unit.tier.points - upgradePoints
+                    totalPoints -
+                      unit.tier.points -
+                      upgradePoints -
+                      (enhancement?.points ?? 0)
                   )
+
+                  if (enhancement) {
+                    const enhancements = watch('detachment.enhancements')
+                    setValue(
+                      'detachment.enhancements',
+                      enhancements.filter(({ id }) => enhancement.id === id)
+                    )
+                  }
                 }}
                 text='delete'
                 size='sm'

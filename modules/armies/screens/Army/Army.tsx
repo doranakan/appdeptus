@@ -19,7 +19,6 @@ import { EllipsisVertical } from 'lucide-react-native'
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { useGetArmyListQuery } from '../../api'
-import EnhancementList from './EnhancementList'
 import OptionsBottomSheet from './OptionsBottomSheet'
 import TopContainer from './TopContainer'
 import ref from './ref'
@@ -98,19 +97,6 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
               space='md'
             >
               <TopContainer army={army} />
-              {army.detachment.enhancements.length > 0 ? (
-                <VStack space='md'>
-                  <Text
-                    className='uppercase'
-                    family='body-bold'
-                  >
-                    enhancements
-                  </Text>
-                  <EnhancementList
-                    enhancements={army.detachment.enhancements}
-                  />
-                </VStack>
-              ) : null}
               <Text
                 className='uppercase'
                 family='body-bold'

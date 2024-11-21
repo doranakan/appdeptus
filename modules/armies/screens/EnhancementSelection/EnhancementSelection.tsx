@@ -1,23 +1,20 @@
-import { useUnmount } from 'ahooks'
 import { ScreenContainer, VStack } from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
 import { useFormContext } from 'react-hook-form'
+import { useGetDetachmentListQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
-import EnhancementList from './EnhancementList'
+import EnhancementAssignment from './EnhancementAssignment'
 
 const EnhancementSelectionScreen = () => {
-  const { reset, watch, getValues } = useFormContext<ArmyBuilder>()
+  const { watch } = useFormContext<ArmyBuilder>()
 
-  const selectedCodex = watch('codex.name')
+  const selectedCodex = watch('codex')
   const selectedDetachment = watch('detachment')
 
-  useUnmount(() => {
-    reset({
-      ...getValues(),
-
-      detachment: {
-        ...selectedDetachment
-      }
+  const { enhancements } = useGetDetachmentListQuery(selectedCodex.id, {
+    selectFromResult: ({ data }) => ({
+      enhancements: data?.find(({ id }) => id === selectedDetachment.id)
+        ?.enhancements
     })
   })
 
@@ -30,9 +27,11 @@ const EnhancementSelectionScreen = () => {
       >
         <TopBar
           subtitle={selectedDetachment.name}
-          title={selectedCodex}
+          title={selectedCodex.name}
         />
-        <EnhancementList />
+        {enhancements ? (
+          <EnhancementAssignment enhancements={enhancements} />
+        ) : null}
       </VStack>
     </ScreenContainer>
   )

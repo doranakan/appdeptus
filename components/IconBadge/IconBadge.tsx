@@ -5,10 +5,12 @@ import { Icon as GSIcon, VStack } from '../ui'
 
 type IconBadgeProps = {
   Icon: LucideIcon
+
+  OptionIcon?: LucideIcon
 }
 
-const IconBadge = ({ Icon }: IconBadgeProps) => (
-  <VStack className='rounded-xl bg-primary-950'>
+const IconBadge = ({ Icon, OptionIcon }: IconBadgeProps) => (
+  <VStack className='overflow-visible rounded-xl bg-primary-950'>
     <InnerBorder rounded='rounded-xl'>
       <VStack className='p-2'>
         <GSIcon
@@ -18,6 +20,19 @@ const IconBadge = ({ Icon }: IconBadgeProps) => (
         />
       </VStack>
     </InnerBorder>
+    {OptionIcon ? (
+      <VStack className='absolute bottom-[-8] self-center rounded-md bg-primary-950 shadow-sm'>
+        <InnerBorder rounded='rounded-md'>
+          <VStack className='p-1'>
+            <GSIcon
+              as={OptionIcon}
+              className='color-primary-50'
+              size='xs'
+            />
+          </VStack>
+        </InnerBorder>
+      </VStack>
+    ) : null}
   </VStack>
 )
 

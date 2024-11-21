@@ -1,4 +1,3 @@
-import { skipToken } from '@reduxjs/toolkit/query'
 import {
   Card,
   Error,
@@ -10,20 +9,19 @@ import {
 } from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
 import { memo } from 'react'
-import { useFormContext, useWatch } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { FlatList, RefreshControl } from 'react-native'
 import { useGetDetachmentListQuery } from '../../api'
 
 const DetachmentList = () => {
-  const { setValue } = useFormContext<ArmyBuilder>()
+  const { setValue, watch } = useFormContext<ArmyBuilder>()
 
-  const watch = useWatch<ArmyBuilder>()
+  const selectedCodex = watch('codex.id')
 
-  const selectedCodex = watch.codex?.id
+  const { data, isError, isFetching, refetch } =
+    useGetDetachmentListQuery(selectedCodex)
 
-  const { data, isError, isFetching, refetch } = useGetDetachmentListQuery(
-    selectedCodex ?? skipToken
-  )
+  const detachment = watch('detachment')
 
   return (
     <FlatList
@@ -47,20 +45,33 @@ const DetachmentList = () => {
       renderItem={({ item }) => (
         <Pressable
           onPress={() => {
-            const points =
-              watch.detachment?.enhancements?.reduce(
+            const points = watch('points')
+            const units = watch('units')
+
+            const detachmentPoints =
+              detachment?.enhancements.reduce(
                 (acc, { points }) => (points ? (acc += points) : acc),
                 0
               ) ?? 0
 
-            setValue('points', watch.points ? watch.points - points : 0)
+            setValue('points', points - detachmentPoints)
             setValue('detachment', { ...item, enhancements: [] })
+            setValue(
+              'units',
+              units?.map((unit) => {
+                if ('enhancement' in unit) {
+                  return {
+                    ...unit,
+                    enhancement: undefined
+                  }
+                }
+                return unit
+              })
+            )
           }}
         >
           <Card
-            variant={
-              item.id === watch.detachment?.id ? 'selected' : 'selectable'
-            }
+            variant={item.id === detachment?.id ? 'selected' : 'selectable'}
           >
             <VStack className='p-4'>
               <Text family='body-bold'>{item.name}</Text>

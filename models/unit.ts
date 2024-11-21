@@ -78,6 +78,7 @@ type UnitUpgrade = {
 export type {
   Character,
   Embarked,
+  Enhanceable,
   Leader,
   SelectableUnit,
   Squad,
