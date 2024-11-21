@@ -8,9 +8,11 @@ const updateArmy = (builder: CoreEndpointBuilder<string>) =>
   builder.mutation<null, ArmyBuilder>({
     queryFn: async ({ units, id, codex: _, ...rest }) => {
       try {
+        console.log(JSON.stringify(units, undefined, 2))
+
         const { data, error } = await supabase
           .from(Table.ARMIES)
-          .update({ roster: units, ...rest })
+          .update({ ...rest, roster: units })
           .eq('id', id)
 
         if (error) {
