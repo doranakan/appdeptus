@@ -1,19 +1,48 @@
+import { skipToken } from '@reduxjs/toolkit/query'
+import { useUnmount } from 'ahooks'
 import { FilterTopBar, ScreenContainer, VStack } from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
+import { useLocalSearchParams } from 'expo-router'
 import pluralize, { singular } from 'pluralize'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
+import { useGetArmyListQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
+import { useAllUnits } from '../../hooks'
 import UnitList from './UnitList'
 
 const UnitSelectionScreen = () => {
-  const { watch } = useFormContext<ArmyBuilder>()
+  const { id } = useLocalSearchParams<{ id: string }>()
+  const { army } = useGetArmyListQuery(!id ? skipToken : undefined, {
+    selectFromResult: ({ data, ...rest }) => ({
+      army: data?.find(({ id: armyId }) => armyId === Number(id)),
+      ...rest
+    })
+  })
+
+  const { getValues, reset, watch } = useFormContext<ArmyBuilder>()
 
   const selectedCodex = watch('codex.name')
-  const selectedDetachment = watch('detachment')
 
   const [selectedType, setSelectedType] =
     useState<(typeof unitTypes)[number]>('character')
+
+  const units = useAllUnits(army?.roster ?? [])
+
+  useEffect(() => {
+    if (army) {
+      reset({ ...army, units })
+    }
+  }, [army, reset, units])
+
+  useUnmount(() => {
+    reset({
+      ...getValues(),
+      detachment: undefined,
+      units: [],
+      points: 0
+    })
+  })
 
   return (
     <ScreenContainer safeAreaInsets={['bottom']}>
@@ -23,7 +52,7 @@ const UnitSelectionScreen = () => {
         space='md'
       >
         <TopBar
-          subtitle={selectedDetachment.name}
+          subtitle='units'
           title={selectedCodex}
         />
 
