@@ -8,16 +8,16 @@ import {
 import { type NewGame } from 'appdeptus/models/game'
 import { router } from 'expo-router'
 import { memo } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { useWindowDimensions } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
 import { useGameUpdateListener } from '../../api'
 import ref from './ref'
-type QRCodeBottomSheetProps = {
-  gameId: NewGame['id']
-}
 
-const QRCodeBottomSheet = ({ gameId }: QRCodeBottomSheetProps) => {
-  const window = useWindowDimensions()
+const NewGameBottomSheet = () => {
+  const { watch } = useFormContext<NewGame>()
+
+  const gameId = watch('id')
 
   useGameUpdateListener({
     eventHandler: ({ new: { status } }) => {
@@ -28,6 +28,8 @@ const QRCodeBottomSheet = ({ gameId }: QRCodeBottomSheetProps) => {
     },
     gameId
   })
+
+  const window = useWindowDimensions()
 
   return (
     <BottomSheet
@@ -66,4 +68,4 @@ const QRCodeBottomSheet = ({ gameId }: QRCodeBottomSheetProps) => {
   )
 }
 
-export default memo(QRCodeBottomSheet)
+export default memo(NewGameBottomSheet)
