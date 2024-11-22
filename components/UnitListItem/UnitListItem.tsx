@@ -16,9 +16,11 @@ import {
   UsersRound
 } from 'lucide-react-native'
 import pluralize from 'pluralize'
-import { type ComponentProps, memo } from 'react'
+import { type ComponentProps, memo, type PropsWithChildren } from 'react'
 import Card from '../Card'
 import IconBadge from '../IconBadge'
+import InnerBorder from '../InnerBorder'
+import InsetShadow from '../InsetShadow'
 import Text from '../Text'
 import { HStack, Icon, VStack } from '../ui'
 
@@ -31,20 +33,35 @@ type UnitListItemProps = {
 const UnitListItem = ({ item, variant = 'default' }: UnitListItemProps) => {
   switch (item.type) {
     case 'embarked':
-      return null
+      return (
+        <Card variant={variant}>
+          <VStack
+            className='p-4'
+            space='md'
+          >
+            {item.embarked.map((unit) => {
+              if (unit.type === 'team') {
+                return (
+                  <EmbarkedUnit key={unit.id}>
+                    <TeamDetail team={unit} />
+                  </EmbarkedUnit>
+                )
+              }
+              return (
+                <EmbarkedUnit key={unit.selectionId}>
+                  <UnitDetail unit={unit} />
+                </EmbarkedUnit>
+              )
+            })}
+            <UnitDetail unit={item.transport} />
+          </VStack>
+        </Card>
+      )
     case 'team':
       return (
         <Card variant={variant}>
           <VStack className='p-4'>
-            <UnitDetail unit={item.leader} />
-            <VStack className='p-2'>
-              <Icon
-                as={Link}
-                className='color-primary-50'
-                size='md'
-              />
-            </VStack>
-            <UnitDetail unit={item.bodyguard} />
+            <TeamDetail team={item} />
           </VStack>
         </Card>
       )
@@ -105,6 +122,30 @@ const UnitDetail = ({ unit }: UnitDetailProps) => (
       </HStack>
     </VStack>
   </HStack>
+)
+
+type TeamDetailProps = {
+  team: Team
+}
+
+const TeamDetail = ({ team }: TeamDetailProps) => (
+  <VStack space='sm'>
+    <UnitDetail unit={team.leader} />
+    <Icon
+      as={Link}
+      className='px-4 color-primary-50'
+      size='md'
+    />
+    <UnitDetail unit={team.bodyguard} />
+  </VStack>
+)
+
+const EmbarkedUnit = ({ children }: PropsWithChildren) => (
+  <InnerBorder rounded='rounded-2xl'>
+    <InsetShadow>
+      <VStack className='rounded-2xl bg-primary-800 p-4'>{children}</VStack>
+    </InsetShadow>
+  </InnerBorder>
 )
 
 const unitTypeToIcon = {
