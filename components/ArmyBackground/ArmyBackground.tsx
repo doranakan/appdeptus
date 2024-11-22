@@ -2,12 +2,14 @@ import { type CodexName } from 'appdeptus/models'
 import { Image } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { memo } from 'react'
-import { Platform, StyleSheet } from 'react-native'
+import { Platform, StyleSheet, type ViewStyle } from 'react-native'
 import { themeColors, VStack } from '../ui'
+import Animated, { type AnimatedStyle } from 'react-native-reanimated'
 type ArmyBackgroundProps = {
   codex: CodexName
+  animatedOpacity?: AnimatedStyle<ViewStyle>
 }
-const ArmyBackground = ({ codex }: ArmyBackgroundProps) => (
+const ArmyBackground = ({ codex, animatedOpacity }: ArmyBackgroundProps) => (
   <VStack className='absolute h-full w-full'>
     <Image
       source={source[codex]}
@@ -20,22 +22,30 @@ const ArmyBackground = ({ codex }: ArmyBackgroundProps) => (
       cachePolicy='memory-disk'
       transition={200}
     />
-
-    <LinearGradient
-      colors={[
-        themeColors[codex].primary[800],
-        themeColors[codex].tertiary[800]
-      ]}
-      start={{ x: 0, y: 1 }}
-      end={{ x: 1, y: 0 }}
-      style={styles.gradient}
-    />
+    <Animated.View
+      className='absolute z-10 h-full w-full'
+      style={[styles.gradientWrapper, animatedOpacity]}
+    >
+      <LinearGradient
+        colors={[
+          themeColors[codex].primary[800],
+          themeColors[codex].tertiary[800]
+        ]}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.gradient}
+      />
+    </Animated.View>
   </VStack>
 )
 
 const styles = StyleSheet.create({
-  gradient: { width: '100%', height: '100%', opacity: 0.8 },
-  image: { position: 'absolute', width: '100%', height: '100%', flex: 1 }
+  gradient: {
+    width: '100%',
+    height: '100%'
+  },
+  image: { width: '100%', height: '100%' },
+  gradientWrapper: { opacity: 0.8 }
 })
 
 const source = {
