@@ -18,7 +18,7 @@ const Header = () => {
       user={user}
       rightButton={{
         disabled: !armies?.length || !!activeGame,
-        href: 'games/new',
+        href: 'games/new/army-selection',
         icon: Swords,
         variant: 'link'
       }}
