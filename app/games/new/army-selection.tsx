@@ -1,5 +1,5 @@
-import { NewGameScreen } from 'appdeptus/modules/games/screens'
+import { ArmySelectionScreen } from 'appdeptus/modules/games/screens'
 
-const NewGameRoute = () => <NewGameScreen />
+const ArmySelectionRoute = () => <ArmySelectionScreen />
 
-export default NewGameRoute
+export default ArmySelectionRoute
