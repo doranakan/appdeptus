@@ -3,10 +3,7 @@ import UnitListItem from './UnitListItem'
 
 const UnitListItemMeta: Meta<typeof UnitListItem> = {
   title: 'UnitListItem',
-  component: UnitListItem,
-  args: {
-    warlord: false
-  }
+  component: UnitListItem
 }
 
 export default UnitListItemMeta
@@ -36,6 +33,24 @@ export const Leader: Story = {
       type: 'leader',
       upgrades: [],
       hero: true
+    }
+  }
+}
+export const EnhancedLeader: Story = {
+  args: {
+    item: {
+      id: 0,
+      name: 'Khorne Chaos Lord',
+      selectionId: 'id',
+      tier: { id: 0, models: 1, points: 95 },
+      type: 'leader',
+      upgrades: [],
+      hero: false,
+      enhancement: {
+        id: 0,
+        name: 'Enhancement name',
+        points: 5
+      }
     }
   }
 }
@@ -97,6 +112,20 @@ export const Vehicle: Story = {
       tier: { id: 0, models: 1, points: 175 },
       type: 'vehicle',
       upgrades: []
+    }
+  }
+}
+export const Warlord: Story = {
+  args: {
+    item: {
+      id: 0,
+      name: 'Khârn the Betrayer',
+      selectionId: 'id',
+      tier: { id: 0, models: 1, points: 175 },
+      type: 'character',
+      upgrades: [],
+      warlord: true,
+      hero: true
     }
   }
 }

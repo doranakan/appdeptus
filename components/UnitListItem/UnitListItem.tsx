@@ -26,14 +26,9 @@ type UnitListItemProps = {
   item: Unit | Team | Embarked
 
   variant?: ComponentProps<typeof Card>['variant']
-  warlord?: boolean
 }
 
-const UnitListItem = ({
-  item,
-  variant = 'default',
-  ...props
-}: UnitListItemProps) => {
+const UnitListItem = ({ item, variant = 'default' }: UnitListItemProps) => {
   switch (item.type) {
     case 'embarked':
       return null
@@ -41,10 +36,7 @@ const UnitListItem = ({
       return (
         <Card variant={variant}>
           <VStack className='p-4'>
-            <UnitDetail
-              unit={item.leader}
-              {...props}
-            />
+            <UnitDetail unit={item.leader} />
             <VStack className='p-2'>
               <Icon
                 as={Link}
@@ -52,11 +44,7 @@ const UnitListItem = ({
                 size='md'
               />
             </VStack>
-            <UnitDetail
-              {...props}
-              unit={item.bodyguard}
-              warlord={false}
-            />
+            <UnitDetail unit={item.bodyguard} />
           </VStack>
         </Card>
       )
@@ -65,10 +53,7 @@ const UnitListItem = ({
       return (
         <Card variant={variant}>
           <VStack className='p-4'>
-            <UnitDetail
-              unit={item}
-              {...props}
-            />
+            <UnitDetail unit={item} />
           </VStack>
         </Card>
       )
@@ -79,13 +64,13 @@ type UnitDetailProps = {
   unit: Unit
 } & Omit<UnitListItemProps, 'item'>
 
-const UnitDetail = ({ unit, warlord }: UnitDetailProps) => (
+const UnitDetail = ({ unit }: UnitDetailProps) => (
   <HStack
     className='items-center'
     space='md'
   >
     <IconBadge
-      Icon={warlord ? Crown : unitTypeToIcon[unit.type]}
+      Icon={unit.warlord ? Crown : unitTypeToIcon[unit.type]}
       OptionIcon={
         'enhancement' in unit && unit.enhancement ? CircleFadingPlus : undefined
       }

@@ -34,7 +34,7 @@ const EnhancementAssignment = ({
   const charactersAndLeaders = useMemo(
     () =>
       units.filter<(Character | Leader) & Enhanceable>(
-        (unit) =>
+        (unit): unit is (Character | Leader) & Enhanceable =>
           (unit.type === 'character' || unit.type === 'leader') && !unit.hero
       ),
     [units]

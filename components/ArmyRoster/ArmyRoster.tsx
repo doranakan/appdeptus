@@ -28,12 +28,7 @@ const UnitRoster = ({
     }}
     ListFooterComponent={() => <VStack className='h-4' />}
     ListHeaderComponent={ListHeaderComponent}
-    renderItem={({ item, index }) => (
-      <UnitListItem
-        item={item}
-        warlord={index === 0}
-      />
-    )}
+    renderItem={({ item }) => <UnitListItem item={item} />}
   />
 )
 
