@@ -1,13 +1,117 @@
-import { Stack } from 'expo-router'
+import { useUnmount } from 'ahooks'
+import {
+  type Button,
+  NavigationHeader,
+  resetTheme,
+  ScreenContainer,
+  VStack
+} from 'appdeptus/components'
+import { type NewGame } from 'appdeptus/models/game'
+import { useCreateGameMutation } from 'appdeptus/modules/games/api'
+import {
+  NewGameBottomSheet,
+  newGameBottomSheetRef
+} from 'appdeptus/modules/games/components'
+import { useAppDispatch } from 'appdeptus/store'
+import { Stack, useSegments } from 'expo-router'
+import { QrCode } from 'lucide-react-native'
+import { type ComponentProps, useMemo } from 'react'
+import { FormProvider, useForm } from 'react-hook-form'
 
-const ArmyBuilderLayout = () => (
-  <Stack
-    initialRouteName='index'
-    screenOptions={{ headerShown: false }}
-  >
-    <Stack.Screen name='index' />
-    <Stack.Screen name='[gameId]' />
-  </Stack>
-)
+const NewGameLayout = () => {
+  const form = useForm<NewGame>({
+    defaultValues: {
+      status: 'new',
+      playerOne: {
+        army: undefined
+      }
+    }
+  })
 
-export default ArmyBuilderLayout
+  const { setValue, watch } = form
+  const selectedArmy = watch('playerOne.army')
+
+  const segments = useSegments()
+
+  const routeName = segments[segments.length - 1]
+
+  const [createGame, { isLoading }] = useCreateGameMutation()
+
+  const currentStep = useMemo(() => {
+    switch (routeName) {
+      case 'army-selection':
+        return !selectedArmy ? 1 : 2
+
+      default:
+        return 0
+    }
+  }, [routeName, selectedArmy])
+
+  const text = useMemo(() => {
+    switch (routeName) {
+      case 'army-selection':
+        return !selectedArmy ? 'select army' : selectedArmy.name
+      default:
+        return ''
+    }
+  }, [routeName, selectedArmy])
+
+  const rightButton = useMemo<ComponentProps<typeof Button> | undefined>(() => {
+    switch (routeName) {
+      case 'army-selection':
+        return {
+          disabled: !selectedArmy || isLoading,
+          icon: QrCode,
+          loading: isLoading,
+          onPress: async () => {
+            const res = await createGame(selectedArmy)
+
+            if ('error' in res) {
+              return
+            }
+
+            setValue('id', res.data)
+
+            newGameBottomSheetRef.current?.present()
+          },
+          variant: 'callback'
+        }
+      default:
+        return undefined
+    }
+  }, [createGame, isLoading, routeName, selectedArmy, setValue])
+
+  const dispatch = useAppDispatch()
+
+  useUnmount(() => dispatch(resetTheme()))
+
+  return (
+    <ScreenContainer
+      safeAreaInsets={['bottom', 'top']}
+      space='md'
+    >
+      <VStack className='px-4'>
+        <NavigationHeader
+          variant='backButton'
+          progress={{
+            currentStep,
+            steps: 2,
+            text
+          }}
+          rightButton={rightButton}
+        />
+      </VStack>
+      <FormProvider {...form}>
+        <Stack
+          initialRouteName='army-selection'
+          screenOptions={{ headerShown: false }}
+        >
+          <Stack.Screen name='army-selection' />
+        </Stack>
+        <NewGameBottomSheet />
+      </FormProvider>
+    </ScreenContainer>
+  )
+}
+
+export default NewGameLayout
