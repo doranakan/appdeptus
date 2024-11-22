@@ -91,6 +91,59 @@ export const Team: Story = {
     }
   }
 }
+export const Embarked: Story = {
+  args: {
+    item: {
+      id: 'id',
+      type: 'embarked',
+      embarked: [
+        {
+          id: '0',
+          type: 'team',
+          leader: {
+            id: 0,
+            name: 'Khârn the Betrayer',
+            selectionId: 'id',
+            tier: { id: 0, models: 1, points: 85 },
+            type: 'leader',
+            upgrades: [],
+            hero: true
+          },
+          bodyguard: {
+            id: 0,
+            name: 'Khorne Berzerker',
+            selectionId: 'id',
+            tier: { id: 0, models: 10, points: 190 },
+            type: 'squad',
+            upgrades: []
+          }
+        },
+        {
+          id: 0,
+          name: 'Khorne Chaos Lord',
+          selectionId: '1',
+          tier: { id: 0, models: 1, points: 95 },
+          type: 'leader',
+          upgrades: [],
+          hero: false,
+          enhancement: {
+            id: 0,
+            name: 'Enhancement name',
+            points: 5
+          }
+        }
+      ],
+      transport: {
+        id: 0,
+        name: 'Chaos Rhino',
+        selectionId: 'id',
+        tier: { id: 0, models: 1, points: 85 },
+        type: 'transport',
+        upgrades: []
+      }
+    }
+  }
+}
 export const Transport: Story = {
   args: {
     item: {
