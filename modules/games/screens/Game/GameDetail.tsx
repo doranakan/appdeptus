@@ -5,12 +5,8 @@ import {
   PlayerTag,
   VStack
 } from 'appdeptus/components'
+import { useModelCount, useUnitCount, useWarlord } from 'appdeptus/hooks'
 import { type Player } from 'appdeptus/models/game'
-import {
-  useModelCount,
-  useUnitCount,
-  useWarlord
-} from 'appdeptus/modules/armies/hooks'
 import { type ComponentProps, memo, useMemo } from 'react'
 
 type GameDetailProps = {

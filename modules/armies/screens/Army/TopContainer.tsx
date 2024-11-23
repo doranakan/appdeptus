@@ -6,9 +6,9 @@ import {
   Text,
   VStack
 } from 'appdeptus/components'
+import { useModelCount, useUnitCount, useWarlord } from 'appdeptus/hooks'
 import { type Army } from 'appdeptus/models'
 import { memo } from 'react'
-import { useModelCount, useUnitCount, useWarlord } from '../../hooks'
 
 type TopContainerProps = {
   army: Army

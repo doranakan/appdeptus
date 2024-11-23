@@ -7,12 +7,12 @@ import {
   selectThemeName,
   VStack
 } from 'appdeptus/components'
+import { useWarlord } from 'appdeptus/hooks'
 import { type ArmyBuilder } from 'appdeptus/models'
 import {
   useCreateArmyMutation,
   useUpdateArmyMutation
 } from 'appdeptus/modules/armies/api'
-import { useWarlord } from 'appdeptus/modules/armies/hooks'
 import { useAppDispatch } from 'appdeptus/store'
 import { router, Stack, useGlobalSearchParams, useSegments } from 'expo-router'
 import { Check, ChevronRight } from 'lucide-react-native'
