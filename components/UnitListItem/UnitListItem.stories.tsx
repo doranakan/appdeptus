@@ -96,7 +96,7 @@ export const Embarked: Story = {
     item: {
       id: 'id',
       type: 'embarked',
-      embarked: [
+      crew: [
         {
           id: '0',
           type: 'team',
