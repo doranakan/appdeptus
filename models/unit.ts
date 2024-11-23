@@ -7,7 +7,6 @@ type BaseUnit = {
   tier: Tier
   upgrades: UnitUpgrade[]
 
-  teamId?: string
   transportId?: string
   warlord?: boolean
 }

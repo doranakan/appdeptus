@@ -1,4 +1,5 @@
 export { default as ArmySelectionScreen } from './ArmySelection'
 export { default as GameScreen } from './Game'
 export { default as JoinGameScreen } from './Join'
+export { default as LeaderSelectionScreen } from './LeaderSelection'
 export { default as GamesTab } from './Tab'
