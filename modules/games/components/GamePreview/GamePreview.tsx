@@ -7,8 +7,8 @@ import {
 } from 'appdeptus/components'
 import { shortCodexNames } from 'appdeptus/constants'
 
+import { useWarlord } from 'appdeptus/hooks'
 import { type Army } from 'appdeptus/models'
-import { useWarlord } from 'appdeptus/modules/armies/hooks'
 import { type ComponentProps, memo, useMemo } from 'react'
 
 type GamePreviewProps = {

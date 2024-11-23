@@ -10,7 +10,7 @@ const useModelCount = (units: Army['roster']) =>
             return (
               acc +
               unit.transport.tier.models +
-              unit.embarked.reduce((a, c) => {
+              unit.crew.reduce((a, c) => {
                 if (c.type === 'team') {
                   return a + c.bodyguard.tier.models + c.leader.tier.models
                 }

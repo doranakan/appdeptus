@@ -54,7 +54,7 @@ type Team = {
 type Embarked = {
   id: string
   transport: Transport
-  embarked: (Unit | Team)[]
+  crew: (Unit | Team)[]
   type: 'embarked'
 }
 

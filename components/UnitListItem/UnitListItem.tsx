@@ -39,7 +39,7 @@ const UnitListItem = ({ item, variant = 'default' }: UnitListItemProps) => {
             className='p-4'
             space='md'
           >
-            {item.embarked.map((unit) => {
+            {item.crew.map((unit) => {
               if (unit.type === 'team') {
                 return (
                   <EmbarkedUnit key={unit.id}>

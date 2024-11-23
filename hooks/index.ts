@@ -1,4 +1,5 @@
 export { default as useAllUnits } from './useAllUnits'
+export { default as useCrew } from './useCrew'
 export { default as useModelCount } from './useModelCount'
 export { default as useUnitCount } from './useUnitCount'
 export { default as useWarlord } from './useWarlord'

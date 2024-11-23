@@ -10,7 +10,7 @@ const useAllUnits = (units: Army['roster']) =>
             return [
               ...acc,
               curr.transport,
-              ...curr.embarked.flatMap((embarked) =>
+              ...curr.crew.flatMap((embarked) =>
                 embarked.type === 'team'
                   ? [embarked.leader, embarked.bodyguard]
                   : embarked

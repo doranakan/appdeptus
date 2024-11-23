@@ -1,6 +1,7 @@
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useMount, useUnmount } from 'ahooks'
 import { FilterTopBar, ScreenContainer, VStack } from 'appdeptus/components'
+import { useAllUnits } from 'appdeptus/hooks'
 import { type ArmyBuilder } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
 import pluralize, { singular } from 'pluralize'
@@ -8,7 +9,6 @@ import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useGetArmyListQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
-import { useAllUnits } from '../../hooks'
 import UnitList from './UnitList'
 
 const UnitSelectionScreen = () => {
