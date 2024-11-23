@@ -91,7 +91,7 @@ const ButtonContent = ({
   const themeName = useSelector(selectThemeName)
   return (
     <VStack className='overflow-hidden'>
-      <InnerBorder rounded={sizeToRoundedMap[size]}>
+      <InnerBorder rounded={size === 'sm' ? 'xl' : '2xl'}>
         <LinearGradient
           className='bg-gradient-to-br from-tertiary-600 to-tertiary-800'
           colors={[

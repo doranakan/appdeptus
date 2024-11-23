@@ -10,7 +10,7 @@ type ButtonGroupProps = {
 const ButtonGroup = ({ children }: ButtonGroupProps) => (
   <VStack className='rounded-2xl bg-primary-950'>
     <InnerBorder
-      rounded='rounded-2xl'
+      rounded='2xl'
       opacity='opacity-30'
     >
       <HStack

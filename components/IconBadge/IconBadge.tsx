@@ -11,7 +11,7 @@ type IconBadgeProps = {
 
 const IconBadge = ({ Icon, OptionIcon }: IconBadgeProps) => (
   <VStack className='overflow-visible rounded-xl bg-primary-950'>
-    <InnerBorder rounded='rounded-xl'>
+    <InnerBorder rounded='xl'>
       <VStack className='p-2'>
         <GSIcon
           as={Icon}
@@ -22,7 +22,7 @@ const IconBadge = ({ Icon, OptionIcon }: IconBadgeProps) => (
     </InnerBorder>
     {OptionIcon ? (
       <VStack className='absolute bottom-[-8] self-center rounded-md bg-primary-950 shadow-sm'>
-        <InnerBorder rounded='rounded-md'>
+        <InnerBorder rounded='md'>
           <VStack className='p-1'>
             <GSIcon
               as={OptionIcon}

@@ -141,7 +141,7 @@ const TeamDetail = ({ team }: TeamDetailProps) => (
 )
 
 const EmbarkedUnit = ({ children }: PropsWithChildren) => (
-  <InnerBorder rounded='rounded-2xl'>
+  <InnerBorder rounded='2xl'>
     <InsetShadow>
       <VStack className='rounded-2xl bg-primary-800 p-4'>{children}</VStack>
     </InsetShadow>

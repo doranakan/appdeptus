@@ -12,7 +12,7 @@ type AvatarProps = {
 
 const Avatar = ({ size, user }: AvatarProps) => (
   <View>
-    <InnerBorder rounded='rounded-full'>
+    <InnerBorder rounded='full'>
       <GSAvatar size={size}>
         {user ? (
           <>

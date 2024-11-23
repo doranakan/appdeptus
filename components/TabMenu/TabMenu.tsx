@@ -87,7 +87,7 @@ const TabMenu = <T extends string>({
           className='absolute -z-10 h-full rounded-2xl bg-primary-950 shadow'
           style={selectorStyle}
         >
-          <InnerBorder rounded='rounded-2xl'>
+          <InnerBorder rounded='2xl'>
             <View className='h-full w-full' />
           </InnerBorder>
         </Animated.View>
