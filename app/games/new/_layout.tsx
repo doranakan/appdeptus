@@ -14,7 +14,7 @@ import {
 } from 'appdeptus/modules/games/components'
 import { useAppDispatch } from 'appdeptus/store'
 import { Stack, useSegments } from 'expo-router'
-import { QrCode } from 'lucide-react-native'
+import { ChevronRight, QrCode } from 'lucide-react-native'
 import { type ComponentProps, useMemo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
@@ -42,6 +42,9 @@ const NewGameLayout = () => {
       case 'army-selection':
         return !selectedArmy ? 1 : 2
 
+      case 'leader-selection':
+        return 3
+
       default:
         return 0
     }
@@ -51,6 +54,10 @@ const NewGameLayout = () => {
     switch (routeName) {
       case 'army-selection':
         return !selectedArmy ? 'select army' : selectedArmy.name
+
+      case 'leader-selection':
+        return 'select leaders'
+
       default:
         return ''
     }
@@ -61,6 +68,13 @@ const NewGameLayout = () => {
       case 'army-selection':
         return {
           disabled: !selectedArmy || isLoading,
+          icon: ChevronRight,
+          href: 'games/new/leader-selection',
+          variant: 'link'
+        }
+
+      case 'leader-selection':
+        return {
           icon: QrCode,
           loading: isLoading,
           onPress: async () => {
@@ -76,6 +90,7 @@ const NewGameLayout = () => {
           },
           variant: 'callback'
         }
+
       default:
         return undefined
     }
@@ -95,7 +110,7 @@ const NewGameLayout = () => {
           variant='backButton'
           progress={{
             currentStep,
-            steps: 2,
+            steps: 3,
             text
           }}
           rightButton={rightButton}
@@ -107,6 +122,7 @@ const NewGameLayout = () => {
           screenOptions={{ headerShown: false }}
         >
           <Stack.Screen name='army-selection' />
+          <Stack.Screen name='leader-selection' />
         </Stack>
         <NewGameBottomSheet />
       </FormProvider>

@@ -1,5 +1,5 @@
-import { GameScreen } from 'appdeptus/modules/games/screens'
+import { JoinGameScreen } from 'appdeptus/modules/games/screens'
 
-const GameRoute = () => <GameScreen />
+const JoinGameRoute = () => <JoinGameScreen />
 
-export default GameRoute
+export default JoinGameRoute
