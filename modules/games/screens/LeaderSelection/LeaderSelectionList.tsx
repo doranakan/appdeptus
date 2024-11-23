@@ -1,5 +1,10 @@
 import { Pressable, Text, UnitListItem, VStack } from 'appdeptus/components'
-import { type Leader, type Squad, type Team } from 'appdeptus/models'
+import {
+  type Embarked,
+  type Leader,
+  type Squad,
+  type Team
+} from 'appdeptus/models'
 import { type NewGame } from 'appdeptus/models/game'
 import * as Crypto from 'expo-crypto'
 import { sortBy } from 'lodash'
@@ -41,6 +46,14 @@ const LeaderSelectionList = () => {
     [units]
   )
 
+  const embarked = useMemo(
+    () =>
+      units.filter<Embarked>(
+        (unit): unit is Embarked => unit.type === 'embarked'
+      ),
+    [units]
+  )
+
   const [selectedLeader, setSelectedLeader] = useState<Leader>()
 
   const handlePress = useCallback(
@@ -61,22 +74,9 @@ const LeaderSelectionList = () => {
             } satisfies Team
 
             setValue('playerOne.army.roster', [
-              ...units
-                .filter((u) => u.id !== selectedLeader.id && u.id !== unit.id)
-                .map((u) => {
-                  if (u.type === 'embarked') {
-                    const embarked = u.embarked.filter(
-                      (e) => e.id !== selectedLeader.id && e.id !== u.id
-                    )
-
-                    return {
-                      ...u,
-                      embarked
-                    }
-                  }
-
-                  return u
-                }),
+              ...units.filter(
+                (u) => u.id !== selectedLeader.id && u.id !== unit.id
+              ),
               team
             ])
             setSelectedLeader(undefined)
@@ -86,20 +86,7 @@ const LeaderSelectionList = () => {
         }
         case 'team': {
           setValue('playerOne.army.roster', [
-            ...units
-              .filter(({ id }) => id !== unit.id)
-              .map((u) => {
-                if (u.type === 'embarked') {
-                  const embarked = u.embarked.filter((e) => e.id !== u.id)
-
-                  return {
-                    ...u,
-                    embarked
-                  }
-                }
-
-                return u
-              }),
+            ...units.filter(({ id }) => id !== unit.id),
             unit.leader,
             unit.bodyguard
           ])
@@ -119,7 +106,7 @@ const LeaderSelectionList = () => {
       {teams.length ? <StickyHeader>Teams</StickyHeader> : null}
       {teams.length ? (
         <VStack
-          className='p-4 px-0'
+          className='py-4'
           space='md'
         >
           {teams.map((team) => (
@@ -136,7 +123,7 @@ const LeaderSelectionList = () => {
       ) : null}
       <StickyHeader>Leaders</StickyHeader>
       <VStack
-        className='p-4 px-0'
+        className='py-4'
         space='md'
       >
         {leaders.map((leader) => (
@@ -161,7 +148,7 @@ const LeaderSelectionList = () => {
       </VStack>
       <StickyHeader>Squads</StickyHeader>
       <VStack
-        className='p-4 px-0'
+        className='py-4'
         space='md'
       >
         {squads.map((squad) => (
@@ -179,6 +166,21 @@ const LeaderSelectionList = () => {
           </Pressable>
         ))}
       </VStack>
+      {embarked.length ? <StickyHeader>Embarked</StickyHeader> : null}
+      {embarked.length ? (
+        <VStack
+          className='py-4'
+          space='md'
+        >
+          {embarked.map((unit) => (
+            <UnitListItem
+              key={unit.id}
+              item={unit}
+              variant='disabled'
+            />
+          ))}
+        </VStack>
+      ) : null}
     </ScrollView>
   )
 }

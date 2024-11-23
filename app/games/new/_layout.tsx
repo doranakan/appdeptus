@@ -45,6 +45,9 @@ const NewGameLayout = () => {
       case 'leader-selection':
         return 3
 
+      case 'embarked-selection':
+        return 4
+
       default:
         return 0
     }
@@ -57,6 +60,9 @@ const NewGameLayout = () => {
 
       case 'leader-selection':
         return 'select leaders'
+
+      case 'embarked-selection':
+        return 'select units to embark'
 
       default:
         return ''
@@ -74,6 +80,13 @@ const NewGameLayout = () => {
         }
 
       case 'leader-selection':
+        return {
+          icon: ChevronRight,
+          href: 'games/new/embarked-selection',
+          variant: 'link'
+        }
+
+      case 'embarked-selection':
         return {
           icon: QrCode,
           loading: isLoading,
@@ -110,7 +123,7 @@ const NewGameLayout = () => {
           variant='backButton'
           progress={{
             currentStep,
-            steps: 3,
+            steps: 4,
             text
           }}
           rightButton={rightButton}
@@ -123,6 +136,7 @@ const NewGameLayout = () => {
         >
           <Stack.Screen name='army-selection' />
           <Stack.Screen name='leader-selection' />
+          <Stack.Screen name='embarked-selection' />
         </Stack>
         <NewGameBottomSheet />
       </FormProvider>
