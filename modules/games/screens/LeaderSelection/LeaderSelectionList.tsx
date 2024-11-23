@@ -1,10 +1,6 @@
 import { Pressable, Text, UnitListItem, VStack } from 'appdeptus/components'
-import {
-  type ArmyBuilder,
-  type Leader,
-  type Squad,
-  type Team
-} from 'appdeptus/models'
+import { type Leader, type Squad, type Team } from 'appdeptus/models'
+import { type NewGame } from 'appdeptus/models/game'
 import * as Crypto from 'expo-crypto'
 import { sortBy } from 'lodash'
 import {
@@ -18,9 +14,9 @@ import { useFormContext } from 'react-hook-form'
 import { ScrollView } from 'react-native'
 
 const LeaderSelectionList = () => {
-  const { setValue, watch } = useFormContext<ArmyBuilder>()
+  const { setValue, watch } = useFormContext<NewGame>()
 
-  const units = watch('units')
+  const units = watch('playerOne.army.roster')
 
   const leaders = useMemo(
     () =>
@@ -41,37 +37,8 @@ const LeaderSelectionList = () => {
   )
 
   const teams = useMemo(
-    () =>
-      leaders.reduce<Team[]>((acc, leader) => {
-        if (leader.teamId) {
-          const bodyguard = squads.find(
-            ({ teamId }) => teamId === leader.teamId
-          )
-          if (bodyguard) {
-            return [
-              ...acc,
-              {
-                id: leader.teamId,
-                bodyguard,
-                leader,
-                type: 'team'
-              }
-            ]
-          }
-          return []
-        }
-        return acc
-      }, []),
-    [leaders, squads]
-  )
-
-  const leaderList = useMemo(
-    () => leaders.filter(({ teamId }) => !teamId),
-    [leaders]
-  )
-  const squadList = useMemo(
-    () => squads.filter(({ teamId }) => !teamId),
-    [squads]
+    () => units.filter<Team>((unit): unit is Team => unit.type === 'team'),
+    [units]
   )
 
   const [selectedLeader, setSelectedLeader] = useState<Leader>()
@@ -86,16 +53,31 @@ const LeaderSelectionList = () => {
         }
         case 'squad': {
           if (selectedLeader) {
-            const teamId = Crypto.randomUUID()
+            const team = {
+              id: Crypto.randomUUID(),
+              bodyguard: unit,
+              leader: selectedLeader,
+              type: 'team'
+            } satisfies Team
 
-            setValue('units', [
-              ...units.filter(
-                ({ selectionId }) =>
-                  selectionId !== unit.selectionId &&
-                  selectionId !== selectedLeader?.selectionId
-              ),
-              { ...unit, teamId },
-              { ...selectedLeader, teamId }
+            setValue('playerOne.army.roster', [
+              ...units
+                .filter((u) => u.id !== selectedLeader.id && u.id !== unit.id)
+                .map((u) => {
+                  if (u.type === 'embarked') {
+                    const embarked = u.embarked.filter(
+                      (e) => e.id !== selectedLeader.id && e.id !== u.id
+                    )
+
+                    return {
+                      ...u,
+                      embarked
+                    }
+                  }
+
+                  return u
+                }),
+              team
             ])
             setSelectedLeader(undefined)
           }
@@ -103,14 +85,23 @@ const LeaderSelectionList = () => {
           break
         }
         case 'team': {
-          setValue('units', [
-            ...units.filter(
-              ({ selectionId }) =>
-                selectionId !== unit.bodyguard.selectionId &&
-                selectionId !== unit.leader.selectionId
-            ),
-            { ...unit.bodyguard, teamId: undefined },
-            { ...unit.leader, teamId: undefined }
+          setValue('playerOne.army.roster', [
+            ...units
+              .filter(({ id }) => id !== unit.id)
+              .map((u) => {
+                if (u.type === 'embarked') {
+                  const embarked = u.embarked.filter((e) => e.id !== u.id)
+
+                  return {
+                    ...u,
+                    embarked
+                  }
+                }
+
+                return u
+              }),
+            unit.leader,
+            unit.bodyguard
           ])
 
           break
@@ -148,7 +139,7 @@ const LeaderSelectionList = () => {
         className='p-4 px-0'
         space='md'
       >
-        {leaderList.map((leader) => (
+        {leaders.map((leader) => (
           <Pressable
             key={leader.selectionId}
             onPress={() => {
@@ -173,7 +164,7 @@ const LeaderSelectionList = () => {
         className='p-4 px-0'
         space='md'
       >
-        {squadList.map((squad) => (
+        {squads.map((squad) => (
           <Pressable
             disabled={!selectedLeader}
             key={squad.selectionId}
