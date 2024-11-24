@@ -134,7 +134,7 @@ const teamSchema = z.object({
 const embarkedSchema = z.object({
   id: z.string(),
   transport: transportSchema,
-  embarked: z.array(z.union([unitSchema, teamSchema])),
+  crew: z.array(z.union([unitSchema, teamSchema])),
   type: z.literal('embarked')
 })
 
