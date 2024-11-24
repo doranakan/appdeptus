@@ -8,20 +8,35 @@ import {
   VStack
 } from 'appdeptus/components'
 import { type NewGame } from 'appdeptus/models/game'
+import { router } from 'expo-router'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useWindowDimensions } from 'react-native'
 import QRCode from 'react-native-qrcode-svg'
-import { useCreateGameMutation } from '../../api'
+import { useCreateGameMutation, useGameUpdateListener } from '../../api'
+import { NEW_GAME_SLUG } from '../../constants'
 
 const QRCodeScreen = () => {
   const { getValues } = useFormContext<NewGame>()
 
   const [createGame, { isLoading }] = useCreateGameMutation()
 
-  const [gameId, setGameId] = useState<number>()
+  const [gameId, setGameId] = useState<number>(0)
 
   const window = useWindowDimensions()
+
+  useGameUpdateListener({
+    gameId,
+    eventHandler: (data) => {
+      if (data.new.status) {
+        while (router.canGoBack()) {
+          router.back()
+        }
+
+        router.push(`games/${gameId}`)
+      }
+    }
+  })
 
   useMount(async () => {
     if (!gameId) {
@@ -75,7 +90,7 @@ const QRCodeScreen = () => {
       </Text>
       <Card>
         <QRCode
-          value={`appdeptus-start-game/${gameId}`}
+          value={`${NEW_GAME_SLUG}${gameId}`}
           size={window.width - 28}
         />
       </Card>

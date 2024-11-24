@@ -2,7 +2,9 @@ import { StyleSheet } from 'react-native'
 
 const defaultScreenOptions = {
   headerShown: false,
-  statusBarTranslucent: true
+  // the two following configs are required since Android glitches when we navigate to a formsheet screen
+  statusBarTranslucent: true,
+  statusBarBackgroundColor: 'transparent'
 }
 
 const styles = StyleSheet.create({
