@@ -1,3 +1,4 @@
+import { DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { useUnmount } from 'ahooks'
 import {
   type Button,
@@ -128,6 +129,7 @@ const NewGameLayout = () => {
 
   return (
     <ScreenContainer
+      className='bg-primary-950'
       safeAreaInsets={['bottom', 'top']}
       space='md'
     >
@@ -142,17 +144,28 @@ const NewGameLayout = () => {
           rightButton={rightButton}
         />
       </VStack>
-      <FormProvider {...form}>
-        <Stack
-          initialRouteName='army-selection'
-          screenOptions={{ headerShown: false }}
-        >
-          <Stack.Screen name='army-selection' />
-          <Stack.Screen name='leader-selection' />
-          <Stack.Screen name='embarked-selection' />
-        </Stack>
-        <NewGameBottomSheet />
-      </FormProvider>
+      <ThemeProvider
+        value={{
+          ...DefaultTheme,
+          colors: {
+            ...DefaultTheme.colors,
+            background: 'transparent'
+          }
+        }}
+      >
+        <FormProvider {...form}>
+          <Stack
+            initialRouteName='army-selection'
+            screenOptions={{ headerShown: false }}
+          >
+            <Stack.Screen name='army-selection' />
+            <Stack.Screen name='leader-selection' />
+            <Stack.Screen name='embarked-selection' />
+            <Stack.Screen name='double-check' />
+          </Stack>
+          <NewGameBottomSheet />
+        </FormProvider>
+      </ThemeProvider>
     </ScreenContainer>
   )
 }

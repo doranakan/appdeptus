@@ -1,7 +1,7 @@
 import { memo } from 'react'
-import { FlatList, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import Text from '../Text'
-import { HStack } from '../ui'
+import { HStack, VStack } from '../ui'
 
 type GameDataTableProps = {
   data: {
@@ -12,33 +12,31 @@ type GameDataTableProps = {
 }
 
 const GameDataTable = ({ data }: GameDataTableProps) => (
-  <FlatList
-    data={data}
-    keyExtractor={({ title }) => title}
-    ListHeaderComponent={Line}
-    ItemSeparatorComponent={Line}
-    ListFooterComponent={Line}
-    scrollEnabled={false}
-    renderItem={({ item }) => (
-      <HStack className='items-center py-2'>
-        <Text
-          className='flex-1'
-          family='body-bold'
-          numberOfLines={1}
-        >
-          {item.valueL}
-        </Text>
-        <Text className='px-2 text-center'>{item.title}</Text>
-        <Text
-          className='flex-1 text-right'
-          family='body-bold'
-          numberOfLines={1}
-        >
-          {item.valueR}
-        </Text>
-      </HStack>
-    )}
-  />
+  <VStack>
+    {data.map(({ title, valueL, valueR }) => (
+      <VStack key={title}>
+        <Line />
+        <HStack className='items-center py-2'>
+          <Text
+            className='flex-1'
+            family='body-bold'
+            numberOfLines={1}
+          >
+            {valueL}
+          </Text>
+          <Text className='px-2 text-center'>{title}</Text>
+          <Text
+            className='flex-1 text-right'
+            family='body-bold'
+            numberOfLines={1}
+          >
+            {valueR}
+          </Text>
+        </HStack>
+      </VStack>
+    ))}
+    <Line />
+  </VStack>
 )
 
 const Line = () => (
