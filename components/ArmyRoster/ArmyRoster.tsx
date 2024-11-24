@@ -1,12 +1,12 @@
 import { type Army } from 'appdeptus/models'
-import React, { type ComponentProps, memo } from 'react'
+import React, { memo } from 'react'
 import { FlatList } from 'react-native'
 import { VStack } from '../ui'
 import UnitListItem from '../UnitListItem'
 
 type UnitRosterProps = {
   roster: Army['roster']
-  ListHeaderComponent?: ComponentProps<typeof FlatList>['ListHeaderComponent']
+  ListHeaderComponent?: () => JSX.Element
 }
 
 const UnitRoster = ({
@@ -27,7 +27,16 @@ const UnitRoster = ({
       }
     }}
     ListFooterComponent={() => <VStack className='h-4' />}
-    ListHeaderComponent={ListHeaderComponent}
+    ListHeaderComponent={
+      ListHeaderComponent
+        ? () => (
+            <VStack space='md'>
+              <ListHeaderComponent />
+              <VStack />
+            </VStack>
+          )
+        : null
+    }
     renderItem={({ item }) => <UnitListItem item={item} />}
   />
 )

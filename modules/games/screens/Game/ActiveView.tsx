@@ -92,26 +92,24 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
               ? game.playerOne.army.roster
               : game.playerTwo.army.roster
           }
-          ListHeaderComponent={
+          ListHeaderComponent={() => (
             <VStack space='md'>
               <GameDetail {...game} />
               <Commands
                 game={game}
                 user={user}
               />
-              <VStack className='py-4'>
-                <TabMenu
-                  onOptionSelected={(_, index) => {
-                    setSelectedPlayer(index === 0 ? 'one' : 'two')
-                  }}
-                  options={[
-                    game.playerOne.army.codex.name,
-                    game.playerTwo.army.codex.name
-                  ]}
-                />
-              </VStack>
+              <TabMenu
+                onOptionSelected={(_, index) => {
+                  setSelectedPlayer(index === 0 ? 'one' : 'two')
+                }}
+                options={[
+                  game.playerOne.army.codex.name,
+                  game.playerTwo.army.codex.name
+                ]}
+              />
             </VStack>
-          }
+          )}
         />
       </ScreenContainer>
     </VStack>

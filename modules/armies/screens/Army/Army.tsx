@@ -91,11 +91,8 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
           }}
         />
         <ArmyRoster
-          ListHeaderComponent={
-            <VStack
-              className='py-4'
-              space='md'
-            >
+          ListHeaderComponent={() => (
+            <VStack space='md'>
               <TopContainer army={army} />
               <Text
                 className='uppercase'
@@ -104,7 +101,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
                 units
               </Text>
             </VStack>
-          }
+          )}
           roster={army.roster}
         />
       </VStack>
