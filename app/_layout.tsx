@@ -14,6 +14,7 @@ import { Silkscreen_400Regular } from '@expo-google-fonts/silkscreen'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 import { coreApi } from 'appdeptus/api'
 import { GluestackUIProvider } from 'appdeptus/components/ui'
+import { defaultScreenOptions } from 'appdeptus/constants'
 import 'appdeptus/global.css'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
 import { store, useAppDispatch } from 'appdeptus/store'
@@ -97,7 +98,7 @@ const RootLayout = () => {
   return (
     <Stack
       initialRouteName='index'
-      screenOptions={{ headerShown: false }}
+      screenOptions={defaultScreenOptions}
     >
       <Stack.Screen
         name='index'
