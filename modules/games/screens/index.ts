@@ -1,4 +1,5 @@
 export { default as ArmySelectionScreen } from './ArmySelection'
+export { default as DoubleCheckScreen } from './DoubleCheck'
 export { default as EmbarkedSelectionScreen } from './EmbarkedSelection'
 export { default as GameScreen } from './Game'
 export { default as JoinGameScreen } from './Join'

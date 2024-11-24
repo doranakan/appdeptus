@@ -48,6 +48,9 @@ const NewGameLayout = () => {
       case 'embarked-selection':
         return 4
 
+      case 'double-check':
+        return 5
+
       default:
         return 0
     }
@@ -63,6 +66,9 @@ const NewGameLayout = () => {
 
       case 'embarked-selection':
         return 'select units to embark'
+
+      case 'double-check':
+        return 'Awaiting the call to war'
 
       default:
         return ''
@@ -87,6 +93,13 @@ const NewGameLayout = () => {
         }
 
       case 'embarked-selection':
+        return {
+          icon: ChevronRight,
+          href: 'games/new/double-check',
+          variant: 'link'
+        }
+
+      case 'double-check':
         return {
           icon: QrCode,
           loading: isLoading,
@@ -123,7 +136,7 @@ const NewGameLayout = () => {
           variant='backButton'
           progress={{
             currentStep,
-            steps: 4,
+            steps: 5,
             text
           }}
           rightButton={rightButton}
