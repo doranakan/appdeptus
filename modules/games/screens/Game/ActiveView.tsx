@@ -8,10 +8,10 @@ import {
   TabMenu,
   VStack
 } from 'appdeptus/components'
-import { type UserProfile } from 'appdeptus/models'
+import { type Army, type UserProfile } from 'appdeptus/models'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { useAppDispatch } from 'appdeptus/store'
-import { ArrowBigRightDash } from 'lucide-react-native'
+import { ArrowBigRightDash, Check } from 'lucide-react-native'
 import { useCallback, useState } from 'react'
 import {
   useEndGameMutation,
@@ -21,6 +21,8 @@ import {
 import { Background } from '../../components'
 import Commands from './Commands'
 import GameDetail from './GameDetail'
+import UnitBottomSheet from './UnitBottomSheet'
+import unitBottomSheetRef from './ref'
 
 type ActiveViewProps = {
   game: ActiveGame
@@ -58,6 +60,8 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
     )
   })
 
+  const [selectedUnit, setSelectedUnit] = useState<Army['roster'][0]>()
+
   return (
     <VStack className='flex-1 bg-primary-950'>
       <Background
@@ -82,7 +86,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
             onPress: advanceTurnOrComplete,
             variant: 'callback',
             loading: isMovingToNextTurn || isGameEnding,
-            icon: ArrowBigRightDash
+            icon: game.status === 'turn5_p2' ? Check : ArrowBigRightDash
           }}
         />
         <Scoreboard {...game} />
@@ -111,8 +115,13 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
               ? game.playerOne.army.roster
               : game.playerTwo.army.roster
           }
+          onPressItem={(item) => {
+            setSelectedUnit(item)
+            unitBottomSheetRef.current?.present()
+          }}
         />
       </ScreenContainer>
+      <UnitBottomSheet unit={selectedUnit} />
     </VStack>
   )
 }
