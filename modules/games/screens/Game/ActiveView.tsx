@@ -87,12 +87,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
         />
         <Scoreboard {...game} />
         <ArmyRoster
-          roster={
-            selectedPlayer === 'one'
-              ? game.playerOne.army.roster
-              : game.playerTwo.army.roster
-          }
-          ListHeaderComponent={() => (
+          ListHeaderComponent={
             <VStack space='md'>
               <GameDetail {...game} />
               <Commands
@@ -108,8 +103,14 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
                   game.playerTwo.army.codex.name
                 ]}
               />
+              <VStack />
             </VStack>
-          )}
+          }
+          roster={
+            selectedPlayer === 'one'
+              ? game.playerOne.army.roster
+              : game.playerTwo.army.roster
+          }
         />
       </ScreenContainer>
     </VStack>

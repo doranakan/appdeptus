@@ -67,7 +67,7 @@ const EndedViewScreen = ({ game }: EndedViewScreenProps) => {
               ? game.playerOne.army.roster
               : game.playerTwo.army.roster
           }
-          ListHeaderComponent={() => (
+          ListHeaderComponent={
             <VStack space='md'>
               <GameDetail {...game} />
               <TabMenu
@@ -79,8 +79,9 @@ const EndedViewScreen = ({ game }: EndedViewScreenProps) => {
                   game.playerTwo.army.codex.name
                 ]}
               />
+              <VStack />
             </VStack>
-          )}
+          }
         />
       </ScreenContainer>
     </VStack>

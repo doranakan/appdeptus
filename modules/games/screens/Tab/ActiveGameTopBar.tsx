@@ -13,17 +13,15 @@ import { Link, useFocusEffect } from 'expo-router'
 import { memo, useCallback } from 'react'
 import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useGameUpdates, useGetGameQuery } from '../../api'
+import { useGetGameQuery } from '../../api'
 
 const ActiveGameTopBar = () => {
   const { data: game, refetch } = useGetGameQuery()
 
   useFocusEffect(
     useCallback(() => {
-      if (!game) {
-        refetch()
-      }
-    }, [game, refetch])
+      refetch()
+    }, [refetch])
   )
 
   if (!game || game.status === 'ended') {
@@ -38,8 +36,6 @@ type ActiveGameTopBarContentProps = {
 }
 
 const ActiveGameTopBarContent = ({ gameId }: ActiveGameTopBarContentProps) => {
-  useGameUpdates(gameId)
-
   const { data: game } = useGetGameQuery(gameId)
 
   if (!game) {

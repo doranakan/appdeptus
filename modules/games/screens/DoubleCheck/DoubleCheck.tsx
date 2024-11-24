@@ -52,7 +52,12 @@ const DoubleCheckScreen = () => {
       </Text>
 
       <ArmyRoster
-        ListHeaderComponent={() => <DataTable />}
+        ListHeaderComponent={
+          <VStack space='md'>
+            <DataTable />
+            <VStack />
+          </VStack>
+        }
         roster={roster}
       />
     </ScreenContainer>
