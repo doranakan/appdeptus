@@ -8,7 +8,10 @@ const GamesTab = () => {
   const { data } = useGetGameQuery()
 
   return (
-    <VStack className='flex-1'>
+    <VStack
+      className='flex-1 bg-primary-950'
+      space='md'
+    >
       <ActiveGameTopBar />
       <ScreenContainer
         className='px-4'

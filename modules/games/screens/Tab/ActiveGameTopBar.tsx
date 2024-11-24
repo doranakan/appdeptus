@@ -49,7 +49,7 @@ const ActiveGameTopBarContent = ({ gameId }: ActiveGameTopBarContentProps) => {
     >
       <Pressable>
         <VStack
-          className='bg-primary-950'
+          className='bg-primary-950 shadow-sm'
           style={styles.container}
         >
           <VersusBackground
