@@ -6,6 +6,7 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
+import { defaultScreenOptions } from 'appdeptus/constants'
 import { Tabs } from 'expo-router'
 import LottieView, { type AnimationObject } from 'lottie-react-native'
 import {
@@ -27,7 +28,7 @@ const ArmiesLayout = () => {
     <Tabs
       initialRouteName='armies-tab'
       screenOptions={{
-        headerShown: false,
+        ...defaultScreenOptions,
         tabBarButton: TabBarButton,
         tabBarStyle: {
           backgroundColor: themeColors[themeName].primary['950'],

@@ -36,10 +36,13 @@
       [
         "expo-asset",
         {
-          "assets": [
-            "./assets/resources/armies",
-            "./assets/resources/misc"
-          ]
+          "assets": ["./assets/resources/armies", "./assets/resources/misc"]
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "$(PRODUCT_NAME) required the permission to use this device camera to scan game's QR codes"
         }
       ]
     ],

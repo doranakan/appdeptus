@@ -1,9 +1,10 @@
+import { defaultScreenOptions } from 'appdeptus/constants'
 import { Stack } from 'expo-router'
 
 const ArmyBuilderLayout = () => (
   <Stack
     initialRouteName='[gameId]'
-    screenOptions={{ headerShown: false }}
+    screenOptions={defaultScreenOptions}
   >
     <Stack.Screen name='[gameId]' />
   </Stack>

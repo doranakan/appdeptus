@@ -7,15 +7,15 @@ import {
   ScreenContainer,
   VStack
 } from 'appdeptus/components'
+import { defaultScreenOptions, formSheetOptions } from 'appdeptus/constants'
 import { type NewGame } from 'appdeptus/models/game'
-import { useCreateGameMutation } from 'appdeptus/modules/games/api'
 import {
   NewGameBottomSheet,
   newGameBottomSheetRef
 } from 'appdeptus/modules/games/components'
 import { useAppDispatch } from 'appdeptus/store'
 import { Stack, useSegments } from 'expo-router'
-import { ChevronRight, QrCode } from 'lucide-react-native'
+import { ChevronRight, Dices } from 'lucide-react-native'
 import { type ComponentProps, useMemo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
@@ -29,14 +29,12 @@ const NewGameLayout = () => {
     }
   })
 
-  const { setValue, watch } = form
+  const { watch } = form
   const selectedArmy = watch('playerOne.army')
 
   const segments = useSegments()
 
   const routeName = segments[segments.length - 1]
-
-  const [createGame, { isLoading }] = useCreateGameMutation()
 
   const currentStep = useMemo(() => {
     switch (routeName) {
@@ -49,6 +47,8 @@ const NewGameLayout = () => {
       case 'embarked-selection':
         return 4
 
+      case 'camera':
+      case 'qr-code':
       case 'double-check':
         return 5
 
@@ -71,6 +71,10 @@ const NewGameLayout = () => {
       case 'double-check':
         return 'Awaiting the call to war'
 
+      case 'camera':
+      case 'qr-code':
+        return 'Awaiting the call to war'
+
       default:
         return ''
     }
@@ -80,7 +84,7 @@ const NewGameLayout = () => {
     switch (routeName) {
       case 'army-selection':
         return {
-          disabled: !selectedArmy || isLoading,
+          disabled: !selectedArmy,
           icon: ChevronRight,
           href: 'games/new/leader-selection',
           variant: 'link'
@@ -102,26 +106,26 @@ const NewGameLayout = () => {
 
       case 'double-check':
         return {
-          icon: QrCode,
-          loading: isLoading,
-          onPress: async () => {
-            const res = await createGame(selectedArmy)
-
-            if ('error' in res) {
-              return
-            }
-
-            setValue('id', res.data)
-
+          icon: Dices,
+          onPress: () => {
             newGameBottomSheetRef.current?.present()
           },
+          variant: 'callback'
+        }
+
+      case 'camera':
+      case 'qr-code':
+        return {
+          icon: Dices,
+          disabled: true,
+          onPress: () => {},
           variant: 'callback'
         }
 
       default:
         return undefined
     }
-  }, [createGame, isLoading, routeName, selectedArmy, setValue])
+  }, [routeName, selectedArmy])
 
   const dispatch = useAppDispatch()
 
@@ -156,12 +160,20 @@ const NewGameLayout = () => {
         <FormProvider {...form}>
           <Stack
             initialRouteName='army-selection'
-            screenOptions={{ headerShown: false }}
+            screenOptions={defaultScreenOptions}
           >
             <Stack.Screen name='army-selection' />
             <Stack.Screen name='leader-selection' />
             <Stack.Screen name='embarked-selection' />
             <Stack.Screen name='double-check' />
+            <Stack.Screen
+              name='camera'
+              options={formSheetOptions}
+            />
+            <Stack.Screen
+              name='qr-code'
+              options={formSheetOptions}
+            />
           </Stack>
           <NewGameBottomSheet />
         </FormProvider>

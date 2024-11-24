@@ -7,6 +7,7 @@ import {
   selectThemeName,
   VStack
 } from 'appdeptus/components'
+import { defaultScreenOptions } from 'appdeptus/constants'
 import { useWarlord } from 'appdeptus/hooks'
 import { type ArmyBuilder } from 'appdeptus/models'
 import {
@@ -224,7 +225,7 @@ const ArmyBuilderLayout = () => {
       <FormProvider {...form}>
         <Stack
           initialRouteName='index'
-          screenOptions={{ headerShown: false }}
+          screenOptions={defaultScreenOptions}
         >
           <Stack.Screen name='index' />
           <Stack.Screen name='detachment-selection' />
