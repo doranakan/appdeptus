@@ -30,21 +30,18 @@ const NewGameScreen = () => {
     >
       <ScreenTitle>new game</ScreenTitle>
       <ScreenSubtitle>choose your warhost</ScreenSubtitle>
+      <Text
+        family='body-regular-italic'
+        size='sm'
+      >
+        Commander, select your chosen army from the ranks of your forces and
+        follow the prescribed rites of preparation! Only through readiness shall
+        victory be forged in the crucible of war.
+      </Text>
 
       <FlatList
         data={data}
         keyExtractor={({ id }) => String(id)}
-        ListHeaderComponent={
-          <Text
-            className='py-4'
-            family='body-regular-italic'
-          >
-            Assemble your forces, warrior of the Imperium. When your army stands
-            ready, tap the QR Seal of the Omnissiah in the top right. This
-            sacred glyph shall encode your war protocols. Let your opponent scan
-            it, and the rites of battle shall commence.
-          </Text>
-        }
         ItemSeparatorComponent={() => <VStack className='h-4' />}
         ListFooterComponent={() => <VStack className='h-4' />}
         renderItem={({ item }) => (
