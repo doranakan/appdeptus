@@ -75,7 +75,11 @@ const LeaderSelectionList = () => {
 
             setValue('playerOne.army.roster', [
               ...units.filter(
-                (u) => u.id !== selectedLeader.id && u.id !== unit.id
+                (u) =>
+                  u.type === 'embarked' ||
+                  u.type === 'team' ||
+                  (u.selectionId !== selectedLeader.selectionId &&
+                    u.selectionId !== unit.selectionId)
               ),
               team
             ])
