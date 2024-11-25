@@ -41,36 +41,36 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
         valueL: String(playerOne.cp),
         valueR: String(playerTwo.cp)
       },
-      {
-        title: 'Kills',
-        valueL: String(0),
-        valueR: String(0)
-      },
-      {
-        title: 'Units Destroyed',
-        valueL: String(0),
-        valueR: String(0)
-      },
+      // {
+      //   title: 'Kills',
+      //   valueL: String(0),
+      //   valueR: String(0)
+      // },
+      // {
+      //   title: 'Units Destroyed',
+      //   valueL: String(0),
+      //   valueR: String(0)
+      // },
       {
         title: 'Units',
         valueL: String(unitCountOne),
         valueR: String(unitCountTwo)
       },
-      {
-        title: 'Units Left',
-        valueL: String(unitCountOne),
-        valueR: String(unitCountTwo)
-      },
+      // {
+      //   title: 'Units Left',
+      //   valueL: String(unitCountOne),
+      //   valueR: String(unitCountTwo)
+      // },
       {
         title: 'Models',
         valueL: String(modelCountOne),
         valueR: String(modelCountTwo)
-      },
-      {
-        title: 'Models Left',
-        valueL: String(modelCountOne),
-        valueR: String(modelCountTwo)
       }
+      // {
+      //   title: 'Models Left',
+      //   valueL: String(modelCountOne),
+      //   valueR: String(modelCountTwo)
+      // }
     ],
     [
       playerOne,
