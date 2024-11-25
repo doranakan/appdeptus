@@ -1,29 +1,14 @@
-import { ScreenContainer, ScreenTitle, VStack } from 'appdeptus/components'
-import { useGetGameQuery } from '../../api'
-import ActiveGameTopBar from './ActiveGameTopBar'
+import { ScreenContainer, ScreenTitle } from 'appdeptus/components'
 import GameList from './GameList'
-import Header from './Header'
 
-const GamesTab = () => {
-  const { data } = useGetGameQuery()
-
-  return (
-    <VStack
-      className='flex-1 bg-primary-950'
-      space='md'
-    >
-      <ActiveGameTopBar />
-      <ScreenContainer
-        className='px-4'
-        safeAreaInsets={!data ? ['top'] : undefined}
-        space='md'
-      >
-        <Header />
-        <ScreenTitle>games</ScreenTitle>
-        <GameList />
-      </ScreenContainer>
-    </VStack>
-  )
-}
+const GamesTab = () => (
+  <ScreenContainer
+    className='px-4'
+    space='md'
+  >
+    <ScreenTitle>games</ScreenTitle>
+    <GameList />
+  </ScreenContainer>
+)
 
 export default GamesTab

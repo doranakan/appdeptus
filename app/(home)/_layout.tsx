@@ -1,22 +1,30 @@
+import { type BottomTabHeaderProps } from '@react-navigation/bottom-tabs'
 import dice from 'appdeptus/assets/lotties/dice.json'
 import plan from 'appdeptus/assets/lotties/plan.json'
 import {
+  type Button,
+  NavigationHeader,
   Pressable,
   selectThemeName,
   themeColors,
   VStack
 } from 'appdeptus/components'
 import { defaultScreenOptions } from 'appdeptus/constants'
+import { useGetArmyListQuery } from 'appdeptus/modules/armies/api'
+import { useGetGameQuery } from 'appdeptus/modules/games/api'
+import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { Tabs } from 'expo-router'
 import LottieView, { type AnimationObject } from 'lottie-react-native'
+import { Plus, Swords } from 'lucide-react-native'
 import {
   type ComponentProps,
   type PropsWithChildren,
   useEffect,
+  useMemo,
   useRef
 } from 'react'
 import { type GestureResponderEvent, StyleSheet } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
 
 const ArmiesLayout = () => {
@@ -25,43 +33,96 @@ const ArmiesLayout = () => {
   const { bottom } = useSafeAreaInsets()
 
   return (
-    <Tabs
-      initialRouteName='armies-tab'
-      screenOptions={{
-        ...defaultScreenOptions,
-        tabBarButton: TabBarButton,
-        tabBarStyle: {
-          backgroundColor: themeColors[themeName].primary['950'],
-          borderTopWidth: 0,
-          height: 60 + bottom
+    <VStack className='flex-1 bg-primary-950'>
+      <SafeAreaView
+        edges={['top']}
+        style={styles.safeArea}
+      >
+        <VStack
+          className='flex-1'
+          space='md'
+        >
+          <Tabs
+            initialRouteName='armies-tab'
+            screenOptions={{
+              ...defaultScreenOptions,
+              header: (props) => <Header {...props} />,
+              headerShown: true,
+              tabBarButton: TabBarButton,
+              tabBarStyle: {
+                backgroundColor: themeColors[themeName].primary['950'],
+                borderTopWidth: 0,
+                height: 60 + bottom
+              }
+            }}
+          >
+            <Tabs.Screen
+              name='armies-tab'
+              options={{
+                tabBarLabel: '',
+                tabBarIcon: ({ focused }) => (
+                  <TabIcon
+                    focused={focused}
+                    routeName='armies-tab'
+                  />
+                )
+              }}
+            />
+            <Tabs.Screen
+              name='games-tab'
+              options={{
+                tabBarLabel: '',
+                tabBarIcon: ({ focused }) => (
+                  <TabIcon
+                    focused={focused}
+                    routeName='games-tab'
+                  />
+                )
+              }}
+            />
+          </Tabs>
+        </VStack>
+      </SafeAreaView>
+    </VStack>
+  )
+}
+
+const Header = ({ route }: BottomTabHeaderProps) => {
+  const { data: user } = useGetUserProfileQuery()
+
+  const { data: armies } = useGetArmyListQuery()
+
+  const { data: activeGame } = useGetGameQuery()
+
+  const rightButton = useMemo<ComponentProps<typeof Button> | undefined>(() => {
+    switch (route.name) {
+      case 'armies-tab':
+        return {
+          href: 'army-builder',
+          icon: Plus,
+          variant: 'link'
         }
-      }}
-    >
-      <Tabs.Screen
-        name='armies-tab'
-        options={{
-          tabBarLabel: '',
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              routeName='armies-tab'
-            />
-          )
-        }}
+      case 'games-tab':
+        return {
+          disabled: !armies?.length || !!activeGame,
+          href: 'games/new/army-selection',
+          icon: Swords,
+          variant: 'link'
+        }
+
+      default:
+        return undefined
+    }
+  }, [activeGame, armies?.length, route.name])
+
+  return (
+    <VStack className='bg-primary-950 px-4 pb-4'>
+      <NavigationHeader
+        variant='avatar'
+        user={user}
+        rightButton={rightButton}
       />
-      <Tabs.Screen
-        name='games-tab'
-        options={{
-          tabBarLabel: '',
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              focused={focused}
-              routeName='games-tab'
-            />
-          )
-        }}
-      />
-    </Tabs>
+    </VStack>
   )
 }
 
@@ -109,6 +170,9 @@ const TabIcon = ({ focused, routeName }: TabIconProps) => {
 }
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1
+  },
   lottieView: {
     height: 46,
     width: 46
