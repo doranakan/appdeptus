@@ -1,13 +1,13 @@
 import { defaultScreenOptions } from 'appdeptus/constants'
 import { Stack } from 'expo-router'
 
-const JoinGameLayout = () => (
+const UserLayout = () => (
   <Stack
-    initialRouteName='[gameId]'
+    initialRouteName='index'
     screenOptions={defaultScreenOptions}
   >
-    <Stack.Screen name='[gameId]' />
+    <Stack.Screen name='index' />
   </Stack>
 )
 
-export default JoinGameLayout
+export default UserLayout

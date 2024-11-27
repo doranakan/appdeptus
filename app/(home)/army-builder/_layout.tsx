@@ -51,11 +51,11 @@ const ArmyBuilderLayout = () => {
         return
       }
 
-      while (router.canGoBack()) {
-        router.back()
+      if (router.canDismiss()) {
+        router.dismissAll()
       }
 
-      router.replace('armies-tab')
+      router.replace('/')
     },
     [createArmy]
   )
@@ -68,10 +68,9 @@ const ArmyBuilderLayout = () => {
         return
       }
 
-      while (router.canGoBack()) {
-        router.back()
+      if (router.canDismiss()) {
+        router.dismissAll()
       }
-
       router.navigate(`army/${id}`)
     },
     [id, updateArmy]

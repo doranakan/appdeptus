@@ -35,11 +35,9 @@ const CameraScreen = () => {
         return
       }
 
-      while (router.canGoBack()) {
-        router.back()
-      }
+      router.dismissAll()
 
-      router.push(`games/${gameId}`)
+      router.replace(`games/${gameId}`)
     }
   }, [gameId])
 
