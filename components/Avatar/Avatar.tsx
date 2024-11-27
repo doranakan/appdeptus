@@ -1,4 +1,5 @@
 import { type UserProfile } from 'appdeptus/models'
+import clsx from 'clsx'
 import React, { type ComponentProps, memo } from 'react'
 import { ActivityIndicator, View } from 'react-native'
 import InnerBorder from '../InnerBorder'
@@ -16,7 +17,9 @@ const Avatar = ({ size, user }: AvatarProps) => (
       <GSAvatar size={size}>
         {user ? (
           <>
-            <AvatarFallbackText>{user.name}</AvatarFallbackText>
+            <AvatarFallbackText className={clsx(size === '2xl' && 'pt-2')}>
+              {user.name}
+            </AvatarFallbackText>
             {user.image ? (
               <AvatarImage
                 source={{

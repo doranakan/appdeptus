@@ -1,10 +1,11 @@
 import { type UserProfile } from 'appdeptus/models'
+import { Link } from 'expo-router'
 import { ChevronLeft, ChevronRight } from 'lucide-react-native'
 import { memo, type ComponentProps } from 'react'
 import Avatar from '../Avatar'
 import Button from '../Button'
 import Progress from '../Progress'
-import { HStack } from '../ui'
+import { HStack, Pressable } from '../ui'
 
 type NavigationHeaderProps = {
   progress?: ComponentProps<typeof Progress>
@@ -29,7 +30,16 @@ const NavigationHeader = ({
     space='md'
   >
     {/* left items */}
-    {props.variant === 'avatar' ? <Avatar {...props} /> : null}
+    {props.variant === 'avatar' ? (
+      <Link
+        asChild
+        href='/user'
+      >
+        <Pressable>
+          <Avatar {...props} />
+        </Pressable>
+      </Link>
+    ) : null}
     {props.variant === 'backButton' ? (
       <Button
         color='primary'
