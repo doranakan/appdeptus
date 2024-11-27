@@ -27,7 +27,7 @@ import { type GestureResponderEvent, StyleSheet } from 'react-native'
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
 
-const ArmiesLayout = () => {
+const HomeLayout = () => {
   const themeName = useSelector(selectThemeName)
 
   const { bottom } = useSafeAreaInsets()
@@ -60,24 +60,14 @@ const ArmiesLayout = () => {
               name='armies-tab'
               options={{
                 tabBarLabel: '',
-                tabBarIcon: ({ focused }) => (
-                  <TabIcon
-                    focused={focused}
-                    routeName='armies-tab'
-                  />
-                )
+                tabBarIcon: ArmiesTabIcon
               }}
             />
             <Tabs.Screen
               name='games-tab'
               options={{
                 tabBarLabel: '',
-                tabBarIcon: ({ focused }) => (
-                  <TabIcon
-                    focused={focused}
-                    routeName='games-tab'
-                  />
-                )
+                tabBarIcon: GamesTabIcon
               }}
             />
           </Tabs>
@@ -169,6 +159,19 @@ const TabIcon = ({ focused, routeName }: TabIconProps) => {
   )
 }
 
+const ArmiesTabIcon = (props: Pick<TabIconProps, 'focused'>) => (
+  <TabIcon
+    {...props}
+    routeName='armies-tab'
+  />
+)
+const GamesTabIcon = (props: Pick<TabIconProps, 'focused'>) => (
+  <TabIcon
+    {...props}
+    routeName='games-tab'
+  />
+)
+
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1
@@ -230,4 +233,4 @@ const tabNameToIconMap: Record<
   }
 }
 
-export default ArmiesLayout
+export default HomeLayout
