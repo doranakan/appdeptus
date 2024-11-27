@@ -29,11 +29,9 @@ const QRCodeScreen = () => {
     gameId,
     eventHandler: (data) => {
       if (data.new.status) {
-        while (router.canGoBack()) {
-          router.back()
-        }
+        router.dismissAll()
 
-        router.push(`games/${gameId}`)
+        router.replace(`games/${gameId}`)
       }
     }
   })
