@@ -1,4 +1,5 @@
 import { Button, Input, Text, VStack } from 'appdeptus/components'
+import { router } from 'expo-router'
 import { AtSign, Key } from 'lucide-react-native'
 import { useCallback, useState } from 'react'
 import { useSignInMutation } from '../../api'
@@ -9,10 +10,15 @@ const Form = () => {
 
   const [signIn, { isLoading }] = useSignInMutation()
 
-  const handleSignIn = useCallback(
-    async () => await signIn({ email, password }),
-    [email, password, signIn]
-  )
+  const handleSignIn = useCallback(async () => {
+    const res = await signIn({ email, password })
+
+    if ('error' in res) {
+      return
+    }
+
+    router.replace('/')
+  }, [email, password, signIn])
   return (
     <VStack
       className='w-full p-4'

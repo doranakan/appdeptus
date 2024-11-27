@@ -43,7 +43,7 @@ const HomeLayout = () => {
           space='md'
         >
           <Tabs
-            initialRouteName='armies-tab'
+            initialRouteName='index'
             screenOptions={{
               ...defaultScreenOptions,
               header: (props) => <Header {...props} />,
@@ -57,7 +57,7 @@ const HomeLayout = () => {
             }}
           >
             <Tabs.Screen
-              name='armies-tab'
+              name='index'
               options={{
                 tabBarLabel: '',
                 tabBarIcon: ArmiesTabIcon
@@ -86,7 +86,7 @@ const Header = ({ route }: BottomTabHeaderProps) => {
 
   const rightButton = useMemo<ComponentProps<typeof Button> | undefined>(() => {
     switch (route.name) {
-      case 'armies-tab':
+      case 'index':
         return {
           href: 'army-builder',
           icon: Plus,
@@ -162,7 +162,7 @@ const TabIcon = ({ focused, routeName }: TabIconProps) => {
 const ArmiesTabIcon = (props: Pick<TabIconProps, 'focused'>) => (
   <TabIcon
     {...props}
-    routeName='armies-tab'
+    routeName='index'
   />
 )
 const GamesTabIcon = (props: Pick<TabIconProps, 'focused'>) => (
@@ -189,7 +189,7 @@ const tabNameToIconMap: Record<
     colorFilters: NonNullable<ComponentProps<typeof LottieView>['colorFilters']>
   }
 > = {
-  'armies-tab': {
+  index: {
     source: plan,
     colorFilters: [
       {

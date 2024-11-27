@@ -55,7 +55,7 @@ const ArmyBuilderLayout = () => {
         router.dismissAll()
       }
 
-      router.replace('armies-tab')
+      router.replace('/')
     },
     [createArmy]
   )

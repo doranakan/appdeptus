@@ -12,13 +12,11 @@ import {
 } from '@expo-google-fonts/ibm-plex-mono'
 import { Silkscreen_400Regular } from '@expo-google-fonts/silkscreen'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { usePrevious } from 'ahooks'
 import { GluestackUIProvider } from 'appdeptus/components/ui'
 import { defaultScreenOptions } from 'appdeptus/constants'
 import 'appdeptus/global.css'
-import { useGetSessionQuery } from 'appdeptus/modules/root/api'
-import { store, useAppDispatch } from 'appdeptus/store'
-import { router, SplashScreen, Stack } from 'expo-router'
+import { store } from 'appdeptus/store'
+import { SplashScreen, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { type PropsWithChildren, useEffect } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
@@ -70,35 +68,17 @@ const App = ({ children }: PropsWithChildren) => {
   )
 }
 
-const RootLayout = () => {
-  const dispatch = useAppDispatch()
-
-  const { data: session } = useGetSessionQuery()
-
-  const previous = usePrevious(session)
-
-  useEffect(() => {
-    if (session) {
-      router.replace('armies-tab')
-    }
-  }, [dispatch, previous, session])
-
-  return (
-    <Stack
-      initialRouteName='index'
-      screenOptions={defaultScreenOptions}
-    >
-      <Stack.Screen name='index' />
-    </Stack>
-  )
-}
+const AppLayout = () => (
+  <Stack screenOptions={defaultScreenOptions}>
+    <Stack.Screen name='(home)' />
+    <Stack.Screen name='(root)' />
+  </Stack>
+)
 
 const EntryPoint =
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // eslint-disable-next-line @typescript-eslint/dot-notation
-  process.env['EXPO_PUBLIC_STORYBOOK_ENABLED'] === 'true'
+  process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true'
     ? require('../.storybook').default
-    : RootLayout
+    : AppLayout
 
 const Layout = () => (
   <App>
