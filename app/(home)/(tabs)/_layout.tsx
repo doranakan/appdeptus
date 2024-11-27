@@ -12,6 +12,7 @@ import {
 import { defaultScreenOptions } from 'appdeptus/constants'
 import { useGetArmyListQuery } from 'appdeptus/modules/armies/api'
 import { useGetGameQuery } from 'appdeptus/modules/games/api'
+import { ActiveGameTopBar } from 'appdeptus/modules/games/components'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { Tabs } from 'expo-router'
 import LottieView, { type AnimationObject } from 'lottie-react-native'
@@ -32,10 +33,16 @@ const HomeLayout = () => {
 
   const { bottom } = useSafeAreaInsets()
 
+  const { data: activeGame } = useGetGameQuery()
+
   return (
-    <VStack className='flex-1 bg-primary-950'>
+    <VStack
+      className='flex-1 bg-primary-950'
+      space='md'
+    >
+      <ActiveGameTopBar />
       <SafeAreaView
-        edges={['top']}
+        edges={activeGame ? [] : ['top']}
         style={styles.safeArea}
       >
         <VStack
