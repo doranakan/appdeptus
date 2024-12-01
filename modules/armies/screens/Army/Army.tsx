@@ -1,27 +1,18 @@
 import {
-  ArmyBackground,
   ArmyRoster,
   Error,
   Loading,
-  NavigationHeader,
   resetTheme,
   ScreenContainer,
   setTheme,
-  Text,
-  themeColors,
   VStack
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { useAppDispatch } from 'appdeptus/store'
-import { LinearGradient } from 'expo-linear-gradient'
 import { useLocalSearchParams } from 'expo-router'
-import { EllipsisVertical } from 'lucide-react-native'
 import React, { useEffect } from 'react'
-import { StyleSheet } from 'react-native'
 import { useGetArmyListQuery } from '../../api'
 import OptionsBottomSheet from './OptionsBottomSheet'
-import TopContainer from './TopContainer'
-import ref from './ref'
 
 const ArmyScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -67,55 +58,11 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
   })
 
   return (
-    <ScreenContainer safeAreaInsets={['bottom', 'top']}>
-      <VStack className='absolute h-full w-full'>
-        <VStack className='flex-1'>
-          <ArmyBackground codex={army.codex.name} />
-          <LinearGradient
-            colors={[
-              `${themeColors[army.codex.name].primary[950]}00`,
-              themeColors[army.codex.name].primary[950]
-            ]}
-            style={styles.gradient}
-          />
-        </VStack>
-        <VStack className='flex-1' />
-      </VStack>
-      <VStack className='flex-1 px-4'>
-        <NavigationHeader
-          variant='backButton'
-          rightButton={{
-            onPress: () => ref.current?.present(),
-            variant: 'callback',
-            icon: EllipsisVertical
-          }}
-        />
-        <ArmyRoster
-          ListHeaderComponent={
-            <VStack space='md'>
-              <TopContainer army={army} />
-              <Text
-                className='uppercase'
-                family='body-bold'
-              >
-                units
-              </Text>
-              <VStack />
-            </VStack>
-          }
-          roster={army.roster}
-        />
-      </VStack>
+    <ScreenContainer>
+      <ArmyRoster army={army} />
       <OptionsBottomSheet army={army} />
     </ScreenContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  gradient: {
-    height: '100%',
-    width: '100%'
-  }
-})
 
 export default ArmyScreen

@@ -1,11 +1,4 @@
-import {
-  Badge,
-  Card,
-  HStack,
-  ScreenTitle,
-  Text,
-  VStack
-} from 'appdeptus/components'
+import { Badge, Card, HStack, Text, VStack } from 'appdeptus/components'
 import { useModelCount, useUnitCount, useWarlord } from 'appdeptus/hooks'
 import { type Army } from 'appdeptus/models'
 import { memo } from 'react'
@@ -23,7 +16,6 @@ const TopContainer = ({ army }: TopContainerProps) => {
 
   return (
     <VStack space='md'>
-      <ScreenTitle>{army.name}</ScreenTitle>
       <Card>
         <VStack
           className='p-4'
