@@ -18,8 +18,6 @@ import { useGetGameQuery } from '../../api'
 const ActiveGameTopBar = () => {
   const { data: game, refetch } = useGetGameQuery()
 
-  console.log('asd')
-
   useFocusEffect(
     useCallback(() => {
       refetch()
