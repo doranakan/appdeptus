@@ -18,6 +18,7 @@ export const Avatar: Story = {
   args: {
     variant: 'avatar',
     user: {
+      createdAt: '',
       id: '',
       name: 'doranakan',
       image:

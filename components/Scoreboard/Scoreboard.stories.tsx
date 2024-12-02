@@ -23,6 +23,7 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
       },
       cp: 12,
       profile: {
+        createdAt: '',
         id: '1',
         name: 'doranakan'
       },
@@ -47,6 +48,7 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
       },
       cp: 12,
       profile: {
+        createdAt: '',
         id: '2',
         name: 'ildenso'
       },

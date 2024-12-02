@@ -18,10 +18,13 @@ const activeGameStatusSchema = z.union([
 
 const endedGameStatusSchema = z.literal('ended')
 
-const playerSchema = z.object({
-  id: z.string(),
-  name: z.string()
-})
+const playerSchema = z
+  .object({
+    created_at: z.string(),
+    id: z.string(),
+    name: z.string()
+  })
+  .transform(({ created_at, ...rest }) => ({ ...rest, createdAt: created_at }))
 
 const createGameArmy = z.object({
   id: idSchema

@@ -6,6 +6,7 @@ const AvatarMeta: Meta<typeof Avatar> = {
   component: Avatar,
   args: {
     user: {
+      createdAt: '',
       id: '',
       name: 'doranakan',
       image:
@@ -22,6 +23,7 @@ export const Default: Story = {}
 export const Fallback: Story = {
   args: {
     user: {
+      createdAt: '',
       id: '',
       name: 'doranakan',
       image: undefined

@@ -33,16 +33,7 @@ const HomeLayout = () => {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        ...defaultScreenOptions,
-        /**
-         * we need to disabled navigation animation to avoid errors when the session expires
-         * since the short circuit above unmounts this stack without respect
-         */
-        animation: 'none'
-      }}
-    >
+    <Stack screenOptions={defaultScreenOptions}>
       <Stack.Screen name='(tabs)' />
     </Stack>
   )
