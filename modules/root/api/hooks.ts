@@ -1,5 +1,15 @@
 import rootApi from './api'
 
-const { useGetSessionQuery, useSignInMutation, useSignOutMutation } = rootApi
+const {
+  useGetSessionQuery,
+  useSignInMutation,
+  useSignInWithGoogleMutation,
+  useSignOutMutation
+} = rootApi
 
-export { useGetSessionQuery, useSignInMutation, useSignOutMutation }
+export {
+  useGetSessionQuery,
+  useSignInMutation,
+  useSignInWithGoogleMutation,
+  useSignOutMutation
+}

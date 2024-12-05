@@ -44,6 +44,12 @@
         {
           "cameraPermission": "$(PRODUCT_NAME) required the permission to use this device camera to scan game's QR codes"
         }
+      ],
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.535932431249-vesoagcrcra658q34jc2lfjpo48c65v2"
+        }
       ]
     ],
     "experiments": {

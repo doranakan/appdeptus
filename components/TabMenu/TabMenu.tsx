@@ -9,12 +9,12 @@ import InnerBorder from '../InnerBorder'
 import InsetShadow from '../InsetShadow'
 import TabMenuItem from './TabMenuItem'
 
-type TabMenuProps<T extends string> = {
-  options: readonly T[]
+type TabMenuProps<T extends Readonly<string>> = {
+  options: T[]
   onOptionSelected: (opt: T, index: number) => void
 }
 
-const TabMenu = <T extends string>({
+const TabMenu = <T extends Readonly<string>>({
   options,
   onOptionSelected
 }: TabMenuProps<T>) => {
