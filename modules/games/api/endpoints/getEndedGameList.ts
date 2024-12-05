@@ -21,8 +21,7 @@ const getEndedGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
             `
             *,
             player_one (
-              id,
-              name
+              *
             ),
             army_one (
               *,
@@ -31,8 +30,7 @@ const getEndedGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
               )
             ),
             player_two (
-              id,
-              name
+              *
             ),
             army_two (
               *,

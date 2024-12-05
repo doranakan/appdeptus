@@ -15,8 +15,7 @@ const getNewGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
             `
             *,
             player_one (
-              id,
-              name
+              *
             ),
             army_one (
               *,

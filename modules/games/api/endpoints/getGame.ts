@@ -42,8 +42,7 @@ const getGameWithId = async (gameId: ActiveGame['id']) =>
       `
             *,
             player_one (
-              id,
-              name
+              *
             ),
             army_one (
               *,
@@ -52,8 +51,7 @@ const getGameWithId = async (gameId: ActiveGame['id']) =>
               )
             ),
             player_two (
-              id,
-              name
+              *
             ),
             army_two (
               *,
