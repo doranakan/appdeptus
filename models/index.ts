@@ -1,6 +1,6 @@
 export * from './army'
 export * from './codex'
 export * from './detachment'
-export * from './signIn'
+export * from './emailAuthForm'
 export * from './unit'
 export * from './userProfile'

@@ -4,12 +4,14 @@ const {
   useGetSessionQuery,
   useSignInMutation,
   useSignInWithGoogleMutation,
-  useSignOutMutation
+  useSignOutMutation,
+  useSignUpMutation
 } = rootApi
 
 export {
   useGetSessionQuery,
   useSignInMutation,
   useSignInWithGoogleMutation,
-  useSignOutMutation
+  useSignOutMutation,
+  useSignUpMutation
 }
