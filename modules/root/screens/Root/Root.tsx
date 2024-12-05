@@ -1,14 +1,8 @@
 import { logo } from 'appdeptus/assets'
-import {
-  Background,
-  Card,
-  ScreenContainer,
-  Text,
-  VStack
-} from 'appdeptus/components'
+import { Background, ScreenContainer, Text, VStack } from 'appdeptus/components'
 import { KeyboardAvoidingView } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-import SignInWithGoogleButton from './GoogleSigninButton'
+import SignIn from './SignIn'
 
 const RootScreen = () => (
   <KeyboardAvoidingView
@@ -56,21 +50,7 @@ const RootScreen = () => (
           className='flex-1 justify-between'
           space='md'
         >
-          <Card>
-            <VStack
-              className='p-4'
-              space='md'
-            >
-              <Text
-                family='heading-regular'
-                size='xl'
-              >
-                Sign in
-              </Text>
-              {/* <Form /> */}
-              <SignInWithGoogleButton />
-            </VStack>
-          </Card>
+          <SignIn />
           <Text size='xs'>
             This app is a fan-made project and is not affiliated with or
             endorsed by Games Workshop Group PLC. Warhammer 40,000 and all
