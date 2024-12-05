@@ -8,7 +8,7 @@ import {
 } from 'appdeptus/components'
 import { KeyboardAvoidingView } from 'react-native'
 import { SvgXml } from 'react-native-svg'
-import Form from './Form'
+import SignInWithGoogleButton from './GoogleSigninButton'
 
 const RootScreen = () => (
   <KeyboardAvoidingView
@@ -57,7 +57,19 @@ const RootScreen = () => (
           space='md'
         >
           <Card>
-            <Form />
+            <VStack
+              className='p-4'
+              space='md'
+            >
+              <Text
+                family='heading-regular'
+                size='xl'
+              >
+                Sign in
+              </Text>
+              {/* <Form /> */}
+              <SignInWithGoogleButton />
+            </VStack>
           </Card>
           <Text size='xs'>
             This app is a fan-made project and is not affiliated with or

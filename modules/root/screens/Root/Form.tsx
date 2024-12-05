@@ -1,4 +1,4 @@
-import { Button, Input, Text, VStack } from 'appdeptus/components'
+import { Button, Input, VStack } from 'appdeptus/components'
 import { router } from 'expo-router'
 import { AtSign, Key } from 'lucide-react-native'
 import { useCallback, useState } from 'react'
@@ -20,11 +20,7 @@ const Form = () => {
     router.replace('/')
   }, [email, password, signIn])
   return (
-    <VStack
-      className='w-full p-4'
-      space='md'
-    >
-      <Text family='body-bold'>Sign in</Text>
+    <VStack space='md'>
       <Input
         Icon={AtSign}
         onChangeText={setEmail}
