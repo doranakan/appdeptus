@@ -1,6 +1,6 @@
 import { type UserProfile } from 'appdeptus/models'
 import { Link } from 'expo-router'
-import { ChevronLeft, ChevronRight } from 'lucide-react-native'
+import { ChevronLeft, ChevronRight, X } from 'lucide-react-native'
 import { memo, type ComponentProps } from 'react'
 import Avatar from '../Avatar'
 import Button from '../Button'
@@ -12,7 +12,7 @@ type NavigationHeaderProps = {
   rightButton?: ComponentProps<typeof Button>
 } & (
   | {
-      variant: 'backButton'
+      variant: 'backButton' | 'closeButton'
     }
   | {
       variant: 'avatar'
@@ -46,6 +46,14 @@ const NavigationHeader = ({
         variant='link'
         href='../'
         icon={ChevronLeft}
+      />
+    ) : null}
+    {props.variant === 'closeButton' ? (
+      <Button
+        color='primary'
+        variant='link'
+        href='../'
+        icon={X}
       />
     ) : null}
 
