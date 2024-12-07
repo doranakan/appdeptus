@@ -1,1 +1,4 @@
+export { default as EmailConfirmedScreen } from './EmailConfirmed'
+export { default as PrivacyPolicyScreen } from './PrivacyPolicy'
+export { default as RegistrationScreen } from './Registration'
 export { default as RootScreen } from './Root'
