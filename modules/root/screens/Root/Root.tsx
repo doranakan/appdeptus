@@ -1,12 +1,12 @@
 import { logo } from 'appdeptus/assets'
 import { Background, ScreenContainer, Text, VStack } from 'appdeptus/components'
-import { KeyboardAvoidingView } from 'react-native'
+import { KeyboardAvoidingView, Platform } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import SignIn from './SignIn'
 
 const RootScreen = () => (
   <KeyboardAvoidingView
-    behavior='padding'
+    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     style={{ flex: 1 }}
   >
     <VStack className='flex-1 bg-primary-950'>
@@ -22,10 +22,10 @@ const RootScreen = () => (
       </VStack>
       <ScreenContainer
         className='bg-transparent p-4'
-        safeAreaInsets={['bottom', 'top']}
+        safeAreaInsets={['top']}
       >
         <VStack
-          className='flex-1 items-center justify-center'
+          className='items-center justify-center py-4'
           space='4xl'
         >
           <SvgXml
@@ -47,7 +47,7 @@ const RootScreen = () => (
           </VStack>
         </VStack>
         <VStack
-          className='flex-1 justify-between'
+          className='flex-1 justify-between py-4'
           space='md'
         >
           <SignIn />

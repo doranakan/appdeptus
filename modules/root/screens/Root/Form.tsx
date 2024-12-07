@@ -1,4 +1,4 @@
-import { Button, Input, VStack } from 'appdeptus/components'
+import { Button, Input, Text, TextLink, VStack } from 'appdeptus/components'
 import { router } from 'expo-router'
 import { AtSign, Key } from 'lucide-react-native'
 import { useCallback, useState } from 'react'
@@ -46,6 +46,10 @@ const Form = () => {
         variant='callback'
         text='Sign in'
       />
+      <Text size='sm'>
+        {"You're not an Appdept yet? "}
+        <TextLink href='registration'>Become an Appdept</TextLink>
+      </Text>
     </VStack>
   )
 }

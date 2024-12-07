@@ -1,5 +1,6 @@
 import { sessionApi } from 'appdeptus/api'
 import { getSession, signIn, signInWithGoogle, signOut } from './endpoints'
+import signUp from './endpoints/signUp'
 import SessionApiTag from './tags'
 
 const rootApi = sessionApi
@@ -9,7 +10,8 @@ const rootApi = sessionApi
       getSession: getSession(builder),
       signIn: signIn(builder),
       signInWithGoogle: signInWithGoogle(builder),
-      signOut: signOut(builder)
+      signOut: signOut(builder),
+      signUp: signUp(builder)
     }),
     overrideExisting: true
   })

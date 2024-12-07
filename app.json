@@ -17,14 +17,16 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.appdeptus"
+      "bundleIdentifier": "com.appdeptus",
+      "associatedDomains": ["webcredentials:appdeptus.com"]
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/resources/adaptive-icon.png",
         "backgroundColor": "#18212F"
       },
-      "package": "com.appdeptus"
+      "package": "com.appdeptus",
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "bundler": "metro",

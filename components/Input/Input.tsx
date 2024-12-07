@@ -1,5 +1,10 @@
 import { type LucideIcon } from 'lucide-react-native'
-import { memo, type ComponentProps } from 'react'
+import {
+  forwardRef,
+  memo,
+  type ComponentProps,
+  type ForwardRefRenderFunction
+} from 'react'
 import { StyleSheet } from 'react-native'
 import InnerBorder from '../InnerBorder'
 import InsetShadow from '../InsetShadow'
@@ -19,15 +24,21 @@ type InputProps = {
   disabled?: boolean
 } & ComponentProps<typeof InputField>
 
-const Input = ({
-  Icon,
-  onChangeText,
-  value,
+const Input: ForwardRefRenderFunction<
+  React.ElementRef<typeof InputField>,
+  InputProps
+> = (
+  {
+    Icon,
+    onChangeText,
+    value,
 
-  disabled,
-  placeholder,
-  ...props
-}: InputProps) => (
+    disabled,
+    placeholder,
+    ...props
+  },
+  ref
+) => (
   <VStack className='w-full'>
     <InnerBorder>
       <VStack className='bg-primary-800'>
@@ -45,6 +56,7 @@ const Input = ({
               </InputSlot>
               <InputField
                 {...props}
+                ref={ref}
                 className='text-primary-50'
                 placeholder={placeholder}
                 onChangeText={onChangeText}
@@ -65,4 +77,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default memo(Input)
+export default memo(forwardRef(Input))
