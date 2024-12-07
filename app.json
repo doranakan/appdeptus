@@ -17,7 +17,8 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.appdeptus"
+      "bundleIdentifier": "com.appdeptus",
+      "associatedDomains": ["webcredentials:appdeptus.com"]
     },
     "android": {
       "adaptiveIcon": {
