@@ -25,7 +25,7 @@ const RootScreen = () => (
         safeAreaInsets={['top']}
       >
         <VStack
-          className='flex-1 items-center justify-center'
+          className='items-center justify-center py-4'
           space='4xl'
         >
           <SvgXml
@@ -47,7 +47,7 @@ const RootScreen = () => (
           </VStack>
         </VStack>
         <VStack
-          className='flex-1 justify-between'
+          className='flex-1 justify-between py-4'
           space='md'
         >
           <SignIn />
