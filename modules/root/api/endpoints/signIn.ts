@@ -5,7 +5,10 @@ import { supabase } from 'appdeptus/utils'
 import SessionApiTag from '../tags'
 
 const signIn = (builder: SessionEndpointBuilder<SessionApiTag>) =>
-  builder.mutation<AuthTokenResponsePassword['data'], EmailAuthForm>({
+  builder.mutation<
+    AuthTokenResponsePassword['data'],
+    Omit<EmailAuthForm, 'name'>
+  >({
     queryFn: async ({ email, password }) => {
       try {
         const { data, error } = await supabase.auth.signInWithPassword({

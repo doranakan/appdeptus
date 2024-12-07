@@ -1,29 +1,27 @@
-import { type AuthTokenResponsePassword } from '@supabase/supabase-js'
+import { type AuthResponse } from '@supabase/supabase-js'
 import { type SessionEndpointBuilder } from 'appdeptus/api'
 import { type EmailAuthForm } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import SessionApiTag from '../tags'
 
 const signUp = (builder: SessionEndpointBuilder<SessionApiTag>) =>
-  builder.mutation<AuthTokenResponsePassword['data'], EmailAuthForm>({
-    queryFn: async ({ email, password }) => {
+  builder.mutation<AuthResponse['data'], EmailAuthForm>({
+    queryFn: async ({ email, name, password }) => {
       try {
         const { data, error } = await supabase.auth.signUp({
           email,
-          password
+          password,
+          options: {
+            data: { name }
+          }
         })
-
-        console.log({ data, error })
 
         if (error) {
           return { error }
         }
 
         return {
-          data: {
-            session: data.session,
-            user: data.user
-          }
+          data
         }
       } catch (error) {
         return { error }
