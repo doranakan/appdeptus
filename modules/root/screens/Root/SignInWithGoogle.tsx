@@ -2,17 +2,19 @@ import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import googleIcon from 'appdeptus/assets/svg/google.svg'
 import { Card, HStack, Pressable, Text } from 'appdeptus/components'
 import { router } from 'expo-router'
+import { memo } from 'react'
 import { SvgXml } from 'react-native-svg'
 import { useSignInWithGoogleMutation } from '../../api'
 
 GoogleSignin.configure({
-  scopes: ['email'],
+  scopes: ['email', 'profile'],
   webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_ANDROID,
   iosClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_IOS,
-  forceCodeForRefreshToken: true
+  forceCodeForRefreshToken: true,
+  offlineAccess: true
 })
 
-const SignInWithGoogleButton = () => {
+const SignInWithGoogle = () => {
   const [signInWithGoogle, { isLoading }] = useSignInWithGoogleMutation()
 
   return (
@@ -30,8 +32,9 @@ const SignInWithGoogleButton = () => {
     >
       <Card>
         <HStack
-          className='items-center bg-primary-50 p-4'
-          space='xl'
+          className='items-center justify-center p-4'
+          space='lg'
+          style={{ backgroundColor: 'white', height: 56 }}
         >
           <SvgXml
             height={24}
@@ -43,7 +46,7 @@ const SignInWithGoogleButton = () => {
             family='body-medium'
             size='xl'
           >
-            Sign In with Google
+            Sign in with Google
           </Text>
         </HStack>
       </Card>
@@ -51,4 +54,4 @@ const SignInWithGoogleButton = () => {
   )
 }
 
-export default SignInWithGoogleButton
+export default memo(SignInWithGoogle)

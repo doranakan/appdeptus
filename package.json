@@ -34,6 +34,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "expo": "~52.0.17",
+    "expo-apple-authentication": "^7.1.2",
     "expo-application": "~6.0.1",
     "expo-asset": "~11.0.1",
     "expo-blur": "~14.0.1",

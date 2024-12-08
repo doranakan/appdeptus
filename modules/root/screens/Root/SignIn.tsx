@@ -2,7 +2,8 @@ import { Card, TabMenu, Text, VStack } from 'appdeptus/components'
 import { useState } from 'react'
 import { PrivacyLink } from '../../components'
 import Form from './Form'
-import SignInWithGoogleButton from './GoogleSigninButton'
+import SignInWithApple from './SignInWithApple'
+import SignInWithGoogle from './SignInWithGoogle'
 
 const SignIn = () => {
   const [signInMode, setSignInMode] = useState<'fast' | 'standard'>()
@@ -25,7 +26,8 @@ const SignIn = () => {
         />
         {signInMode === 'fast' ? (
           <VStack space='md'>
-            <SignInWithGoogleButton />
+            <SignInWithGoogle />
+            <SignInWithApple />
             <PrivacyLink />
           </VStack>
         ) : (
