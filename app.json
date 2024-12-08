@@ -1,7 +1,7 @@
 {
   "expo": {
     "owner": "appdeptus",
-    "name": "appdeptus",
+    "name": "Appdeptus",
     "slug": "appdeptus",
     "version": "0.0.1",
     "scheme": "appdeptus",
@@ -14,11 +14,17 @@
       "resizeMode": "contain",
       "backgroundColor": "#18212F"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true,
+      "associatedDomains": [
+        "webcredentials:appdeptus.com"
+      ],
       "bundleIdentifier": "com.appdeptus",
-      "associatedDomains": ["webcredentials:appdeptus.com"]
+      "supportsTablet": true,
+      "usesAppleSignIn": true,
+      "appleTeamId": "637BR9U962"
     },
     "android": {
       "adaptiveIcon": {
@@ -26,7 +32,11 @@
         "backgroundColor": "#18212F"
       },
       "package": "com.appdeptus",
-      "softwareKeyboardLayoutMode": "pan"
+      "softwareKeyboardLayoutMode": "pan",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -34,11 +44,16 @@
     },
     "plugins": [
       "expo-router",
-      ["expo-font"],
+      [
+        "expo-font"
+      ],
       [
         "expo-asset",
         {
-          "assets": ["./assets/resources/armies", "./assets/resources/misc"]
+          "assets": [
+            "./assets/resources/armies",
+            "./assets/resources/misc"
+          ]
         }
       ],
       [
@@ -52,6 +67,9 @@
         {
           "iosUrlScheme": "com.googleusercontent.apps.535932431249-vesoagcrcra658q34jc2lfjpo48c65v2"
         }
+      ],
+      [
+        "expo-apple-authentication"
       ]
     ],
     "experiments": {
