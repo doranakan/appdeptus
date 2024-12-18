@@ -35,10 +35,13 @@ const Progress = ({ currentStep, steps, text }: ProgressProps) => {
   }))
 
   return (
-    <View className='h-4 max-h-4 w-full flex-1'>
+    <View className='max-h-6 w-full flex-1'>
       <InnerBorder rounded='full'>
         <View className='h-full w-full items-center justify-center overflow-hidden rounded-full bg-primary-800'>
-          <Text className='z-2 relative text-xs uppercase color-primary-50'>
+          <Text
+            className='z-2 relative uppercase color-primary-50'
+            size='sm'
+          >
             {text}
           </Text>
           <Animated.View style={[styles.gradientWrapper, rStyle]}>

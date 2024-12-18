@@ -64,10 +64,7 @@ const TabMenu = <T extends Readonly<string>>({
   const selectorStyle = useMemo(() => [style, rStyle], [rStyle, style])
 
   return (
-    <InsetShadow
-      borderRadius={24}
-      className='rounded-3xl'
-    >
+    <InsetShadow borderRadius={22}>
       <View
         className='w-full flex-row items-center rounded-3xl bg-primary-800 p-2'
         onLayout={onLayout}
