@@ -18,9 +18,6 @@
       "**/*"
     ],
     "ios": {
-      "associatedDomains": [
-        "webcredentials:appdeptus.com"
-      ],
       "bundleIdentifier": "com.appdeptus",
       "supportsTablet": true,
       "usesAppleSignIn": true,
