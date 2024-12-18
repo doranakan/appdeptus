@@ -1,6 +1,7 @@
 import { logo } from 'appdeptus/assets'
-import { Background, ScreenContainer, Text, VStack } from 'appdeptus/components'
+import { Background, Text, VStack } from 'appdeptus/components'
 import { KeyboardAvoidingView, Platform } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
 import SignIn from './SignIn'
 
@@ -20,20 +21,20 @@ const RootScreen = () => (
         </VStack>
         <VStack className='flex-1' />
       </VStack>
-      <ScreenContainer
-        className='bg-transparent p-4'
-        safeAreaInsets={['top']}
-      >
+      <SafeAreaView style={{ flex: 1 }}>
         <VStack
-          className='items-center justify-center py-4'
-          space='4xl'
+          className='flex-1 bg-transparent p-4'
+          space='2xl'
         >
-          <SvgXml
-            xml={logo}
-            height={100}
-            width={100}
-          />
-          <VStack space='md'>
+          <VStack
+            className='flex-1 items-center justify-center'
+            space='md'
+          >
+            <SvgXml
+              xml={logo}
+              height={100}
+              width={100}
+            />
             <Text
               className='text-center'
               family='heading-regular'
@@ -42,14 +43,9 @@ const RootScreen = () => (
               Appdeptus
             </Text>
             <Text className='text-center'>
-              {'Unofficial Warhammer 40.000™\ncompanion app'}
+              Unofficial Warhammer 40.000™ companion app
             </Text>
           </VStack>
-        </VStack>
-        <VStack
-          className='flex-1 justify-between py-4'
-          space='md'
-        >
           <SignIn />
           <Text size='xs'>
             This app is a fan-made project and is not affiliated with or
@@ -61,7 +57,7 @@ const RootScreen = () => (
             informational purposes only and is made by fans for fans.
           </Text>
         </VStack>
-      </ScreenContainer>
+      </SafeAreaView>
     </VStack>
   </KeyboardAvoidingView>
 )

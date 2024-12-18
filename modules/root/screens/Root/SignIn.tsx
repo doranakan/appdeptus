@@ -6,7 +6,7 @@ import SignInWithApple from './SignInWithApple'
 import SignInWithGoogle from './SignInWithGoogle'
 
 const SignIn = () => {
-  const [signInMode, setSignInMode] = useState<'fast' | 'standard'>()
+  const [signInMode, setSignInMode] = useState<'social' | 'email'>('social')
 
   return (
     <Card>
@@ -20,11 +20,13 @@ const SignIn = () => {
         >
           Sign in
         </Text>
-        <TabMenu
-          onOptionSelected={setSignInMode}
-          options={['fast', 'standard']}
-        />
-        {signInMode === 'fast' ? (
+        {__DEV__ ? (
+          <TabMenu
+            onOptionSelected={setSignInMode}
+            options={['social', 'email']}
+          />
+        ) : null}
+        {signInMode === 'social' ? (
           <VStack space='md'>
             <SignInWithGoogle />
             <SignInWithApple />
