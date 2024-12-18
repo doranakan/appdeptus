@@ -1,9 +1,14 @@
 import { type UserProfile } from 'appdeptus/models'
 import clsx from 'clsx'
 import React, { type ComponentProps, memo } from 'react'
-import { ActivityIndicator, View } from 'react-native'
+import { ActivityIndicator } from 'react-native'
 import InnerBorder from '../InnerBorder'
-import { AvatarFallbackText, AvatarImage, Avatar as GSAvatar } from '../ui'
+import {
+  AvatarFallbackText,
+  AvatarImage,
+  Avatar as GSAvatar,
+  VStack
+} from '../ui'
 
 type AvatarProps = {
   user: UserProfile | undefined
@@ -12,9 +17,9 @@ type AvatarProps = {
 }
 
 const Avatar = ({ size, user }: AvatarProps) => (
-  <View>
+  <VStack>
     <InnerBorder rounded='full'>
-      <GSAvatar size={size}>
+      <GSAvatar size={size ?? 'lg'}>
         {user ? (
           <>
             <AvatarFallbackText className={clsx(size === '2xl' && 'pt-2')}>
@@ -33,7 +38,7 @@ const Avatar = ({ size, user }: AvatarProps) => (
         )}
       </GSAvatar>
     </InnerBorder>
-  </View>
+  </VStack>
 )
 
 export default memo(Avatar)

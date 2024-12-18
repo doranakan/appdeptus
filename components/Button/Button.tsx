@@ -91,7 +91,7 @@ const ButtonContent = ({
   const themeName = useSelector(selectThemeName)
   return (
     <VStack className='overflow-hidden'>
-      <InnerBorder rounded={size === 'sm' ? 'xl' : '2xl'}>
+      <InnerBorder rounded={size === 'sm' ? 'xl' : '3xl'}>
         <LinearGradient
           className='bg-gradient-to-br from-tertiary-600 to-tertiary-800'
           colors={[
@@ -102,7 +102,10 @@ const ButtonContent = ({
           end={{ x: 1, y: 3 }}
         >
           <HStack
-            className={clsx(['justify-center', sizeToPaddingMap[size]])}
+            className={clsx([
+              'items-center justify-center',
+              sizeToPaddingMap[size]
+            ])}
             space='md'
           >
             {loading ? <ActivityIndicator color='white' /> : null}
@@ -117,6 +120,7 @@ const ButtonContent = ({
               <Text
                 className='uppercase'
                 family='body-bold'
+                size='lg'
               >
                 {text}
               </Text>
@@ -129,12 +133,12 @@ const ButtonContent = ({
 }
 
 const sizeToRoundedMap = {
-  md: 'rounded-2xl',
+  md: 'rounded-3xl',
   sm: 'rounded-xl'
 } as const satisfies Record<NonNullable<ButtonProps['size']>, string>
 
 const sizeToPaddingMap = {
-  md: 'p-3',
+  md: 'p-4 min-h-16 min-w-16',
   sm: 'px-2 py-1'
 } as const satisfies Record<NonNullable<ButtonProps['size']>, string>
 

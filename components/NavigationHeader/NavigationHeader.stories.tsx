@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { Check } from 'lucide-react-native'
 import NavigationHeader from './NavigationHeader'
 
 const NavigationHeaderMeta: Meta<typeof NavigationHeader> = {
@@ -31,7 +32,7 @@ export const RightButton: Story = {
     rightButton: {
       disabled: true,
       onPress: () => {},
-      text: 'B',
+      icon: Check,
       variant: 'callback'
     }
   }

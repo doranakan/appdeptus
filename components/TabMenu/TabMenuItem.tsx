@@ -39,7 +39,7 @@ const TabMenuItem = ({ isSelected, option, onPress }: TabMenuItemProps) => {
 
   return (
     <Pressable
-      className='flex-1 items-center justify-center rounded-2xl px-4 py-2'
+      className='flex-1 items-center justify-center rounded-2xl p-4'
       onPress={() => {
         onPress(option)
       }}

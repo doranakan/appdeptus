@@ -43,7 +43,7 @@ const Input: ForwardRefRenderFunction<
     <InnerBorder>
       <VStack className='bg-primary-800'>
         <InsetShadow>
-          <VStack className='p-1 px-4'>
+          <VStack className='h-16 justify-center p-1 px-4'>
             <InputContainer
               className='border-0'
               variant='outline'
