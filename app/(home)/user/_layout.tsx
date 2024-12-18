@@ -7,6 +7,13 @@ const UserLayout = () => (
     screenOptions={defaultScreenOptions}
   >
     <Stack.Screen name='index' />
+    <Stack.Screen
+      name='privacy-policy'
+      options={{
+        animation: 'slide_from_bottom',
+        presentation: 'modal'
+      }}
+    />
   </Stack>
 )
 
