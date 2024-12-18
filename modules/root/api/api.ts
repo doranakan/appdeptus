@@ -1,7 +1,12 @@
 import { sessionApi } from 'appdeptus/api'
-import { getSession, signIn, signInWithGoogle, signOut } from './endpoints'
-import signInWithApple from './endpoints/signInWithApple'
-import signUp from './endpoints/signUp'
+import {
+  getSession,
+  signIn,
+  signInWithApple,
+  signInWithGoogle,
+  signOut,
+  signUp
+} from './endpoints'
 import SessionApiTag from './tags'
 
 const rootApi = sessionApi
