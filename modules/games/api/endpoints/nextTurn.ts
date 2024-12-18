@@ -21,12 +21,12 @@ const nextTurn = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           .eq('id', gameId)
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         return { data }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     invalidatesTags: (_res, _error, { gameId }) => [

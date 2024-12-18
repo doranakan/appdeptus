@@ -28,7 +28,7 @@ const getNewGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           .eq('id', gameId)
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         const game = await getNewGameSchema.parseAsync(data[0])
@@ -37,7 +37,7 @@ const getNewGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           data: game
         }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     }
   })

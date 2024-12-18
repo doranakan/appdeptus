@@ -25,13 +25,13 @@ const useToast = () => {
               nativeID={id}
               style={{ width: window.width }}
             >
-              <Card>
+              <Card variant='selected'>
                 <VStack
                   className='w-full p-4'
                   space='md'
                 >
                   <Text family='heading-regular'>{title}</Text>
-                  <Text>{description}</Text>
+                  <Text className='line-clamp-4'>{description}</Text>
                 </VStack>
               </Card>
             </Toast>

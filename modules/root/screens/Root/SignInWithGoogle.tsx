@@ -1,6 +1,6 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import googleIcon from 'appdeptus/assets/svg/google.svg'
-import { Card, HStack, Pressable, Text } from 'appdeptus/components'
+import { Card, HStack, Pressable, Text, useToast } from 'appdeptus/components'
 import { router } from 'expo-router'
 import { memo } from 'react'
 import { SvgXml } from 'react-native-svg'
@@ -17,12 +17,15 @@ GoogleSignin.configure({
 const SignInWithGoogle = () => {
   const [signInWithGoogle, { isLoading }] = useSignInWithGoogleMutation()
 
+  const { show } = useToast()
+
   return (
     <Pressable
       onPress={async () => {
         const res = await signInWithGoogle()
 
         if ('error' in res) {
+          show({ title: '⚠️ error', description: String(res.error) })
           return
         }
 

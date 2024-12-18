@@ -5,6 +5,7 @@ import {
   resetTheme,
   ScreenContainer,
   selectThemeName,
+  useToast,
   VStack
 } from 'appdeptus/components'
 import { defaultScreenOptions } from 'appdeptus/constants'
@@ -44,10 +45,13 @@ const ArmyBuilderLayout = () => {
 
   const [updateArmy] = useUpdateArmyMutation()
 
+  const { show } = useToast()
+
   const newArmy = useCallback<SubmitHandler<ArmyBuilder>>(
     async (armyBuilder) => {
       const res = await createArmy(armyBuilder)
       if ('error' in res) {
+        show({ title: '⚠️ error', description: String(res.error) })
         return
       }
 
@@ -57,7 +61,7 @@ const ArmyBuilderLayout = () => {
 
       router.replace('/')
     },
-    [createArmy]
+    [createArmy, show]
   )
 
   const editArmy = useCallback<SubmitHandler<ArmyBuilder>>(
@@ -65,6 +69,7 @@ const ArmyBuilderLayout = () => {
       const res = await updateArmy(armyBuilder)
 
       if ('error' in res) {
+        show({ title: '⚠️ error', description: String(res.error) })
         return
       }
 
@@ -73,7 +78,7 @@ const ArmyBuilderLayout = () => {
       }
       router.navigate(`army/${id}`)
     },
-    [id, updateArmy]
+    [id, show, updateArmy]
   )
 
   const codex = watch('codex')

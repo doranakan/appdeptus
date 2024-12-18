@@ -24,12 +24,12 @@ const signInWithGoogle = (builder: SessionEndpointBuilder<SessionApiTag>) =>
             }
           }
 
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         return { error: 'no ID token present' }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     invalidatesTags: (_res, error) => (!error ? [SessionApiTag.SESSION] : [])

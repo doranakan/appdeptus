@@ -17,14 +17,14 @@ const signUp = (builder: SessionEndpointBuilder<SessionApiTag>) =>
         })
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         return {
           data
         }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     invalidatesTags: (_res, error) => (!error ? [SessionApiTag.SESSION] : [])

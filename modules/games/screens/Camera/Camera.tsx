@@ -5,6 +5,7 @@ import {
   Loading,
   ScreenContainer,
   Text,
+  useToast,
   VStack
 } from 'appdeptus/components'
 import InnerBorder from 'appdeptus/components/InnerBorder'
@@ -27,11 +28,14 @@ const CameraScreen = () => {
 
   const [gameId, setGameId] = useState<number>()
 
+  const { show } = useToast()
+
   useAsyncEffect(async () => {
     if (gameId && !isLoading) {
       const res = await startGame({ gameId, army: watch('playerOne.army') })
 
       if ('error' in res) {
+        show({ title: '⚠️ error', description: String(res.error) })
         return
       }
 

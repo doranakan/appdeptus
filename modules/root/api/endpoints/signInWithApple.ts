@@ -22,7 +22,7 @@ const signInWithApple = (builder: SessionEndpointBuilder<SessionApiTag>) =>
           })
 
           if (error) {
-            return { error }
+            return { error: JSON.stringify(error) }
           }
 
           if (!data.session || !data.user) {
@@ -34,7 +34,7 @@ const signInWithApple = (builder: SessionEndpointBuilder<SessionApiTag>) =>
 
         return { error: 'no ID token present' }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     invalidatesTags: (_res, error) => (!error ? [SessionApiTag.SESSION] : [])

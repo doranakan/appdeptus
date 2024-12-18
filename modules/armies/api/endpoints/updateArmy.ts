@@ -14,14 +14,14 @@ const updateArmy = (builder: CoreEndpointBuilder<string>) =>
           .eq('id', id)
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         return {
           data
         }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     invalidatesTags: (_res, error, { id }) => {

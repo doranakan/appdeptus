@@ -14,14 +14,14 @@ const deleteArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           .eq('id', armyId)
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         return {
           data
         }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     invalidatesTags: [ArmiesApiTag.ARMY_LIST]

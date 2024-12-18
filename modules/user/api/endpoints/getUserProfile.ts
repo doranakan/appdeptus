@@ -20,14 +20,14 @@ const getUserProfile = (builder: CoreEndpointBuilder) =>
           .eq('id', res)
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         const userProfile = await userProfileSchema.parseAsync(data[0])
 
         return { data: userProfile }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     }
   })

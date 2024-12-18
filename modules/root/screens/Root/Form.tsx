@@ -1,4 +1,11 @@
-import { Button, Input, Text, TextLink, VStack } from 'appdeptus/components'
+import {
+  Button,
+  Input,
+  Text,
+  TextLink,
+  useToast,
+  VStack
+} from 'appdeptus/components'
 import { router } from 'expo-router'
 import { AtSign, Key } from 'lucide-react-native'
 import { useCallback, useState } from 'react'
@@ -10,15 +17,19 @@ const Form = () => {
 
   const [signIn, { isLoading }] = useSignInMutation()
 
+  const { show } = useToast()
+
   const handleSignIn = useCallback(async () => {
     const res = await signIn({ email, password })
 
     if ('error' in res) {
+      show({ title: '⚠️ error', description: String(res.error) })
       return
     }
 
     router.replace('/')
-  }, [email, password, signIn])
+  }, [email, password, show, signIn])
+
   return (
     <VStack space='md'>
       <Input

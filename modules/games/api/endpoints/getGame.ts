@@ -14,7 +14,7 @@ const getGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           : await getGameWithouId()
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         if (!data?.length) {
@@ -29,7 +29,7 @@ const getGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
 
         return { data: game }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     providesTags: [GamesApiTag.GAME_LIST]

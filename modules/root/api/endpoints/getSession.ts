@@ -10,12 +10,12 @@ const getSession = (builder: SessionEndpointBuilder<SessionApiTag>) =>
         const { data, error } = await supabase.auth.getSession()
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         return { data: data.session }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     providesTags: [SessionApiTag.SESSION]

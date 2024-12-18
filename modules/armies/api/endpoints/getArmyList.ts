@@ -24,14 +24,14 @@ const getArmyList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           .eq('user_id', userId)
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         const armyList = armyListSchema.parse(data)
 
         return { data: armyList }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     providesTags: [ArmiesApiTag.ARMY_LIST]

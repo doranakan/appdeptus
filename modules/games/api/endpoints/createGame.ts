@@ -18,7 +18,7 @@ const createGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           .select('id')
 
         if (gameArmyError) {
-          return { error: gameArmyError }
+          return { error: JSON.stringify(gameArmyError) }
         }
 
         const { id: gameArmyId } = await createGameArmy.parseAsync(
@@ -33,14 +33,14 @@ const createGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           .select('id')
 
         if (gameError) {
-          return { error: gameError }
+          return { error: JSON.stringify(gameError) }
         }
 
         const { id } = await createGameSchema.parseAsync(gameData[0])
 
         return { data: id }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     }
   })

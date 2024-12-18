@@ -9,6 +9,7 @@ import {
   ScreenContainer,
   ScreenSubtitle,
   setTheme,
+  useToast,
   VStack
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
@@ -40,6 +41,8 @@ const JoinGameScreen = () => {
   const dispatch = useAppDispatch()
 
   useUnmount(() => dispatch(resetTheme()))
+
+  const { show } = useToast()
 
   if (!gameId || isError) {
     return null
@@ -77,6 +80,7 @@ const JoinGameScreen = () => {
                 })
 
                 if ('error' in res) {
+                  show({ title: '⚠️ error', description: String(res.error) })
                   return
                 }
 

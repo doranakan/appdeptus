@@ -5,6 +5,7 @@ import {
   Loading,
   ScreenContainer,
   Text,
+  useToast,
   VStack
 } from 'appdeptus/components'
 import { type NewGame } from 'appdeptus/models/game'
@@ -25,6 +26,8 @@ const QRCodeScreen = () => {
 
   const window = useWindowDimensions()
 
+  const { show } = useToast()
+
   useGameUpdateListener({
     gameId,
     eventHandler: (data) => {
@@ -41,6 +44,7 @@ const QRCodeScreen = () => {
       const res = await createGame(getValues().playerOne.army)
 
       if ('error' in res) {
+        show({ title: '⚠️ error', description: String(res.error) })
         return
       }
 

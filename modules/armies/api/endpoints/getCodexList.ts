@@ -15,14 +15,14 @@ const getCodexList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           .select()
 
         if (codexesError) {
-          return { error: codexesError }
+          return { error: JSON.stringify(codexesError) }
         }
 
         const codexes = codexListSchema.parse(data)
 
         return { data: sortBy(codexes, ({ name }) => name) }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     }
   })

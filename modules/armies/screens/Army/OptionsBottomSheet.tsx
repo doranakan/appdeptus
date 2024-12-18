@@ -6,6 +6,7 @@ import {
   Card,
   HStack,
   Text,
+  useToast,
   VStack
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
@@ -32,17 +33,20 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
     router.push(`army-builder/${army.id}`)
   }, [army.id])
 
+  const { show } = useToast()
+
   const handleDelete = useCallback(async () => {
     const res = await deleteArmy(army.id)
 
     if ('error' in res) {
+      show({ title: '⚠️ error', description: String(res.error) })
       return
     }
 
     ref.current?.dismiss()
 
     router.back()
-  }, [army.id, deleteArmy])
+  }, [army.id, deleteArmy, show])
 
   return (
     <BottomSheet

@@ -30,7 +30,7 @@ const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           .eq('codex', codexId)
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         const units = unitListSchema.parse(mapNullToUndefined(data))
@@ -39,7 +39,7 @@ const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
 
         return { data: sortedUnits }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     }
   })

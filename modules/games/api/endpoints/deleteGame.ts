@@ -14,12 +14,12 @@ const deleteGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           .eq('id', armyId)
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         return { data }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     }
   })

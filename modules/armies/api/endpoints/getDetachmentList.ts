@@ -26,14 +26,14 @@ const getDetachmentList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           .eq('codex', codexId)
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         const detachments = detachmentListSchema.parse(data)
 
         return { data: sortBy(detachments, ({ name }) => name) }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     }
   })

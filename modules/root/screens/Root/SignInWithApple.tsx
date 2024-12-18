@@ -1,5 +1,5 @@
 import appleIcon from 'appdeptus/assets/svg/apple.svg'
-import { Card, HStack, Pressable, Text } from 'appdeptus/components'
+import { Card, HStack, Pressable, Text, useToast } from 'appdeptus/components'
 import { router } from 'expo-router'
 import { memo } from 'react'
 import { Platform } from 'react-native'
@@ -8,6 +8,8 @@ import { useSignInWithAppleMutation } from '../../api'
 
 const SignInWithApple = () => {
   const [signInWithApple, { isLoading }] = useSignInWithAppleMutation()
+
+  const { show } = useToast()
 
   if (Platform.OS !== 'ios') {
     return null
@@ -19,6 +21,7 @@ const SignInWithApple = () => {
         const res = await signInWithApple()
 
         if ('error' in res) {
+          show({ title: '⚠️ error', description: String(res.error) })
           return
         }
 

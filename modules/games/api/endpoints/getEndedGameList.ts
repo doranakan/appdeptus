@@ -45,7 +45,7 @@ const getEndedGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           .eq('status', 'ended')
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         const games = await getEndedGameListSchema.parseAsync(data)
@@ -54,7 +54,7 @@ const getEndedGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           data: games.sort(({ id: id1 }, { id: id2 }) => id2 - id1)
         }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     providesTags: [GamesApiTag.GAME_LIST]

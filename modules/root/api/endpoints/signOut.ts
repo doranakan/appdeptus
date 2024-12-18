@@ -9,12 +9,12 @@ const signOut = (builder: SessionEndpointBuilder<SessionApiTag>) =>
         const { error } = await supabase.auth.signOut({ scope: 'local' })
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         return { data: null }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     invalidatesTags: (_res, error) => (!error ? [SessionApiTag.SESSION] : [])

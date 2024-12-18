@@ -25,7 +25,7 @@ const startGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           .select('id')
 
         if (gameArmyError) {
-          return { error: gameArmyError }
+          return { error: JSON.stringify(gameArmyError) }
         }
 
         const { id: gameArmyId } = await createGameArmy.parseAsync(
@@ -44,12 +44,12 @@ const startGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           .eq('id', gameId)
 
         if (error) {
-          return { error }
+          return { error: JSON.stringify(error) }
         }
 
         return { data }
       } catch (error) {
-        return { error }
+        return { error: JSON.stringify(error) }
       }
     },
     invalidatesTags: [GamesApiTag.GAME_LIST, GamesApiTag.GAME]
