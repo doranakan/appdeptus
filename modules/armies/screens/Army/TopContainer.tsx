@@ -7,11 +7,13 @@ import {
   VStack
 } from 'appdeptus/components'
 import { useModelCount, useUnitCount, useWarlord } from 'appdeptus/hooks'
-import { type Army } from 'appdeptus/models'
+import { type Army, type UserProfile } from 'appdeptus/models'
 import { memo } from 'react'
 
 type TopContainerProps = {
   army: Army
+
+  user?: UserProfile
 }
 
 const TopContainer = ({ army }: TopContainerProps) => {

@@ -1,7 +1,7 @@
 import { defaultScreenOptions } from 'appdeptus/constants'
 import { Stack } from 'expo-router'
 
-const ArmyLayout = () => (
+const ShareLayout = () => (
   <Stack
     initialRouteName='[id]'
     screenOptions={defaultScreenOptions}
@@ -10,4 +10,4 @@ const ArmyLayout = () => (
   </Stack>
 )
 
-export default ArmyLayout
+export default ShareLayout

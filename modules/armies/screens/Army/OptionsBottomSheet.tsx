@@ -33,6 +33,12 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
     router.push(`army-builder/${army.id}`)
   }, [army.id])
 
+  const shareArmy = useCallback(() => {
+    ref.current?.dismiss()
+
+    router.push(`army/share/${army.id}`)
+  }, [army.id])
+
   const { show } = useToast()
 
   const handleDelete = useCallback(async () => {
@@ -86,9 +92,8 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
             space='xs'
           >
             <Button
-              href=''
-              variant='link'
-              disabled
+              onPress={shareArmy}
+              variant='callback'
               icon={Share}
               color='secondary'
             />
