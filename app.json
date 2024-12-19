@@ -67,7 +67,8 @@
       ],
       [
         "expo-apple-authentication"
-      ]
+      ],
+      "expo-localization"
     ],
     "experiments": {
       "tsconfigPaths": true
