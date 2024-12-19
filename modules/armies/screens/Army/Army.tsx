@@ -19,8 +19,8 @@ import { EllipsisVertical } from 'lucide-react-native'
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { useGetArmyListQuery } from '../../api'
+import { RosterTopContainer } from '../../components'
 import OptionsBottomSheet from './OptionsBottomSheet'
-import TopContainer from './TopContainer'
 import ref from './ref'
 
 const ArmyScreen = () => {
@@ -93,7 +93,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
         <ArmyRoster
           ListHeaderComponent={
             <VStack space='md'>
-              <TopContainer army={army} />
+              <RosterTopContainer army={army} />
               <Text
                 className='uppercase'
                 family='body-bold'

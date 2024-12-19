@@ -12,8 +12,9 @@ import {
 import { type Army } from 'appdeptus/models'
 import clsx from 'clsx'
 import { router } from 'expo-router'
-import { Settings, Share, Swords, Trash2 } from 'lucide-react-native'
+import { Settings, ShareIcon, Swords, Trash2 } from 'lucide-react-native'
 import { memo, useCallback } from 'react'
+import { Share } from 'react-native'
 import { useDeleteArmyMutation } from '../../api'
 import ref from './ref'
 
@@ -34,6 +35,15 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
   }, [army.id])
 
   const { show } = useToast()
+
+  const shareArmy = useCallback(() => {
+    ref.current?.dismiss()
+    Share.share({
+      title: 'Share your army roster',
+      message: 'From the forges of Appdeptus comes a battle-tested roster!',
+      url: `https://open.appdeptus.com/share.html?id=${army.id}`
+    })
+  }, [army.id])
 
   const handleDelete = useCallback(async () => {
     const res = await deleteArmy(army.id)
@@ -86,10 +96,9 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
             space='xs'
           >
             <Button
-              href=''
-              variant='link'
-              disabled
-              icon={Share}
+              onPress={shareArmy}
+              variant='callback'
+              icon={ShareIcon}
               color='secondary'
             />
             <Text size='sm'>Share</Text>
