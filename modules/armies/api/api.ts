@@ -2,6 +2,7 @@ import { coreApi } from 'appdeptus/api'
 import {
   createArmy,
   deleteArmy,
+  getArmy,
   getArmyList,
   getCodexList,
   getDetachmentList,
@@ -18,6 +19,7 @@ const armiesApi = coreApi
     endpoints: (builder) => ({
       createArmy: createArmy(builder),
       deleteArmy: deleteArmy(builder),
+      getArmy: getArmy(builder),
       getArmyList: getArmyList(builder),
       getCodexList: getCodexList(builder),
       getDetachmentList: getDetachmentList(builder),
