@@ -151,6 +151,23 @@ const armySchema = z.object({
   points: z.number()
 })
 
+const getArmySchema = armySchema.and(
+  z
+    .object({
+      user_id: z.object({
+        id: z.string(),
+        name: z.string(),
+        created_at: z.string()
+      })
+    })
+    .transform(({ user_id }) => ({
+      user: {
+        ...user_id,
+        createdAt: user_id.created_at
+      }
+    }))
+)
+
 const armyListSchema = z.array(armySchema)
 
 const codexListSchema = z.array(codexSchema)
@@ -208,6 +225,7 @@ export {
   codexListSchema,
   codexSchema,
   detachmentListSchema,
+  getArmySchema,
   selectableUnitSchema,
   unitListSchema
 }

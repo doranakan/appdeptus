@@ -1,5 +1,5 @@
 import { type UserProfile } from 'appdeptus/models'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react-native'
 import { memo, type ComponentProps } from 'react'
 import Avatar from '../Avatar'
@@ -43,16 +43,28 @@ const NavigationHeader = ({
     {props.variant === 'backButton' ? (
       <Button
         color='primary'
-        variant='link'
-        href='../'
+        variant='callback'
+        onPress={() => {
+          if (router.canGoBack()) {
+            router.back()
+            return
+          }
+          router.replace('/')
+        }}
         icon={ChevronLeft}
       />
     ) : null}
     {props.variant === 'closeButton' ? (
       <Button
         color='primary'
-        variant='link'
-        href='../'
+        variant='callback'
+        onPress={() => {
+          if (router.canGoBack()) {
+            router.back()
+            return
+          }
+          router.replace('/')
+        }}
         icon={X}
       />
     ) : null}
