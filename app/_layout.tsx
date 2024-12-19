@@ -18,6 +18,7 @@ import 'appdeptus/global.css'
 import { store } from 'appdeptus/store'
 import { SplashScreen, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
+import { PostHogProvider } from 'posthog-react-native'
 import { type PropsWithChildren, useEffect } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import {
@@ -55,7 +56,14 @@ const App = ({ children }: PropsWithChildren) => {
       <Provider store={store}>
         <GluestackUIProvider>
           <GestureHandlerRootView>
-            <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
+            <PostHogProvider
+              apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY}
+              options={{
+                host: 'https://eu.i.posthog.com'
+              }}
+            >
+              <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
+            </PostHogProvider>
           </GestureHandlerRootView>
         </GluestackUIProvider>
       </Provider>
