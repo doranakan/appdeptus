@@ -4,6 +4,7 @@ import { PrivacyLink } from '../../components'
 import Form from './Form'
 import SignInWithApple from './SignInWithApple'
 import SignInWithGoogle from './SignInWithGoogle'
+import SignInWithMicrosoft from './SignInWithMicrosoft'
 
 const SignIn = () => {
   const [signInMode, setSignInMode] = useState<'social' | 'email'>('social')
@@ -30,6 +31,7 @@ const SignIn = () => {
           <VStack space='md'>
             <SignInWithGoogle />
             <SignInWithApple />
+            <SignInWithMicrosoft />
             <PrivacyLink />
           </VStack>
         ) : (
