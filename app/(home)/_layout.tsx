@@ -3,13 +3,16 @@ import { coreApi } from 'appdeptus/api'
 import { Loading, ScreenContainer } from 'appdeptus/components'
 import { defaultScreenOptions } from 'appdeptus/constants'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
+import { useAppDispatch } from 'appdeptus/store'
 import { Redirect, Stack } from 'expo-router'
 
 const HomeLayout = () => {
   const { data: session, isLoading, isUninitialized } = useGetSessionQuery()
 
+  const dispatch = useAppDispatch()
+
   useUnmount(() => {
-    coreApi.util.resetApiState()
+    dispatch(coreApi.util.resetApiState())
   })
 
   if (isLoading || isUninitialized) {
