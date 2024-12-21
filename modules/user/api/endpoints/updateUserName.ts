@@ -1,13 +1,11 @@
 import { getUserId, type CoreEndpointBuilder } from 'appdeptus/api'
-import { type UserProfile } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import { userProfileSchema } from '../schemas'
 import UserApiTag from '../tags'
 
-const getUserProfile = (builder: CoreEndpointBuilder<UserApiTag.USER>) =>
-  builder.query<UserProfile, void>({
-    queryFn: async () => {
+const updateUserName = (builder: CoreEndpointBuilder<UserApiTag.USER>) =>
+  builder.mutation<null, string>({
+    queryFn: async (name) => {
       try {
         const res = await getUserId()
 
@@ -15,23 +13,21 @@ const getUserProfile = (builder: CoreEndpointBuilder<UserApiTag.USER>) =>
           return { erros: res.error }
         }
 
-        const { data, error } = await supabase
+        const { error } = await supabase
           .from(Table.USERS)
-          .select()
+          .update({ name })
           .eq('id', res)
 
         if (error) {
           return { error: JSON.stringify(error) }
         }
 
-        const userProfile = await userProfileSchema.parseAsync(data[0])
-
-        return { data: userProfile }
+        return { data: null }
       } catch (error) {
         return { error: JSON.stringify(error) }
       }
     },
-    providesTags: () => [{ type: UserApiTag.USER }]
+    invalidatesTags: (_res, error) => (!error ? [UserApiTag.USER] : [])
   })
 
-export default getUserProfile
+export default updateUserName
