@@ -16,6 +16,7 @@ import { Settings, ShareIcon, Swords, Trash2 } from 'lucide-react-native'
 import { memo, useCallback } from 'react'
 import { Share } from 'react-native'
 import { useDeleteArmyMutation } from '../../api'
+import OptionButton from './OptionButton'
 import ref from './ref'
 
 type OptionsBottomSheetProps = {
@@ -27,6 +28,12 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
 
   const [deletePromptVisible, { setFalse: hidePrompt, setTrue: showPrompt }] =
     useBoolean()
+
+  const playWithArmy = useCallback(() => {
+    ref.current?.dismiss()
+
+    router.push(`games/new/${army.id}`)
+  }, [army.id])
 
   const editArmy = useCallback(() => {
     ref.current?.dismiss()
@@ -78,56 +85,27 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
           className={clsx(deletePromptVisible && 'opacity-60')}
           style={{ justifyContent: 'space-evenly' }}
         >
-          <VStack
-            className='items-center'
-            space='xs'
-          >
-            <Button
-              href=''
-              variant='link'
-              disabled
-              icon={Swords}
-              color='secondary'
-            />
-            <Text size='sm'>Play</Text>
-          </VStack>
-          <VStack
-            className='items-center'
-            space='xs'
-          >
-            <Button
-              onPress={shareArmy}
-              variant='callback'
-              icon={ShareIcon}
-              color='secondary'
-            />
-            <Text size='sm'>Share</Text>
-          </VStack>
-          <VStack
-            className='items-center'
-            space='xs'
-          >
-            <Button
-              color='secondary'
-              onPress={editArmy}
-              disabled={deletePromptVisible}
-              icon={Settings}
-              variant='callback'
-            />
-            <Text size='sm'>Edit</Text>
-          </VStack>
-          <VStack
-            className='items-center'
-            space='xs'
-          >
-            <Button
-              disabled={deletePromptVisible}
-              icon={Trash2}
-              onPress={showPrompt}
-              variant='callback'
-            />
-            <Text size='sm'>Delete</Text>
-          </VStack>
+          <OptionButton
+            icon={Swords}
+            onPress={playWithArmy}
+            title='Play'
+          />
+          <OptionButton
+            icon={ShareIcon}
+            onPress={shareArmy}
+            title='Share'
+          />
+
+          <OptionButton
+            icon={Settings}
+            onPress={editArmy}
+            title='Edit'
+          />
+          <OptionButton
+            icon={Trash2}
+            onPress={showPrompt}
+            title='Delete'
+          />
         </HStack>
         {deletePromptVisible ? (
           <Card>
