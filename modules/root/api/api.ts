@@ -4,6 +4,7 @@ import {
   signIn,
   signInWithApple,
   signInWithGoogle,
+  signInWithOAuth,
   signOut,
   signUp
 } from './endpoints'
@@ -17,6 +18,7 @@ const rootApi = sessionApi
       signIn: signIn(builder),
       signInWithApple: signInWithApple(builder),
       signInWithGoogle: signInWithGoogle(builder),
+      signInWithOAuth: signInWithOAuth(builder),
       signOut: signOut(builder),
       signUp: signUp(builder)
     }),
