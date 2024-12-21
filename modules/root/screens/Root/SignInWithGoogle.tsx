@@ -1,18 +1,9 @@
-import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import googleIcon from 'appdeptus/assets/svg/google.svg'
 import { Card, HStack, Pressable, Text, useToast } from 'appdeptus/components'
 import { router } from 'expo-router'
 import { memo } from 'react'
 import { SvgXml } from 'react-native-svg'
 import { useSignInWithGoogleMutation } from '../../api'
-
-GoogleSignin.configure({
-  scopes: ['email', 'profile'],
-  webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_ANDROID,
-  iosClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_IOS,
-  forceCodeForRefreshToken: true,
-  offlineAccess: true
-})
 
 const SignInWithGoogle = () => {
   const [signInWithGoogle, { isLoading }] = useSignInWithGoogleMutation()
@@ -26,6 +17,11 @@ const SignInWithGoogle = () => {
 
         if ('error' in res) {
           show({ title: '⚠️ error', description: String(res.error) })
+          return
+        }
+
+        if (res.data.isNew) {
+          router.replace('user/edit-name')
           return
         }
 

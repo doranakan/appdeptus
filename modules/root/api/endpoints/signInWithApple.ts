@@ -1,11 +1,12 @@
-import { type AuthTokenResponsePassword } from '@supabase/supabase-js'
 import { type SessionEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
 import * as AppleAuthentication from 'expo-apple-authentication'
 import SessionApiTag from '../tags'
+import { type SignInResponse } from '../types'
+import { isNewUser } from '../utils'
 
 const signInWithApple = (builder: SessionEndpointBuilder<SessionApiTag>) =>
-  builder.mutation<AuthTokenResponsePassword['data'], void>({
+  builder.mutation<SignInResponse, void>({
     queryFn: async () => {
       try {
         const credential = await AppleAuthentication.signInAsync({
@@ -29,7 +30,7 @@ const signInWithApple = (builder: SessionEndpointBuilder<SessionApiTag>) =>
             return { error: 'no ID token present' }
           }
 
-          return { data }
+          return { data: { ...data, isNew: isNewUser(data.user) } }
         }
 
         return { error: 'no ID token present' }

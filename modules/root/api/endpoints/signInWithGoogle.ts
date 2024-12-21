@@ -1,11 +1,20 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
-import { type AuthTokenResponsePassword } from '@supabase/supabase-js'
 import { type SessionEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
 import SessionApiTag from '../tags'
+import { type SignInResponse } from '../types'
+import { isNewUser } from '../utils'
+
+GoogleSignin.configure({
+  scopes: ['email', 'profile'],
+  webClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_ANDROID,
+  iosClientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID_IOS,
+  forceCodeForRefreshToken: true,
+  offlineAccess: true
+})
 
 const signInWithGoogle = (builder: SessionEndpointBuilder<SessionApiTag>) =>
-  builder.mutation<AuthTokenResponsePassword['data'], void>({
+  builder.mutation<SignInResponse, void>({
     queryFn: async () => {
       try {
         await GoogleSignin.hasPlayServices()
@@ -20,7 +29,7 @@ const signInWithGoogle = (builder: SessionEndpointBuilder<SessionApiTag>) =>
 
           if (supabaseData.session && supabaseData.user) {
             return {
-              data: supabaseData
+              data: { ...supabaseData, isNew: isNewUser(supabaseData.user) }
             }
           }
 

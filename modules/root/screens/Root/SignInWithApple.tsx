@@ -25,6 +25,11 @@ const SignInWithApple = () => {
           return
         }
 
+        if (res.data.isNew) {
+          router.replace('user/edit-name')
+          return
+        }
+
         router.replace('/')
       }}
       disabled={isLoading}
