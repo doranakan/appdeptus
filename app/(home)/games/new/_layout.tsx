@@ -14,12 +14,14 @@ import {
   newGameBottomSheetRef
 } from 'appdeptus/modules/games/components'
 import { useAppDispatch } from 'appdeptus/store'
-import { Stack, useSegments } from 'expo-router'
+import { Stack, useGlobalSearchParams, useSegments } from 'expo-router'
 import { ChevronRight, Dices } from 'lucide-react-native'
 import { type ComponentProps, useMemo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
 const NewGameLayout = () => {
+  const { id: selectedArmyId } = useGlobalSearchParams()
+
   const form = useForm<NewGame>({
     defaultValues: {
       status: 'new',
@@ -41,7 +43,7 @@ const NewGameLayout = () => {
       case 'army-selection':
         return !selectedArmy ? 1 : 2
 
-      case 'leader-selection':
+      case '[id]':
         return 3
 
       case 'embarked-selection':
@@ -62,7 +64,7 @@ const NewGameLayout = () => {
       case 'army-selection':
         return !selectedArmy ? 'select army' : selectedArmy.name
 
-      case 'leader-selection':
+      case '[id]':
         return 'select leaders'
 
       case 'embarked-selection':
@@ -86,11 +88,11 @@ const NewGameLayout = () => {
         return {
           disabled: !selectedArmy,
           icon: ChevronRight,
-          href: 'games/new/leader-selection',
+          href: `games/new/${selectedArmy?.id}`,
           variant: 'link'
         }
 
-      case 'leader-selection':
+      case '[id]':
         return {
           icon: ChevronRight,
           href: 'games/new/embarked-selection',
@@ -129,7 +131,9 @@ const NewGameLayout = () => {
 
   const dispatch = useAppDispatch()
 
-  useUnmount(() => dispatch(resetTheme()))
+  useUnmount(() => {
+    if (!selectedArmyId) dispatch(resetTheme())
+  })
 
   return (
     <ScreenContainer
@@ -163,7 +167,7 @@ const NewGameLayout = () => {
             screenOptions={defaultScreenOptions}
           >
             <Stack.Screen name='army-selection' />
-            <Stack.Screen name='leader-selection' />
+            <Stack.Screen name='[id]' />
             <Stack.Screen name='embarked-selection' />
             <Stack.Screen name='double-check' />
             <Stack.Screen
