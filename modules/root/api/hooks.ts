@@ -5,6 +5,7 @@ const {
   useSignInMutation,
   useSignInWithAppleMutation,
   useSignInWithGoogleMutation,
+  useSignInWithOAuthMutation,
   useSignOutMutation,
   useSignUpMutation
 } = rootApi
@@ -14,6 +15,7 @@ export {
   useSignInMutation,
   useSignInWithAppleMutation,
   useSignInWithGoogleMutation,
+  useSignInWithOAuthMutation,
   useSignOutMutation,
   useSignUpMutation
 }

@@ -2,7 +2,8 @@ import { Text, TextLink } from 'appdeptus/components'
 
 const PrivacyLink = () => (
   <Text>
-    I accept the <TextLink href='privacy-policy'>privacy policy</TextLink>
+    By signin in you accept the{' '}
+    <TextLink href='privacy-policy'>privacy policy</TextLink>
   </Text>
 )
 
