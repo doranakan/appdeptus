@@ -3,6 +3,7 @@ import {
   Avatar,
   Card,
   HStack,
+  Loading,
   NavigationHeader,
   ScreenContainer,
   Text,
@@ -12,6 +13,7 @@ import {
 import { useSignOutMutation } from 'appdeptus/modules/root/api'
 import { formatDate } from 'date-fns'
 import * as Application from 'expo-application'
+import { Link } from 'expo-router'
 import { Bot, Code, LogOut } from 'lucide-react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SvgXml } from 'react-native-svg'
@@ -26,7 +28,7 @@ const UserScreen = () => {
   if (!data) {
     return (
       <ScreenContainer className='items-center justify-center'>
-        {data}
+        <Loading />
       </ScreenContainer>
     )
   }
@@ -64,12 +66,17 @@ const UserScreen = () => {
               className='items-center justify-center'
               space='xs'
             >
-              <Text
-                family='heading-regular'
-                size='2xl'
+              <Link
+                href='./edit-name'
+                relativeToDirectory
               >
-                {data.name}
-              </Text>
+                <Text
+                  family='heading-regular'
+                  size='2xl'
+                >
+                  {data.name}
+                </Text>
+              </Link>
               <Text
                 className='text-primary-400'
                 family='body-bold'

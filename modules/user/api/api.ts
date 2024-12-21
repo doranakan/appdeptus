@@ -1,11 +1,15 @@
 import { coreApi } from 'appdeptus/api'
-import { getUserProfile } from './endpoints'
+import { getUserProfile, updateUserName } from './endpoints'
+import UserApiTag from './tags'
 
-const userApi = coreApi.injectEndpoints({
-  endpoints: (builder) => ({
-    getUserProfile: getUserProfile(builder)
-  }),
-  overrideExisting: true
-})
+const userApi = coreApi
+  .enhanceEndpoints({ addTagTypes: [UserApiTag.USER] })
+  .injectEndpoints({
+    endpoints: (builder) => ({
+      getUserProfile: getUserProfile(builder),
+      updateUserName: updateUserName(builder)
+    }),
+    overrideExisting: true
+  })
 
 export default userApi

@@ -1,16 +1,16 @@
-import { type Session } from '@supabase/supabase-js'
 import { type SessionEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
 import * as AuthSession from 'expo-auth-session'
 import * as QueryParams from 'expo-auth-session/build/QueryParams'
 import * as WebBrowser from 'expo-web-browser'
 import SessionApiTag from '../tags'
-import { type Provider } from '../types'
+import { type Provider, type SignInResponse } from '../types'
+import { isNewUser } from '../utils'
 
 const redirectTo = AuthSession.makeRedirectUri()
 
 const signInWithOauth = (builder: SessionEndpointBuilder<SessionApiTag>) =>
-  builder.mutation<Session, Provider>({
+  builder.mutation<SignInResponse, Provider>({
     queryFn: async (provider) => {
       try {
         const { data, error } = await supabase.auth.signInWithOAuth({
@@ -35,13 +35,23 @@ const signInWithOauth = (builder: SessionEndpointBuilder<SessionApiTag>) =>
         }
 
         const { url } = res
-        const session = await createSessionFromUrl(url)
+        const signInData = await createSessionFromUrl(url)
 
-        if (!session || 'error' in session) {
-          return { error: JSON.stringify(session?.error) }
+        if ('error' in signInData) {
+          return { error: JSON.stringify(signInData?.error) }
         }
 
-        return { data: session }
+        if (signInData.user === null || signInData.session === null) {
+          return { error: 'No user or session' }
+        }
+
+        return {
+          data: {
+            isNew: isNewUser(signInData.user),
+            session: signInData.session,
+            user: signInData.user
+          }
+        }
       } catch (error) {
         return { error: JSON.stringify(error) }
       }
@@ -71,7 +81,7 @@ const createSessionFromUrl = async (url: string) => {
     return { error: JSON.stringify(errorCode) }
   }
 
-  return data.session
+  return data
 }
 
 export default signInWithOauth
