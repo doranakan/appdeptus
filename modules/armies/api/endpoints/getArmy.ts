@@ -30,7 +30,6 @@ const getArmyList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           .eq('id', id)
 
         if (error) {
-          console.log('error', error)
           return { error: JSON.stringify(error) }
         }
 
@@ -38,7 +37,6 @@ const getArmyList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
 
         return { data: armyList }
       } catch (error) {
-        console.log('error', error)
         return { error: JSON.stringify(error) }
       }
     },

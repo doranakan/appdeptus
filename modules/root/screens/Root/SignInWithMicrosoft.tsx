@@ -15,8 +15,6 @@ const SignInWithMicrosoft = () => {
       onPress={async () => {
         const res = await signInWithOAuth('azure')
 
-        console.log({ res })
-
         if ('error' in res) {
           show({ description: String(res.error), title: '⚠️ error' })
           return

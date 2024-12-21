@@ -50,8 +50,6 @@ const signInWithOauth = (builder: SessionEndpointBuilder<SessionApiTag>) =>
   })
 
 const createSessionFromUrl = async (url: string) => {
-  console.log({ url })
-
   const { params, errorCode } = QueryParams.getQueryParams(url)
 
   if (errorCode) {
