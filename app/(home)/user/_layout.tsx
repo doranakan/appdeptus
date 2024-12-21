@@ -7,6 +7,7 @@ const UserLayout = () => (
     screenOptions={defaultScreenOptions}
   >
     <Stack.Screen name='index' />
+    <Stack.Screen name='edit-name' />
     <Stack.Screen
       name='privacy-policy'
       options={{
