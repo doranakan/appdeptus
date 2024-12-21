@@ -32,7 +32,7 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
   const playWithArmy = useCallback(() => {
     ref.current?.dismiss()
 
-    router.push(`games/new/${army.id}`)
+    router.push(`new-game/${army.id}`)
   }, [army.id])
 
   const editArmy = useCallback(() => {

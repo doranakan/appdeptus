@@ -84,7 +84,7 @@ const JoinGameScreen = () => {
                   return
                 }
 
-                router.replace(`games/${game.id}`)
+                router.replace(`game/${game.id}`)
               }
             },
             variant: 'callback',

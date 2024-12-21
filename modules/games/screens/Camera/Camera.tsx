@@ -41,7 +41,7 @@ const CameraScreen = () => {
 
       router.dismissAll()
 
-      router.replace(`games/${gameId}`)
+      router.replace(`game/${gameId}`)
     }
   }, [gameId])
 

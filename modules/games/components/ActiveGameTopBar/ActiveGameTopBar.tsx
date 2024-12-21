@@ -45,7 +45,7 @@ const ActiveGameTopBarContent = ({ gameId }: ActiveGameTopBarContentProps) => {
   return (
     <Link
       asChild
-      href={`games/${game.id}`}
+      href={`game/${game.id}`}
     >
       <Pressable>
         <VStack

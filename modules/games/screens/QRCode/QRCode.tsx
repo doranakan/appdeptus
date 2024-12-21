@@ -34,7 +34,7 @@ const QRCodeScreen = () => {
       if (data.new.status) {
         router.dismissAll()
 
-        router.replace(`games/${gameId}`)
+        router.replace(`game/${gameId}`)
       }
     }
   })

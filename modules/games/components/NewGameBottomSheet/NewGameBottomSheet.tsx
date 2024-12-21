@@ -55,7 +55,7 @@ const NewGameBottomSheet = () => {
           <Button
             onPress={() => {
               ref.current?.dismiss()
-              router.push('games/new/qr-code')
+              router.push('new-game/qr-code')
             }}
             variant='callback'
             icon={QrCode}
@@ -65,7 +65,7 @@ const NewGameBottomSheet = () => {
           <Button
             onPress={() => {
               ref.current?.dismiss()
-              router.push('games/new/camera')
+              router.push('new-game/camera')
             }}
             icon={Scan}
             variant='callback'

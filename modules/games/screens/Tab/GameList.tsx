@@ -79,7 +79,7 @@ const GameList = () => {
         renderItem={({ item }) => (
           <Link
             asChild
-            href={`games/${item.id}`}
+            href={`game/${item.id}`}
           >
             <Pressable>
               <GameListItem game={item} />

@@ -102,7 +102,7 @@ const Header = ({ route }: BottomTabHeaderProps) => {
       case 'games-tab':
         return {
           disabled: !armies?.length || !!activeGame,
-          href: 'games/new/army-selection',
+          href: 'new-game',
           icon: Swords,
           variant: 'link'
         }

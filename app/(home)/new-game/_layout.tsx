@@ -40,10 +40,11 @@ const NewGameLayout = () => {
 
   const currentStep = useMemo(() => {
     switch (routeName) {
-      case 'army-selection':
+      case 'new-game':
         return !selectedArmy ? 1 : 2
 
       case '[id]':
+      case 'leader-selection':
         return 3
 
       case 'embarked-selection':
@@ -61,10 +62,11 @@ const NewGameLayout = () => {
 
   const text = useMemo(() => {
     switch (routeName) {
-      case 'army-selection':
+      case 'new-game':
         return !selectedArmy ? 'select army' : selectedArmy.name
 
       case '[id]':
+      case 'leader-selection':
         return 'select leaders'
 
       case 'embarked-selection':
@@ -84,25 +86,26 @@ const NewGameLayout = () => {
 
   const rightButton = useMemo<ComponentProps<typeof Button> | undefined>(() => {
     switch (routeName) {
-      case 'army-selection':
+      case 'new-game':
         return {
           disabled: !selectedArmy,
           icon: ChevronRight,
-          href: `games/new/${selectedArmy?.id}`,
+          href: `new-game/${selectedArmy?.id}`,
           variant: 'link'
         }
 
       case '[id]':
+      case 'leader-selection':
         return {
           icon: ChevronRight,
-          href: 'games/new/embarked-selection',
+          href: 'new-game/embarked-selection',
           variant: 'link'
         }
 
       case 'embarked-selection':
         return {
           icon: ChevronRight,
-          href: 'games/new/double-check',
+          href: 'new-game/double-check',
           variant: 'link'
         }
 
@@ -163,11 +166,12 @@ const NewGameLayout = () => {
       >
         <FormProvider {...form}>
           <Stack
-            initialRouteName='army-selection'
+            initialRouteName='index'
             screenOptions={defaultScreenOptions}
           >
-            <Stack.Screen name='army-selection' />
+            <Stack.Screen name='index' />
             <Stack.Screen name='[id]' />
+            <Stack.Screen name='leader-selection' />
             <Stack.Screen name='embarked-selection' />
             <Stack.Screen name='double-check' />
             <Stack.Screen
