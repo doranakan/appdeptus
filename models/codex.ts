@@ -4,6 +4,7 @@ type Codex = {
   id: number
   name: CodexName
   faction: Faction
+  expansionOf?: Codex['id']
 }
 
 type CodexName = (typeof codexes)[number]
