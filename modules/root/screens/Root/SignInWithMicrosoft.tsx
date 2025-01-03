@@ -5,7 +5,11 @@ import { memo } from 'react'
 import { SvgXml } from 'react-native-svg'
 import { useSignInWithOAuthMutation } from '../../api'
 
-const SignInWithMicrosoft = () => {
+type SignInWithMicrosoftProps = {
+  disabled?: boolean
+}
+
+const SignInWithMicrosoft = ({ disabled }: SignInWithMicrosoftProps) => {
   const [signInWithOAuth, { isLoading }] = useSignInWithOAuthMutation()
 
   const { show } = useToast()
@@ -27,9 +31,9 @@ const SignInWithMicrosoft = () => {
 
         router.replace('/')
       }}
-      disabled={isLoading}
+      disabled={disabled ?? isLoading}
     >
-      <Card>
+      <Card variant={disabled ? 'disabled' : 'default'}>
         <HStack
           className='items-center justify-center p-4'
           space='lg'

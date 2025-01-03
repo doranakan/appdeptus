@@ -6,7 +6,11 @@ import { Platform } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { useSignInWithAppleMutation } from '../../api'
 
-const SignInWithApple = () => {
+type SignInWithAppleProps = {
+  disabled?: boolean
+}
+
+const SignInWithApple = ({ disabled }: SignInWithAppleProps) => {
   const [signInWithApple, { isLoading }] = useSignInWithAppleMutation()
 
   const { show } = useToast()
@@ -32,9 +36,9 @@ const SignInWithApple = () => {
 
         router.replace('/')
       }}
-      disabled={isLoading}
+      disabled={disabled ?? isLoading}
     >
-      <Card>
+      <Card variant={disabled ? 'disabled' : 'default'}>
         <HStack
           className='items-center justify-center'
           space='lg'

@@ -1,5 +1,13 @@
-import { Card, TabMenu, Text, VStack } from 'appdeptus/components'
+import {
+  Card,
+  HStack,
+  TabMenu,
+  Text,
+  themeColors,
+  VStack
+} from 'appdeptus/components'
 import { useState } from 'react'
+import { Switch } from 'react-native-gesture-handler'
 import { PrivacyLink } from '../../components'
 import Form from './Form'
 import SignInWithApple from './SignInWithApple'
@@ -8,6 +16,8 @@ import SignInWithMicrosoft from './SignInWithMicrosoft'
 
 const SignIn = () => {
   const [signInMode, setSignInMode] = useState<'social' | 'email'>('social')
+
+  const [isPrivacyAccepted, setIsPrivacyAccepted] = useState(false)
 
   return (
     <Card>
@@ -29,10 +39,26 @@ const SignIn = () => {
         ) : null}
         {signInMode === 'social' ? (
           <VStack space='md'>
-            <SignInWithGoogle />
-            <SignInWithApple />
-            <SignInWithMicrosoft />
-            <PrivacyLink />
+            <SignInWithGoogle disabled={!isPrivacyAccepted} />
+            <SignInWithApple disabled={!isPrivacyAccepted} />
+            <SignInWithMicrosoft disabled={!isPrivacyAccepted} />
+            <HStack
+              className='items-center'
+              space='md'
+            >
+              <Switch
+                ios_backgroundColor={themeColors.default.secondary[300]}
+                trackColor={{
+                  false: themeColors.default.secondary[200],
+                  true: themeColors.default.tertiary[600]
+                }}
+                onChange={(e) => {
+                  setIsPrivacyAccepted(e.nativeEvent.value)
+                }}
+                value={isPrivacyAccepted}
+              />
+              <PrivacyLink />
+            </HStack>
           </VStack>
         ) : (
           <Form />

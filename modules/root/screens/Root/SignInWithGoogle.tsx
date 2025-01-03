@@ -5,7 +5,11 @@ import { memo } from 'react'
 import { SvgXml } from 'react-native-svg'
 import { useSignInWithGoogleMutation } from '../../api'
 
-const SignInWithGoogle = () => {
+type SignInWithGoogleProps = {
+  disabled?: boolean
+}
+
+const SignInWithGoogle = ({ disabled }: SignInWithGoogleProps) => {
   const [signInWithGoogle, { isLoading }] = useSignInWithGoogleMutation()
 
   const { show } = useToast()
@@ -27,9 +31,9 @@ const SignInWithGoogle = () => {
 
         router.replace('/')
       }}
-      disabled={isLoading}
+      disabled={disabled ?? isLoading}
     >
-      <Card>
+      <Card variant={disabled ? 'disabled' : 'default'}>
         <HStack
           className='items-center justify-center p-4'
           space='lg'
