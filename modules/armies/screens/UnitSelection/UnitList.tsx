@@ -20,7 +20,7 @@ type UnitListProps = {
 const UnitList = ({ type }: UnitListProps) => {
   const { setValue, watch } = useFormContext<ArmyBuilder>()
 
-  const selectedCodex = watch('codex.id')
+  const selectedCodex = watch('codex')
 
   const { filteredData, isError, isFetching, refetch } = useGetUnitListQuery(
     selectedCodex,
