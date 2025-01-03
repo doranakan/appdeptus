@@ -1,6 +1,6 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Codex } from 'appdeptus/models'
-import { supabase } from 'appdeptus/utils'
+import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
 import { codexListSchema } from '../schemas'
@@ -18,7 +18,7 @@ const getCodexList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           return { error: JSON.stringify(codexesError) }
         }
 
-        const codexes = codexListSchema.parse(data)
+        const codexes = codexListSchema.parse(mapNullToUndefined(data))
 
         return { data: sortBy(codexes, ({ name }) => name) }
       } catch (error) {

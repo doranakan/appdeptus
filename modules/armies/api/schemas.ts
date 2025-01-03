@@ -4,43 +4,49 @@ import { z } from 'zod'
 
 const idSchema = z.number()
 
-const codexSchema = z.object({
-  id: idSchema,
-  name: z.union([
-    z.literal('Adepta Sororitas'),
-    z.literal('Adeptus Custodes'),
-    z.literal('Adeptus Mechanicus'),
-    z.literal('Aeldari'),
-    z.literal('Astra Militarum'),
-    z.literal('Black Templars'),
-    z.literal('Blood Angels'),
-    z.literal('Chaos Daemons'),
-    z.literal('Chaos Knights'),
-    z.literal('Chaos Space Marines'),
-    z.literal('Dark Angels'),
-    z.literal('Death Guard'),
-    z.literal('Drukhari'),
-    z.literal("Emperor's Children"),
-    z.literal('Genestealer Cults'),
-    z.literal('Grey Knights'),
-    z.literal('Imperial Agents'),
-    z.literal('Imperial Knights'),
-    z.literal('Leagues Of Votann'),
-    z.literal('Necrons'),
-    z.literal('Orks'),
-    z.literal('Space Marines'),
-    z.literal('Space Wolves'),
-    z.literal("T'au Empire"),
-    z.literal('Thousand Sons'),
-    z.literal('Tyranids'),
-    z.literal('World Eaters')
-  ]),
-  faction: z.union([
-    z.literal('chaos'),
-    z.literal('imperium'),
-    z.literal('xenos')
-  ])
-})
+const codexSchema = z
+  .object({
+    id: idSchema,
+    name: z.union([
+      z.literal('Adepta Sororitas'),
+      z.literal('Adeptus Custodes'),
+      z.literal('Adeptus Mechanicus'),
+      z.literal('Aeldari'),
+      z.literal('Astra Militarum'),
+      z.literal('Black Templars'),
+      z.literal('Blood Angels'),
+      z.literal('Chaos Daemons'),
+      z.literal('Chaos Knights'),
+      z.literal('Chaos Space Marines'),
+      z.literal('Dark Angels'),
+      z.literal('Death Guard'),
+      z.literal('Drukhari'),
+      z.literal("Emperor's Children"),
+      z.literal('Genestealer Cults'),
+      z.literal('Grey Knights'),
+      z.literal('Imperial Agents'),
+      z.literal('Imperial Knights'),
+      z.literal('Leagues Of Votann'),
+      z.literal('Necrons'),
+      z.literal('Orks'),
+      z.literal('Space Marines'),
+      z.literal('Space Wolves'),
+      z.literal("T'au Empire"),
+      z.literal('Thousand Sons'),
+      z.literal('Tyranids'),
+      z.literal('World Eaters')
+    ]),
+    faction: z.union([
+      z.literal('chaos'),
+      z.literal('imperium'),
+      z.literal('xenos')
+    ]),
+    expansion_of: idSchema.optional()
+  })
+  .transform(({ expansion_of, ...rest }) => ({
+    ...rest,
+    expansionOf: expansion_of
+  }))
 
 const baseUnitSchema = z.object({
   id: idSchema,
