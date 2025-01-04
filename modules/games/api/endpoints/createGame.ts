@@ -1,6 +1,6 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Army } from 'appdeptus/models'
-import { supabase } from 'appdeptus/utils'
+import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { createGameArmy, createGameSchema } from '../schemas'
 import type GamesApiTag from '../tags'
@@ -22,7 +22,7 @@ const createGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
         }
 
         const { id: gameArmyId } = await createGameArmy.parseAsync(
-          gameArmyData[0]
+          mapNullToUndefined(gameArmyData[0])
         )
 
         const { data: gameData, error: gameError } = await supabase
@@ -36,7 +36,9 @@ const createGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           return { error: JSON.stringify(gameError) }
         }
 
-        const { id } = await createGameSchema.parseAsync(gameData[0])
+        const { id } = await createGameSchema.parseAsync(
+          mapNullToUndefined(gameData[0])
+        )
 
         return { data: id }
       } catch (error) {

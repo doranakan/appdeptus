@@ -1,5 +1,6 @@
 import { type ActiveGame } from 'appdeptus/models/game'
 import { useAppDispatch } from 'appdeptus/store'
+import { mapNullToUndefined } from 'appdeptus/utils'
 import { useEffect } from 'react'
 import gamesApi from './api'
 import { gameUpdates } from './realtime'
@@ -29,7 +30,9 @@ const useGameUpdates = (gameId: ActiveGame['id']) => {
               return data
             }
 
-            const parsedData = realtimeGameSchema.parse(newData)
+            const parsedData = realtimeGameSchema.parse(
+              mapNullToUndefined(newData)
+            )
 
             return {
               ...data,

@@ -1,6 +1,6 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Army, type UserProfile } from 'appdeptus/models'
-import { supabase } from 'appdeptus/utils'
+import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { getArmySchema } from '../schemas'
 import ArmiesApiTag from '../tags'
@@ -33,7 +33,7 @@ const getArmyList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           return { error: JSON.stringify(error) }
         }
 
-        const armyList = getArmySchema.parse(data[0])
+        const armyList = getArmySchema.parse(mapNullToUndefined(data[0]))
 
         return { data: armyList }
       } catch (error) {

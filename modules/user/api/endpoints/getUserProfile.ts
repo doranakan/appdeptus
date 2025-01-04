@@ -1,6 +1,6 @@
 import { getUserId, type CoreEndpointBuilder } from 'appdeptus/api'
 import { type UserProfile } from 'appdeptus/models'
-import { supabase } from 'appdeptus/utils'
+import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { userProfileSchema } from '../schemas'
 import UserApiTag from '../tags'
@@ -24,7 +24,9 @@ const getUserProfile = (builder: CoreEndpointBuilder<UserApiTag.USER>) =>
           return { error: JSON.stringify(error) }
         }
 
-        const userProfile = await userProfileSchema.parseAsync(data[0])
+        const userProfile = await userProfileSchema.parseAsync(
+          mapNullToUndefined(data[0])
+        )
 
         return { data: userProfile }
       } catch (error) {

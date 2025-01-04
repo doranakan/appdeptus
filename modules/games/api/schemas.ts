@@ -40,7 +40,7 @@ const baseGameSchema = z
     cp_one: z.number(),
     player_one: playerSchema,
     score_one: z.number(),
-    updated_at: z.string().nullable()
+    updated_at: z.string().optional()
   })
   .transform(
     ({ army_one, player_one, cp_one, score_one, updated_at, ...rest }) => ({

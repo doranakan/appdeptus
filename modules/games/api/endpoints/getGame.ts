@@ -1,6 +1,6 @@
 import { getUserId, type CoreEndpointBuilder } from 'appdeptus/api'
 import { type ActiveGame, type EndedGame } from 'appdeptus/models/game'
-import { supabase } from 'appdeptus/utils'
+import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { getGameSchema } from '../schemas'
 import GamesApiTag from '../tags'
@@ -25,7 +25,7 @@ const getGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           return { data: null }
         }
 
-        const game = await getGameSchema.parseAsync(data[0])
+        const game = await getGameSchema.parseAsync(mapNullToUndefined(data[0]))
 
         return { data: game }
       } catch (error) {

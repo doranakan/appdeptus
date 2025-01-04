@@ -1,6 +1,6 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type NewGame } from 'appdeptus/models/game'
-import { supabase } from 'appdeptus/utils'
+import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { getNewGameSchema } from '../schemas'
 import type GamesApiTag from '../tags'
@@ -31,7 +31,9 @@ const getNewGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
           return { error: JSON.stringify(error) }
         }
 
-        const game = await getNewGameSchema.parseAsync(data[0])
+        const game = await getNewGameSchema.parseAsync(
+          mapNullToUndefined(data[0])
+        )
 
         return {
           data: game

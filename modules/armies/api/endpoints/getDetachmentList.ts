@@ -1,6 +1,6 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Codex, type Detachment } from 'appdeptus/models'
-import { supabase } from 'appdeptus/utils'
+import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
 import { detachmentListSchema } from '../schemas'
@@ -29,7 +29,7 @@ const getDetachmentList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           return { error: JSON.stringify(error) }
         }
 
-        const detachments = detachmentListSchema.parse(data)
+        const detachments = detachmentListSchema.parse(mapNullToUndefined(data))
 
         return { data: sortBy(detachments, ({ name }) => name) }
       } catch (error) {
