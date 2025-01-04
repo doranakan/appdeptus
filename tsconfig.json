@@ -1,11 +1,16 @@
 {
-  "extends": ["@tsconfig/strictest", "expo/tsconfig.base"],
+  "extends": [
+    "@tsconfig/strictest",
+    "expo/tsconfig.base"
+  ],
   "compilerOptions": {
     "checkJs": false,
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "appdeptus/*": ["./*"]
+      "appdeptus/*": [
+        "./*"
+      ]
     },
     "exactOptionalPropertyTypes": false
   },
@@ -14,6 +19,7 @@
     "**/*.tsx",
     "env.d.ts",
     "app.config.js",
-    "tailwind.config.js"
+    "tailwind.config.js",
+    "nativewind-env.d.ts"
   ]
 }

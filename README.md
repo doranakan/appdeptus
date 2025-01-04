@@ -10,7 +10,7 @@ Follow these steps to get Appdeptus running on your local device or simulator.
 
 Before you begin, ensure you have met the following requirements:
 
-- You have installed [Node.js](https://nodejs.org/en/download/) (LTS version recommended).
+- You have installed [Bun](https://bun.sh).
 - You have installed [Expo CLI](https://docs.expo.dev/get-started/installation/).
 - You have installed either Xcode (for iOS) or Android Studio (for Android).
 
@@ -26,7 +26,7 @@ Before you begin, ensure you have met the following requirements:
 2. Install the dependencies:
 
    ```bash
-   npm install
+   bun install
    ```
 
 3. Run the Expo prebuild command to generate the native project files:

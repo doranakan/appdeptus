@@ -58,7 +58,7 @@
     "lodash": "^4.17.21",
     "lottie-react-native": "7.1.0",
     "lucide-react-native": "^0.395.0",
-    "nativewind": "4.0.36",
+    "nativewind": "^4.1.23",
     "pluralize": "^8.0.0",
     "posthog-react-native": "^3.6.1",
     "react": "18.3.1",
@@ -75,7 +75,7 @@
     "react-native-web": "~0.19.13",
     "react-native-webview": "^13.12.5",
     "react-redux": "^9.1.0",
-    "tailwindcss": "^3.4.13",
+    "tailwindcss": "^3.4.17",
     "zod": "^3.22.4"
   },
   "devDependencies": {
