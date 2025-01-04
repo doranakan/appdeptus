@@ -7,7 +7,7 @@ import {
   UnitName,
   VStack
 } from 'appdeptus/components'
-import { type SelectableUnit, type Unit } from 'appdeptus/models'
+import { isHero, type SelectableUnit, type Unit } from 'appdeptus/models'
 import { memo, useMemo } from 'react'
 
 type UnitListItemProps = {
@@ -73,6 +73,7 @@ const UnitListItem = ({
               />
             ) : null}
             <Button
+              disabled={isHero(unit) && count > 0}
               onPress={() => {
                 onPressAdd(unit)
               }}

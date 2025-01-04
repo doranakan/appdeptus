@@ -74,6 +74,18 @@ type UnitUpgrade = {
   points: number
 }
 
+type HeroUnit = Hero & (Character | Leader)
+
+const isHero = (unit: Unit | SelectableUnit): unit is HeroUnit => {
+  return (
+    (unit.type === 'character' || unit.type === 'leader') &&
+    'hero' in unit &&
+    unit.hero
+  )
+}
+
+export { isHero }
+
 export type {
   Character,
   Embarked,
