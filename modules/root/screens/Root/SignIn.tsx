@@ -51,8 +51,9 @@ const SignIn = () => {
         >
           <Switch
             ios_backgroundColor={themeColors.default.secondary[300]}
+            thumbColor={themeColors.default.primary[50]}
             trackColor={{
-              false: themeColors.default.secondary[200],
+              false: themeColors.default.secondary[300],
               true: themeColors.default.tertiary[600]
             }}
             onChange={(e) => {
