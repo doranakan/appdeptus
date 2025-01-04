@@ -46,11 +46,7 @@ const BottomSheet: ForwardRefRenderFunction<
     >
       <BottomSheetView style={styles.container}>
         <InnerBorder>
-          <BlurView
-            experimentalBlurMethod='dimezisBlurView'
-            blurReductionFactor={8}
-            intensity={20}
-          >
+          <BlurView>
             <VStack
               className='overflow-visible p-4'
               space='md'
