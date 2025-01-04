@@ -102,7 +102,7 @@ const UserScreen = () => {
                 cta='join our discord'
                 description='Join our server and meet the community, report bugs and keep updated the Appdeptus data.'
                 Icon={Bot}
-                link='https://discord.gg/T52Bc5Fe'
+                link='https://discord.gg/Fh9N8bDR'
                 title='discord'
               />
               <CommunityCard
