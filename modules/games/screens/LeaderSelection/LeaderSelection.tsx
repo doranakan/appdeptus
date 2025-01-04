@@ -11,7 +11,7 @@ import { type NewGame } from 'appdeptus/models/game'
 import { useGetArmyQuery } from 'appdeptus/modules/armies/api'
 import { useLocalSearchParams } from 'expo-router'
 import { useEffect } from 'react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, useWatch } from 'react-hook-form'
 import LeaderSelectionList from './LeaderSelectionList'
 
 const LeaderSelectionScreen = () => {
@@ -21,16 +21,17 @@ const LeaderSelectionScreen = () => {
 
   const { data, isError } = useGetArmyQuery(preselectedArmyId ?? skipToken)
 
-  const { setValue, watch } = useFormContext<NewGame>()
+  const { setValue } = useFormContext<NewGame>()
 
-  const selectedArmy = watch('playerOne.army')
+  const watch = useWatch<NewGame>()
+
+  const selectedArmy = watch.playerOne?.army
 
   useEffect(() => {
     if (data && !selectedArmy) {
-      const { user: _, ...army } = data
-      setValue('playerOne.army', army)
+      setValue('playerOne.army', data)
     }
-  })
+  }, [data, selectedArmy, setValue])
 
   if (isError) {
     return (

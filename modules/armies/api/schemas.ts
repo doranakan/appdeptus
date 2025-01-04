@@ -144,35 +144,31 @@ const embarkedSchema = z.object({
   type: z.literal('embarked')
 })
 
-const armySchema = z.object({
-  codex: codexSchema,
-  roster: z.array(z.union([unitSchema, teamSchema, embarkedSchema])),
-  detachment: baseDetachmentSchema.merge(
-    z.object({
-      enhancements: z.array(enhancementSchema)
-    })
-  ),
-  id: idSchema,
-  name: z.string(),
-  points: z.number()
-})
-
-const getArmySchema = armySchema.and(
-  z
-    .object({
-      user_id: z.object({
-        id: z.string(),
-        name: z.string(),
-        created_at: z.string()
+const armySchema = z
+  .object({
+    codex: codexSchema,
+    roster: z.array(z.union([unitSchema, teamSchema, embarkedSchema])),
+    detachment: baseDetachmentSchema.merge(
+      z.object({
+        enhancements: z.array(enhancementSchema)
       })
+    ),
+    id: idSchema,
+    name: z.string(),
+    points: z.number(),
+    user_id: z.object({
+      id: z.string(),
+      name: z.string(),
+      created_at: z.string()
     })
-    .transform(({ user_id }) => ({
-      user: {
-        ...user_id,
-        createdAt: user_id.created_at
-      }
-    }))
-)
+  })
+  .transform(({ user_id, ...rest }) => ({
+    ...rest,
+    user: {
+      ...user_id,
+      createdAt: user_id.created_at
+    }
+  }))
 
 const armyListSchema = z.array(armySchema)
 
@@ -231,7 +227,6 @@ export {
   codexListSchema,
   codexSchema,
   detachmentListSchema,
-  getArmySchema,
   selectableUnitSchema,
   unitListSchema
 }

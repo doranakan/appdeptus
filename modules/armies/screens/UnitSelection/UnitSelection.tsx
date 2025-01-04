@@ -1,39 +1,41 @@
 import { skipToken } from '@reduxjs/toolkit/query'
-import { useMount, useUnmount } from 'ahooks'
-import { FilterTopBar, ScreenContainer, VStack } from 'appdeptus/components'
+import { useUnmount } from 'ahooks'
+import {
+  FilterTopBar,
+  Loading,
+  ScreenContainer,
+  VStack
+} from 'appdeptus/components'
 import { useAllUnits } from 'appdeptus/hooks'
 import { type ArmyBuilder } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
 import pluralize, { singular } from 'pluralize'
-import { useState } from 'react'
-import { useFormContext } from 'react-hook-form'
-import { useGetArmyListQuery } from '../../api'
+import { useEffect, useState } from 'react'
+import { useFormContext, useWatch } from 'react-hook-form'
+import { useGetArmyQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
 import UnitList from './UnitList'
 
 const UnitSelectionScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
-  const { army } = useGetArmyListQuery(!id ? skipToken : undefined, {
-    selectFromResult: ({ data, ...rest }) => ({
-      army: data?.find(({ id: armyId }) => armyId === Number(id)),
-      ...rest
-    })
-  })
+  const { data: army, isLoading } = useGetArmyQuery(id ?? skipToken)
 
-  const { getValues, reset, watch } = useFormContext<ArmyBuilder>()
+  const { getValues, reset } = useFormContext<ArmyBuilder>()
 
-  const selectedCodex = watch('codex.name')
+  const watch = useWatch<ArmyBuilder>()
+
+  const selectedCodex = watch.codex?.name
 
   const [selectedType, setSelectedType] =
     useState<(typeof unitTypes)[number]>('character')
 
   const units = useAllUnits(army?.roster ?? [])
 
-  useMount(() => {
+  useEffect(() => {
     if (army) {
       reset({ ...army, units })
     }
-  })
+  }, [army, reset, units])
 
   useUnmount(() => {
     reset({
@@ -43,6 +45,14 @@ const UnitSelectionScreen = () => {
       points: 0
     })
   })
+
+  if (isLoading || !selectedCodex) {
+    return (
+      <ScreenContainer className='items-center justify-center'>
+        <Loading />
+      </ScreenContainer>
+    )
+  }
 
   return (
     <ScreenContainer safeAreaInsets={['bottom']}>

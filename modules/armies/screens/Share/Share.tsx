@@ -105,7 +105,7 @@ const ShareScreen = () => {
           variant='closeButton'
           rightButton={{
             onPress: async () => {
-              const { user: _, roster, ...restArmy } = army
+              const { roster, ...restArmy } = army
 
               const units = roster.filter(
                 (unit): unit is Unit =>

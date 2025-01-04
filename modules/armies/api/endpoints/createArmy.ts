@@ -6,7 +6,7 @@ import ArmiesApiTag from '../tags'
 
 const createArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
   builder.mutation<null, ArmyBuilder>({
-    queryFn: async ({ codex, units, id: _, ...rest }) => {
+    queryFn: async ({ codex, units, id: _id, user: _user, ...rest }) => {
       try {
         const { data, error } = await supabase.from(Table.ARMIES).insert({
           codex: codex.id,

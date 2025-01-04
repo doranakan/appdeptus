@@ -1,17 +1,12 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
-import { type Army, type UserProfile } from 'appdeptus/models'
+import { type Army } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import { getArmySchema } from '../schemas'
+import { armySchema } from '../schemas'
 import ArmiesApiTag from '../tags'
 
 const getArmyList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
-  builder.query<
-    Army & {
-      user: UserProfile
-    },
-    string
-  >({
+  builder.query<Army, string>({
     queryFn: async (id) => {
       try {
         const { data, error } = await supabase
@@ -33,14 +28,28 @@ const getArmyList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           return { error: JSON.stringify(error) }
         }
 
-        const armyList = getArmySchema.parse(mapNullToUndefined(data[0]))
+        const armyList = armySchema.parse(mapNullToUndefined(data[0]))
 
         return { data: armyList }
       } catch (error) {
         return { error: JSON.stringify(error) }
       }
     },
-    providesTags: [ArmiesApiTag.ARMY_LIST]
+    providesTags: [ArmiesApiTag.ARMY_LIST],
+    /**
+     * FIXME: this is bad workaround
+     * if we use cache from this api the edit army flow has a bug:
+     * __repro
+     * 1. open an army
+     * 2. tap edit in the options menu
+     * 3. go back
+     * 4. tap edit again
+     * __result
+     * the unit selection screen keeps the rightButton disabled until
+     * a change is made. this is due to the fact that the `watch` function
+     * in the _layout.tsx file does not refresh after resetting the form
+     */
+    keepUnusedDataFor: 0
   })
 
 export default getArmyList

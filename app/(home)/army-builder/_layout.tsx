@@ -73,18 +73,19 @@ const ArmyBuilderLayout = () => {
         return
       }
 
-      if (router.canDismiss()) {
-        router.dismissAll()
-      }
-      router.navigate(`army/${id}`)
+      router.dismissAll()
+      router.back()
     },
-    [id, show, updateArmy]
+    [show, updateArmy]
   )
 
-  const codex = watch('codex')
-  const detachment = watch('detachment')
-  const units = watch('units')
-  const name = watch('name')
+  const [codex, detachment, units, name] = watch([
+    'codex',
+    'detachment',
+    'units',
+    'name'
+  ])
+
   const warlord = useWarlord(units ?? [])
 
   const unitSelectionButtonDisabled = useMemo(

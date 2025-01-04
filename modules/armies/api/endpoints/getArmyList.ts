@@ -18,6 +18,9 @@ const getArmyList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           *,
           codex!inner(
             *
+          ),
+          user_id!inner(
+          *
           )
         `
           )
