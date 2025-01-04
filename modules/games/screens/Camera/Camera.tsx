@@ -68,7 +68,7 @@ const CameraScreen = () => {
           }}
         />
         <Text className='text-center'>
-          By the Will of the Omnissiah, grant the Machine Spirit access to the
+          By the Will of the machine God, grant the machine spirit access to the
           blessed lens. Unite flesh and metal in purpose!
         </Text>
         <Button
@@ -111,8 +111,7 @@ const CameraScreen = () => {
               looking for data...
             </Text>
             <Text>
-              Point your auspex towards your opponent Vox-Cogitator that shows
-              the sygil
+              Point your auspex scanner towards your opponent sygil (QR-Code)
             </Text>
             <VStack className='overflow-hidden rounded-3xl bg-primary-50/10'>
               <InnerBorder>

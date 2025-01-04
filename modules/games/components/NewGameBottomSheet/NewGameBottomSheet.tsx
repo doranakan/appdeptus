@@ -69,7 +69,7 @@ const NewGameBottomSheet = () => {
             }}
             icon={Scan}
             variant='callback'
-            text='open auspex'
+            text='open auspex scanner'
           />
         )}
       </VStack>

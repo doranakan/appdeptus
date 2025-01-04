@@ -86,9 +86,8 @@ const QRCodeScreen = () => {
         size='sm'
         family='body-regular-italic'
       >
-        In the unyielding darkness of the 41st Millennium, duty calls you to the
-        frontlines. The survival of countless billions depends on your
-        vigilance. This act may alter the fate of worlds.
+        Duty calls you to the frontlines, the survival of countless billions
+        depends on your vigilance. This act may alter the fate of worlds.
       </Text>
       <Card>
         <QRCode
@@ -105,7 +104,7 @@ const QRCodeScreen = () => {
             +++ Instruction for your opponent: +++
           </Text>
           <Text size='sm'>
-            1. Retrieve your Vox-Cogitator (mobile device) and ensure it is
+            1. Retrieve your cogitator (mobile device) and ensure it is
             operational (appdeptus is installed correcly).
           </Text>
           <Text size='sm'>

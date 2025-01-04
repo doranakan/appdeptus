@@ -2,6 +2,7 @@ import logo from 'appdeptus/assets/svg/logo.svg'
 import {
   Avatar,
   Card,
+  Disclaimer,
   HStack,
   Loading,
   NavigationHeader,
@@ -99,7 +100,7 @@ const UserScreen = () => {
               </Text>
               <CommunityCard
                 cta='join our discord'
-                description='Join our server and meet the community, report bugs and keep updated Appdeptus data.'
+                description='Join our server and meet the community, report bugs and keep updated the Appdeptus data.'
                 Icon={Bot}
                 link='https://discord.gg/T52Bc5Fe'
                 title='discord'
@@ -115,15 +116,7 @@ const UserScreen = () => {
           </Card>
 
           <VStack space='md'>
-            <Text size='xs'>
-              This app is a fan-made project and is not affiliated with or
-              endorsed by Games Workshop Group PLC. Warhammer 40,000 and all
-              related trademarks, logos, and imagery are the property of Games
-              Workshop. All rights to the original content, including but not
-              limited to characters, names, and game mechanics, are owned by
-              Games Workshop Group PLC. This app is intended for entertainment
-              and informational purposes only and is made by fans for fans.
-            </Text>
+            <Disclaimer />
             <HStack className='justify-between'>
               <HStack
                 className='items-center'

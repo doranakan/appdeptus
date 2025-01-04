@@ -46,7 +46,7 @@ const DoubleCheckScreen = () => {
         size='sm'
       >
         Your forces are assembled and your army stands ready, warrior! Tap the
-        QR Seal of the Omnissiah in the top right. This sacred glyph shall
+        QR Seal of the machine God in the top right. This sacred glyph shall
         encode your war protocols. Let your opponent scan it, and the rites of
         battle shall commence.
       </Text>

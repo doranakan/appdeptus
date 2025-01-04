@@ -1,5 +1,5 @@
 import { logo } from 'appdeptus/assets'
-import { Background, Text, VStack } from 'appdeptus/components'
+import { Background, Disclaimer, Text, VStack } from 'appdeptus/components'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
@@ -47,15 +47,7 @@ const RootScreen = () => (
             </Text>
           </VStack>
           <SignIn />
-          <Text size='xs'>
-            This app is a fan-made project and is not affiliated with or
-            endorsed by Games Workshop Group PLC. Warhammer 40,000 and all
-            related trademarks, logos, and imagery are the property of Games
-            Workshop. All rights to the original content, including but not
-            limited to characters, names, and game mechanics, are owned by Games
-            Workshop Group PLC. This app is intended for entertainment and
-            informational purposes only and is made by fans for fans.
-          </Text>
+          <Disclaimer />
         </VStack>
       </SafeAreaView>
     </VStack>
