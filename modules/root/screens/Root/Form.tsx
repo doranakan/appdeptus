@@ -1,17 +1,14 @@
-import {
-  Button,
-  Input,
-  Text,
-  TextLink,
-  useToast,
-  VStack
-} from 'appdeptus/components'
+import { Button, Input, useToast, VStack } from 'appdeptus/components'
 import { router } from 'expo-router'
 import { AtSign, Key } from 'lucide-react-native'
 import { useCallback, useState } from 'react'
 import { useSignInMutation } from '../../api'
 
-const Form = () => {
+type FormProps = {
+  disabled?: boolean
+}
+
+const Form = ({ disabled }: FormProps) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -35,7 +32,7 @@ const Form = () => {
       <Input
         Icon={AtSign}
         onChangeText={setEmail}
-        placeholder='munitorum@imperium.gov'
+        placeholder='inquisitor@appdeptus.com'
         keyboardType='email-address'
         autoCorrect={false}
         value={email}
@@ -53,14 +50,11 @@ const Form = () => {
       <Button
         className='shadow-sm'
         loading={isLoading}
+        disabled={disabled}
         onPress={handleSignIn}
         variant='callback'
         text='Sign in'
       />
-      <Text size='sm'>
-        {"You're not an Appdept yet? "}
-        <TextLink href='registration'>Become an Appdept</TextLink>
-      </Text>
     </VStack>
   )
 }

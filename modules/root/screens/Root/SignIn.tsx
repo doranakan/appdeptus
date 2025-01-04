@@ -15,7 +15,7 @@ import SignInWithGoogle from './SignInWithGoogle'
 import SignInWithMicrosoft from './SignInWithMicrosoft'
 
 const SignIn = () => {
-  const [signInMode, setSignInMode] = useState<'social' | 'email'>('social')
+  const [signInMode, setSignInMode] = useState<'adept' | 'inquisitor'>('adept')
 
   const [isPrivacyAccepted, setIsPrivacyAccepted] = useState(false)
 
@@ -31,38 +31,37 @@ const SignIn = () => {
         >
           Sign in
         </Text>
-        {__DEV__ ? (
-          <TabMenu
-            onOptionSelected={setSignInMode}
-            options={['social', 'email']}
-          />
-        ) : null}
-        {signInMode === 'social' ? (
+
+        <TabMenu
+          onOptionSelected={setSignInMode}
+          options={['adept', 'inquisitor']}
+        />
+        {signInMode === 'adept' ? (
           <VStack space='md'>
             <SignInWithGoogle disabled={!isPrivacyAccepted} />
             <SignInWithApple disabled={!isPrivacyAccepted} />
             <SignInWithMicrosoft disabled={!isPrivacyAccepted} />
-            <HStack
-              className='items-center'
-              space='md'
-            >
-              <Switch
-                ios_backgroundColor={themeColors.default.secondary[300]}
-                trackColor={{
-                  false: themeColors.default.secondary[200],
-                  true: themeColors.default.tertiary[600]
-                }}
-                onChange={(e) => {
-                  setIsPrivacyAccepted(e.nativeEvent.value)
-                }}
-                value={isPrivacyAccepted}
-              />
-              <PrivacyLink />
-            </HStack>
           </VStack>
         ) : (
-          <Form />
+          <Form disabled={!isPrivacyAccepted} />
         )}
+        <HStack
+          className='items-center'
+          space='md'
+        >
+          <Switch
+            ios_backgroundColor={themeColors.default.secondary[300]}
+            trackColor={{
+              false: themeColors.default.secondary[200],
+              true: themeColors.default.tertiary[600]
+            }}
+            onChange={(e) => {
+              setIsPrivacyAccepted(e.nativeEvent.value)
+            }}
+            value={isPrivacyAccepted}
+          />
+          <PrivacyLink />
+        </HStack>
       </VStack>
     </Card>
   )
