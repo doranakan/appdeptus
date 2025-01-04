@@ -76,8 +76,7 @@ const getGameWithouId = async () => {
       `
             *,
             player_one (
-              id,
-              name
+              *
             ),
             army_one (
               *,
@@ -86,8 +85,7 @@ const getGameWithouId = async () => {
               )
             ),
             player_two (
-              id,
-              name
+              *
             ),
             army_two (
               *,

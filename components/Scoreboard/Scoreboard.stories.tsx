@@ -19,12 +19,7 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
         },
         name: 'Army One',
         points: 2000,
-        roster: [],
-        user: {
-          createdAt: Date.now().toLocaleString(),
-          id: '1',
-          name: 'Player 1'
-        }
+        roster: []
       },
       cp: 12,
       profile: {
@@ -49,12 +44,7 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
         },
         name: 'Army Two',
         points: 1990,
-        roster: [],
-        user: {
-          createdAt: Date.now().toLocaleString(),
-          id: '2',
-          name: 'Player 2'
-        }
+        roster: []
       },
       cp: 12,
       profile: {

@@ -6,7 +6,7 @@ import { createGameArmy } from '../schemas'
 import GamesApiTag from '../tags'
 
 type StartGameRequest = {
-  army: Army
+  army: Omit<Army, 'user'>
   gameId: number
 }
 

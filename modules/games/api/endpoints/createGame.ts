@@ -6,7 +6,7 @@ import { createGameArmy, createGameSchema } from '../schemas'
 import type GamesApiTag from '../tags'
 
 const createGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
-  builder.mutation<Army['id'], Army>({
+  builder.mutation<Army['id'], Omit<Army, 'user'>>({
     queryFn: async ({ id: _, codex, ...rest }) => {
       try {
         const { data: gameArmyData, error: gameArmyError } = await supabase

@@ -34,7 +34,7 @@ type NewGame = BaseGame & {
 type Player = {
   cp: number
   profile: UserProfile
-  army: Army
+  army: Omit<Army, 'user'>
   score: number
 }
 

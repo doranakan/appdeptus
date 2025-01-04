@@ -47,7 +47,8 @@ const NewGameScreen = () => {
         renderItem={({ item }) => (
           <Pressable
             onPress={() => {
-              setValue('playerOne.army', item)
+              const { user: _user, ...army } = item
+              setValue('playerOne.army', army)
               dispatch(setTheme(item.codex.name))
             }}
           >

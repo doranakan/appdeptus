@@ -144,24 +144,28 @@ const embarkedSchema = z.object({
   type: z.literal('embarked')
 })
 
+const baseArmySchema = z.object({
+  codex: codexSchema,
+  roster: z.array(z.union([unitSchema, teamSchema, embarkedSchema])),
+  detachment: baseDetachmentSchema.merge(
+    z.object({
+      enhancements: z.array(enhancementSchema)
+    })
+  ),
+  id: idSchema,
+  name: z.string(),
+  points: z.number()
+})
+
 const armySchema = z
   .object({
-    codex: codexSchema,
-    roster: z.array(z.union([unitSchema, teamSchema, embarkedSchema])),
-    detachment: baseDetachmentSchema.merge(
-      z.object({
-        enhancements: z.array(enhancementSchema)
-      })
-    ),
-    id: idSchema,
-    name: z.string(),
-    points: z.number(),
     user_id: z.object({
       id: z.string(),
       name: z.string(),
       created_at: z.string()
     })
   })
+  .and(baseArmySchema)
   .transform(({ user_id, ...rest }) => ({
     ...rest,
     user: {
@@ -224,6 +228,7 @@ const unitListSchema = z.array(selectableUnitSchema)
 export {
   armyListSchema,
   armySchema,
+  baseArmySchema,
   codexListSchema,
   codexSchema,
   detachmentListSchema,

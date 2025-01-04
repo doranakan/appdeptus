@@ -29,7 +29,8 @@ const LeaderSelectionScreen = () => {
 
   useEffect(() => {
     if (data && !selectedArmy) {
-      setValue('playerOne.army', data)
+      const { user: _user, ...army } = data
+      setValue('playerOne.army', army)
     }
   }, [data, selectedArmy, setValue])
 
