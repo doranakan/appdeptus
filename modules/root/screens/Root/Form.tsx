@@ -40,7 +40,7 @@ const Form = ({ disabled }: FormProps) => {
       <Input
         Icon={Key}
         onChangeText={setPassword}
-        onSubmitEditing={handleSignIn}
+        onSubmitEditing={!disabled ? handleSignIn : undefined}
         placeholder='classified_authority_code'
         textContentType='password'
         secureTextEntry={true}
