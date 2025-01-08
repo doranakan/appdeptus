@@ -1,20 +1,15 @@
 import { defaultScreenOptions } from 'appdeptus/constants'
 import { Stack } from 'expo-router'
 
-const UserLayout = () => (
+const UserSettingsLayout = () => (
   <Stack
     initialRouteName='index'
     screenOptions={defaultScreenOptions}
   >
     <Stack.Screen name='index' />
-    <Stack.Screen
-      name='privacy-policy'
-      options={{
-        animation: 'slide_from_bottom',
-        presentation: 'modal'
-      }}
-    />
+    <Stack.Screen name='edit-name' />
+    <Stack.Screen name='delete' />
   </Stack>
 )
 
-export default UserLayout
+export default UserSettingsLayout

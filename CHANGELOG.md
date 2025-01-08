@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Account deletion screen 🗑️
+
 ### Changed
 
 ### Fixed

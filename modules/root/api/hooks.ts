@@ -1,6 +1,7 @@
 import rootApi from './api'
 
 const {
+  useDeleteUserMutation,
   useGetSessionQuery,
   useSignInMutation,
   useSignInWithAppleMutation,
@@ -11,6 +12,7 @@ const {
 } = rootApi
 
 export {
+  useDeleteUserMutation,
   useGetSessionQuery,
   useSignInMutation,
   useSignInWithAppleMutation,

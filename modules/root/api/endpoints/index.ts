@@ -1,3 +1,4 @@
+export { default as deleteUser } from './deleteUser'
 export { default as getSession } from './getSession'
 export { default as signIn } from './signIn'
 export { default as signInWithApple } from './signInWithApple'

@@ -30,7 +30,7 @@ const SignInWithApple = ({ disabled }: SignInWithAppleProps) => {
         }
 
         if (res.data.isNew) {
-          router.replace('user/edit-name')
+          router.replace('user/settings/edit-name')
           return
         }
 
