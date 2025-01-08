@@ -1,5 +1,6 @@
 import { sessionApi } from 'appdeptus/api'
 import {
+  deleteUser,
   getSession,
   signIn,
   signInWithApple,
@@ -14,6 +15,7 @@ const rootApi = sessionApi
   .enhanceEndpoints({ addTagTypes: [SessionApiTag.SESSION] })
   .injectEndpoints({
     endpoints: (builder) => ({
+      deleteUser: deleteUser(builder),
       getSession: getSession(builder),
       signIn: signIn(builder),
       signInWithApple: signInWithApple(builder),
