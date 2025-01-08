@@ -1,4 +1,3 @@
-import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Input,
   NavigationHeader,
@@ -17,27 +16,23 @@ import {
   type SubmitHandler,
   useForm
 } from 'react-hook-form'
-import { z } from 'zod'
 import { useUpdateUserNameMutation } from '../../api'
 
 type FormProps = {
   name: string
 }
 
-const Form = ({ name }: FormProps) => {
+const Form = ({ name: initialName }: FormProps) => {
   const form = useForm<{ name: string }>({
-    defaultValues: { name },
-    mode: 'onChange',
-    resolver: zodResolver(
-      z.object({
-        name: z.string().min(1, { message: 'Nickname cannot be empty' })
-      })
-    )
+    defaultValues: { name: initialName },
+    mode: 'all'
   })
 
   const [updateUserName] = useUpdateUserNameMutation()
 
   const { show } = useToast()
+
+  const watch = form.watch().name
 
   const handleUpdateUserName = useCallback<SubmitHandler<{ name: string }>>(
     async ({ name }) => {
@@ -67,10 +62,11 @@ const Form = ({ name }: FormProps) => {
           onPress: form.handleSubmit(handleUpdateUserName),
           icon: Save,
           loading: form.formState.isSubmitting,
-          disabled: !form.formState.isValid && !form.formState.isDirty
+          disabled:
+            !form.formState.isValid || !form.formState.isDirty || !watch?.length
         }}
       />
-      <ScreenTitle>edit nickname</ScreenTitle>
+      <ScreenTitle>nickname</ScreenTitle>
       <ScreenSubtitle>choose your battle name</ScreenSubtitle>
       <FormProvider {...form}>
         <Controller
