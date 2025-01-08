@@ -11,11 +11,10 @@ import {
   TextLink,
   VStack
 } from 'appdeptus/components'
-import { useSignOutMutation } from 'appdeptus/modules/root/api'
 import { formatDate } from 'date-fns'
 import * as Application from 'expo-application'
 import { Link } from 'expo-router'
-import { Bot, Code, LogOut } from 'lucide-react-native'
+import { Bot, Code, Cog } from 'lucide-react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SvgXml } from 'react-native-svg'
 import { useGetUserProfileQuery } from '../../api'
@@ -23,8 +22,6 @@ import CommunityCard from './CommunityCard'
 
 const UserScreen = () => {
   const { data } = useGetUserProfileQuery()
-
-  const [signOut, { isLoading }] = useSignOutMutation()
 
   if (!data) {
     return (
@@ -44,12 +41,9 @@ const UserScreen = () => {
         variant='backButton'
         rightButton={{
           color: 'secondary',
-          icon: LogOut,
-          loading: isLoading,
-          onPress: async () => {
-            await signOut()
-          },
-          variant: 'callback'
+          icon: Cog,
+          variant: 'link',
+          href: 'user/settings'
         }}
       />
 
