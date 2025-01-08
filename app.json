@@ -3,7 +3,7 @@
     "owner": "appdeptus",
     "name": "Appdeptus",
     "slug": "appdeptus",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "scheme": "appdeptus",
     "orientation": "portrait",
     "icon": "./assets/resources/icon.png",
@@ -14,9 +14,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#18212F"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.appdeptus",
       "supportsTablet": true,
@@ -41,16 +39,11 @@
     },
     "plugins": [
       "expo-router",
-      [
-        "expo-font"
-      ],
+      ["expo-font"],
       [
         "expo-asset",
         {
-          "assets": [
-            "./assets/resources/armies",
-            "./assets/resources/misc"
-          ]
+          "assets": ["./assets/resources/armies", "./assets/resources/misc"]
         }
       ],
       [
@@ -65,9 +58,7 @@
           "iosUrlScheme": "com.googleusercontent.apps.535932431249-vesoagcrcra658q34jc2lfjpo48c65v2"
         }
       ],
-      [
-        "expo-apple-authentication"
-      ],
+      ["expo-apple-authentication"],
       "expo-localization"
     ],
     "experiments": {
