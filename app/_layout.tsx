@@ -59,7 +59,8 @@ const App = ({ children }: PropsWithChildren) => {
             <PostHogProvider
               apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY}
               options={{
-                host: 'https://eu.i.posthog.com'
+                host: 'https://eu.i.posthog.com',
+                disabled: __DEV__
               }}
             >
               <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
