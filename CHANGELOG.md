@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 - Account deletion screen 🗑️
+- Refresh button in QR code screen 📱
 
 ### Changed
 
