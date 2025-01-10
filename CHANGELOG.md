@@ -14,6 +14,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Missing share link on Android ⛓️‍💥
+
 ### Deprecated
 
 ### Removed

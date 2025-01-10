@@ -14,7 +14,7 @@ import clsx from 'clsx'
 import { router } from 'expo-router'
 import { Settings, ShareIcon, Swords, Trash2 } from 'lucide-react-native'
 import { memo, useCallback } from 'react'
-import { Share } from 'react-native'
+import { Platform, Share } from 'react-native'
 import { useDeleteArmyMutation } from '../../api'
 import OptionButton from './OptionButton'
 import ref from './ref'
@@ -45,10 +45,16 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
 
   const shareArmy = useCallback(() => {
     ref.current?.dismiss()
+
+    const url = `https://open.appdeptus.com/share.html?id=${army.id}`
+
     Share.share({
       title: 'Share your army roster',
-      message: 'From the forges of Appdeptus comes a battle-tested roster!',
-      url: `https://open.appdeptus.com/share.html?id=${army.id}`
+      message: Platform.select({
+        android: `From the forges of Appdeptus comes a battle-tested roster!\n${url}`,
+        ios: 'From the forges of Appdeptus comes a battle-tested roster!'
+      }),
+      url
     })
   }, [army.id])
 
