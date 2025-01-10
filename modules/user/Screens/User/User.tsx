@@ -13,7 +13,6 @@ import {
 } from 'appdeptus/components'
 import { formatDate } from 'date-fns'
 import * as Application from 'expo-application'
-import { Link } from 'expo-router'
 import { Bot, Code, Cog } from 'lucide-react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { SvgXml } from 'react-native-svg'
@@ -64,17 +63,12 @@ const UserScreen = () => {
               className='items-center justify-center'
               space='xs'
             >
-              <Link
-                href='./edit-name'
-                relativeToDirectory
+              <Text
+                family='heading-regular'
+                size='2xl'
               >
-                <Text
-                  family='heading-regular'
-                  size='2xl'
-                >
-                  {data.name}
-                </Text>
-              </Link>
+                {data.name}
+              </Text>
               <Text
                 className='text-primary-400'
                 family='body-bold'
