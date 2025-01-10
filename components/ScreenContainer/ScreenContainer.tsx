@@ -40,6 +40,7 @@ const ScreenContainer = ({
       </VStack>
       {!hideBottomGradient ? (
         <LinearGradient
+          pointerEvents='none'
           colors={[
             `${themeColors[themeName].primary[950]}00`,
             themeColors[themeName].primary[950]

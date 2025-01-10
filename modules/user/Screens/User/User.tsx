@@ -47,7 +47,10 @@ const UserScreen = () => {
         }}
       />
 
-      <ScrollView>
+      <ScrollView
+        contentContainerClassName='pb-4'
+        showsVerticalScrollIndicator={false}
+      >
         <VStack space='md'>
           <VStack
             className='items-center justify-center'

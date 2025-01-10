@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Fixed
 
 - Missing share link on Android ⛓️‍💥
+- Settings privacy policy touchability 🫵🏼
 
 ### Deprecated
 

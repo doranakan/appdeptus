@@ -1,8 +1,11 @@
 import { NavigationHeader, ScreenContainer, VStack } from 'appdeptus/components'
+import { Platform } from 'react-native'
 import { WebView } from 'react-native-webview'
 
 const PrivacyPolicyScreen = () => (
-  <ScreenContainer>
+  <ScreenContainer
+    safeAreaInsets={Platform.OS === 'android' ? ['top'] : undefined}
+  >
     <VStack className='p-4'>
       <NavigationHeader variant='closeButton' />
     </VStack>
