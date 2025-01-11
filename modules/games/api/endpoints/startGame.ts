@@ -4,6 +4,7 @@ import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { createGameArmy } from '../schemas'
 import GamesApiTag from '../tags'
+import { mapArmyToGameArmy } from '../util'
 
 type StartGameRequest = {
   army: Omit<Army, 'user'>
@@ -16,11 +17,14 @@ const startGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
       try {
         const { id: _, codex, ...rest } = army
 
+        const roster = mapArmyToGameArmy(rest.roster)
+
         const { data: gameArmyData, error: gameArmyError } = await supabase
           .from(Table.GAME_ARMIES)
           .insert({
             codex: codex.id,
-            ...rest
+            ...rest,
+            roster
           })
           .select('id')
 

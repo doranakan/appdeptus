@@ -16,10 +16,10 @@ type BaseArmy = {
   name: string
   points: number
   detachment: Detachment
-  user: UserProfile
 }
 type Army = BaseArmy & {
   roster: (Unit | Team | Embarked)[]
+  user: UserProfile
 }
 
 type GameArmy = {
@@ -28,6 +28,7 @@ type GameArmy = {
 
 type ArmyBuilder = BaseArmy & {
   units: Unit[]
+  user: UserProfile
 }
 
 export type { Army, ArmyBuilder, GameArmy }

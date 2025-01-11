@@ -1,4 +1,4 @@
-import { type Army } from './army'
+import { type GameArmy } from './army'
 import { type UserProfile } from './userProfile'
 
 type BaseGame = {
@@ -34,7 +34,7 @@ type NewGame = BaseGame & {
 type Player = {
   cp: number
   profile: UserProfile
-  army: Omit<Army, 'user'>
+  army: GameArmy
   score: number
 }
 
