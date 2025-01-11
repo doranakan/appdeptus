@@ -1,10 +1,15 @@
-import { type Army, type Unit } from 'appdeptus/models'
+import {
+  type Army,
+  type GameArmy,
+  type GameUnit,
+  type Unit
+} from 'appdeptus/models'
 import { useMemo } from 'react'
 
-const useAllUnits = (units: Army['roster']) =>
+const useAllUnits = (units: Army['roster'] | GameArmy['roster']) =>
   useMemo(
     () =>
-      units.reduce<Unit[]>((acc, curr) => {
+      units.reduce<(Unit | GameUnit)[]>((acc, curr) => {
         switch (curr.type) {
           case 'embarked':
             return [

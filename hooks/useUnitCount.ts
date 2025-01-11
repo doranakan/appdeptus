@@ -1,7 +1,7 @@
-import { type Army, type Team } from 'appdeptus/models'
+import { type Army, type GameArmy, type Team } from 'appdeptus/models'
 import { useMemo } from 'react'
 
-const useUnitCount = (units: Army['roster']) =>
+const useUnitCount = (units: Army['roster'] | GameArmy['roster']) =>
   useMemo(() => {
     const teams = units.filter<Team>(
       (unit): unit is Team => unit.type === 'team'

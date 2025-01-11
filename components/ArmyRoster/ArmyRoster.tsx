@@ -9,12 +9,9 @@ type ArmyRosterProps = {
   ListHeaderComponent?: ComponentProps<typeof FlatList>['ListHeaderComponent']
 }
 
-const ArmyRoster = ({
-  roster: units,
-  ListHeaderComponent
-}: ArmyRosterProps) => (
+const ArmyRoster = ({ roster, ListHeaderComponent }: ArmyRosterProps) => (
   <FlatList
-    data={units}
+    data={roster}
     showsVerticalScrollIndicator={false}
     ItemSeparatorComponent={() => <VStack className='h-4' />}
     keyExtractor={(unit) => {

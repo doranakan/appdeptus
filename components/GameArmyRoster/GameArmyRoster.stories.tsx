@@ -1,9 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { VStack } from '../ui'
 import GameArmyRoster from './GameArmyRoster'
 
 const GameArmyRosterMeta: Meta<typeof GameArmyRoster> = {
   title: 'GameArmyRoster',
-  component: GameArmyRoster,
+  component: (props) => (
+    <VStack className='h-full w-full'>
+      <GameArmyRoster {...props} />
+    </VStack>
+  ),
   args: {
     roster: [
       {

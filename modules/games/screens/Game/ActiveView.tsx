@@ -1,6 +1,6 @@
 import { useMount } from 'ahooks'
 import {
-  ArmyRoster,
+  GameArmyRoster,
   NavigationHeader,
   Scoreboard,
   ScreenContainer,
@@ -86,7 +86,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
           }}
         />
         <Scoreboard {...game} />
-        <ArmyRoster
+        <GameArmyRoster
           ListHeaderComponent={
             <VStack space='md'>
               <GameDetail {...game} />
