@@ -7,7 +7,7 @@ import {
   type Team,
   type Transport
 } from 'appdeptus/models'
-import { type NewGame } from 'appdeptus/models/game'
+import { type CreateGame } from 'appdeptus/models/game'
 import * as Crypto from 'expo-crypto'
 import {
   memo,
@@ -22,7 +22,7 @@ import EmbarkedUnitsBottomSheet from './EmbarkedUnitBottomSheet'
 import ref from './ref'
 
 const EmbarkedSelectionList = () => {
-  const { setValue, watch } = useFormContext<NewGame>()
+  const { setValue, watch } = useFormContext<CreateGame>()
 
   const units = watch('playerOne.army.roster')
 

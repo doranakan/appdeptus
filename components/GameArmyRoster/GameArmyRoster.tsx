@@ -1,18 +1,18 @@
-import { type Army } from 'appdeptus/models'
+import { type GameArmy } from 'appdeptus/models'
 import React, { type ComponentProps, memo } from 'react'
 import { FlatList } from 'react-native'
+import Text from '../Text'
 import { VStack } from '../ui'
-import UnitListItem from '../UnitListItem'
 
-type ArmyRosterProps = {
-  roster: Army['roster']
+type GameArmyRosterProps = {
+  roster: GameArmy['roster']
   ListHeaderComponent?: ComponentProps<typeof FlatList>['ListHeaderComponent']
 }
 
-const ArmyRoster = ({
+const GameArmyRoster = ({
   roster: units,
   ListHeaderComponent
-}: ArmyRosterProps) => (
+}: GameArmyRosterProps) => (
   <FlatList
     data={units}
     showsVerticalScrollIndicator={false}
@@ -28,8 +28,16 @@ const ArmyRoster = ({
     }}
     ListFooterComponent={() => <VStack className='h-4' />}
     ListHeaderComponent={ListHeaderComponent}
-    renderItem={({ item }) => <UnitListItem item={item} />}
+    renderItem={({ item }) => <GameUnitListItem item={item} />}
   />
 )
 
-export default memo(ArmyRoster)
+type GameUnitListItemProps = {
+  item: GameArmy['roster'][number]
+}
+
+const GameUnitListItem = ({ item }: GameUnitListItemProps) => {
+  return <Text>{item.id}</Text>
+}
+
+export default memo(GameArmyRoster)

@@ -4,12 +4,12 @@ import {
   ScreenTitle,
   VStack
 } from 'appdeptus/components'
-import { type NewGame } from 'appdeptus/models/game'
+import { type CreateGame } from 'appdeptus/models/game'
 import { useFormContext } from 'react-hook-form'
 import EmbarkedSelectionList from './EmbarkedSelectionList'
 
 const EmbarkedSelection = () => {
-  const { watch } = useFormContext<NewGame>()
+  const { watch } = useFormContext<CreateGame>()
 
   const codex = watch('playerOne.army.codex.name')
   return (

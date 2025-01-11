@@ -7,14 +7,14 @@ import {
   VersusBackground,
   VStack
 } from 'appdeptus/components'
-import { type NewGame } from 'appdeptus/models/game'
+import { type CreateGame } from 'appdeptus/models/game'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useFormContext } from 'react-hook-form'
 import { StyleSheet } from 'react-native'
 import DataTable from './DataTable'
 
 const DoubleCheckScreen = () => {
-  const { watch } = useFormContext<NewGame>()
+  const { watch } = useFormContext<CreateGame>()
 
   const codex = watch('playerOne.army.codex.name')
 

@@ -1,4 +1,4 @@
-import { type GameArmy } from './army'
+import { type Army, type GameArmy } from './army'
 import { type UserProfile } from './userProfile'
 
 type BaseGame = {
@@ -27,15 +27,24 @@ type EndedGame = BaseGame & {
   playerTwo: Player
 }
 
+type CreateGame = {
+  playerOne: BasePlayer & {
+    army: Omit<Army, 'user'>
+  }
+}
+
 type NewGame = BaseGame & {
   status: 'new'
 }
 
-type Player = {
+type BasePlayer = {
   cp: number
   profile: UserProfile
-  army: GameArmy
   score: number
+}
+
+type Player = BasePlayer & {
+  army: GameArmy
 }
 
 const isActiveGame = (
@@ -51,4 +60,4 @@ const isNewGame = (game: ActiveGame | EndedGame | NewGame): game is NewGame =>
 
 export { isActiveGame, isEndedGame, isNewGame }
 
-export type { ActiveGame, EndedGame, NewGame, Player }
+export type { ActiveGame, CreateGame, EndedGame, NewGame, Player }

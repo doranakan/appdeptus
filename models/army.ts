@@ -17,12 +17,13 @@ type BaseArmy = {
   points: number
   detachment: Detachment
 }
+
 type Army = BaseArmy & {
   roster: (Unit | Team | Embarked)[]
   user: UserProfile
 }
 
-type GameArmy = {
+type GameArmy = BaseArmy & {
   roster: (GameUnit | GameTeam | GameEmbarked)[]
 }
 
