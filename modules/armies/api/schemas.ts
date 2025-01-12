@@ -230,12 +230,12 @@ const armySchema = z
     }
   }))
 
+const gameRosterSchema = z.array(
+  z.union([gameUnitSchema, gameTeamSchema, gameEmbarkedSchema])
+)
+
 const gameArmySchema = baseArmySchema.and(
-  z.object({
-    roster: z.array(
-      z.union([gameUnitSchema, gameTeamSchema, gameEmbarkedSchema])
-    )
-  })
+  z.object({ roster: gameRosterSchema })
 )
 
 const armyListSchema = z.array(armySchema)
@@ -296,6 +296,7 @@ export {
   codexSchema,
   detachmentListSchema,
   gameArmySchema,
+  gameRosterSchema,
   selectableUnitSchema,
   unitListSchema
 }

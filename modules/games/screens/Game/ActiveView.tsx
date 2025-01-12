@@ -16,6 +16,7 @@ import { ArrowBigRightDash } from 'lucide-react-native'
 import { useCallback, useState } from 'react'
 import {
   useEndGameMutation,
+  useGameArmyUpdates,
   useGameUpdates,
   useNextTurnMutation,
   useUpdateGameArmyMutation
@@ -34,8 +35,8 @@ type ActiveViewProps = {
 const ActiveView = ({ game, user }: ActiveViewProps) => {
   const [selectedUnit, setSelectedUnit] = useState<GameArmy['roster'][number]>()
 
-  // TODO: add missing game army socket
   useGameUpdates(game.id)
+  useGameArmyUpdates(game)
 
   const [nextTurn, { isLoading: isMovingToNextTurn }] = useNextTurnMutation()
   const [endGame, { isLoading: isGameEnding }] = useEndGameMutation()
