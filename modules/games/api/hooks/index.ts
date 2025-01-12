@@ -10,6 +10,7 @@ const {
   useLazyGetGameQuery,
   useNextTurnMutation,
   useStartGameMutation,
+  useUpdateGameArmyMutation,
   useUpdateScoreAndCPMutation
 } = gamesApi
 
@@ -23,6 +24,7 @@ export {
   useLazyGetGameQuery,
   useNextTurnMutation,
   useStartGameMutation,
+  useUpdateGameArmyMutation,
   useUpdateScoreAndCPMutation
 }
 

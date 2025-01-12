@@ -1,31 +1,45 @@
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { type BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
+import clsx from 'clsx'
 import { BlurView } from 'expo-blur'
 import {
   forwardRef,
   type ForwardRefRenderFunction,
   memo,
-  type PropsWithChildren
+  type PropsWithChildren,
+  type ReactElement
 } from 'react'
 import { StyleSheet, useWindowDimensions } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import InnerBorder from '../InnerBorder'
 import { Pressable, VStack } from '../ui'
 
 type BottomSheetProps = {
+  dismissDisabled?: boolean
   onDismiss?: () => void
   onPressBackdrop?: () => void
   scrollDisabled?: boolean
+  StickyHeader?: ReactElement | null
 }
 
 const BottomSheet: ForwardRefRenderFunction<
   BottomSheetModalMethods,
   PropsWithChildren<BottomSheetProps>
-> = ({ children, onDismiss, onPressBackdrop, scrollDisabled }, ref) => {
+> = (
+  {
+    children,
+    dismissDisabled,
+    onDismiss,
+    onPressBackdrop,
+    scrollDisabled,
+    StickyHeader
+  },
+  ref
+) => {
   const window = useWindowDimensions()
 
-  const { bottom, top } = useSafeAreaInsets()
+  const { top } = useSafeAreaInsets()
 
   return (
     <BottomSheetModal
@@ -39,6 +53,7 @@ const BottomSheet: ForwardRefRenderFunction<
       onDismiss={onDismiss}
       backdropComponent={() => (
         <Pressable
+          disabled={dismissDisabled}
           className='absolute h-full w-full'
           onPress={onPressBackdrop}
         />
@@ -47,18 +62,28 @@ const BottomSheet: ForwardRefRenderFunction<
       <BottomSheetView style={styles.container}>
         <InnerBorder>
           <BlurView>
+            {StickyHeader}
             <VStack
-              className='overflow-visible p-4'
+              className='overflow-x-visible'
               space='md'
             >
-              <VStack className='z-10 h-1 w-16 self-center rounded-full bg-primary-50' />
               <ScrollView
+                className={clsx(
+                  'overflow-x-visible px-4',
+                  dismissDisabled ? 'py-4' : 'py-8'
+                )}
+                contentContainerClassName='pb-10'
                 scrollEnabled={!scrollDisabled}
                 showsVerticalScrollIndicator={false}
-                style={{ paddingBottom: bottom }}
               >
-                {children}
+                <SafeAreaView edges={['bottom']}>{children}</SafeAreaView>
               </ScrollView>
+              {!dismissDisabled ? (
+                <VStack
+                  className='absolute top-4 h-2 w-16 self-center rounded-full bg-primary-50'
+                  hitSlop={16}
+                />
+              ) : null}
             </VStack>
           </BlurView>
         </InnerBorder>

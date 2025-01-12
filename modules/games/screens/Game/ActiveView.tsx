@@ -6,9 +6,10 @@ import {
   ScreenContainer,
   setTheme,
   TabMenu,
+  useToast,
   VStack
 } from 'appdeptus/components'
-import { type UserProfile } from 'appdeptus/models'
+import { type GameArmy, type UserProfile } from 'appdeptus/models'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { useAppDispatch } from 'appdeptus/store'
 import { ArrowBigRightDash } from 'lucide-react-native'
@@ -16,11 +17,14 @@ import { useCallback, useState } from 'react'
 import {
   useEndGameMutation,
   useGameUpdates,
-  useNextTurnMutation
+  useNextTurnMutation,
+  useUpdateGameArmyMutation
 } from '../../api'
 import { Background } from '../../components'
 import Commands from './Commands'
 import GameDetail from './GameDetail'
+import ModelBottomSheet from './ModelBottomSheet'
+import ref from './ref'
 
 type ActiveViewProps = {
   game: ActiveGame
@@ -28,6 +32,9 @@ type ActiveViewProps = {
 }
 
 const ActiveView = ({ game, user }: ActiveViewProps) => {
+  const [selectedUnit, setSelectedUnit] = useState<GameArmy['roster'][number]>()
+
+  // TODO: add missing game army socket
   useGameUpdates(game.id)
 
   const [nextTurn, { isLoading: isMovingToNextTurn }] = useNextTurnMutation()
@@ -35,7 +42,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
 
   const dispatch = useAppDispatch()
 
-  const [selectedPlayer, setSelectedPlayer] = useState<'one' | 'two'>('one')
+  const [selectedPlayer, setSelectedPlayer] = useState<'One' | 'Two'>('One')
 
   const advanceTurnOrComplete = useCallback(async () => {
     if (game.status !== 'turn5_p2') {
@@ -47,6 +54,56 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
 
     return await endGame(game.id)
   }, [endGame, game.id, game.status, nextTurn])
+
+  const handlePressedItem = useCallback((item: GameArmy['roster'][number]) => {
+    setSelectedUnit(item)
+    ref.current?.present()
+  }, [])
+
+  const { show } = useToast()
+
+  const [updateArmy, { isLoading }] = useUpdateGameArmyMutation()
+
+  const handleArmyUpdate = useCallback(
+    async (unit: GameArmy['roster'][number]) => {
+      const roster = game[`player${selectedPlayer}`].army.roster.map((u) => {
+        switch (unit.type) {
+          case 'embarked':
+          case 'team': {
+            if (unit.id === u.id) {
+              return unit
+            }
+            return u
+          }
+
+          default: {
+            if (
+              u.type !== 'embarked' &&
+              u.type !== 'team' &&
+              unit.selectionId === u.selectionId
+            ) {
+              return unit
+            }
+            return u
+          }
+        }
+      })
+
+      const res = await updateArmy({
+        gameId: game.id,
+        id: game[`player${selectedPlayer}`].army.id,
+        roster
+      })
+
+      if ('error' in res) {
+        show({ title: '⚠️ error', description: String(res.error) })
+        return
+      }
+
+      ref.current?.dismiss()
+    },
+    [game, selectedPlayer, show, updateArmy]
+  )
 
   useMount(() => {
     dispatch(
@@ -85,6 +142,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
             icon: ArrowBigRightDash
           }}
         />
+        {/* TODO: add killed model and destroyed units */}
         <Scoreboard {...game} />
         <GameArmyRoster
           ListHeaderComponent={
@@ -96,7 +154,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
               />
               <TabMenu
                 onOptionSelected={(_, index) => {
-                  setSelectedPlayer(index === 0 ? 'one' : 'two')
+                  setSelectedPlayer(index === 0 ? 'One' : 'Two')
                 }}
                 options={[
                   game.playerOne.army.codex.name,
@@ -107,12 +165,21 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
             </VStack>
           }
           roster={
-            selectedPlayer === 'one'
+            selectedPlayer === 'One'
               ? game.playerOne.army.roster
               : game.playerTwo.army.roster
           }
+          onPressItem={handlePressedItem}
         />
       </ScreenContainer>
+      {selectedUnit ? (
+        <ModelBottomSheet
+          loading={isLoading}
+          onStatusUpdated={handleArmyUpdate}
+          unit={selectedUnit}
+          editable={user.id === game[`player${selectedPlayer}`].profile.id}
+        />
+      ) : null}
     </VStack>
   )
 }
