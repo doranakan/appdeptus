@@ -1,22 +1,25 @@
+import { useModelsLeft, useTotalWounds } from 'appdeptus/hooks'
 import {
-  type Army,
-  type SelectableUnit,
-  type Team,
-  type Unit
+  type GameArmy,
+  type GameTeam,
+  type GameUnit,
+  type SelectableUnit
 } from 'appdeptus/models'
 import {
   Bus,
   Car,
   CircleFadingPlus,
   Crown,
+  Droplets,
   Link,
   type LucideIcon,
   Shield,
+  Skull,
   UserRound,
   UsersRound
 } from 'lucide-react-native'
 import pluralize from 'pluralize'
-import { type ComponentProps, memo, type PropsWithChildren } from 'react'
+import { memo, type PropsWithChildren } from 'react'
 import Card from '../Card'
 import IconBadge from '../IconBadge'
 import InnerBorder from '../InnerBorder'
@@ -25,16 +28,16 @@ import Text from '../Text'
 import { HStack, Icon, VStack } from '../ui'
 
 type UnitListItemProps = {
-  item: Army['roster'][number]
-
-  variant?: ComponentProps<typeof Card>['variant']
+  item: GameArmy['roster'][number]
 }
 
-const UnitListItem = ({ item, variant = 'default' }: UnitListItemProps) => {
+const UnitListItem = ({ item }: UnitListItemProps) => {
+  const modelsLeft = useModelsLeft(item)
+
   switch (item.type) {
     case 'embarked':
       return (
-        <Card variant={variant}>
+        <Card variant={!modelsLeft ? 'selectable-alt' : 'default'}>
           <VStack
             className='p-4'
             space='md'
@@ -59,7 +62,7 @@ const UnitListItem = ({ item, variant = 'default' }: UnitListItemProps) => {
       )
     case 'team':
       return (
-        <Card variant={variant}>
+        <Card variant={!modelsLeft ? 'selectable-alt' : 'default'}>
           <VStack className='p-4'>
             <TeamDetail team={item} />
           </VStack>
@@ -68,7 +71,7 @@ const UnitListItem = ({ item, variant = 'default' }: UnitListItemProps) => {
 
     default:
       return (
-        <Card variant={variant}>
+        <Card variant={!modelsLeft ? 'selectable-alt' : 'default'}>
           <VStack className='p-4'>
             <UnitDetail unit={item} />
           </VStack>
@@ -78,21 +81,28 @@ const UnitListItem = ({ item, variant = 'default' }: UnitListItemProps) => {
 }
 
 type UnitDetailProps = {
-  unit: Unit
+  unit: GameUnit
 } & Omit<UnitListItemProps, 'item'>
 
 const UnitDetail = ({ unit }: UnitDetailProps) => {
+  const modelsLeft = useModelsLeft(unit)
+  const totalWounds = useTotalWounds(unit)
+
   return (
     <HStack
       className='items-center'
       space='md'
     >
       <IconBadge
-        Icon={unit.warlord ? Crown : unitTypeToIcon[unit.type]}
+        Icon={
+          !modelsLeft ? Skull : unit.warlord ? Crown : unitTypeToIcon[unit.type]
+        }
         OptionIcon={
-          'enhancement' in unit && unit.enhancement
-            ? CircleFadingPlus
-            : undefined
+          totalWounds && modelsLeft
+            ? Droplets
+            : 'enhancement' in unit && unit.enhancement
+              ? CircleFadingPlus
+              : undefined
         }
       />
       <VStack className='flex-1'>
@@ -112,7 +122,7 @@ const UnitDetail = ({ unit }: UnitDetailProps) => {
           </Text>
         ) : null}
         <HStack space='sm'>
-          <Text size='sm'>{`${unit.tier.models} ${pluralize('model', unit.tier.models)}`}</Text>
+          <Text size='sm'>{`${modelsLeft}/${unit.models.length} ${pluralize('model', unit.models.length)}`}</Text>
           {/* This stupid workaround is required since on iOS the dotted border is support only on all sides */}
           <VStack className='flex-1 overflow-hidden'>
             <VStack className='m-[-3] mb-[4] flex-1 border-2 border-dotted border-primary-50' />
@@ -121,7 +131,7 @@ const UnitDetail = ({ unit }: UnitDetailProps) => {
             className='uppercase'
             family='body-bold'
             size='sm'
-          >{`${unit.tier.points + ('enhancement' in unit ? (unit.enhancement?.points ?? 0) : 0)}pts`}</Text>
+          >{`${unit.points + ('enhancement' in unit ? (unit.enhancement?.points ?? 0) : 0)}pts`}</Text>
         </HStack>
       </VStack>
     </HStack>
@@ -129,7 +139,7 @@ const UnitDetail = ({ unit }: UnitDetailProps) => {
 }
 
 type TeamDetailProps = {
-  team: Team
+  team: GameTeam
 }
 
 const TeamDetail = ({ team }: TeamDetailProps) => (

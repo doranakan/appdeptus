@@ -1,8 +1,8 @@
 import { type GameArmy } from 'appdeptus/models'
 import React, { type ComponentProps, memo } from 'react'
 import { FlatList } from 'react-native'
+import GameUnitListItem from '../GameUnitListItem'
 import { Pressable, VStack } from '../ui'
-import UnitListItem from '../UnitListItem'
 
 type GameArmyRosterProps = {
   roster: GameArmy['roster']
@@ -39,7 +39,7 @@ const GameArmyRoster = ({
             onPressItem?.(item)
           }}
         >
-          <UnitListItem item={item} />
+          <GameUnitListItem item={item} />
         </Pressable>
       )}
     />
