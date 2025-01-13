@@ -34,7 +34,7 @@ const WarlordList = () => {
                   return { ...unit, warlord: false }
                 }
 
-                if (unit.id !== item.id) {
+                if (unit.selectionId !== item.selectionId) {
                   return unit
                 }
 

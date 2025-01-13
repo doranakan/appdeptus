@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Missing share link on Android ⛓️‍💥
 - Settings privacy policy touchability 🫵🏼
 - User screen broken link on user nickname 💥
+- Warlord selection with multiple choice with the same id 👑
 
 ### Deprecated
 
