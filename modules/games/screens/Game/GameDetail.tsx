@@ -5,7 +5,13 @@ import {
   PlayerTag,
   VStack
 } from 'appdeptus/components'
-import { useModelCount, useUnitCount, useWarlord } from 'appdeptus/hooks'
+import {
+  useDestroyedUnitCount,
+  useKilledModelCount,
+  useModelCount,
+  useUnitCount,
+  useWarlord
+} from 'appdeptus/hooks'
 import { type Player } from 'appdeptus/models/game'
 import { type ComponentProps, memo, useMemo } from 'react'
 
@@ -24,6 +30,12 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
   const modelCountOne = useModelCount(playerOne.army.roster)
   const modelCountTwo = useModelCount(playerTwo.army.roster)
 
+  const killedModelsOne = useKilledModelCount(playerOne.army.roster)
+  const killedModelsTwo = useKilledModelCount(playerTwo.army.roster)
+
+  const destroyedUnitsOne = useDestroyedUnitCount(playerOne.army.roster)
+  const destroyedUnitsTwo = useDestroyedUnitCount(playerTwo.army.roster)
+
   const data = useMemo<ComponentProps<typeof GameDataTable>['data']>(
     () => [
       {
@@ -41,42 +53,48 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
         valueL: String(playerOne.cp),
         valueR: String(playerTwo.cp)
       },
-      // {
-      //   title: 'Kills',
-      //   valueL: String(0),
-      //   valueR: String(0)
-      // },
-      // {
-      //   title: 'Units Destroyed',
-      //   valueL: String(0),
-      //   valueR: String(0)
-      // },
+      {
+        title: 'Kills',
+        valueL: String(killedModelsTwo),
+        valueR: String(killedModelsOne)
+      },
+      {
+        title: 'Destroyed Units',
+        valueL: String(destroyedUnitsTwo),
+        valueR: String(destroyedUnitsOne)
+      },
       {
         title: 'Units',
         valueL: String(unitCountOne),
         valueR: String(unitCountTwo)
       },
-      // {
-      //   title: 'Units Left',
-      //   valueL: String(unitCountOne),
-      //   valueR: String(unitCountTwo)
-      // },
+      {
+        title: 'Units Left',
+        valueL: String(unitCountOne - destroyedUnitsOne),
+        valueR: String(unitCountTwo - destroyedUnitsTwo)
+      },
       {
         title: 'Models',
         valueL: String(modelCountOne),
         valueR: String(modelCountTwo)
+      },
+      {
+        title: 'Models Left',
+        valueL: String(modelCountOne - killedModelsOne),
+        valueR: String(modelCountTwo - killedModelsTwo)
       }
-      // {
-      //   title: 'Models Left',
-      //   valueL: String(modelCountOne),
-      //   valueR: String(modelCountTwo)
-      // }
     ],
     [
-      playerOne,
-      playerTwo,
-      warlordOne,
-      warlordTwo,
+      warlordOne?.name,
+      warlordTwo?.name,
+      playerOne.army.points,
+      playerOne.cp,
+      playerTwo.army.points,
+      playerTwo.cp,
+      killedModelsTwo,
+      killedModelsOne,
+      destroyedUnitsTwo,
+      destroyedUnitsOne,
       unitCountOne,
       unitCountTwo,
       modelCountOne,
