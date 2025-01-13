@@ -63,7 +63,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
 
   const { show } = useToast()
 
-  const [updateArmy, { isLoading }] = useUpdateGameArmyMutation()
+  const [updateArmy] = useUpdateGameArmyMutation()
 
   const handleArmyUpdate = useCallback(
     async (unit: GameArmy['roster'][number]) => {
@@ -98,10 +98,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
 
       if ('error' in res) {
         show({ title: '⚠️ error', description: String(res.error) })
-        return
       }
-
-      ref.current?.dismiss()
     },
     [game, selectedPlayer, show, updateArmy]
   )
@@ -143,7 +140,6 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
             icon: ArrowBigRightDash
           }}
         />
-        {/* TODO: add killed model and destroyed units */}
         <Scoreboard {...game} />
         <GameArmyRoster
           ListHeaderComponent={
@@ -175,7 +171,6 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
       </ScreenContainer>
       {selectedUnit ? (
         <ModelBottomSheet
-          loading={isLoading}
           onStatusUpdated={handleArmyUpdate}
           unit={selectedUnit}
           editable={user.id === game[`player${selectedPlayer}`].profile.id}

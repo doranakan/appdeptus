@@ -1,16 +1,14 @@
-import { ButtonGroup } from 'appdeptus/components'
+import { useDebounceEffect } from 'ahooks'
 import { type GameArmy, type GameTeam, type GameUnit } from 'appdeptus/models'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { BottomSheet } from '../../../../components/BottomSheet'
-import Button from '../../../../components/Button'
 import Text from '../../../../components/Text'
-import { HStack, VStack } from '../../../../components/ui'
+import { VStack } from '../../../../components/ui'
 import UnitName from '../../../../components/UnitName'
 import Model from './Model'
 import ref from './ref'
 
 type ModelBottomSheetProps = {
-  loading: boolean
   onStatusUpdated: (unit: GameArmy['roster'][number]) => Promise<void>
   unit: GameArmy['roster'][number]
 
@@ -18,7 +16,6 @@ type ModelBottomSheetProps = {
 }
 
 const ModelBottomSheet = ({
-  loading,
   onStatusUpdated,
   unit: initialUnit,
 
@@ -29,6 +26,16 @@ const ModelBottomSheet = ({
   useEffect(() => {
     setUnit(initialUnit)
   }, [initialUnit])
+
+  useDebounceEffect(
+    () => {
+      onStatusUpdated(unit)
+    },
+    [unit],
+    {
+      wait: 300
+    }
+  )
 
   const setKilledModel = useCallback(
     (id: string, killed: boolean, index: number) => {
@@ -269,35 +276,10 @@ const ModelBottomSheet = ({
 
   return (
     <BottomSheet
-      dismissDisabled={editable}
       ref={ref}
-      StickyHeader={
-        editable ? (
-          <HStack className='justify-end p-4'>
-            <ButtonGroup>
-              <Button
-                color='secondary'
-                variant='callback'
-                onPress={() => {
-                  ref.current?.dismiss()
-                }}
-                text='discard'
-                size='sm'
-              />
-              <Button
-                variant='callback'
-                loading={loading}
-                disabled={loading}
-                onPress={async () => {
-                  await onStatusUpdated(unit)
-                }}
-                text='save'
-                size='sm'
-              />
-            </ButtonGroup>
-          </HStack>
-        ) : null
-      }
+      onPressBackdrop={() => {
+        ref.current?.dismiss()
+      }}
     >
       <VStack space='md'>{models}</VStack>
     </BottomSheet>
