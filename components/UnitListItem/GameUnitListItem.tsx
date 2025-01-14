@@ -11,7 +11,6 @@ import {
   CircleFadingPlus,
   Crown,
   Droplets,
-  Link,
   type LucideIcon,
   Shield,
   Skull,
@@ -19,19 +18,19 @@ import {
   UsersRound
 } from 'lucide-react-native'
 import pluralize from 'pluralize'
-import { memo, type PropsWithChildren } from 'react'
+import { memo } from 'react'
 import Card from '../Card'
 import IconBadge from '../IconBadge'
-import InnerBorder from '../InnerBorder'
-import InsetShadow from '../InsetShadow'
 import Text from '../Text'
-import { HStack, Icon, VStack } from '../ui'
+import { HStack, VStack } from '../ui'
+import EmbarkedUnit from './EmbarkedUnit'
+import TeamUnit from './TeamUnit'
 
-type UnitListItemProps = {
+type GameUnitListItemProps = {
   item: GameArmy['roster'][number]
 }
 
-const UnitListItem = ({ item }: UnitListItemProps) => {
+const GameUnitListItem = ({ item }: GameUnitListItemProps) => {
   const modelsLeft = useModelsLeft(item)
 
   switch (item.type) {
@@ -82,7 +81,7 @@ const UnitListItem = ({ item }: UnitListItemProps) => {
 
 type UnitDetailProps = {
   unit: GameUnit
-} & Omit<UnitListItemProps, 'item'>
+} & Omit<GameUnitListItemProps, 'item'>
 
 const UnitDetail = ({ unit }: UnitDetailProps) => {
   const modelsLeft = useModelsLeft(unit)
@@ -143,23 +142,10 @@ type TeamDetailProps = {
 }
 
 const TeamDetail = ({ team }: TeamDetailProps) => (
-  <VStack space='sm'>
-    <UnitDetail unit={team.leader} />
-    <Icon
-      as={Link}
-      className='px-4 color-primary-50'
-      size='md'
-    />
-    <UnitDetail unit={team.bodyguard} />
-  </VStack>
-)
-
-const EmbarkedUnit = ({ children }: PropsWithChildren) => (
-  <InnerBorder rounded='2xl'>
-    <InsetShadow>
-      <VStack className='rounded-2xl bg-primary-800 p-4'>{children}</VStack>
-    </InsetShadow>
-  </InnerBorder>
+  <TeamUnit
+    BodyGuard={<UnitDetail unit={team.bodyguard} />}
+    Leader={<UnitDetail unit={team.leader} />}
+  />
 )
 
 const unitTypeToIcon = {
@@ -170,4 +156,4 @@ const unitTypeToIcon = {
   vehicle: Car
 } as const satisfies Record<SelectableUnit['type'], LucideIcon>
 
-export default memo(UnitListItem)
+export default memo(GameUnitListItem)
