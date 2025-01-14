@@ -1,6 +1,7 @@
 import {
   Card,
   HStack,
+  Pressable,
   TabMenu,
   Text,
   themeColors,
@@ -19,23 +20,33 @@ const SignIn = () => {
 
   const [isTermAndCondsAccepted, setIsTermAndCondsAccepted] = useState(true)
 
+  const [counter, setCounter] = useState(0)
+
   return (
     <Card>
       <VStack
         className='p-4'
         space='md'
       >
-        <Text
-          family='heading-regular'
-          size='xl'
+        <Pressable
+          onPress={() => {
+            setCounter((c) => c + 1)
+          }}
         >
-          Sign in
-        </Text>
+          <Text
+            family='heading-regular'
+            size='xl'
+          >
+            Sign in
+          </Text>
+        </Pressable>
 
-        <TabMenu
-          onOptionSelected={setSignInMode}
-          options={['adept', 'inquisitor']}
-        />
+        {counter >= 5 ? (
+          <TabMenu
+            onOptionSelected={setSignInMode}
+            options={['adept', 'inquisitor']}
+          />
+        ) : null}
         {signInMode === 'adept' ? (
           <VStack space='md'>
             <SignInWithGoogle disabled={!isTermAndCondsAccepted} />
