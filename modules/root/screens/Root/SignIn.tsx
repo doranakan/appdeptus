@@ -8,7 +8,7 @@ import {
 } from 'appdeptus/components'
 import { useState } from 'react'
 import { Switch } from 'react-native-gesture-handler'
-import { PrivacyLink } from '../../components'
+import { TermsAndConditions } from '../../components'
 import Form from './Form'
 import SignInWithApple from './SignInWithApple'
 import SignInWithGoogle from './SignInWithGoogle'
@@ -17,7 +17,7 @@ import SignInWithMicrosoft from './SignInWithMicrosoft'
 const SignIn = () => {
   const [signInMode, setSignInMode] = useState<'adept' | 'inquisitor'>('adept')
 
-  const [isPrivacyAccepted, setIsPrivacyAccepted] = useState(false)
+  const [isTermAndCondsAccepted, setIsTermAndCondsAccepted] = useState(true)
 
   return (
     <Card>
@@ -38,12 +38,12 @@ const SignIn = () => {
         />
         {signInMode === 'adept' ? (
           <VStack space='md'>
-            <SignInWithGoogle disabled={!isPrivacyAccepted} />
-            <SignInWithApple disabled={!isPrivacyAccepted} />
-            <SignInWithMicrosoft disabled={!isPrivacyAccepted} />
+            <SignInWithGoogle disabled={!isTermAndCondsAccepted} />
+            <SignInWithApple disabled={!isTermAndCondsAccepted} />
+            <SignInWithMicrosoft disabled={!isTermAndCondsAccepted} />
           </VStack>
         ) : (
-          <Form disabled={!isPrivacyAccepted} />
+          <Form disabled={!isTermAndCondsAccepted} />
         )}
         <HStack
           className='items-center'
@@ -57,11 +57,11 @@ const SignIn = () => {
               true: themeColors.default.tertiary[600]
             }}
             onChange={(e) => {
-              setIsPrivacyAccepted(e.nativeEvent.value)
+              setIsTermAndCondsAccepted(e.nativeEvent.value)
             }}
-            value={isPrivacyAccepted}
+            value={isTermAndCondsAccepted}
           />
-          <PrivacyLink />
+          <TermsAndConditions />
         </HStack>
       </VStack>
     </Card>

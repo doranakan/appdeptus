@@ -15,7 +15,7 @@ import {
   Switch
 } from 'react-native'
 import { useSignUpMutation } from '../../api'
-import { PrivacyLink } from '../../components'
+import { TermsAndConditions } from '../../components'
 import FormField from './FormField'
 import { type Registration } from './schema'
 
@@ -102,7 +102,7 @@ const Form = () => {
               className='items-center justify-between'
               space='md'
             >
-              <PrivacyLink />
+              <TermsAndConditions />
               <Controller
                 name='privacyAccepted'
                 control={control}

@@ -12,6 +12,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- Replace privacy policy with the terms and conditions in root screen 📄
+
 ### Fixed
 
 - Missing share link on Android ⛓️‍💥

@@ -23,6 +23,13 @@ const RootLayout = () => (
       }}
     />
     <Stack.Screen
+      name='terms-and-conditions'
+      options={{
+        animation: 'slide_from_bottom',
+        presentation: 'modal'
+      }}
+    />
+    <Stack.Screen
       name='email-confirmed'
       options={{
         animation: 'slide_from_bottom',

@@ -1,1 +1,1 @@
-export { default as PrivacyLink } from './PrivacyLink'
+export { default as TermsAndConditions } from './TermsAndConditions'
