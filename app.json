@@ -19,7 +19,10 @@
       "bundleIdentifier": "com.appdeptus",
       "supportsTablet": true,
       "usesAppleSignIn": true,
-      "appleTeamId": "637BR9U962"
+      "appleTeamId": "637BR9U962",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
