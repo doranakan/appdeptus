@@ -169,6 +169,7 @@ const NewGameLayout = () => {
   useEffect(() => {
     if (data && !selectedArmy) {
       const { user: _user, ...army } = data
+      console.log(army)
       form.setValue('playerOne.army', army)
     }
   }, [data, form, selectedArmy])
