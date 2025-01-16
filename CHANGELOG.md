@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Refresh button in QR code screen 📱
 - Model status updates during active games 💀🩸
 - Army builder info bottom sheet ℹ
+- Onboarding screen 🚢
 
 ### Changed
 
