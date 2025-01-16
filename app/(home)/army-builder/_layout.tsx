@@ -165,10 +165,19 @@ const ArmyBuilderLayout = () => {
         }
       }
       case 'detachment-selection': {
+        const canUpgradeUnits =
+          units.filter(
+            (unit) =>
+              (unit.type === 'character' || unit.type === 'leader') &&
+              !unit.hero
+          ).length > 0
+
         return {
           disabled: !detachment,
           icon: ChevronRight,
-          href: 'army-builder/enhancement-selection',
+          href: canUpgradeUnits
+            ? 'army-builder/enhancement-selection'
+            : 'army-builder/warlord-selection',
           variant: 'link'
         }
       }
