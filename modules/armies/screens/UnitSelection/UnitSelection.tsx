@@ -7,12 +7,12 @@ import {
   VStack
 } from 'appdeptus/components'
 import { useAllUnits } from 'appdeptus/hooks'
-import { type ArmyBuilder } from 'appdeptus/models'
+import { type ArmyBuilder, type Unit } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
 import pluralize, { singular } from 'pluralize'
-import { useEffect, useState } from 'react'
-import { useFormContext, useWatch } from 'react-hook-form'
-import { useGetArmyQuery } from '../../api'
+import { useEffect, useMemo, useState } from 'react'
+import { useFormContext } from 'react-hook-form'
+import { useGetArmyQuery, useGetUnitListQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
 import UnitList from './UnitList'
 
@@ -20,16 +20,34 @@ const UnitSelectionScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
   const { data: army, isLoading } = useGetArmyQuery(id ?? skipToken)
 
-  const { getValues, reset } = useFormContext<ArmyBuilder>()
+  const { getValues, reset, watch } = useFormContext<ArmyBuilder>()
 
-  const watch = useWatch<ArmyBuilder>()
-
-  const selectedCodex = watch.codex?.name
-
-  const [selectedType, setSelectedType] =
-    useState<(typeof unitTypes)[number]>('character')
+  const selectedCodex = watch().codex
 
   const units = useAllUnits(army?.roster ?? [])
+
+  const { data } = useGetUnitListQuery(selectedCodex ?? skipToken)
+
+  const unitTypes = useMemo(
+    () =>
+      data
+        ?.reduce<Unit['type'][]>((acc, { type }) => {
+          if (!acc.includes(type)) {
+            return [...acc, type]
+          }
+          return acc
+        }, [])
+        .sort(),
+    [data]
+  )
+
+  useEffect(() => {
+    if (unitTypes?.[0]) {
+      setSelectedType(unitTypes[0])
+    }
+  }, [data, unitTypes])
+
+  const [selectedType, setSelectedType] = useState<Unit['type']>('character')
 
   useEffect(() => {
     if (army) {
@@ -63,28 +81,22 @@ const UnitSelectionScreen = () => {
       >
         <TopBar
           subtitle='units'
-          title={selectedCodex}
+          title={selectedCodex.name}
         />
 
-        <FilterTopBar
-          values={unitTypes.map((type) => pluralize(type))}
-          onPress={(type) => {
-            setSelectedType(singular(type) as (typeof unitTypes)[number])
-          }}
-          selectedValue={pluralize(selectedType)}
-        />
+        {unitTypes && unitTypes.length > 1 ? (
+          <FilterTopBar
+            values={unitTypes.map((type) => pluralize(type))}
+            onPress={(type) => {
+              setSelectedType(singular(type) as (typeof unitTypes)[number])
+            }}
+            selectedValue={pluralize(selectedType)}
+          />
+        ) : null}
         <UnitList type={selectedType} />
       </VStack>
     </ScreenContainer>
   )
 }
-
-const unitTypes = [
-  'character',
-  'leader',
-  'squad',
-  'transport',
-  'vehicle'
-] as const
 
 export default UnitSelectionScreen

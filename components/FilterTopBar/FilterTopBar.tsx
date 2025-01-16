@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { memo } from 'react'
 import { ScrollView } from 'react-native'
 import Text from '../Text'
 import { HStack, Pressable, VStack } from '../ui'
@@ -45,4 +46,4 @@ const FilterTopBar = <T extends string>({
   </VStack>
 )
 
-export default FilterTopBar
+export default memo(FilterTopBar)

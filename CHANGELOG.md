@@ -18,6 +18,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Skip enhancement step in army builder flow when not necessary ⏭️
 - Skip leader and transport steps in new game flow when not necessary ⏭️⏭️
 - Lowercase player tag 🏷️
+- Hide empty unit categories in unit selection screen 👁️
 
 ### Fixed
 

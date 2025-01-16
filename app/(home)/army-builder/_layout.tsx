@@ -211,6 +211,7 @@ const ArmyBuilderLayout = () => {
     newArmy,
     routeName,
     unitSelectionButtonDisabled,
+    units,
     warlord
   ])
 
