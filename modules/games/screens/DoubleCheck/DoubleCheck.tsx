@@ -16,9 +16,13 @@ import DataTable from './DataTable'
 const DoubleCheckScreen = () => {
   const { watch } = useFormContext<CreateGame>()
 
-  const codex = watch('playerOne.army.codex.name')
+  const codex = watch().playerOne?.army?.codex?.name
 
-  const roster = watch('playerOne.army.roster')
+  const roster = watch().playerOne?.army?.roster
+
+  if (!codex || !roster) {
+    return null
+  }
 
   return (
     <ScreenContainer

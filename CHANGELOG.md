@@ -15,7 +15,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 - Replace privacy policy with the terms and conditions in root screen 📄
 - Hide inquisitor sign in form 😶‍🌫️
-- Skip enhancement step in army builder with only heroes ⏭️
+- Skip enhancement step in army builder flow when not necessary ⏭️
+- Skip leader and transport steps in new game flow when not necessary ⏭️⏭️
 
 ### Fixed
 

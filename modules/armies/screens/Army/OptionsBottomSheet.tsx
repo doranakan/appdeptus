@@ -9,6 +9,7 @@ import {
   useToast,
   VStack
 } from 'appdeptus/components'
+import { useCanCreateTeams, useCanEmbarkUnits } from 'appdeptus/hooks'
 import { type Army } from 'appdeptus/models'
 import clsx from 'clsx'
 import { router } from 'expo-router'
@@ -29,11 +30,22 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
   const [deletePromptVisible, { setFalse: hidePrompt, setTrue: showPrompt }] =
     useBoolean()
 
+  const canCreateTeams = useCanCreateTeams(army.roster)
+  const canEmbarkUnits = useCanEmbarkUnits(army.roster)
+
   const playWithArmy = useCallback(() => {
     ref.current?.dismiss()
 
-    router.push(`new-game/${army.id}`)
-  }, [army.id])
+    if (canCreateTeams) {
+      router.push(`new-game/leader-selection?preselectedArmyId=${army.id}`)
+      return
+    }
+    if (canEmbarkUnits) {
+      router.push(`new-game/embarked-selection/?preselectedArmyId=${army.id}`)
+      return
+    }
+    router.push(`new-game/double-check/?preselectedArmyId=${army.id}`)
+  }, [army.id, canCreateTeams, canEmbarkUnits])
 
   const editArmy = useCallback(() => {
     ref.current?.dismiss()

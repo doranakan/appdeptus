@@ -1,14 +1,19 @@
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import { skipToken } from '@reduxjs/toolkit/query'
 import { useUnmount } from 'ahooks'
 import {
   type Button,
+  Error,
+  Loading,
   NavigationHeader,
   resetTheme,
   ScreenContainer,
   VStack
 } from 'appdeptus/components'
 import { defaultScreenOptions, formSheetOptions } from 'appdeptus/constants'
+import { useCanCreateTeams, useCanEmbarkUnits } from 'appdeptus/hooks'
 import { type CreateGame } from 'appdeptus/models/game'
+import { useGetArmyQuery } from 'appdeptus/modules/armies/api'
 import {
   NewGameBottomSheet,
   newGameBottomSheetRef
@@ -16,11 +21,13 @@ import {
 import { useAppDispatch } from 'appdeptus/store'
 import { Stack, useGlobalSearchParams, useSegments } from 'expo-router'
 import { ChevronRight, Dices } from 'lucide-react-native'
-import { type ComponentProps, useMemo } from 'react'
+import { type ComponentProps, useEffect, useMemo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 
 const NewGameLayout = () => {
-  const { id: selectedArmyId } = useGlobalSearchParams()
+  const { preselectedArmyId } = useGlobalSearchParams<{
+    preselectedArmyId: string
+  }>()
 
   const form = useForm<CreateGame>({
     defaultValues: {
@@ -37,12 +44,24 @@ const NewGameLayout = () => {
 
   const routeName = segments[segments.length - 1]
 
+  const canCreateTeams = useCanCreateTeams(selectedArmy?.roster ?? [])
+  const canEmbarkUnits = useCanEmbarkUnits(selectedArmy?.roster ?? [])
+
   const currentStep = useMemo(() => {
     switch (routeName) {
+      case '[id]': {
+        if (canCreateTeams) {
+          return 3
+        }
+        if (canEmbarkUnits) {
+          return 4
+        }
+        return 5
+      }
+
       case 'new-game':
         return !selectedArmy ? 1 : 2
 
-      case '[id]':
       case 'leader-selection':
         return 3
 
@@ -57,7 +76,7 @@ const NewGameLayout = () => {
       default:
         return 0
     }
-  }, [routeName, selectedArmy])
+  }, [canCreateTeams, canEmbarkUnits, routeName, selectedArmy])
 
   const text = useMemo(() => {
     switch (routeName) {
@@ -89,7 +108,11 @@ const NewGameLayout = () => {
         return {
           disabled: !selectedArmy,
           icon: ChevronRight,
-          href: `new-game/${selectedArmy?.id}`,
+          href: canCreateTeams
+            ? `new-game/${selectedArmy?.id}`
+            : canEmbarkUnits
+              ? 'new-game/embarked-selection'
+              : 'new-game/double-check',
           variant: 'link'
         }
 
@@ -97,7 +120,9 @@ const NewGameLayout = () => {
       case 'leader-selection':
         return {
           icon: ChevronRight,
-          href: 'new-game/embarked-selection',
+          href: canEmbarkUnits
+            ? 'new-game/embarked-selection'
+            : 'new-game/double-check',
           variant: 'link'
         }
 
@@ -129,17 +154,49 @@ const NewGameLayout = () => {
       default:
         return undefined
     }
-  }, [routeName, selectedArmy])
+  }, [canCreateTeams, canEmbarkUnits, routeName, selectedArmy])
 
   const dispatch = useAppDispatch()
 
   useUnmount(() => {
-    if (!selectedArmyId) dispatch(resetTheme())
+    if (!preselectedArmyId) dispatch(resetTheme())
   })
+
+  const { data, isError, isLoading, isUninitialized } = useGetArmyQuery(
+    preselectedArmyId ?? skipToken
+  )
+
+  useEffect(() => {
+    if (data && !selectedArmy) {
+      const { user: _user, ...army } = data
+      form.setValue('playerOne.army', army)
+    }
+  }, [data, form, selectedArmy])
+
+  if (isError) {
+    return (
+      <ScreenContainer
+        className='bg-primary-950 p-4'
+        space='md'
+      >
+        <Error />
+      </ScreenContainer>
+    )
+  }
+
+  if ((isUninitialized && preselectedArmyId) || isLoading) {
+    return (
+      <ScreenContainer
+        className='bg-primary-950 p-4'
+        space='md'
+      >
+        <Loading />
+      </ScreenContainer>
+    )
+  }
 
   return (
     <ScreenContainer
-      className='bg-primary-950'
       safeAreaInsets={['bottom', 'top']}
       space='md'
     >

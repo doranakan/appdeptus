@@ -5,13 +5,18 @@ import {
   VStack
 } from 'appdeptus/components'
 import { type CreateGame } from 'appdeptus/models/game'
-import { useFormContext } from 'react-hook-form'
+import { useWatch } from 'react-hook-form'
 import EmbarkedSelectionList from './EmbarkedSelectionList'
 
 const EmbarkedSelection = () => {
-  const { watch } = useFormContext<CreateGame>()
+  const watch = useWatch<CreateGame>()
 
-  const codex = watch('playerOne.army.codex.name')
+  const codex = watch.playerOne?.army?.codex?.name
+
+  if (!codex) {
+    return null
+  }
+
   return (
     <ScreenContainer
       className='bg-primary-950 p-4'
