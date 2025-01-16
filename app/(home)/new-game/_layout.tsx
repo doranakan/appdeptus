@@ -8,7 +8,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import { defaultScreenOptions, formSheetOptions } from 'appdeptus/constants'
-import { type NewGame } from 'appdeptus/models/game'
+import { type CreateGame } from 'appdeptus/models/game'
 import {
   NewGameBottomSheet,
   newGameBottomSheetRef
@@ -22,9 +22,8 @@ import { FormProvider, useForm } from 'react-hook-form'
 const NewGameLayout = () => {
   const { id: selectedArmyId } = useGlobalSearchParams()
 
-  const form = useForm<NewGame>({
+  const form = useForm<CreateGame>({
     defaultValues: {
-      status: 'new',
       playerOne: {
         army: undefined
       }

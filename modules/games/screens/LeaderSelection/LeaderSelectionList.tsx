@@ -5,7 +5,7 @@ import {
   type Squad,
   type Team
 } from 'appdeptus/models'
-import { type NewGame } from 'appdeptus/models/game'
+import { type CreateGame } from 'appdeptus/models/game'
 import * as Crypto from 'expo-crypto'
 import { sortBy } from 'lodash'
 import {
@@ -19,7 +19,7 @@ import { useFormContext } from 'react-hook-form'
 import { ScrollView } from 'react-native'
 
 const LeaderSelectionList = () => {
-  const { setValue, watch } = useFormContext<NewGame>()
+  const { setValue, watch } = useFormContext<CreateGame>()
 
   const units = watch('playerOne.army.roster')
 

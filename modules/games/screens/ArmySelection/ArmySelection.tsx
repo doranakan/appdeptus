@@ -8,7 +8,7 @@ import {
   Text,
   VStack
 } from 'appdeptus/components'
-import { type NewGame } from 'appdeptus/models/game'
+import { type CreateGame } from 'appdeptus/models/game'
 import { useGetArmyListQuery } from 'appdeptus/modules/armies/api'
 import { useAppDispatch } from 'appdeptus/store'
 import { useFormContext } from 'react-hook-form'
@@ -19,7 +19,7 @@ const NewGameScreen = () => {
 
   const dispatch = useAppDispatch()
 
-  const { setValue, watch } = useFormContext<NewGame>()
+  const { setValue, watch } = useFormContext<CreateGame>()
 
   const selectedArmy = watch('playerOne.army')
 

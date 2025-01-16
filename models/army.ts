@@ -1,6 +1,13 @@
 import { type Codex } from './codex'
 import { type Detachment } from './detachment'
-import { type Embarked, type Team, type Unit } from './unit'
+import {
+  type Embarked,
+  type GameEmbarked,
+  type GameTeam,
+  type GameUnit,
+  type Team,
+  type Unit
+} from './unit'
 import { type UserProfile } from './userProfile'
 
 type BaseArmy = {
@@ -9,14 +16,20 @@ type BaseArmy = {
   name: string
   points: number
   detachment: Detachment
-  user: UserProfile
 }
+
 type Army = BaseArmy & {
   roster: (Unit | Team | Embarked)[]
+  user: UserProfile
+}
+
+type GameArmy = BaseArmy & {
+  roster: (GameUnit | GameTeam | GameEmbarked)[]
 }
 
 type ArmyBuilder = BaseArmy & {
   units: Unit[]
+  user: UserProfile
 }
 
-export type { Army, ArmyBuilder }
+export type { Army, ArmyBuilder, GameArmy }

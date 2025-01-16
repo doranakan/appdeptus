@@ -9,7 +9,7 @@ import {
   useToast,
   VStack
 } from 'appdeptus/components'
-import { type NewGame } from 'appdeptus/models/game'
+import { type CreateGame } from 'appdeptus/models/game'
 import { router } from 'expo-router'
 import { useCallback, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -24,7 +24,7 @@ import {
 import { NEW_GAME_SLUG } from '../../constants'
 
 const QRCodeScreen = () => {
-  const { getValues } = useFormContext<NewGame>()
+  const { getValues } = useFormContext<CreateGame>()
 
   const [createGame, { isLoading }] = useCreateGameMutation()
 

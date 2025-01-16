@@ -1,5 +1,5 @@
 import {
-  ArmyRoster,
+  GameArmyRoster,
   NavigationHeader,
   resetTheme,
   Scoreboard,
@@ -61,7 +61,7 @@ const EndedViewScreen = ({ game }: EndedViewScreenProps) => {
           {...game}
           final
         />
-        <ArmyRoster
+        <GameArmyRoster
           roster={
             selectedPlayer === 'one'
               ? game.playerOne.army.roster

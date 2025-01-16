@@ -8,6 +8,7 @@ import {
   getNewGame,
   nextTurn,
   startGame,
+  updateGameArmy,
   updateScoreAndCP
 } from './endpoints'
 import GamesApiTag from './tags'
@@ -26,6 +27,7 @@ const gamesApi = coreApi
       getNewGame: getNewGame(builder),
       nextTurn: nextTurn(builder),
       startGame: startGame(builder),
+      updateGameArmy: updateGameArmy(builder),
       updateScoreAndCP: updateScoreAndCP(builder)
     }),
     overrideExisting: true

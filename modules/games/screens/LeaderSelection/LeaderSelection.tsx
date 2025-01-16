@@ -7,7 +7,7 @@ import {
   ScreenTitle,
   VStack
 } from 'appdeptus/components'
-import { type NewGame } from 'appdeptus/models/game'
+import { type CreateGame } from 'appdeptus/models/game'
 import { useGetArmyQuery } from 'appdeptus/modules/armies/api'
 import { useLocalSearchParams } from 'expo-router'
 import { useEffect } from 'react'
@@ -21,9 +21,9 @@ const LeaderSelectionScreen = () => {
 
   const { data, isError } = useGetArmyQuery(preselectedArmyId ?? skipToken)
 
-  const { setValue } = useFormContext<NewGame>()
+  const { setValue } = useFormContext<CreateGame>()
 
-  const watch = useWatch<NewGame>()
+  const watch = useWatch<CreateGame>()
 
   const selectedArmy = watch.playerOne?.army
 
@@ -60,7 +60,7 @@ const LeaderSelectionScreen = () => {
 }
 
 const LeaderSelection = () => {
-  const { watch } = useFormContext<NewGame>()
+  const { watch } = useFormContext<CreateGame>()
 
   const codex = watch('playerOne.army.codex.name')
 

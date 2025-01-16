@@ -9,7 +9,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import InnerBorder from 'appdeptus/components/InnerBorder'
-import { type NewGame } from 'appdeptus/models/game'
+import { type CreateGame } from 'appdeptus/models/game'
 import { BlurView } from 'expo-blur'
 import { CameraView, useCameraPermissions } from 'expo-camera'
 import { router } from 'expo-router'
@@ -22,7 +22,7 @@ import { NEW_GAME_SLUG } from '../../constants'
 const CameraScreen = () => {
   const [permission, requestPermission] = useCameraPermissions()
 
-  const { watch } = useFormContext<NewGame>()
+  const { watch } = useFormContext<CreateGame>()
 
   const [startGame, { isLoading }] = useStartGameMutation()
 

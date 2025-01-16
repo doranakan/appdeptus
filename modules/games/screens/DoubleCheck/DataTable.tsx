@@ -1,11 +1,11 @@
 import { GameDataTable } from 'appdeptus/components'
 import { useModelCount, useUnitCount, useWarlord } from 'appdeptus/hooks'
-import { type NewGame } from 'appdeptus/models/game'
+import { type CreateGame } from 'appdeptus/models/game'
 import { memo } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 const DataTable = () => {
-  const { watch } = useFormContext<NewGame>()
+  const { watch } = useFormContext<CreateGame>()
   const army = watch('playerOne.army')
 
   const warlord = useWarlord(army.roster)

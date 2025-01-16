@@ -1,5 +1,6 @@
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'
 import { type BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
+import clsx from 'clsx'
 import { BlurView } from 'expo-blur'
 import {
   forwardRef,
@@ -11,7 +12,8 @@ import { StyleSheet, useWindowDimensions } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import InnerBorder from '../InnerBorder'
-import { Pressable, VStack } from '../ui'
+import { VStack } from '../ui'
+import Backdrop from './Backdrop'
 
 type BottomSheetProps = {
   onDismiss?: () => void
@@ -25,7 +27,7 @@ const BottomSheet: ForwardRefRenderFunction<
 > = ({ children, onDismiss, onPressBackdrop, scrollDisabled }, ref) => {
   const window = useWindowDimensions()
 
-  const { bottom, top } = useSafeAreaInsets()
+  const { top } = useSafeAreaInsets()
 
   return (
     <BottomSheetModal
@@ -37,9 +39,9 @@ const BottomSheet: ForwardRefRenderFunction<
       overDragResistanceFactor={0}
       maxDynamicContentSize={window.height - top}
       onDismiss={onDismiss}
-      backdropComponent={() => (
-        <Pressable
-          className='absolute h-full w-full'
+      backdropComponent={(props) => (
+        <Backdrop
+          {...props}
           onPress={onPressBackdrop}
         />
       )}
@@ -48,14 +50,18 @@ const BottomSheet: ForwardRefRenderFunction<
         <InnerBorder>
           <BlurView>
             <VStack
-              className='overflow-visible p-4'
+              className='overflow-x-visible'
               space='md'
             >
-              <VStack className='z-10 h-1 w-16 self-center rounded-full bg-primary-50' />
+              <VStack
+                className='mt-4 h-2 w-16 self-center rounded-full bg-primary-50'
+                hitSlop={16}
+              />
               <ScrollView
+                className={clsx('overflow-x-visible px-4')}
+                contentContainerClassName='pb-10'
                 scrollEnabled={!scrollDisabled}
                 showsVerticalScrollIndicator={false}
-                style={{ paddingBottom: bottom }}
               >
                 {children}
               </ScrollView>

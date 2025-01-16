@@ -2,19 +2,16 @@ import { type Army } from 'appdeptus/models'
 import React, { type ComponentProps, memo } from 'react'
 import { FlatList } from 'react-native'
 import { VStack } from '../ui'
-import UnitListItem from '../UnitListItem'
+import { UnitListItem } from '../UnitListItem'
 
-type UnitRosterProps = {
+type ArmyRosterProps = {
   roster: Army['roster']
   ListHeaderComponent?: ComponentProps<typeof FlatList>['ListHeaderComponent']
 }
 
-const UnitRoster = ({
-  roster: units,
-  ListHeaderComponent
-}: UnitRosterProps) => (
+const ArmyRoster = ({ roster, ListHeaderComponent }: ArmyRosterProps) => (
   <FlatList
-    data={units}
+    data={roster}
     showsVerticalScrollIndicator={false}
     ItemSeparatorComponent={() => <VStack className='h-4' />}
     keyExtractor={(unit) => {
@@ -32,4 +29,4 @@ const UnitRoster = ({
   />
 )
 
-export default memo(UnitRoster)
+export default memo(ArmyRoster)

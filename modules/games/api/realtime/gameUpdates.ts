@@ -14,7 +14,7 @@ const gameUpdates = ({ eventHandler, gameId }: GameUpdatesParams) =>
     {
       event: 'UPDATE',
       schema: 'public',
-      table: 'games',
+      table: Table.GAMES,
       filter: `id=eq.${gameId}`
     },
     eventHandler

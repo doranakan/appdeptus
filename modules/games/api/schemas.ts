@@ -1,4 +1,7 @@
-import { baseArmySchema } from 'appdeptus/modules/armies/api/schemas'
+import {
+  gameArmySchema,
+  gameRosterSchema
+} from 'appdeptus/modules/armies/api/schemas'
 import { z } from 'zod'
 
 const idSchema = z.number()
@@ -36,7 +39,7 @@ const createGameSchema = z.object({
 const baseGameSchema = z
   .object({
     id: idSchema,
-    army_one: baseArmySchema,
+    army_one: gameArmySchema,
     cp_one: z.number(),
     player_one: playerSchema,
     score_one: z.number(),
@@ -59,7 +62,7 @@ const endedGameSchema = baseGameSchema.and(
   z
     .object({
       status: endedGameStatusSchema,
-      army_two: baseArmySchema,
+      army_two: gameArmySchema,
       cp_two: z.number(),
       player_two: playerSchema,
       score_two: z.number()
@@ -79,7 +82,7 @@ const activeGameSchema = baseGameSchema.and(
   z
     .object({
       status: activeGameStatusSchema,
-      army_two: baseArmySchema,
+      army_two: gameArmySchema,
       cp_two: z.number(),
       player_two: playerSchema,
       score_two: z.number()
@@ -118,6 +121,12 @@ const realtimeGameSchema = z
       }
     })
   )
+
+const realtimeGameArmySchema = z.object({
+  id: idSchema,
+  roster: gameRosterSchema
+})
+
 const newGameSchema = baseGameSchema.and(
   z.object({
     status: z.literal('new')
@@ -137,5 +146,6 @@ export {
   getEndedGameListSchema,
   getGameSchema,
   getNewGameSchema,
+  realtimeGameArmySchema,
   realtimeGameSchema
 }

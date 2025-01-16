@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 - Account deletion screen 🗑️
 - Refresh button in QR code screen 📱
+- Model status updates during active games 💀🩸
 
 ### Changed
 
