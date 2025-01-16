@@ -1,9 +1,9 @@
 import microsoftIcon from 'appdeptus/assets/svg/microsoft.svg'
 import { Card, HStack, Pressable, Text, useToast } from 'appdeptus/components'
-import { router } from 'expo-router'
 import { memo } from 'react'
 import { SvgXml } from 'react-native-svg'
 import { useSignInWithOAuthMutation } from '../../api'
+import useNavigateToHome from './useNavigateToHome'
 
 type SignInWithMicrosoftProps = {
   disabled?: boolean
@@ -13,6 +13,8 @@ const SignInWithMicrosoft = ({ disabled }: SignInWithMicrosoftProps) => {
   const [signInWithOAuth, { isLoading }] = useSignInWithOAuthMutation()
 
   const { show } = useToast()
+
+  const navigateToHome = useNavigateToHome()
 
   return (
     <Pressable
@@ -24,12 +26,7 @@ const SignInWithMicrosoft = ({ disabled }: SignInWithMicrosoftProps) => {
           return
         }
 
-        if (res.data.isNew) {
-          router.replace('user/settings/edit-name')
-          return
-        }
-
-        router.replace('/')
+        navigateToHome(res.data.isNew)
       }}
       disabled={disabled ?? isLoading}
     >

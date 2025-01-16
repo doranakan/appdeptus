@@ -1,9 +1,9 @@
 import googleIcon from 'appdeptus/assets/svg/google.svg'
 import { Card, HStack, Pressable, Text, useToast } from 'appdeptus/components'
-import { router } from 'expo-router'
 import { memo } from 'react'
 import { SvgXml } from 'react-native-svg'
 import { useSignInWithGoogleMutation } from '../../api'
+import useNavigateToHome from './useNavigateToHome'
 
 type SignInWithGoogleProps = {
   disabled?: boolean
@@ -13,6 +13,8 @@ const SignInWithGoogle = ({ disabled }: SignInWithGoogleProps) => {
   const [signInWithGoogle, { isLoading }] = useSignInWithGoogleMutation()
 
   const { show } = useToast()
+
+  const navigateToHome = useNavigateToHome()
 
   return (
     <Pressable
@@ -24,12 +26,7 @@ const SignInWithGoogle = ({ disabled }: SignInWithGoogleProps) => {
           return
         }
 
-        if (res.data.isNew) {
-          router.replace('user/settings/edit-name')
-          return
-        }
-
-        router.replace('/')
+        navigateToHome(res.data.isNew)
       }}
       disabled={disabled ?? isLoading}
     >

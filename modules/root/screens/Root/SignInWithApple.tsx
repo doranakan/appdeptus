@@ -1,10 +1,10 @@
 import appleIcon from 'appdeptus/assets/svg/apple.svg'
 import { Card, HStack, Pressable, Text, useToast } from 'appdeptus/components'
-import { router } from 'expo-router'
 import { memo } from 'react'
 import { Platform } from 'react-native'
 import { SvgXml } from 'react-native-svg'
 import { useSignInWithAppleMutation } from '../../api'
+import useNavigateToHome from './useNavigateToHome'
 
 type SignInWithAppleProps = {
   disabled?: boolean
@@ -14,6 +14,8 @@ const SignInWithApple = ({ disabled }: SignInWithAppleProps) => {
   const [signInWithApple, { isLoading }] = useSignInWithAppleMutation()
 
   const { show } = useToast()
+
+  const navigateToHome = useNavigateToHome()
 
   if (Platform.OS !== 'ios') {
     return null
@@ -29,12 +31,7 @@ const SignInWithApple = ({ disabled }: SignInWithAppleProps) => {
           return
         }
 
-        if (res.data.isNew) {
-          router.replace('user/settings/edit-name')
-          return
-        }
-
-        router.replace('/')
+        navigateToHome(res.data.isNew)
       }}
       disabled={disabled ?? isLoading}
     >
