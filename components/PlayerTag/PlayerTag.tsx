@@ -19,7 +19,7 @@ const PlayerTag = ({ player, reversed }: PlayerTagProps) => (
       user={player}
       size='sm'
     />
-    <Text family='body-bold'>{`@${player.name}`}</Text>
+    <Text family='body-bold'>{`@${player.name.toLowerCase()}`}</Text>
   </HStack>
 )
 
