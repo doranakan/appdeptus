@@ -7,7 +7,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
-- Account deletion screen 🗑️
 - Refresh button in QR code screen 📱
 - Model status updates during active games 💀🩸
 
@@ -26,6 +25,20 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Settings privacy policy touchability 🫵🏼
 - User screen broken link on user nickname 💥
 - Warlord selection with multiple choice with the same id 👑
+
+### Deprecated
+
+### Removed
+
+## [0.0.2] - 2025-01-09
+
+### Added
+
+- Account deletion screen 🗑️
+
+### Changed
+
+### Fixed
 
 ### Deprecated
 
