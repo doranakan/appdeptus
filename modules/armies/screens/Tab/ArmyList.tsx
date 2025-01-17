@@ -12,7 +12,7 @@ import {
 } from 'appdeptus/components'
 import { Link } from 'expo-router'
 import { Search } from 'lucide-react-native'
-import { memo, useMemo, useState } from 'react'
+import React, { memo, useMemo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import { useGetArmyListQuery } from '../../api'
 import NewArmyBottomSheet from './NewArmyBottomSheet'
