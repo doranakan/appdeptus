@@ -7,6 +7,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Deprecated
+
+### Removed
+
+## [0.1.0] - 2025-01-17
+
+### Added
+
 - Refresh button in QR code screen 📱
 - Model status updates during active games 💀🩸
 - Army builder info bottom sheet ℹ
