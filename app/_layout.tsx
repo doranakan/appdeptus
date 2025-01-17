@@ -12,6 +12,7 @@ import {
 } from '@expo-google-fonts/ibm-plex-mono'
 import { Silkscreen_400Regular } from '@expo-google-fonts/silkscreen'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
+import { ErrorBoundary } from 'appdeptus/components'
 import { GluestackUIProvider } from 'appdeptus/components/ui'
 import { defaultScreenOptions } from 'appdeptus/constants'
 import 'appdeptus/global.css'
@@ -63,7 +64,9 @@ const App = ({ children }: PropsWithChildren) => {
                 disabled: __DEV__
               }}
             >
-              <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
+              <BottomSheetModalProvider>
+                <ErrorBoundary>{children}</ErrorBoundary>
+              </BottomSheetModalProvider>
             </PostHogProvider>
           </GestureHandlerRootView>
         </GluestackUIProvider>

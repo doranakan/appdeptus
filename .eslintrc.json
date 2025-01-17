@@ -35,5 +35,12 @@
     "@typescript-eslint/strict-boolean-expressions": "off",
     "multiline-ternary": "off",
     "react/react-in-jsx-scope": "off"
-  }
+  },
+  "ignorePatterns": [
+    "components/ui/*",
+    "components/ErrorBoundary*",
+    "babel.config.js",
+    "nativewind-env.d.ts",
+    "metro.config.js"
+  ]
 }

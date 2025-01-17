@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Model status updates during active games 💀🩸
 - Army builder info bottom sheet ℹ
 - Onboarding screen 🚢
+- Error boundary 💥
 
 ### Changed
 
