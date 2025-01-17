@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Army builder info bottom sheet ℹ
 - Onboarding screen 🚢
 - Error boundary 💥
+- Disabled armies feature flag ⛳️
 
 ### Changed
 

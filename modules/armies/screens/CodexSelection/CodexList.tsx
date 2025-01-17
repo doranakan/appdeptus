@@ -7,6 +7,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import { CustomFadeIn, CustomFadeOut, type factions } from 'appdeptus/constants'
+import { useFeatureFlag } from 'appdeptus/hooks'
 import { type ArmyBuilder, type Codex } from 'appdeptus/models'
 import { useAppDispatch } from 'appdeptus/store'
 import { memo, useCallback, useMemo, useState } from 'react'
@@ -17,8 +18,15 @@ import { useGetCodexListQuery } from '../../api'
 import CodexListItem from './CodexListItem'
 
 const CodexList = () => {
+  const disabledArmies = useFeatureFlag('disabled-armies')
+
   const { data, isFetching, isError, isLoading, refetch } =
-    useGetCodexListQuery()
+    useGetCodexListQuery(undefined, {
+      selectFromResult: (res) => ({
+        ...res,
+        data: res.data?.filter(({ name }) => !disabledArmies?.includes(name))
+      })
+    })
 
   const [selectedFactions, setSelectedFactions] =
     useState<(typeof factionFilter)[number]>('all')
