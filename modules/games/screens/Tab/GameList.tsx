@@ -48,7 +48,7 @@ const GameList = () => {
         values={winLossFilter}
       />
       <FlatList
-        className='container flex-1'
+        className='flex-1'
         contentContainerStyle={!data?.length ? { flex: 1 } : undefined}
         data={filteredData}
         keyExtractor={({ id }) => String(id)}

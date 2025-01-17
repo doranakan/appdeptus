@@ -15,6 +15,7 @@ import { Search } from 'lucide-react-native'
 import { memo, useMemo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import { useGetArmyListQuery } from '../../api'
+import NewArmyBottomSheet from './NewArmyBottomSheet'
 
 const ArmyList = () => {
   const [searchString, setSearchString] = useState('')
@@ -44,73 +45,76 @@ const ArmyList = () => {
   }, [data, pointFilter, searchString])
 
   return (
-    <VStack
-      className='flex-1'
-      space='md'
-    >
-      <Input
-        Icon={Search}
-        onChangeText={setSearchString}
-        placeholder='Search your library'
-        value={searchString}
-      />
-      <FilterTopBar
-        onPress={setPointFilter}
-        selectedValue={pointFilter}
-        values={
-          Array.from(
-            Object.keys(pointFiltersToLimits)
-          ) as (keyof typeof pointFiltersToLimits)[]
-        }
-      />
-      <FlatList
-        className='container flex-1'
-        contentContainerStyle={!data?.length ? { flex: 1 } : undefined}
-        data={filteredData}
-        keyExtractor={({ id }) => String(id)}
-        ItemSeparatorComponent={() => <VStack className='h-4' />}
-        ListEmptyComponent={
-          isError ? (
-            <Error />
-          ) : !data && isLoading ? (
-            <Loading />
-          ) : (
-            <EmptyListItem
-              lottieSource={toxicFree}
-              subtitle={
-                emptyListLabels[data?.length ? 'search' : 'data'].subtitle
-              }
-              title={emptyListLabels[data?.length ? 'search' : 'data'].title}
-            />
-          )
-        }
-        ListFooterComponent={() => <VStack className='h-4' />}
-        refreshControl={
-          <RefreshControl
-            tintColor={themeColors.default.primary[300]}
-            refreshing={isFetching && !isLoading}
-            onRefresh={refetch}
-          />
-        }
-        renderItem={({ item }) => (
-          <Link
-            asChild
-            href={`army/${item.id}`}
-          >
-            <Pressable>
-              <ArmyListItem
-                codex={item.codex.name}
-                detachment={item.detachment.name}
-                name={item.name}
-                points={item.points}
+    <>
+      <VStack
+        className='flex-1'
+        space='md'
+      >
+        <Input
+          Icon={Search}
+          onChangeText={setSearchString}
+          placeholder='Search your library'
+          value={searchString}
+        />
+        <FilterTopBar
+          onPress={setPointFilter}
+          selectedValue={pointFilter}
+          values={
+            Array.from(
+              Object.keys(pointFiltersToLimits)
+            ) as (keyof typeof pointFiltersToLimits)[]
+          }
+        />
+        <FlatList
+          className='flex-1'
+          contentContainerStyle={!data?.length ? { flex: 1 } : undefined}
+          data={filteredData}
+          keyExtractor={({ id }) => String(id)}
+          ItemSeparatorComponent={() => <VStack className='h-4' />}
+          ListEmptyComponent={
+            isError ? (
+              <Error />
+            ) : !data && isLoading ? (
+              <Loading />
+            ) : (
+              <EmptyListItem
+                lottieSource={toxicFree}
+                subtitle={
+                  emptyListLabels[data?.length ? 'search' : 'data'].subtitle
+                }
+                title={emptyListLabels[data?.length ? 'search' : 'data'].title}
               />
-            </Pressable>
-          </Link>
-        )}
-        scrollEnabled={!isFetching}
-        showsVerticalScrollIndicator={false}
-      />
-    </VStack>
+            )
+          }
+          ListFooterComponent={() => <VStack className='h-4' />}
+          refreshControl={
+            <RefreshControl
+              tintColor={themeColors.default.primary[300]}
+              refreshing={isFetching && !isLoading}
+              onRefresh={refetch}
+            />
+          }
+          renderItem={({ item }) => (
+            <Link
+              asChild
+              href={`army/${item.id}`}
+            >
+              <Pressable>
+                <ArmyListItem
+                  codex={item.codex.name}
+                  detachment={item.detachment.name}
+                  name={item.name}
+                  points={item.points}
+                />
+              </Pressable>
+            </Link>
+          )}
+          scrollEnabled={!isFetching}
+          showsVerticalScrollIndicator={false}
+        />
+      </VStack>
+      <NewArmyBottomSheet />
+    </>
   )
 }
 

@@ -3,8 +3,10 @@ import dice from 'appdeptus/assets/lotties/dice.json'
 import plan from 'appdeptus/assets/lotties/plan.json'
 import {
   type Button,
+  Loading,
   NavigationHeader,
   Pressable,
+  ScreenContainer,
   selectThemeName,
   themeColors,
   VStack
@@ -14,7 +16,7 @@ import { useGetArmyListQuery } from 'appdeptus/modules/armies/api'
 import { useGetGameQuery } from 'appdeptus/modules/games/api'
 import { ActiveGameTopBar } from 'appdeptus/modules/games/components'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
-import { Tabs } from 'expo-router'
+import { Redirect, Tabs, useLocalSearchParams } from 'expo-router'
 import LottieView, { type AnimationObject } from 'lottie-react-native'
 import { Plus, Swords } from 'lucide-react-native'
 import {
@@ -29,11 +31,25 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
 
 const HomeLayout = () => {
+  const { showOnboarding } = useLocalSearchParams<{ showOnboarding: string }>()
+
   const themeName = useSelector(selectThemeName)
 
   const { bottom } = useSafeAreaInsets()
 
   const { data: activeGame } = useGetGameQuery()
+
+  if (showOnboarding) {
+    return (
+      <ScreenContainer className='items-center justify-center'>
+        <Loading />
+        <Redirect
+          href='onboarding'
+          relativeToDirectory={false}
+        />
+      </ScreenContainer>
+    )
+  }
 
   return (
     <VStack

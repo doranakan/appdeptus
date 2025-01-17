@@ -15,7 +15,7 @@ const updateUserName = (builder: CoreEndpointBuilder<UserApiTag.USER>) =>
 
         const { error } = await supabase
           .from(Table.USERS)
-          .update({ name })
+          .update({ name: name.trim() })
           .eq('id', res)
 
         if (error) {
