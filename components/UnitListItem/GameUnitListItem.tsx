@@ -1,28 +1,14 @@
 import { useModelsLeft, useTotalWounds } from 'appdeptus/hooks'
-import {
-  type GameArmy,
-  type GameTeam,
-  type GameUnit,
-  type SelectableUnit
-} from 'appdeptus/models'
-import {
-  Bus,
-  Car,
-  CircleFadingPlus,
-  Crown,
-  Droplets,
-  type LucideIcon,
-  Shield,
-  Skull,
-  UserRound,
-  UsersRound
-} from 'lucide-react-native'
+import { type GameArmy, type GameTeam, type GameUnit } from 'appdeptus/models'
+import { CircleFadingPlus, Crown, Droplets, Skull } from 'lucide-react-native'
 import pluralize from 'pluralize'
 import { memo } from 'react'
 import Card from '../Card'
+import Dots from '../Dots'
 import IconBadge from '../IconBadge'
 import Text from '../Text'
 import { HStack, VStack } from '../ui'
+import { unitTypeToIcon } from '../utils'
 import EmbarkedUnit from './EmbarkedUnit'
 import TeamUnit from './TeamUnit'
 
@@ -122,10 +108,7 @@ const UnitDetail = ({ unit }: UnitDetailProps) => {
         ) : null}
         <HStack space='sm'>
           <Text size='sm'>{`${modelsLeft}/${unit.models.length} ${pluralize('model', unit.models.length)}`}</Text>
-          {/* This stupid workaround is required since on iOS the dotted border is support only on all sides */}
-          <VStack className='flex-1 overflow-hidden'>
-            <VStack className='m-[-3] mb-[4] flex-1 border-2 border-dotted border-primary-50' />
-          </VStack>
+          <Dots />
           <Text
             className='uppercase'
             family='body-bold'
@@ -147,13 +130,5 @@ const TeamDetail = ({ team }: TeamDetailProps) => (
     Leader={<UnitDetail unit={team.leader} />}
   />
 )
-
-const unitTypeToIcon = {
-  character: UserRound,
-  leader: Shield,
-  squad: UsersRound,
-  transport: Bus,
-  vehicle: Car
-} as const satisfies Record<SelectableUnit['type'], LucideIcon>
 
 export default memo(GameUnitListItem)

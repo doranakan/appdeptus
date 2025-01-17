@@ -10,10 +10,11 @@ import { useAllUnits } from 'appdeptus/hooks'
 import { type ArmyBuilder, type Unit } from 'appdeptus/models'
 import { useLocalSearchParams } from 'expo-router'
 import pluralize, { singular } from 'pluralize'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useGetArmyQuery, useGetUnitListQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
+import { useUnitTypes } from '../../hooks'
 import UnitList from './UnitList'
 
 const UnitSelectionScreen = () => {
@@ -28,18 +29,7 @@ const UnitSelectionScreen = () => {
 
   const { data } = useGetUnitListQuery(selectedCodex ?? skipToken)
 
-  const unitTypes = useMemo(
-    () =>
-      data
-        ?.reduce<Unit['type'][]>((acc, { type }) => {
-          if (!acc.includes(type)) {
-            return [...acc, type]
-          }
-          return acc
-        }, [])
-        .sort(),
-    [data]
-  )
+  const unitTypes = useUnitTypes(data ?? [])
 
   useEffect(() => {
     if (unitTypes?.[0]) {
