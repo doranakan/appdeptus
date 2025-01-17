@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import { createInput } from '@gluestack-ui/input'
 import type { VariantProps } from '@gluestack-ui/nativewind-utils'

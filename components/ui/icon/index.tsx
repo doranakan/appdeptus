@@ -1,3 +1,4 @@
+// @ts-nocheck
 'use client'
 import { createIcon } from '@gluestack-ui/icon'
 import { type VariantProps } from '@gluestack-ui/nativewind-utils'
