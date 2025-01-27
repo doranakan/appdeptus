@@ -1,29 +1,4 @@
 import {
-  ArmyBackground,
-  ArmyRoster,
-  Error,
-  Loading,
-  NavigationHeader,
-  resetTheme,
-  ScreenContainer,
-  setTheme,
-  Text,
-  themeColors,
-  VStack
-} from 'appdeptus/components'
-import { type Army } from 'appdeptus/models'
-import { useAppDispatch } from 'appdeptus/store'
-import { LinearGradient } from 'expo-linear-gradient'
-import { useLocalSearchParams, useNavigation } from 'expo-router'
-import { EllipsisVertical } from 'lucide-react-native'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { PixelRatio, StyleSheet, useWindowDimensions } from 'react-native'
-import { useGetArmyListQuery } from '../../api'
-import { RosterTopContainer } from '../../components'
-import OptionsBottomSheet from './OptionsBottomSheet'
-import ref from './ref'
-import { type Image } from 'expo-image'
-import {
   BackdropBlur,
   Canvas,
   Fill,
@@ -32,7 +7,28 @@ import {
   type SkImage,
   Image as SkImageComponent
 } from '@shopify/react-native-skia'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import {
+  ArmyBackground,
+  ArmyRoster,
+  Error,
+  Loading,
+  NavigationHeader,
+  resetTheme,
+  ScreenContainer,
+  selectThemeName,
+  setTheme,
+  Text,
+  themeColors,
+  VStack
+} from 'appdeptus/components'
+import { type Army } from 'appdeptus/models'
+import { useAppDispatch } from 'appdeptus/store'
+import { type Image } from 'expo-image'
+import { LinearGradient } from 'expo-linear-gradient'
+import { useLocalSearchParams, useNavigation } from 'expo-router'
+import { EllipsisVertical } from 'lucide-react-native'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { PixelRatio, StyleSheet, useWindowDimensions } from 'react-native'
 import Animated, {
   Extrapolation,
   interpolate,
@@ -43,6 +39,12 @@ import Animated, {
   useSharedValue,
   withTiming
 } from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useSelector } from 'react-redux'
+import { useGetArmyListQuery } from '../../api'
+import { RosterTopContainer } from '../../components'
+import OptionsBottomSheet from './OptionsBottomSheet'
+import ref from './ref'
 
 const ArmyScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -78,6 +80,8 @@ type ArmyContainerProps = {
 }
 
 const ArmyContainer = ({ army }: ArmyContainerProps) => {
+  const themeName = useSelector(selectThemeName)
+
   const dispatch = useAppDispatch()
   const bgRef = useRef<Image>(null)
   const [snap, setSnap] = useState<SkImage | null>(null)
@@ -104,7 +108,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
         Extrapolation.CLAMP
       )
 
-      if (contentOffset.y > height * 0.35) {
+      if (contentOffset.y > height * 0.33) {
         opacity.value = withTiming(1)
         runOnJS(setTitle)(army.name)
       } else {
@@ -155,10 +159,10 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
                   height={snap.height() / PixelRatio.get()}
                 />
                 <BackdropBlur
-                  blur={4}
+                  blur={8}
                   clip={{ x: 0, y: 0, width, height }}
                 >
-                  <Fill color='rgba(0, 0, 0, 0.3)' />
+                  <Fill color={`${themeColors[themeName].tertiary[950]}80`} />
                 </BackdropBlur>
               </Group>
             </Canvas>
@@ -168,7 +172,17 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
       headerShown: true,
       headerTransparent: true
     })
-  }, [army.codex.name, height, navigation, opacity, snap, title, top, width])
+  }, [
+    army.codex.name,
+    height,
+    navigation,
+    opacity,
+    snap,
+    themeName,
+    title,
+    top,
+    width
+  ])
 
   return (
     <ScreenContainer safeAreaInsets={['bottom', 'top']}>

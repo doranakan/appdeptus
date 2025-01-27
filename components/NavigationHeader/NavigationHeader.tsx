@@ -5,8 +5,8 @@ import { memo, type ComponentProps } from 'react'
 import Avatar from '../Avatar'
 import Button from '../Button'
 import Progress from '../Progress'
+import Text from '../Text'
 import { HStack, Pressable } from '../ui'
-import ScreenTitle from '../ScreenTitle'
 
 type NavigationHeaderProps = {
   progress?: ComponentProps<typeof Progress>
@@ -75,7 +75,14 @@ const NavigationHeader = ({
     {/* center items */}
     {progress ? <Progress {...progress} /> : null}
     {title ? (
-      <ScreenTitle className='max-w-80 text-ellipsis'>{title}</ScreenTitle>
+      <Text
+        className='flex-1 text-ellipsis text-center'
+        numberOfLines={1}
+        family='heading-regular'
+        size='lg'
+      >
+        {title}
+      </Text>
     ) : null}
 
     {/* right items */}

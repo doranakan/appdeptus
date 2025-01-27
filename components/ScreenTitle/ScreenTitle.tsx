@@ -12,6 +12,7 @@ const ScreenTitle = ({ children, className }: ScreenTitleProps) => (
     size='4xl'
     numberOfLines={1}
     className={className}
+    adjustsFontSizeToFit
   >
     {children}
   </Text>
