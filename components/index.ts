@@ -37,5 +37,6 @@ export * from './UnitListItem'
 export { default as UnitName } from './UnitName'
 export { default as VersusBackground } from './VersusBackground'
 
+export * from './constants'
 export * from './store'
 export * from './ui'
