@@ -5,11 +5,13 @@ import { memo, type ComponentProps } from 'react'
 import Avatar from '../Avatar'
 import Button from '../Button'
 import Progress from '../Progress'
+import Text from '../Text'
 import { HStack, Pressable } from '../ui'
 
 type NavigationHeaderProps = {
   progress?: ComponentProps<typeof Progress>
   rightButton?: ComponentProps<typeof Button>
+  title?: string
 } & (
   | {
       variant: 'backButton' | 'closeButton'
@@ -23,10 +25,11 @@ type NavigationHeaderProps = {
 const NavigationHeader = ({
   progress,
   rightButton,
+  title,
   ...props
 }: NavigationHeaderProps) => (
   <HStack
-    className='w-full items-center justify-between'
+    className='z-10 w-full items-center justify-between'
     space='md'
   >
     {/* left items */}
@@ -71,6 +74,16 @@ const NavigationHeader = ({
 
     {/* center items */}
     {progress ? <Progress {...progress} /> : null}
+    {title ? (
+      <Text
+        className='flex-1 text-ellipsis text-center'
+        numberOfLines={1}
+        family='heading-regular'
+        size='lg'
+      >
+        {title}
+      </Text>
+    ) : null}
 
     {/* right items */}
     {rightButton ? (
