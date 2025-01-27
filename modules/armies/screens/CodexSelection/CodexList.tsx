@@ -63,15 +63,8 @@ const CodexList = () => {
         onOptionSelected={setSelectedFactions}
         options={factionFilter}
       />
-      <Animated.FlatList
-        data={filteredData}
-        contentContainerStyle={!data?.length ? { flex: 1 } : undefined}
-        ItemSeparatorComponent={() => <VStack className='h-4' />}
-        ListEmptyComponent={() =>
-          isError ? <Error /> : isFetching ? <Loading /> : null
-        }
-        ListFooterComponent={() => <VStack className='h-8' />}
-        keyExtractor={({ id }) => String(id)}
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
         refreshControl={
           isError ? (
             <RefreshControl
@@ -81,27 +74,36 @@ const CodexList = () => {
             />
           ) : undefined
         }
-        itemLayoutAnimation={LinearTransition.easing(Easing.out(Easing.cubic))
-          .duration(300)
-          .delay(100)}
-        renderItem={({ item }) => (
-          <Animated.View
-            exiting={CustomFadeOut}
-            entering={CustomFadeIn}
-          >
-            <CodexListItem
-              codex={item}
-              onPress={handlePress}
-              selected={
-                selectedCodex === undefined
-                  ? undefined
-                  : selectedCodex === item.name
-              }
-            />
-          </Animated.View>
+        contentContainerClassName='gap-4'
+      >
+        {isError ? (
+          <Error />
+        ) : isFetching ? (
+          <Loading />
+        ) : (
+          filteredData?.map((item) => (
+            <Animated.View
+              key={String(item.id)}
+              exiting={CustomFadeOut}
+              entering={CustomFadeIn}
+              layout={LinearTransition.easing(Easing.out(Easing.cubic))
+                .duration(300)
+                .delay(100)}
+            >
+              <CodexListItem
+                codex={item}
+                onPress={handlePress}
+                selected={
+                  selectedCodex === undefined
+                    ? undefined
+                    : selectedCodex === item.name
+                }
+              />
+            </Animated.View>
+          ))
         )}
-        showsVerticalScrollIndicator={false}
-      />
+        <VStack className='h-8' />
+      </Animated.ScrollView>
     </VStack>
   )
 }
