@@ -11,6 +11,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+### Deprecated
+
+### Removed
+
+## [0.1.2] - 2025-01-28
+
+### Added
+
+### Changed
+
+### Fixed
+
 - Get Discord invite link from remote config 🛜
 
 ### Deprecated
