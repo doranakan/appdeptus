@@ -11,6 +11,7 @@ import {
   TextLink,
   VStack
 } from 'appdeptus/components'
+import { useFeatureFlag } from 'appdeptus/hooks'
 import { formatDate } from 'date-fns'
 import * as Application from 'expo-application'
 import { Bot, Code, Cog } from 'lucide-react-native'
@@ -21,6 +22,8 @@ import CommunityCard from './CommunityCard'
 
 const UserScreen = () => {
   const { data } = useGetUserProfileQuery()
+
+  const discordInviteLink = useFeatureFlag('discord-invite-link')
 
   if (!data) {
     return (
@@ -89,13 +92,15 @@ const UserScreen = () => {
               >
                 community
               </Text>
-              <CommunityCard
-                cta='join our discord'
-                description='Join our server and meet the community, report bugs and keep updated the Appdeptus data.'
-                Icon={Bot}
-                link='https://discord.gg/Fh9N8bDR'
-                title='discord'
-              />
+              {discordInviteLink ? (
+                <CommunityCard
+                  cta='join our discord'
+                  description='Join our server and meet the community, report bugs and keep updated the Appdeptus data.'
+                  Icon={Bot}
+                  link={discordInviteLink}
+                  title='discord'
+                />
+              ) : null}
               <CommunityCard
                 cta='contribute on gituhb'
                 description='This is an open-source project, no heresy hidden!'
