@@ -1,32 +1,28 @@
-import { Image } from 'expo-image'
+import Image from '@d11/react-native-fast-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { memo } from 'react'
-import { Platform, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
 import { selectThemeName } from '../store'
 import { themeColors, VStack } from '../ui'
+import { Asset } from 'expo-asset'
 
 type BackgroundProps = {
-  blurhash: string
   source: string
 
   gradient?: boolean
 }
 
-const Background = ({ blurhash, source, gradient }: BackgroundProps) => {
+const Background = ({ source, gradient }: BackgroundProps) => {
   const themeName = useSelector(selectThemeName)
+
+  const image = Asset.fromModule(source)
 
   return (
     <VStack className='absolute h-full w-full'>
       <Image
-        placeholder={
-          Platform.OS === 'ios'
-            ? { blurhash, isAnimated: true, cacheKey: source }
-            : undefined
-        }
-        source={source}
+        source={{ uri: image.localUri ?? image.uri }}
         style={styles.image}
-        transition={200}
       />
       {gradient ? (
         <LinearGradient
