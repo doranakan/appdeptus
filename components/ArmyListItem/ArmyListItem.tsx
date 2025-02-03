@@ -23,7 +23,7 @@ const ArmyListItem = ({
   name,
   points,
 
-  isValid,
+  isValid = true,
   variant
 }: ArmyListItemProps) => (
   <Card variant={variant}>
