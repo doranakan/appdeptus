@@ -122,34 +122,42 @@ const heroOrEnhanceableSchema = z.discriminatedUnion('hero', [
   })
 ])
 
+const baseCharacterSchema = z.literal('character')
+const baseLeaderSchema = z.literal('leader')
+const baseSquadSchema = z.literal('squad')
+const baseTransportSchema = z.literal('transport')
+const baseVehicleSchema = z.literal('vehicle')
+const baseTeamSchema = z.literal('team')
+const baseEmbarkedSchema = z.literal('embarked')
+
 const characterSchema = armyUnitSchema
-  .merge(z.object({ type: z.literal('character') }))
+  .merge(z.object({ type: baseCharacterSchema }))
   .and(heroOrEnhanceableSchema)
 const leaderSchema = armyUnitSchema
-  .merge(z.object({ type: z.literal('leader') }))
+  .merge(z.object({ type: baseLeaderSchema }))
   .and(heroOrEnhanceableSchema)
-const squadSchema = armyUnitSchema.merge(z.object({ type: z.literal('squad') }))
+const squadSchema = armyUnitSchema.merge(z.object({ type: baseSquadSchema }))
 const transportSchema = armyUnitSchema.merge(
-  z.object({ type: z.literal('transport') })
+  z.object({ type: baseTransportSchema })
 )
 const vehicleSchema = armyUnitSchema.merge(
-  z.object({ type: z.literal('vehicle') })
+  z.object({ type: baseVehicleSchema })
 )
 
 const gameCharacterSchema = gameArmyUnitSchema
-  .merge(z.object({ type: z.literal('character') }))
+  .merge(z.object({ type: baseCharacterSchema }))
   .and(heroOrEnhanceableSchema)
 const gameLeaderSchema = gameArmyUnitSchema
-  .merge(z.object({ type: z.literal('leader') }))
+  .merge(z.object({ type: baseLeaderSchema }))
   .and(heroOrEnhanceableSchema)
 const gameSquadSchema = gameArmyUnitSchema.merge(
-  z.object({ type: z.literal('squad') })
+  z.object({ type: baseSquadSchema })
 )
 const gameTransportSchema = gameArmyUnitSchema.merge(
-  z.object({ type: z.literal('transport') })
+  z.object({ type: baseTransportSchema })
 )
 const gameVehicleSchema = gameArmyUnitSchema.merge(
-  z.object({ type: z.literal('vehicle') })
+  z.object({ type: baseVehicleSchema })
 )
 
 const unitSchema = z.union([
@@ -172,28 +180,28 @@ const teamSchema = z.object({
   id: z.string(),
   bodyguard: squadSchema,
   leader: leaderSchema,
-  type: z.literal('team')
+  type: baseTeamSchema
 })
 
 const gameTeamSchema = z.object({
   id: z.string(),
   bodyguard: gameSquadSchema,
   leader: gameLeaderSchema,
-  type: z.literal('team')
+  type: baseTeamSchema
 })
 
 const embarkedSchema = z.object({
   id: z.string(),
   transport: transportSchema,
   crew: z.array(z.union([unitSchema, teamSchema])),
-  type: z.literal('embarked')
+  type: baseEmbarkedSchema
 })
 
 const gameEmbarkedSchema = z.object({
   id: z.string(),
   transport: gameTransportSchema,
   crew: z.array(z.union([gameUnitSchema, gameTeamSchema])),
-  type: z.literal('embarked')
+  type: baseEmbarkedSchema
 })
 
 const baseArmySchema = z.object({
@@ -219,11 +227,13 @@ const armySchema = z
   .and(baseArmySchema)
   .and(
     z.object({
-      roster: z.array(z.union([unitSchema, teamSchema, embarkedSchema]))
+      roster: z.array(z.union([unitSchema, teamSchema, embarkedSchema])),
+      valid: z.boolean()
     })
   )
-  .transform(({ user_id, ...rest }) => ({
+  .transform(({ user_id, valid, ...rest }) => ({
     ...rest,
+    isValid: valid,
     user: {
       ...user_id,
       createdAt: user_id.created_at
@@ -243,23 +253,23 @@ const armyListSchema = z.array(armySchema)
 const codexListSchema = z.array(codexSchema)
 
 const selectableCharacterSchema = z.object({
-  type: z.literal('character'),
+  type: baseCharacterSchema,
   hero: z.boolean()
 })
 
 const selectableLeaderSchema = z.object({
-  type: z.literal('leader'),
+  type: baseLeaderSchema,
   hero: z.boolean()
 })
 
 const selectableSquadSchema = z.object({
-  type: z.literal('squad')
+  type: baseSquadSchema
 })
 const selectableTransportSchema = z.object({
-  type: z.literal('transport')
+  type: baseTransportSchema
 })
 const selectableVehicleSchema = z.object({
-  type: z.literal('vehicle')
+  type: baseVehicleSchema
 })
 
 const baseSelectableUnitSchema = baseUnitSchema
@@ -289,6 +299,29 @@ const selectableUnitSchema = baseSelectableUnitSchema.and(
 
 const unitListSchema = z.array(selectableUnitSchema)
 
+const invalidUnitsSchema = z.array(
+  z.object({
+    id: idSchema,
+    type: z.union([
+      baseCharacterSchema,
+      baseLeaderSchema,
+      baseSquadSchema,
+      baseTransportSchema,
+      baseVehicleSchema
+    ]),
+    hero: z.boolean()
+  })
+)
+
+const invalidTiersSchema = z.array(tierSchema)
+
+const invalidEnhancementsSchema = z.array(
+  z.object({
+    id: idSchema,
+    points: z.number()
+  })
+)
+
 export {
   armyListSchema,
   armySchema,
@@ -297,6 +330,9 @@ export {
   detachmentListSchema,
   gameArmySchema,
   gameRosterSchema,
+  invalidEnhancementsSchema,
+  invalidTiersSchema,
+  invalidUnitsSchema,
   selectableUnitSchema,
   unitListSchema
 }
