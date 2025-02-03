@@ -1,3 +1,4 @@
+import { skipToken } from '@reduxjs/toolkit/query'
 import { useUnmount } from 'ahooks'
 import {
   type Button,
@@ -9,10 +10,12 @@ import {
   VStack
 } from 'appdeptus/components'
 import { defaultScreenOptions } from 'appdeptus/constants'
-import { useWarlord } from 'appdeptus/hooks'
+import { useAllUnits, useWarlord } from 'appdeptus/hooks'
 import { type ArmyBuilder } from 'appdeptus/models'
 import {
   useCreateArmyMutation,
+  useGetArmyQuery,
+  useGetInvalidUnitsQuery,
   useUpdateArmyMutation
 } from 'appdeptus/modules/armies/api'
 import { useAppDispatch } from 'appdeptus/store'
@@ -24,15 +27,52 @@ import { useSelector } from 'react-redux'
 
 const ArmyBuilderLayout = () => {
   const { id } = useGlobalSearchParams<{ id: string }>()
+  const { data: army } = useGetArmyQuery(id ?? skipToken)
+  const { data: invalidUnits = [] } = useGetInvalidUnitsQuery(
+    army && !army.isValid ? army.roster : skipToken
+  )
+
+  const unitsToEdit = useAllUnits(army?.roster ?? [])
+
+  const defaultValues = useMemo(() => {
+    if (!army) {
+      return {
+        codex: undefined,
+        detachment: undefined,
+        name: '',
+        points: 0,
+        units: []
+      }
+    }
+
+    const { isValid: _, ...restArmy } = army
+
+    if (invalidUnits.length) {
+      const validUnits = unitsToEdit.filter(
+        ({ selectionId }) => !invalidUnits.includes(selectionId)
+      )
+
+      const invalidUnitPoints = unitsToEdit.reduce((acc, unit) => {
+        if (invalidUnits.includes(unit.selectionId) && 'tier' in unit) {
+          return acc + unit.tier.points
+        }
+        return acc
+      }, 0)
+
+      return {
+        ...restArmy,
+        points: restArmy.points - invalidUnitPoints,
+        units: validUnits
+      }
+    }
+    return {
+      ...restArmy,
+      units: unitsToEdit
+    }
+  }, [army, invalidUnits, unitsToEdit])
 
   const form = useForm<ArmyBuilder>({
-    defaultValues: {
-      codex: undefined,
-      detachment: undefined,
-      name: '',
-      points: 0,
-      units: []
-    }
+    defaultValues
   })
 
   const themeName = useSelector(selectThemeName)
