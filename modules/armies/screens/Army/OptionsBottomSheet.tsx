@@ -14,7 +14,7 @@ import { type Army } from 'appdeptus/models'
 import clsx from 'clsx'
 import { router } from 'expo-router'
 import { Settings, ShareIcon, Swords, Trash2 } from 'lucide-react-native'
-import { memo, useCallback } from 'react'
+import React, { memo, useCallback } from 'react'
 import { Platform, Share } from 'react-native'
 import { useDeleteArmyMutation } from '../../api'
 import OptionButton from './OptionButton'
@@ -103,16 +103,20 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
           className={clsx(deletePromptVisible && 'opacity-60')}
           style={{ justifyContent: 'space-evenly' }}
         >
-          <OptionButton
-            icon={Swords}
-            onPress={playWithArmy}
-            title='Play'
-          />
-          <OptionButton
-            icon={ShareIcon}
-            onPress={shareArmy}
-            title='Share'
-          />
+          {army.isValid ? (
+            <>
+              <OptionButton
+                icon={Swords}
+                onPress={playWithArmy}
+                title='Play'
+              />
+              <OptionButton
+                icon={ShareIcon}
+                onPress={shareArmy}
+                title='Share'
+              />
+            </>
+          ) : null}
 
           <OptionButton
             icon={Settings}
