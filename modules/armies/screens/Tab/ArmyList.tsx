@@ -105,6 +105,7 @@ const ArmyList = () => {
                   detachment={item.detachment.name}
                   name={item.name}
                   points={item.points}
+                  isValid={item.isValid}
                 />
               </Pressable>
             </Link>
