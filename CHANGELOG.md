@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Handle unit and detachment data updates 💽
+
 ### Changed
 
 ### Fixed
