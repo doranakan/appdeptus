@@ -1,17 +1,41 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { type CodexName } from 'appdeptus/models'
 import Image from '@d11/react-native-fast-image'
+import { type CodexName } from 'appdeptus/models'
+import adepta_sororitas from 'assets/resources/armies/adepta_sororitas.jpg'
+import adeptus_custodes from 'assets/resources/armies/adeptus_custodes.jpg'
+import adeptus_mechanicus from 'assets/resources/armies/adeptus_mechanicus.jpg'
+import aeldari from 'assets/resources/armies/aeldari.jpg'
+import astra_militarum from 'assets/resources/armies/astra_militarum.jpg'
+import black_templars from 'assets/resources/armies/black_templars.jpg'
+import blood_angels from 'assets/resources/armies/blood_angels.jpg'
+import chaos_daemons from 'assets/resources/armies/chaos_daemons.jpg'
+import chaos_knights from 'assets/resources/armies/chaos_knights.jpg'
+import chaos_space_marines from 'assets/resources/armies/chaos_space_marines.jpg'
+import dark_angels from 'assets/resources/armies/dark_angels.jpg'
+import death_guard from 'assets/resources/armies/death_guard.jpg'
+import drukhari from 'assets/resources/armies/drukhari.jpg'
+import emperors_children from 'assets/resources/armies/emperors_children.jpg'
+import genestealer_cults from 'assets/resources/armies/genestealer_cults.jpg'
+import grey_knights from 'assets/resources/armies/grey_knights.jpg'
+import imperial_agents from 'assets/resources/armies/imperial_agents.jpg'
+import imperial_knights from 'assets/resources/armies/imperial_knights.jpg'
+import leagues_of_votann from 'assets/resources/armies/leagues_of_votann.jpg'
+import necrons from 'assets/resources/armies/necrons.jpg'
+import orks from 'assets/resources/armies/orks.jpg'
+import space_marines from 'assets/resources/armies/space_marines.jpg'
+import space_wolves from 'assets/resources/armies/space_wolves.jpg'
+import tau_empire from 'assets/resources/armies/tau_empire.jpg'
+import thousand_sons from 'assets/resources/armies/thousand_sons.jpg'
+import tyranids from 'assets/resources/armies/tyranids.jpg'
+import world_eaters from 'assets/resources/armies/world_eaters.jpg'
+import { Asset } from 'expo-asset'
 import { LinearGradient } from 'expo-linear-gradient'
 import { memo } from 'react'
 import { StyleSheet } from 'react-native'
 import { themeColors, VStack } from '../ui'
-import { Asset } from 'expo-asset'
-
 type ArmyBackgroundProps = {
   codex: CodexName
 }
 const ArmyBackground = ({ codex }: ArmyBackgroundProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const image = Asset.fromModule(source[codex])
 
   return (
@@ -41,33 +65,33 @@ const styles = StyleSheet.create({
 })
 
 const source = {
-  'Adepta Sororitas': require('assets/resources/armies/adepta_sororitas.jpg'),
-  'Adeptus Custodes': require('assets/resources/armies/adeptus_custodes.jpg'),
-  'Adeptus Mechanicus': require('assets/resources/armies/adeptus_mechanicus.jpg'),
-  Aeldari: require('assets/resources/armies/aeldari.jpg'),
-  'Astra Militarum': require('assets/resources/armies/astra_militarum.jpg'),
-  'Black Templars': require('assets/resources/armies/black_templars.jpg'),
-  'Blood Angels': require('assets/resources/armies/blood_angels.jpg'),
-  'Chaos Daemons': require('assets/resources/armies/chaos_daemons.jpg'),
-  'Chaos Knights': require('assets/resources/armies/chaos_knights.jpg'),
-  'Chaos Space Marines': require('assets/resources/armies/chaos_space_marines.jpg'),
-  'Dark Angels': require('assets/resources/armies/dark_angels.jpg'),
-  'Death Guard': require('assets/resources/armies/death_guard.jpg'),
-  Drukhari: require('assets/resources/armies/drukhari.jpg'),
-  "Emperor's Children": require('assets/resources/armies/emperors_children.jpg'),
-  'Genestealer Cults': require('assets/resources/armies/genestealer_cults.jpg'),
-  'Grey Knights': require('assets/resources/armies/grey_knights.jpg'),
-  'Imperial Agents': require('assets/resources/armies/imperial_agents.jpg'),
-  'Imperial Knights': require('assets/resources/armies/imperial_knights.jpg'),
-  'Leagues Of Votann': require('assets/resources/armies/leagues_of_votann.jpg'),
-  Necrons: require('assets/resources/armies/necrons.jpg'),
-  Orks: require('assets/resources/armies/orks.jpg'),
-  'Space Marines': require('assets/resources/armies/space_marines.jpg'),
-  'Space Wolves': require('assets/resources/armies/space_wolves.jpg'),
-  "T'au Empire": require('assets/resources/armies/tau_empire.jpg'),
-  'Thousand Sons': require('assets/resources/armies/thousand_sons.jpg'),
-  Tyranids: require('assets/resources/armies/tyranids.jpg'),
-  'World Eaters': require('assets/resources/armies/world_eaters.jpg')
+  'Adepta Sororitas': adepta_sororitas,
+  'Adeptus Custodes': adeptus_custodes,
+  'Adeptus Mechanicus': adeptus_mechanicus,
+  Aeldari: aeldari,
+  'Astra Militarum': astra_militarum,
+  'Black Templars': black_templars,
+  'Blood Angels': blood_angels,
+  'Chaos Daemons': chaos_daemons,
+  'Chaos Knights': chaos_knights,
+  'Chaos Space Marines': chaos_space_marines,
+  'Dark Angels': dark_angels,
+  'Death Guard': death_guard,
+  Drukhari: drukhari,
+  "Emperor's Children": emperors_children,
+  'Genestealer Cults': genestealer_cults,
+  'Grey Knights': grey_knights,
+  'Imperial Agents': imperial_agents,
+  'Imperial Knights': imperial_knights,
+  'Leagues Of Votann': leagues_of_votann,
+  Necrons: necrons,
+  Orks: orks,
+  'Space Marines': space_marines,
+  'Space Wolves': space_wolves,
+  "T'au Empire": tau_empire,
+  'Thousand Sons': thousand_sons,
+  Tyranids: tyranids,
+  'World Eaters': world_eaters
 } as const satisfies Record<CodexName, string>
 
 export default memo(ArmyBackground)
