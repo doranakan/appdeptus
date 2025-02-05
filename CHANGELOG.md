@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Android perfomance issues with images 📸
+
 ### Deprecated
 
 ### Removed

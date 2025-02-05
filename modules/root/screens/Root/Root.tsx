@@ -1,5 +1,6 @@
 import { logo } from 'appdeptus/assets'
 import { Background, Disclaimer, Text, VStack } from 'appdeptus/components'
+import sign_in from 'assets/resources/misc/sign_in.jpg'
 import { KeyboardAvoidingView, Platform } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SvgXml } from 'react-native-svg'
@@ -14,8 +15,7 @@ const RootScreen = () => (
       <VStack className='absolute h-full w-full'>
         <VStack className='flex-1'>
           <Background
-            blurhash='L58gQuMxoMsVS6wbNHNH4;SP};%0'
-            source='sign_in'
+            source={sign_in}
             gradient
           />
         </VStack>
