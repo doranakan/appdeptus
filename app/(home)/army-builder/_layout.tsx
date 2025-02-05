@@ -150,11 +150,11 @@ const ArmyBuilderLayout = () => {
         return !codex ? 1 : 2
       }
       case '[id]':
-      case 'unit-selection': {
-        return unitSelectionButtonDisabled ? 3 : 4
-      }
       case 'detachment-selection': {
-        return !detachment ? 5 : 6
+        return !detachment ? 3 : 4
+      }
+      case 'unit-selection': {
+        return unitSelectionButtonDisabled ? 5 : 6
       }
       case 'enhancement-selection': {
         return 7
@@ -173,11 +173,11 @@ const ArmyBuilderLayout = () => {
         return codex ? `selected: ${codex.name}` : 'select codex'
       }
       case '[id]':
-      case 'unit-selection': {
-        return 'select units'
-      }
       case 'detachment-selection': {
         return detachment ? `selected: ${detachment.name}` : 'select detachment'
+      }
+      case 'unit-selection': {
+        return 'select units'
       }
       case 'enhancement-selection': {
         return 'select enhancements'
@@ -196,20 +196,20 @@ const ArmyBuilderLayout = () => {
         return {
           disabled: !codex,
           icon: ChevronRight,
-          href: 'army-builder/unit-selection',
-          variant: 'link'
-        }
-      }
-      case '[id]':
-      case 'unit-selection': {
-        return {
-          disabled: unitSelectionButtonDisabled,
-          icon: ChevronRight,
           href: 'army-builder/detachment-selection',
           variant: 'link'
         }
       }
+      case '[id]':
       case 'detachment-selection': {
+        return {
+          disabled: !detachment,
+          icon: ChevronRight,
+          href: 'army-builder/unit-selection',
+          variant: 'link'
+        }
+      }
+      case 'unit-selection': {
         const canUpgradeUnits =
           units.filter(
             (unit) =>
@@ -218,7 +218,7 @@ const ArmyBuilderLayout = () => {
           ).length > 0
 
         return {
-          disabled: !detachment,
+          disabled: unitSelectionButtonDisabled,
           icon: ChevronRight,
           href: canUpgradeUnits
             ? 'army-builder/enhancement-selection'

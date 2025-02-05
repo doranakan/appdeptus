@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- Reorder the army builder flow by placing detachment selection before unit selection 🔙
+
 ### Fixed
 
 - Android perfomance issues with images 📸

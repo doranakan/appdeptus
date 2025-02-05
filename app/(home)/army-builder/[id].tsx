@@ -1,5 +1,5 @@
-import { UnitSelectionScreen } from 'appdeptus/modules/armies/screens'
+import { DetachmentSelectionScreen } from 'appdeptus/modules/armies/screens'
 
-const DetachmentSelectionRoute = () => <UnitSelectionScreen />
+const DetachmentSelectionRoute = () => <DetachmentSelectionScreen />
 
 export default DetachmentSelectionRoute

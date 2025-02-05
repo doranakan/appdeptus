@@ -1,4 +1,3 @@
-import { useUnmount } from 'ahooks'
 import { FilterTopBar, ScreenContainer, VStack } from 'appdeptus/components'
 import { type ArmyBuilder, type Unit } from 'appdeptus/models'
 import pluralize, { singular } from 'pluralize'
@@ -10,7 +9,7 @@ import { useUnitTypes } from '../../hooks'
 import UnitList from './UnitList'
 
 const UnitSelectionScreen = () => {
-  const { getValues, reset, watch } = useFormContext<ArmyBuilder>()
+  const { watch } = useFormContext<ArmyBuilder>()
 
   const codex = watch('codex')
 
@@ -25,15 +24,6 @@ const UnitSelectionScreen = () => {
   }, [data, unitTypes])
 
   const [selectedType, setSelectedType] = useState<Unit['type']>('character')
-
-  useUnmount(() => {
-    reset({
-      ...getValues(),
-      detachment: undefined,
-      units: [],
-      points: 0
-    })
-  })
 
   return (
     <ScreenContainer safeAreaInsets={['bottom']}>
