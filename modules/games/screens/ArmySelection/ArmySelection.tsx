@@ -46,6 +46,7 @@ const NewGameScreen = () => {
         ListFooterComponent={() => <VStack className='h-4' />}
         renderItem={({ item }) => (
           <Pressable
+            disabled={!item.isValid}
             onPress={() => {
               const { user: _user, ...army } = item
               setValue('playerOne.army', army)
@@ -54,16 +55,19 @@ const NewGameScreen = () => {
           >
             <ArmyListItem
               variant={
-                !selectedArmy
-                  ? 'selectable'
-                  : item.id === selectedArmy.id
-                    ? 'selected'
-                    : 'selectable-alt'
+                !item.isValid
+                  ? 'disabled'
+                  : !selectedArmy
+                    ? 'selectable'
+                    : item.id === selectedArmy.id
+                      ? 'selected'
+                      : 'selectable-alt'
               }
               codex={item.codex.name}
               detachment={item.detachment.name}
               name={item.name}
               points={item.points}
+              isValid={item.isValid}
             />
           </Pressable>
         )}

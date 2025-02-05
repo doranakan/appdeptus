@@ -7,9 +7,15 @@ import { UnitListItem } from '../UnitListItem'
 type ArmyRosterProps = {
   roster: Army['roster']
   ListHeaderComponent?: ComponentProps<typeof FlatList>['ListHeaderComponent']
+
+  invalidUnits?: Army['roster'][number]['id'][]
 }
 
-const ArmyRoster = ({ roster, ListHeaderComponent }: ArmyRosterProps) => (
+const ArmyRoster = ({
+  roster,
+  ListHeaderComponent,
+  invalidUnits = []
+}: ArmyRosterProps) => (
   <FlatList
     data={roster}
     showsVerticalScrollIndicator={false}
@@ -25,7 +31,14 @@ const ArmyRoster = ({ roster, ListHeaderComponent }: ArmyRosterProps) => (
     }}
     ListFooterComponent={() => <VStack className='h-4' />}
     ListHeaderComponent={ListHeaderComponent}
-    renderItem={({ item }) => <UnitListItem item={item} />}
+    renderItem={({ item }) => (
+      <UnitListItem
+        item={item}
+        isValid={
+          'selectionId' in item && !invalidUnits.includes(item.selectionId)
+        }
+      />
+    )}
   />
 )
 

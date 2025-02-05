@@ -6,6 +6,7 @@ import {
   Text,
   VStack
 } from 'appdeptus/components'
+import InnerBorder from 'appdeptus/components/InnerBorder'
 import { useModelCount, useUnitCount, useWarlord } from 'appdeptus/hooks'
 import { type Army, type UserProfile } from 'appdeptus/models'
 import { memo } from 'react'
@@ -64,6 +65,29 @@ const RosterTopContainer = ({ army }: RosterTopContainerProps) => {
               Models: <Text family='body-bold'>{numberOfModels}</Text>
             </Text>
           </HStack>
+          {!army.isValid ? (
+            <InnerBorder>
+              <VStack
+                className='rounded-3xl bg-warning-700 p-4'
+                space='md'
+              >
+                <Text
+                  family='body-bold'
+                  size='lg'
+                >
+                  ⚠️ Inquisition Warning
+                </Text>
+                <Text
+                  className='text-justify'
+                  family='body-regular-italic'
+                  size='sm'
+                >
+                  This army has been updated. You need to apply changes and save
+                  it to use it in your games again.
+                </Text>
+              </VStack>
+            </InnerBorder>
+          ) : null}
         </VStack>
       </Card>
     </VStack>

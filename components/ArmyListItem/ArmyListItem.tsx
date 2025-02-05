@@ -12,6 +12,8 @@ type ArmyListItemProps = {
   detachment: string
   name: string
   points: number
+
+  isValid?: boolean
   variant?: ComponentProps<typeof Card>['variant']
 }
 
@@ -20,10 +22,21 @@ const ArmyListItem = ({
   detachment,
   name,
   points,
+
+  isValid = true,
   variant
 }: ArmyListItemProps) => (
   <Card variant={variant}>
     <ArmyBackground codex={codex} />
+    {!isValid ? (
+      <Text
+        className='rounded-2xl bg-warning-400 px-4 py-1'
+        family='body-bold'
+        size='sm'
+      >
+        💀 Army no longer valid!
+      </Text>
+    ) : null}
     <VStack
       className='p-4'
       space='sm'
@@ -52,6 +65,9 @@ const ArmyListItem = ({
         />
       </HStack>
     </VStack>
+    {!isValid ? (
+      <VStack className='absolute h-full w-full overflow-hidden rounded-3xl border-2 border-warning-400' />
+    ) : null}
   </Card>
 )
 

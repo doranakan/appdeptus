@@ -14,14 +14,21 @@ import TeamUnit from './TeamUnit'
 type UnitListItemProps = {
   item: Army['roster'][number]
 
+  isValid?: boolean
   variant?: ComponentProps<typeof Card>['variant']
 }
 
-const UnitListItem = ({ item, variant = 'default' }: UnitListItemProps) => {
+const UnitListItem = ({
+  item,
+  isValid = true,
+  variant = 'default'
+}: UnitListItemProps) => {
+  const cardVariant = isValid ? variant : 'disabled'
+
   switch (item.type) {
     case 'embarked':
       return (
-        <Card variant={variant}>
+        <Card variant={cardVariant}>
           <VStack
             className='p-4'
             space='md'
@@ -46,7 +53,7 @@ const UnitListItem = ({ item, variant = 'default' }: UnitListItemProps) => {
       )
     case 'team':
       return (
-        <Card variant={variant}>
+        <Card variant={cardVariant}>
           <VStack className='p-4'>
             <TeamDetail team={item} />
           </VStack>
@@ -55,7 +62,7 @@ const UnitListItem = ({ item, variant = 'default' }: UnitListItemProps) => {
 
     default:
       return (
-        <Card variant={variant}>
+        <Card variant={cardVariant}>
           <VStack className='p-4'>
             <UnitDetail unit={item} />
           </VStack>

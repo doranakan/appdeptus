@@ -1,3 +1,4 @@
+import { skipToken } from '@reduxjs/toolkit/query'
 import {
   ArmyBackground,
   ArmyRoster,
@@ -18,7 +19,7 @@ import { useLocalSearchParams } from 'expo-router'
 import { EllipsisVertical } from 'lucide-react-native'
 import React, { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
-import { useGetArmyListQuery } from '../../api'
+import { useGetArmyQuery, useGetInvalidUnitsQuery } from '../../api'
 import { RosterTopContainer } from '../../components'
 import OptionsBottomSheet from './OptionsBottomSheet'
 import ref from './ref'
@@ -26,26 +27,21 @@ import ref from './ref'
 const ArmyScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
 
-  const { army } = useGetArmyListQuery(undefined, {
-    selectFromResult: ({ data, ...rest }) => ({
-      army: data?.find(({ id: armyId }) => armyId === Number(id)),
-      ...rest
-    })
-  })
+  const { data: army, isError, isFetching } = useGetArmyQuery(id)
 
-  if (!id) {
+  if (!id || isError) {
     return (
-      <VStack className='items-center justify-center'>
+      <ScreenContainer>
         <Error />
-      </VStack>
+      </ScreenContainer>
     )
   }
 
-  if (!army) {
+  if (!army || isFetching) {
     return (
-      <VStack className='items-center justify-center'>
+      <ScreenContainer>
         <Loading />
-      </VStack>
+      </ScreenContainer>
     )
   }
 
@@ -57,6 +53,10 @@ type ArmyContainerProps = {
 }
 
 const ArmyContainer = ({ army }: ArmyContainerProps) => {
+  const { data: invalidUnits } = useGetInvalidUnitsQuery(
+    army.isValid ? skipToken : army.roster
+  )
+
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -104,6 +104,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
             </VStack>
           }
           roster={army.roster}
+          invalidUnits={invalidUnits}
         />
       </VStack>
       <OptionsBottomSheet army={army} />

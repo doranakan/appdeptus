@@ -3,6 +3,7 @@ import { type ArmyBuilder } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import ArmiesApiTag from '../tags'
+import { insertArmyEntries } from '../utils'
 
 const updateArmy = (builder: CoreEndpointBuilder<string>) =>
   builder.mutation<null, ArmyBuilder>({
@@ -10,15 +11,34 @@ const updateArmy = (builder: CoreEndpointBuilder<string>) =>
       try {
         const { data, error } = await supabase
           .from(Table.ARMIES)
-          .update({ ...rest, roster: units })
+          .update({ ...rest, roster: units, valid: true })
           .eq('id', id)
+          .select('id')
 
         if (error) {
           return { error: JSON.stringify(error) }
         }
 
+        const { error: deleteError } = await supabase
+          .from(Table.ARMY_ENTRIES)
+          .delete()
+          .eq('army', id)
+
+        if (deleteError) {
+          return { error: JSON.stringify(deleteError) }
+        }
+
+        const { error: entriesError } = await insertArmyEntries({
+          armyId: data[0]?.id as number,
+          units
+        })
+
+        if (entriesError) {
+          return { error: JSON.stringify(entriesError) }
+        }
+
         return {
-          data
+          data: null
         }
       } catch (error) {
         return { error: JSON.stringify(error) }
