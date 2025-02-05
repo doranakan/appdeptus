@@ -14,7 +14,7 @@ import UnitListItem from './UnitListItem'
 import ref from './ref'
 
 type UnitListProps = {
-  type: 'character' | 'leader' | 'squad' | 'transport' | 'vehicle'
+  type: 'character' | 'squad' | 'vehicle' | 'monster'
 }
 
 const UnitList = ({ type }: UnitListProps) => {
@@ -27,7 +27,17 @@ const UnitList = ({ type }: UnitListProps) => {
     {
       selectFromResult: ({ data, ...rest }) => ({
         ...rest,
-        filteredData: data?.filter(({ type: t }) => t === type)
+        filteredData: data?.filter(({ type: t }) => {
+          switch (type) {
+            case 'character':
+              return t === 'character' || t === 'leader'
+            case 'monster':
+            case 'vehicle':
+              return t === 'monster' || t === 'vehicle' || t === 'transport'
+            default:
+              return t === type
+          }
+        })
       })
     }
   )

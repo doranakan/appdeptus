@@ -38,7 +38,7 @@ type BaseTransport = CoreUnit & {
 }
 
 type BaseVehicle = CoreUnit & {
-  type: 'vehicle'
+  type: 'monster' | 'vehicle'
 }
 
 type BaseUnit =

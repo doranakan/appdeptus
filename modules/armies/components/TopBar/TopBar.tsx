@@ -31,7 +31,7 @@ const TopBar = ({ subtitle, title }: TopBarProps) => {
 
   const { data } = useGetUnitListQuery(codex ?? skipToken)
 
-  const unitTypes = useUnitTypes(data ?? [])
+  const unitTypes = useUnitTypes(data ?? [], codex.name)
 
   return (
     <>

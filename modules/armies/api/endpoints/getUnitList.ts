@@ -67,7 +67,18 @@ const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
           units.push(...baseUnits)
         }
 
-        const sortedUnits = sortBy(units, ({ name }) => name)
+        const sortedUnits = sortBy(units, ({ name }) => name).map((unit) => {
+          if (
+            (codex.name === 'Chaos Daemons' || codex.name === 'Tyranids') &&
+            unit.type === 'vehicle'
+          ) {
+            return {
+              ...unit,
+              type: 'monster' as const
+            }
+          }
+          return unit
+        })
 
         return { data: sortedUnits }
       } catch (error) {

@@ -1,5 +1,5 @@
 import { FilterTopBar, ScreenContainer, VStack } from 'appdeptus/components'
-import { type ArmyBuilder, type Unit } from 'appdeptus/models'
+import { type ArmyBuilder } from 'appdeptus/models'
 import pluralize, { singular } from 'pluralize'
 import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -15,7 +15,7 @@ const UnitSelectionScreen = () => {
 
   const { data } = useGetUnitListQuery(codex)
 
-  const unitTypes = useUnitTypes(data ?? [])
+  const unitTypes = useUnitTypes(data ?? [], codex.name)
 
   useEffect(() => {
     if (unitTypes?.[0]) {
@@ -23,7 +23,8 @@ const UnitSelectionScreen = () => {
     }
   }, [data, unitTypes])
 
-  const [selectedType, setSelectedType] = useState<Unit['type']>('character')
+  const [selectedType, setSelectedType] =
+    useState<(typeof unitTypes)[number]>('character')
 
   return (
     <ScreenContainer safeAreaInsets={['bottom']}>

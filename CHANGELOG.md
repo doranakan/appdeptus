@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 - Reorder the army builder flow by placing detachment selection before unit selection 🔙
+- Group characters with leaders and transports with vehicles 📦
 
 ### Fixed
 

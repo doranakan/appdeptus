@@ -164,6 +164,11 @@ const baseUnitDetail = {
     models: 0,
     points: 0
   },
+  monster: {
+    count: 0,
+    models: 0,
+    points: 0
+  },
   squad: {
     count: 0,
     models: 0,

@@ -1,18 +1,25 @@
-import { type SelectableUnit, type Unit } from 'appdeptus/models'
+import { type CodexName, type SelectableUnit } from 'appdeptus/models'
+import { uniq } from 'lodash'
 import { useMemo } from 'react'
 
-const useUnitTypes = (units: SelectableUnit[]) =>
+const useUnitTypes = (units: SelectableUnit[], codex: CodexName) =>
   useMemo(
     () =>
-      units
-        ?.reduce<Unit['type'][]>((acc, { type }) => {
-          if (!acc.includes(type)) {
-            return [...acc, type]
+      uniq(
+        units.map(({ type }) => {
+          switch (type) {
+            case 'leader':
+              return 'character'
+            case 'transport':
+              return codex === 'Tyranids' || codex === 'Chaos Daemons'
+                ? 'monster'
+                : 'vehicle'
+            default:
+              return type
           }
-          return acc
-        }, [])
-        .sort(),
-    [units]
+        })
+      ).sort(),
+    [codex, units]
   )
 
 export default useUnitTypes
