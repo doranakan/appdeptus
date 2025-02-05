@@ -54,7 +54,12 @@ const ArmyBuilderLayout = () => {
 
       const invalidUnitPoints = unitsToEdit.reduce((acc, unit) => {
         if (invalidUnits.includes(unit.selectionId) && 'tier' in unit) {
-          return acc + unit.tier.points
+          const enhancementPoints =
+            'enhancement' in unit && unit.enhancement
+              ? unit.enhancement.points
+              : 0
+
+          return acc + unit.tier.points + enhancementPoints
         }
         return acc
       }, 0)
