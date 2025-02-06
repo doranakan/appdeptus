@@ -60,7 +60,7 @@ const ArmyBackground = ({ codex }: ArmyBackgroundProps) => {
 }
 
 const styles = StyleSheet.create({
-  gradient: { width: '100%', height: '100%', opacity: 0.8 },
+  gradient: { width: '100%', height: '100%', opacity: 0.6 },
   image: { position: 'absolute', width: '100%', height: '100%', flex: 1 }
 })
 
