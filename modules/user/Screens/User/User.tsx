@@ -1,7 +1,7 @@
 import logo from 'appdeptus/assets/svg/logo.svg'
 import {
   Avatar,
-  Card,
+  CardMenu,
   Disclaimer,
   HStack,
   Loading,
@@ -14,16 +14,40 @@ import {
 import { useFeatureFlag } from 'appdeptus/hooks'
 import { formatDate } from 'date-fns'
 import * as Application from 'expo-application'
-import { Bot, Code, Cog } from 'lucide-react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { Cog } from 'lucide-react-native'
+import { type ComponentProps, useMemo } from 'react'
 import { SvgXml } from 'react-native-svg'
 import { useGetUserProfileQuery } from '../../api'
-import CommunityCard from './CommunityCard'
 
 const UserScreen = () => {
   const { data } = useGetUserProfileQuery()
 
   const discordInviteLink = useFeatureFlag('discord-invite-link')
+
+  const communityLinks = useMemo<
+    ComponentProps<typeof CardMenu>['items']
+  >(() => {
+    const items = [
+      {
+        href: 'https://github.com/doranakan/appdeptus',
+        title: 'Contribute on GitHub',
+        variant: 'external' as const
+      }
+    ]
+
+    if (!discordInviteLink) {
+      return items
+    }
+
+    return [
+      ...items,
+      {
+        href: discordInviteLink,
+        title: 'Join our Discord',
+        variant: 'external'
+      }
+    ]
+  }, [discordInviteLink])
 
   if (!data) {
     return (
@@ -48,92 +72,71 @@ const UserScreen = () => {
           href: 'user/settings'
         }}
       />
-
-      <ScrollView
-        contentContainerClassName='pb-4'
-        showsVerticalScrollIndicator={false}
+      <VStack
+        className='items-center justify-center'
+        space='md'
       >
-        <VStack space='md'>
-          <VStack
-            className='items-center justify-center'
-            space='md'
+        <Avatar
+          user={data}
+          size='2xl'
+        />
+        <VStack
+          className='items-center justify-center'
+          space='xs'
+        >
+          <Text
+            family='heading-regular'
+            size='2xl'
           >
-            <Avatar
-              user={data}
-              size='2xl'
-            />
-            <VStack
-              className='items-center justify-center'
-              space='xs'
-            >
-              <Text
-                family='heading-regular'
-                size='2xl'
-              >
-                {data.name}
-              </Text>
-              <Text
-                className='text-primary-400'
-                family='body-bold'
-              >
-                {`Member since ${formatDate(new Date(data.createdAt), 'MMMM yyyy')}`}
-              </Text>
-            </VStack>
-          </VStack>
-
-          <Card>
-            <VStack
-              className='p-4'
-              space='md'
-            >
-              <Text
-                className='uppercase'
-                family='body-bold'
-              >
-                community
-              </Text>
-              {discordInviteLink ? (
-                <CommunityCard
-                  cta='join our discord'
-                  description='Join our server and meet the community, report bugs and keep updated the Appdeptus data.'
-                  Icon={Bot}
-                  link={discordInviteLink}
-                  title='discord'
-                />
-              ) : null}
-              <CommunityCard
-                cta='contribute on gituhb'
-                description='This is an open-source project, no heresy hidden!'
-                Icon={Code}
-                link='https://github.com/doranakan/appdeptus'
-                title='github'
-              />
-            </VStack>
-          </Card>
-
-          <VStack space='md'>
-            <Disclaimer />
-            <HStack className='justify-between'>
-              <HStack
-                className='items-center'
-                space='sm'
-              >
-                <SvgXml
-                  xml={logo}
-                  height={16}
-                  width={16}
-                />
-                <Text>
-                  <Text family='body-bold'>Appdeptus</Text>{' '}
-                  {`v${Application.nativeApplicationVersion}`}
-                </Text>
-              </HStack>
-
-              <TextLink href='user/privacy-policy'>Privacy policy</TextLink>
-            </HStack>
-          </VStack>
+            {data.name}
+          </Text>
+          <Text
+            className='text-primary-400'
+            family='body-bold'
+          >
+            {`Member since ${formatDate(new Date(data.createdAt), 'MMMM yyyy')}`}
+          </Text>
         </VStack>
-      </ScrollView>
+      </VStack>
+
+      <VStack
+        className='flex-1 justify-between py-4'
+        space='md'
+      >
+        <CardMenu
+          Header={
+            <Text
+              className='p-4 uppercase'
+              family='body-bold'
+            >
+              Join the Appdeptus community
+            </Text>
+          }
+          items={communityLinks}
+        />
+
+        <VStack space='md'>
+          <Disclaimer />
+          <HStack className='justify-between'>
+            <HStack
+              className='items-center'
+              space='sm'
+            >
+              <SvgXml
+                xml={logo}
+                height={16}
+                width={16}
+              />
+              <Text>
+                <Text family='body-bold'>Appdeptus</Text>{' '}
+                {`v${Application.nativeApplicationVersion}`}
+              </Text>
+            </HStack>
+
+            <TextLink href='user/privacy-policy'>Privacy policy</TextLink>
+          </HStack>
+        </VStack>
+      </VStack>
     </ScreenContainer>
   )
 }

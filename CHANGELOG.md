@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- Replace temporary menu components in user and settings screen ♻️
+
 ### Fixed
 
 ### Deprecated

@@ -1,6 +1,5 @@
 import {
-  Button,
-  Card,
+  CardMenu,
   NavigationHeader,
   ScreenContainer,
   ScreenTitle,
@@ -30,45 +29,42 @@ const SettingsScreen = () => {
         }}
       />
       <ScreenTitle>User settings</ScreenTitle>
-      <Card>
-        <VStack
-          className='p-4'
-          space='md'
-        >
+      <CardMenu
+        Header={
           <Text
-            className='uppercase'
+            className='p-4 uppercase'
             family='body-bold'
           >
             Edit user
           </Text>
-          <Button
-            variant='link'
-            color='secondary'
-            text='change nickname'
-            size='sm'
-            href='user/settings/edit-name'
-          />
-        </VStack>
-      </Card>
-      <Card>
-        <VStack
-          className='p-4'
-          space='md'
-        >
-          <Text
-            className='uppercase'
-            family='body-bold'
-          >
-            Danger zone
-          </Text>
-          <Button
-            variant='link'
-            text='delete account'
-            size='sm'
-            href='user/settings/delete'
-          />
-        </VStack>
-      </Card>
+        }
+        items={[
+          {
+            href: 'user/settings/edit-name',
+            title: 'Change nickname',
+            variant: 'internal'
+          }
+        ]}
+      />
+      <CardMenu
+        Header={
+          <VStack className='bg-tertiary-600 p-4'>
+            <Text
+              className='uppercase'
+              family='body-bold'
+            >
+              Danger zone
+            </Text>
+          </VStack>
+        }
+        items={[
+          {
+            href: 'user/settings/delete',
+            title: 'Delete user',
+            variant: 'internal'
+          }
+        ]}
+      />
     </ScreenContainer>
   )
 }
