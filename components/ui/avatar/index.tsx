@@ -34,7 +34,7 @@ const avatarStyle = tva({
       xs: 'h-6 w-6',
       sm: 'h-8 w-8',
       md: 'h-12 w-12',
-      lg: 'h-16 w-16',
+      lg: 'h-[54] w-[54]',
       xl: 'h-24 w-24',
       '2xl': 'h-32 w-32'
     }

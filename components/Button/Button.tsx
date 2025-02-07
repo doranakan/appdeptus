@@ -113,7 +113,7 @@ const ButtonContent = ({
               <Icon
                 className='color-primary-50'
                 as={icon}
-                size='xl'
+                size='2xl'
               />
             ) : null}
             {!loading && text ? (
@@ -138,7 +138,7 @@ const sizeToRoundedMap = {
 } as const satisfies Record<NonNullable<ButtonProps['size']>, string>
 
 const sizeToPaddingMap = {
-  md: 'p-4 min-h-16 min-w-16',
+  md: 'p-4 min-h-14 min-w-14',
   sm: 'px-2 py-1'
 } as const satisfies Record<NonNullable<ButtonProps['size']>, string>
 
