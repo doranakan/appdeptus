@@ -7,6 +7,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Deprecated
+
+### Removed
+
+## [0.2.0] - 2025-02-07
+
+### Added
+
 - Handle unit and detachment data updates 💽
 
 ### Changed
