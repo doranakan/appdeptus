@@ -16,6 +16,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- New game creation 🎮
+
 ### Deprecated
 
 ### Removed
