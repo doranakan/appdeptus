@@ -7,6 +7,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Deprecated
+
+### Removed
+
+## [0.2.1] - 2025-02-08
+
+### Added
+
 - Card menu component 💳
 
 ### Changed
