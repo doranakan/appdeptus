@@ -9,10 +9,10 @@ import {
   signOut,
   signUp
 } from './endpoints'
-import SessionApiTag from './tags'
+import { sessionApiTags } from './tags'
 
 const rootApi = sessionApi
-  .enhanceEndpoints({ addTagTypes: [SessionApiTag.SESSION] })
+  .enhanceEndpoints({ addTagTypes: sessionApiTags })
   .injectEndpoints({
     endpoints: (builder) => ({
       deleteUser: deleteUser(builder),

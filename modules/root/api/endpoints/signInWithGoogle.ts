@@ -1,7 +1,7 @@
 import { GoogleSignin } from '@react-native-google-signin/google-signin'
 import { type SessionEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
-import SessionApiTag from '../tags'
+import { type SessionApiTags } from '../tags'
 import { type SignInResponse } from '../types'
 import { isNewUser } from '../utils'
 
@@ -13,7 +13,7 @@ GoogleSignin.configure({
   offlineAccess: true
 })
 
-const signInWithGoogle = (builder: SessionEndpointBuilder<SessionApiTag>) =>
+const signInWithGoogle = (builder: SessionEndpointBuilder<SessionApiTags>) =>
   builder.mutation<SignInResponse, void>({
     queryFn: async () => {
       try {
@@ -41,7 +41,7 @@ const signInWithGoogle = (builder: SessionEndpointBuilder<SessionApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    invalidatesTags: (_res, error) => (!error ? [SessionApiTag.SESSION] : [])
+    invalidatesTags: (_res, error) => (!error ? ['session'] : [])
   })
 
 export default signInWithGoogle

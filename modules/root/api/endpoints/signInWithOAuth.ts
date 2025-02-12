@@ -3,13 +3,13 @@ import { supabase } from 'appdeptus/utils'
 import * as AuthSession from 'expo-auth-session'
 import * as QueryParams from 'expo-auth-session/build/QueryParams'
 import * as WebBrowser from 'expo-web-browser'
-import SessionApiTag from '../tags'
+import { type SessionApiTags } from '../tags'
 import { type Provider, type SignInResponse } from '../types'
 import { isNewUser } from '../utils'
 
 const redirectTo = AuthSession.makeRedirectUri()
 
-const signInWithOauth = (builder: SessionEndpointBuilder<SessionApiTag>) =>
+const signInWithOauth = (builder: SessionEndpointBuilder<SessionApiTags>) =>
   builder.mutation<SignInResponse, Provider>({
     queryFn: async (provider) => {
       try {
@@ -56,7 +56,7 @@ const signInWithOauth = (builder: SessionEndpointBuilder<SessionApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    invalidatesTags: (_res, error) => (!error ? [SessionApiTag.SESSION] : [])
+    invalidatesTags: (_res, error) => (!error ? ['session'] : [])
   })
 
 const createSessionFromUrl = async (url: string) => {

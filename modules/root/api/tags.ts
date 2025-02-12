@@ -1,5 +1,7 @@
-enum SessionApiTag {
-  SESSION = 'session'
-}
+const sessionApiTags = ['session'] as const
 
-export default SessionApiTag
+type SessionApiTags = (typeof sessionApiTags)[number]
+
+export { sessionApiTags }
+
+export type { SessionApiTags }

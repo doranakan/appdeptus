@@ -1,8 +1,8 @@
 import { type SessionEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
-import SessionApiTag from '../tags'
+import { type SessionApiTags } from '../tags'
 
-const deleteUser = (builder: SessionEndpointBuilder<SessionApiTag>) =>
+const deleteUser = (builder: SessionEndpointBuilder<SessionApiTags>) =>
   builder.mutation<null, void>({
     queryFn: async () => {
       try {
@@ -27,7 +27,7 @@ const deleteUser = (builder: SessionEndpointBuilder<SessionApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    invalidatesTags: (_res, error) => (!error ? [SessionApiTag.SESSION] : [])
+    invalidatesTags: (_res, error) => (!error ? ['session'] : [])
   })
 
 export default deleteUser

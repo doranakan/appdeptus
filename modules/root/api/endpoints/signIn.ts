@@ -2,9 +2,9 @@ import { type AuthTokenResponsePassword } from '@supabase/supabase-js'
 import { type SessionEndpointBuilder } from 'appdeptus/api'
 import { type EmailAuthForm } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
-import SessionApiTag from '../tags'
+import { type SessionApiTags } from '../tags'
 
-const signIn = (builder: SessionEndpointBuilder<SessionApiTag>) =>
+const signIn = (builder: SessionEndpointBuilder<SessionApiTags>) =>
   builder.mutation<
     AuthTokenResponsePassword['data'],
     Omit<EmailAuthForm, 'name'>
@@ -25,7 +25,7 @@ const signIn = (builder: SessionEndpointBuilder<SessionApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    invalidatesTags: (_res, error) => (!error ? [SessionApiTag.SESSION] : [])
+    invalidatesTags: (_res, error) => (!error ? ['session'] : [])
   })
 
 export default signIn

@@ -1,11 +1,11 @@
 import { type SessionEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
 import * as AppleAuthentication from 'expo-apple-authentication'
-import SessionApiTag from '../tags'
+import { type SessionApiTags } from '../tags'
 import { type SignInResponse } from '../types'
 import { isNewUser } from '../utils'
 
-const signInWithApple = (builder: SessionEndpointBuilder<SessionApiTag>) =>
+const signInWithApple = (builder: SessionEndpointBuilder<SessionApiTags>) =>
   builder.mutation<SignInResponse, void>({
     queryFn: async () => {
       try {
@@ -38,7 +38,7 @@ const signInWithApple = (builder: SessionEndpointBuilder<SessionApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    invalidatesTags: (_res, error) => (!error ? [SessionApiTag.SESSION] : [])
+    invalidatesTags: (_res, error) => (!error ? ['session'] : [])
   })
 
 export default signInWithApple
