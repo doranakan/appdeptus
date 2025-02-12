@@ -3,7 +3,7 @@ import { type GameArmy } from 'appdeptus/models'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import GamesApiTag from '../tags'
+import { type GamesApiTags } from '../tags'
 
 type UpdateGameArmyParams = {
   gameId: ActiveGame['id']
@@ -11,7 +11,7 @@ type UpdateGameArmyParams = {
   roster: GameArmy['roster']
 }
 
-const updateGameArmy = (builder: CoreEndpointBuilder<GamesApiTag>) =>
+const updateGameArmy = (builder: CoreEndpointBuilder<GamesApiTags>) =>
   builder.mutation<null, UpdateGameArmyParams>({
     queryFn: async ({ id, roster }) => {
       try {
@@ -32,11 +32,11 @@ const updateGameArmy = (builder: CoreEndpointBuilder<GamesApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    invalidatesTags: (_res, _error, { gameId }) => [
-      GamesApiTag.GAME_LIST,
+    invalidatesTags: (_res, _error, { gameId: id }) => [
+      'game-list',
       {
-        type: GamesApiTag.GAME,
-        id: gameId
+        type: 'game-list',
+        id
       }
     ]
   })

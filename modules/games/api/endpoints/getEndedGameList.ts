@@ -3,9 +3,9 @@ import { type EndedGame } from 'appdeptus/models/game'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { getEndedGameListSchema } from '../schemas'
-import GamesApiTag from '../tags'
+import { type GamesApiTags } from '../tags'
 
-const getEndedGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
+const getEndedGameList = (builder: CoreEndpointBuilder<GamesApiTags>) =>
   builder.query<EndedGame[], void>({
     queryFn: async () => {
       try {
@@ -59,7 +59,7 @@ const getEndedGameList = (builder: CoreEndpointBuilder<GamesApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    providesTags: [GamesApiTag.GAME_LIST]
+    providesTags: ['game-list']
   })
 
 export default getEndedGameList

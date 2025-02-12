@@ -3,9 +3,9 @@ import { type NewGame } from 'appdeptus/models/game'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { getNewGameSchema } from '../schemas'
-import type GamesApiTag from '../tags'
+import { type GamesApiTags } from '../tags'
 
-const getNewGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
+const getNewGame = (builder: CoreEndpointBuilder<GamesApiTags>) =>
   builder.query<NewGame, number>({
     queryFn: async (gameId) => {
       try {

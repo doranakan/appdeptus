@@ -2,7 +2,6 @@ import gamesApi from '../api'
 
 const {
   useCreateGameMutation,
-  useDeleteGameMutation,
   useEndGameMutation,
   useGetEndedGameListQuery,
   useGetNewGameQuery,
@@ -16,7 +15,6 @@ const {
 
 export {
   useCreateGameMutation,
-  useDeleteGameMutation,
   useEndGameMutation,
   useGetEndedGameListQuery,
   useGetGameQuery,

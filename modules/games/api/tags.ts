@@ -1,6 +1,7 @@
-enum GamesApiTag {
-  GAME = 'game',
-  GAME_LIST = 'gameList'
-}
+const gamesApiTags = ['game-list'] as const
 
-export default GamesApiTag
+type GamesApiTags = (typeof gamesApiTags)[number]
+
+export { gamesApiTags }
+
+export type { GamesApiTags }

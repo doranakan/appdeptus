@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 - Update armies api cache policies 🚓
+- Update games api cache policies 🚔
 
 ### Fixed
 

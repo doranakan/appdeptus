@@ -2,9 +2,9 @@ import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import GamesApiTag from '../tags'
+import { type GamesApiTags } from '../tags'
 
-const nextTurn = (builder: CoreEndpointBuilder<GamesApiTag>) =>
+const nextTurn = (builder: CoreEndpointBuilder<GamesApiTags>) =>
   builder.mutation<null, ActiveGame['id']>({
     queryFn: async (gameId) => {
       try {
@@ -24,11 +24,11 @@ const nextTurn = (builder: CoreEndpointBuilder<GamesApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    invalidatesTags: (_res, _error, gameId) => [
-      GamesApiTag.GAME_LIST,
+    invalidatesTags: (_res, _error, id) => [
+      'game-list',
       {
-        type: GamesApiTag.GAME,
-        id: gameId
+        type: 'game-list',
+        id
       }
     ]
   })

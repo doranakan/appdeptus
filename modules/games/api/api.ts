@@ -1,7 +1,6 @@
 import { coreApi } from 'appdeptus/api'
 import {
   createGame,
-  deleteGame,
   endGame,
   getEndedGameList,
   getGame,
@@ -11,17 +10,16 @@ import {
   updateGameArmy,
   updateScoreAndCP
 } from './endpoints'
-import GamesApiTag from './tags'
+import { gamesApiTags } from './tags'
 
 const gamesApi = coreApi
   .enhanceEndpoints({
-    addTagTypes: Object.values(GamesApiTag)
+    addTagTypes: gamesApiTags
   })
   .injectEndpoints({
     endpoints: (builder) => ({
       createGame: createGame(builder),
       endGame: endGame(builder),
-      deleteGame: deleteGame(builder),
       getEndedGameList: getEndedGameList(builder),
       getGame: getGame(builder),
       getNewGame: getNewGame(builder),

@@ -3,10 +3,10 @@ import { type Army } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { createGameArmy, createGameSchema } from '../schemas'
-import type GamesApiTag from '../tags'
+import { type GamesApiTags } from '../tags'
 import { mapArmyToGameArmy } from '../util'
 
-const createGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
+const createGame = (builder: CoreEndpointBuilder<GamesApiTags>) =>
   builder.mutation<Army['id'], Omit<Army, 'user'>>({
     queryFn: async ({ id: _id, isValid: _isValid, codex, roster, ...rest }) => {
       const gameArmyRoster = mapArmyToGameArmy(roster)
@@ -48,7 +48,8 @@ const createGame = (builder: CoreEndpointBuilder<GamesApiTag>) =>
       } catch (error) {
         return { error: JSON.stringify(error) }
       }
-    }
+    },
+    invalidatesTags: (_, err) => (!err ? ['game-list'] : [])
   })
 
 export default createGame
