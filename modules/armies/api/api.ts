@@ -10,11 +10,11 @@ import {
   getUnitList,
   updateArmy
 } from './endpoints'
-import ArmiesApiTag from './tags'
+import { armiesApiTags } from './tags'
 
 const armiesApi = coreApi
   .enhanceEndpoints({
-    addTagTypes: [...Object.values(ArmiesApiTag)]
+    addTagTypes: [...Object.values(armiesApiTags)]
   })
   .injectEndpoints({
     endpoints: (builder) => ({

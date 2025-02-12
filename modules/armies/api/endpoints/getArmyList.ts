@@ -3,9 +3,9 @@ import { type Army } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { armyListSchema } from '../schemas'
-import ArmiesApiTag from '../tags'
+import { type ArmiesApiTags } from '../tags'
 
-const getArmyList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
+const getArmyList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
   builder.query<Army[], void>({
     queryFn: async () => {
       try {
@@ -37,7 +37,7 @@ const getArmyList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    providesTags: [ArmiesApiTag.ARMY_LIST]
+    providesTags: ['army-list']
   })
 
 export default getArmyList

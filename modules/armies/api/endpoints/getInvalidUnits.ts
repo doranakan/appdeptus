@@ -8,13 +8,13 @@ import {
   invalidTiersSchema,
   invalidUnitsSchema
 } from '../schemas'
-import ArmiesApiTag from '../tags'
+import { type ArmiesApiTags } from '../tags'
 
-const getInvalidUnits = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
-  builder.query<Unit['selectionId'][], Army['roster']>({
-    queryFn: async (roster) => {
+const getInvalidUnits = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
+  builder.query<Unit['selectionId'][], Army>({
+    queryFn: async (army) => {
       try {
-        const units = mapRosterToUnits(roster)
+        const units = mapRosterToUnits(army.roster)
 
         const ids = units.reduce(
           (acc, unit) => ({
@@ -169,7 +169,10 @@ const getInvalidUnits = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    providesTags: [ArmiesApiTag.ARMY_DETAIL]
+    providesTags: (_res, _err, { id }) => [
+      'army-list',
+      { type: 'army-list', id }
+    ]
   })
 
 export default getInvalidUnits

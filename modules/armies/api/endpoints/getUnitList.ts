@@ -4,9 +4,9 @@ import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
 import { unitListSchema } from '../schemas'
-import type ArmiesApiTag from '../tags'
+import { type ArmiesApiTags } from '../tags'
 
-const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
+const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
   builder.query<SelectableUnit[], Codex>({
     queryFn: async (codex) => {
       try {

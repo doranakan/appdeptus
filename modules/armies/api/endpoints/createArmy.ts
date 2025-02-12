@@ -2,10 +2,10 @@ import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type ArmyBuilder } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import ArmiesApiTag from '../tags'
+import { type ArmiesApiTags } from '../tags'
 import { insertArmyEntries } from '../utils'
 
-const createArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
+const createArmy = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
   builder.mutation<null, ArmyBuilder>({
     queryFn: async ({ codex, units, id: _id, user: _user, ...rest }) => {
       try {
@@ -36,7 +36,7 @@ const createArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    invalidatesTags: (_, e) => (!e ? [ArmiesApiTag.ARMY_LIST] : [])
+    invalidatesTags: (_, err) => (!err ? ['army-list'] : [])
   })
 
 export default createArmy

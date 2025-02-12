@@ -4,9 +4,9 @@ import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { sortBy } from 'lodash'
 import { codexListSchema } from '../schemas'
-import type ArmiesApiTag from '../tags'
+import { type ArmiesApiTags } from '../tags'
 
-const getCodexList = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
+const getCodexList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
   builder.query<Codex[], void>({
     queryFn: async () => {
       try {

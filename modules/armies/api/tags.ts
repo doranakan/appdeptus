@@ -1,6 +1,7 @@
-enum ArmiesApiTag {
-  ARMY_DETAIL = 'armyDetail',
-  ARMY_LIST = 'armyList'
-}
+const armiesApiTags = ['army-list'] as const
 
-export default ArmiesApiTag
+type ArmiesApiTags = (typeof armiesApiTags)[number]
+
+export { armiesApiTags }
+
+export type { ArmiesApiTags }

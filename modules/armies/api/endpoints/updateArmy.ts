@@ -2,10 +2,10 @@ import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type ArmyBuilder } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import ArmiesApiTag from '../tags'
+import { type ArmiesApiTags } from '../tags'
 import { insertArmyEntries } from '../utils'
 
-const updateArmy = (builder: CoreEndpointBuilder<string>) =>
+const updateArmy = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
   builder.mutation<null, ArmyBuilder>({
     queryFn: async ({ units, id, codex: _codex, user: _user, ...rest }) => {
       try {
@@ -49,9 +49,9 @@ const updateArmy = (builder: CoreEndpointBuilder<string>) =>
         return []
       }
       return [
-        ArmiesApiTag.ARMY_LIST,
+        'army-list',
         {
-          type: ArmiesApiTag.ARMY_DETAIL,
+          type: 'army-list',
           id
         }
       ]

@@ -2,9 +2,9 @@ import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Army } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import ArmiesApiTag from '../tags'
+import { type ArmiesApiTags } from '../tags'
 
-const deleteArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
+const deleteArmy = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
   builder.mutation<null, Army['id']>({
     queryFn: async (armyId) => {
       try {
@@ -24,7 +24,7 @@ const deleteArmy = (builder: CoreEndpointBuilder<ArmiesApiTag>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    invalidatesTags: [ArmiesApiTag.ARMY_LIST]
+    invalidatesTags: (_, err) => (!err ? ['army-list'] : [])
   })
 
 export default deleteArmy

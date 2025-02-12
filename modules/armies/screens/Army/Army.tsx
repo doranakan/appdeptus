@@ -54,7 +54,7 @@ type ArmyContainerProps = {
 
 const ArmyContainer = ({ army }: ArmyContainerProps) => {
   const { data: invalidUnits } = useGetInvalidUnitsQuery(
-    army.isValid ? skipToken : army.roster
+    army.isValid ? skipToken : army
   )
 
   const dispatch = useAppDispatch()

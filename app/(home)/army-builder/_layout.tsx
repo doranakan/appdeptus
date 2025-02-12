@@ -29,7 +29,7 @@ const ArmyBuilderLayout = () => {
   const { id } = useGlobalSearchParams<{ id: string }>()
   const { data: army } = useGetArmyQuery(id ?? skipToken)
   const { data: invalidUnits = [] } = useGetInvalidUnitsQuery(
-    army && !army.isValid ? army.roster : skipToken
+    army && !army.isValid ? army : skipToken
   )
 
   const unitsToEdit = useAllUnits(army?.roster ?? [])
