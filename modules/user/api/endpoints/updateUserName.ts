@@ -1,9 +1,9 @@
 import { getUserId, type CoreEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
-import UserApiTag from '../tags'
+import { type UserApiTags } from '../tags'
 
-const updateUserName = (builder: CoreEndpointBuilder<UserApiTag.USER>) =>
+const updateUserName = (builder: CoreEndpointBuilder<UserApiTags>) =>
   builder.mutation<null, string>({
     queryFn: async (name) => {
       try {
@@ -27,7 +27,7 @@ const updateUserName = (builder: CoreEndpointBuilder<UserApiTag.USER>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    invalidatesTags: (_res, error) => (!error ? [UserApiTag.USER] : [])
+    invalidatesTags: (_res, error) => (!error ? ['user'] : [])
   })
 
 export default updateUserName

@@ -1,9 +1,9 @@
 import { coreApi } from 'appdeptus/api'
 import { getUserProfile, updateUserName } from './endpoints'
-import UserApiTag from './tags'
+import { userApiTags } from './tags'
 
 const userApi = coreApi
-  .enhanceEndpoints({ addTagTypes: [UserApiTag.USER] })
+  .enhanceEndpoints({ addTagTypes: userApiTags })
   .injectEndpoints({
     endpoints: (builder) => ({
       getUserProfile: getUserProfile(builder),

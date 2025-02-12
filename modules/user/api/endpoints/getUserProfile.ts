@@ -3,9 +3,9 @@ import { type UserProfile } from 'appdeptus/models'
 import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { userProfileSchema } from '../schemas'
-import UserApiTag from '../tags'
+import { type UserApiTags } from '../tags'
 
-const getUserProfile = (builder: CoreEndpointBuilder<UserApiTag.USER>) =>
+const getUserProfile = (builder: CoreEndpointBuilder<UserApiTags>) =>
   builder.query<UserProfile, void>({
     queryFn: async () => {
       try {
@@ -33,7 +33,7 @@ const getUserProfile = (builder: CoreEndpointBuilder<UserApiTag.USER>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    providesTags: () => [{ type: UserApiTag.USER }]
+    providesTags: () => ['user']
   })
 
 export default getUserProfile

@@ -1,5 +1,7 @@
-enum UserApiTag {
-  USER = 'user'
-}
+const userApiTags = ['user']
 
-export default UserApiTag
+type UserApiTags = (typeof userApiTags)[number]
+
+export { userApiTags }
+
+export type { UserApiTags }
