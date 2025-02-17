@@ -1,0 +1,5 @@
+const STACK_OFFSET = 10 as const
+const ITEM_HEIGHT = 55 as const
+const COLLAPSED_STACK_OFFSET = 20 as const
+
+export { COLLAPSED_STACK_OFFSET, ITEM_HEIGHT, STACK_OFFSET }
