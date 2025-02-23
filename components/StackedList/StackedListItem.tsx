@@ -13,7 +13,7 @@ import Animated, {
 import { COLLAPSED_STACK_OFFSET, ITEM_HEIGHT, STACK_OFFSET } from './constants'
 import CodexListItem from 'appdeptus/modules/armies/screens/CodexSelection/CodexListItem'
 import { type Codex } from 'appdeptus/models'
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useUnmount } from 'ahooks'
 
 type StackedListItemProps = {
@@ -47,9 +47,16 @@ const StackedListItem = ({
     }
   })
 
+  useEffect(() => {
+    if (selected) {
+      selectedIndex.value = index
+    }
+  }, [index, selected, selectedIndex])
+
   const onItemPress = useCallback(
     (codex: Codex) => {
       onPress(codex)
+
       if (selectedIndex.value === index) {
         selectedIndex.value = null
       } else {
@@ -58,15 +65,14 @@ const StackedListItem = ({
     },
     [index, onPress, selectedIndex]
   )
-
   useAnimatedReaction(
     () => selectedIndex.value,
     (curr) => {
-      switch (true) {
-        case curr === null:
+      switch (curr) {
+        case null:
           yOffset.value = withSpring(0)
           break
-        case curr === index:
+        case index:
           yOffset.value = withSpring(calculateTranslateOffset())
           break
         default:
