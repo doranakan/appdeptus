@@ -1,6 +1,6 @@
 import { useBoolean } from 'ahooks'
 import { type Codex } from 'appdeptus/models'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { type View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
@@ -9,7 +9,8 @@ import Animated, {
   useAnimatedRef,
   useAnimatedStyle,
   useSharedValue,
-  withDecay
+  withDecay,
+  withTiming
 } from 'react-native-reanimated'
 import StackedListItem from './StackedListItem'
 import { ITEM_HEIGHT, STACK_OFFSET } from './constants'
@@ -42,6 +43,13 @@ const StackedList = ({
       }
     }
   )
+
+  useEffect(() => {
+    if (!selectedCodex) {
+      selectedIndex.value = null
+      scrollY.value = withTiming(0)
+    }
+  }, [scrollY, selectedCodex, selectedIndex])
 
   const [containerHeight, setContainerHeight] = useState(0)
 
