@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Game start api call 💥
+
 ### Deprecated
 
 ### Removed
