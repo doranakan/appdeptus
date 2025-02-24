@@ -1,21 +1,18 @@
-import {
-  Error,
-  Loading,
-  setTheme,
-  TabMenu,
-  themeColors,
-  VStack
-} from 'appdeptus/components'
-import { CustomFadeIn, CustomFadeOut, type factions } from 'appdeptus/constants'
-import { useFeatureFlag } from 'appdeptus/hooks'
+import { Error, Loading, setTheme, TabMenu, VStack } from 'appdeptus/components'
+import { type factions } from 'appdeptus/constants'
 import { type ArmyBuilder, type Codex } from 'appdeptus/models'
 import { useAppDispatch } from 'appdeptus/store'
-import { memo, useCallback, useMemo, useState } from 'react'
+import {
+  type ComponentProps,
+  memo,
+  useCallback,
+  useMemo,
+  useState
+} from 'react'
 import { useFormContext } from 'react-hook-form'
-import { RefreshControl } from 'react-native'
-import Animated, { Easing, LinearTransition } from 'react-native-reanimated'
 import { useGetCodexListQuery } from '../../api'
-import CodexListItem from './CodexListItem'
+import StackedList from 'appdeptus/components/StackedList/StackedList'
+import { useFeatureFlag } from 'appdeptus/hooks'
 
 const CodexList = () => {
   const disabledArmies = useFeatureFlag('disabled-armies')
@@ -45,8 +42,31 @@ const CodexList = () => {
 
   const dispatch = useAppDispatch()
 
+  const onOptionSelected = useCallback<
+    ComponentProps<
+      typeof TabMenu<(typeof factionFilter)[number]>
+    >['onOptionSelected']
+  >(
+    (option) => {
+      reset()
+      setSelectedFactions(option)
+      dispatch(setTheme('default'))
+    },
+    [dispatch, reset]
+  )
+
   const handlePress = useCallback(
     (codex: Codex) => {
+      console.log('pressed', codex.name, 'selected', selectedCodex)
+
+      if (selectedCodex === codex.name) {
+        console.log('INSIDE', { selectedCodex })
+
+        reset()
+        dispatch(setTheme('default'))
+        return
+      }
+
       if (detachment && selectedCodex !== codex.name) {
         reset({
           ...getValues(),
@@ -70,50 +90,23 @@ const CodexList = () => {
       space='lg'
     >
       <TabMenu
-        onOptionSelected={setSelectedFactions}
+        onOptionSelected={onOptionSelected}
         options={factionFilter}
       />
-      <Animated.ScrollView
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          isError ? (
-            <RefreshControl
-              tintColor={themeColors.default.primary[300]}
-              refreshing={isFetching && !isLoading}
-              onRefresh={refetch}
-            />
-          ) : undefined
-        }
-        contentContainerClassName='gap-4'
-      >
-        {isError ? (
-          <Error />
-        ) : isFetching ? (
-          <Loading />
-        ) : (
-          filteredData?.map((item) => (
-            <Animated.View
-              key={String(item.id)}
-              exiting={CustomFadeOut}
-              entering={CustomFadeIn}
-              layout={LinearTransition.easing(Easing.out(Easing.cubic))
-                .duration(300)
-                .delay(100)}
-            >
-              <CodexListItem
-                codex={item}
-                onPress={handlePress}
-                selected={
-                  selectedCodex === undefined
-                    ? undefined
-                    : selectedCodex === item.name
-                }
-              />
-            </Animated.View>
-          ))
-        )}
-        <VStack className='h-8' />
-      </Animated.ScrollView>
+      {isError ? (
+        <Error />
+      ) : isFetching ? (
+        <Loading />
+      ) : !filteredData ? null : (
+        <StackedList
+          data={filteredData}
+          onItemPress={handlePress}
+          selectedCodex={selectedCodex}
+          isLoading={isFetching && !isLoading}
+          onPullToRefresh={refetch}
+        />
+      )}
+      <VStack className='h-8' />
     </VStack>
   )
 }
