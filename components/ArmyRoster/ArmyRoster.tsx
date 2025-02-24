@@ -35,7 +35,9 @@ const ArmyRoster = ({
       <UnitListItem
         item={item}
         isValid={
-          'selectionId' in item && !invalidUnits.includes(item.selectionId)
+          item.type === 'team' ||
+          item.type === 'embarked' ||
+          ('selectionId' in item && !invalidUnits.includes(item.selectionId))
         }
       />
     )}

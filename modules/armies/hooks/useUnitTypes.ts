@@ -11,9 +11,12 @@ const useUnitTypes = (units: SelectableUnit[], codex: CodexName) =>
             case 'leader':
               return 'character'
             case 'transport':
+            case 'vehicle':
               return codex === 'Tyranids' || codex === 'Chaos Daemons'
                 ? 'monster'
                 : 'vehicle'
+            case 'squad':
+              return 'troop'
             default:
               return type
           }

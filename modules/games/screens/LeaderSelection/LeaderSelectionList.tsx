@@ -150,7 +150,7 @@ const LeaderSelectionList = () => {
           </Pressable>
         ))}
       </VStack>
-      <StickyHeader>Squads</StickyHeader>
+      <StickyHeader>Troops</StickyHeader>
       <VStack
         className='py-4'
         space='md'

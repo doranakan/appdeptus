@@ -16,6 +16,9 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Chaos Daemons and Tyranids armies with monsters 👹
+- Leader and transports selection in match making flow 📋
+
 ### Deprecated
 
 ### Removed

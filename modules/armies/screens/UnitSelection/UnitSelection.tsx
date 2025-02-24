@@ -1,7 +1,19 @@
-import { FilterTopBar, ScreenContainer, VStack } from 'appdeptus/components'
+import {
+  Error,
+  Loading,
+  ScreenContainer,
+  TabMenu,
+  VStack
+} from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
 import pluralize, { singular } from 'pluralize'
-import { useEffect, useState } from 'react'
+import {
+  type ComponentProps,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useGetUnitListQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
@@ -26,6 +38,58 @@ const UnitSelectionScreen = () => {
   const [selectedType, setSelectedType] =
     useState<(typeof unitTypes)[number]>('character')
 
+  const { units, isError, isFetching, refetch } = useGetUnitListQuery(codex, {
+    selectFromResult: ({ data, ...rest }) => ({
+      ...rest,
+      units: data?.filter(({ type: t }) => {
+        switch (selectedType) {
+          case 'character':
+            return t === 'character' || t === 'leader'
+          case 'monster':
+          case 'vehicle':
+            return t === 'vehicle' || t === 'transport'
+          case 'troop':
+            return t === 'squad'
+          default:
+            return t === selectedType
+        }
+      })
+    })
+  })
+
+  const types = useMemo(
+    () => unitTypes.map((type) => pluralize(type)),
+    [unitTypes]
+  )
+
+  const onTypeSelected = useCallback<
+    ComponentProps<typeof TabMenu>['onOptionSelected']
+  >((type) => {
+    setSelectedType(singular(type) as (typeof unitTypes)[number])
+  }, [])
+
+  if (isFetching) {
+    return (
+      <ScreenContainer>
+        <Loading />
+      </ScreenContainer>
+    )
+  }
+  if (isError) {
+    return (
+      <ScreenContainer>
+        <Error
+          button={{
+            onPress: refetch,
+            variant: 'callback',
+            text: 'retry'
+          }}
+          description='There was an error with your request.'
+        />
+      </ScreenContainer>
+    )
+  }
+
   return (
     <ScreenContainer safeAreaInsets={['bottom']}>
       <ArmyBuilderBackground />
@@ -39,6 +103,13 @@ const UnitSelectionScreen = () => {
         />
 
         {unitTypes && unitTypes.length > 1 ? (
+          <TabMenu
+            options={types}
+            onOptionSelected={onTypeSelected}
+          />
+        ) : null}
+
+        {/* {unitTypes && unitTypes.length > 1 ? (
           <FilterTopBar
             values={unitTypes.map((type) => pluralize(type))}
             onPress={(type) => {
@@ -46,8 +117,8 @@ const UnitSelectionScreen = () => {
             }}
             selectedValue={pluralize(selectedType)}
           />
-        ) : null}
-        <UnitList type={selectedType} />
+        ) : null} */}
+        <UnitList units={units ?? []} />
       </VStack>
     </ScreenContainer>
   )
