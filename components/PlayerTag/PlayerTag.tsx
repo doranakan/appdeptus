@@ -1,4 +1,5 @@
 import { type UserProfile } from 'appdeptus/models'
+import { snakeCase } from 'lodash'
 import Avatar from '../Avatar'
 import Text from '../Text'
 import { HStack } from '../ui'
@@ -16,10 +17,10 @@ const PlayerTag = ({ player, reversed }: PlayerTagProps) => (
     space='sm'
   >
     <Avatar
-      user={player}
+      {...player}
       size='sm'
     />
-    <Text family='body-bold'>{`@${player.name.toLowerCase()}`}</Text>
+    <Text family='body-bold'>{`@${snakeCase(player.name)}`}</Text>
   </HStack>
 )
 

@@ -2,6 +2,8 @@ enum Table {
   ARMIES = 'armies',
   ARMY_ENTRIES = 'army_entries',
   CODEXES = 'codexes',
+  COMMUNITIES = 'communities',
+  COMMUNITIES_USERS = 'communities_users',
   DETACHMENTS = 'detachments',
   ENHANCEMENTS = 'detachment_enhancements',
   GAME_ARMIES = 'game_armies',

@@ -1,6 +1,7 @@
 import { type BottomTabHeaderProps } from '@react-navigation/bottom-tabs'
+import book from 'appdeptus/assets/lotties/book.json'
 import dice from 'appdeptus/assets/lotties/dice.json'
-import plan from 'appdeptus/assets/lotties/plan.json'
+import team from 'appdeptus/assets/lotties/team.json'
 import {
   type Button,
   Loading,
@@ -93,6 +94,13 @@ const HomeLayout = () => {
                 tabBarIcon: GamesTabIcon
               }}
             />
+            <Tabs.Screen
+              name='communities-tab'
+              options={{
+                tabBarLabel: '',
+                tabBarIcon: CommunitiesTabIcon
+              }}
+            />
           </Tabs>
         </VStack>
       </SafeAreaView>
@@ -120,6 +128,12 @@ const Header = ({ route }: BottomTabHeaderProps) => {
           disabled: !armies?.length || !!activeGame,
           href: 'new-game',
           icon: Swords,
+          variant: 'link'
+        }
+      case 'communities-tab':
+        return {
+          href: 'communities/create',
+          icon: Plus,
           variant: 'link'
         }
 
@@ -194,6 +208,12 @@ const GamesTabIcon = (props: Pick<TabIconProps, 'focused'>) => (
     routeName='games-tab'
   />
 )
+const CommunitiesTabIcon = (props: Pick<TabIconProps, 'focused'>) => (
+  <TabIcon
+    {...props}
+    routeName='communities-tab'
+  />
+)
 
 const styles = StyleSheet.create({
   safeArea: {
@@ -213,23 +233,19 @@ const tabNameToIconMap: Record<
   }
 > = {
   index: {
-    source: plan,
+    source: book,
     colorFilters: [
       {
         color: themeColors.default.primary[300],
-        keypath: 'Sheet 5'
+        keypath: 'cart-outline-top_s1g1_s2g1_s3g1_s4g1_background Outlines'
       },
       {
         color: themeColors.default.primary[300],
-        keypath: 'Sheet 4'
+        keypath: 'cart-outline-top_s1g1_s2g2_s3g1_s4g1_background Outlines'
       },
       {
         color: themeColors.default.primary[300],
-        keypath: 'Sheet 3'
-      },
-      {
-        color: themeColors.default.primary[300],
-        keypath: 'Fix'
+        keypath: 'cart-outline-top_s1g1_s2g2_s3g1_s4g1 Outlines'
       }
     ]
   },
@@ -251,6 +267,19 @@ const tabNameToIconMap: Record<
       {
         color: themeColors.default.primary[300],
         keypath: 'line 2'
+      }
+    ]
+  },
+  'communities-tab': {
+    source: team,
+    colorFilters: [
+      {
+        color: themeColors.default.primary[300],
+        keypath: 'team-outline-top_s1g1_s2g1_s3g1_s4g1_background Outlines'
+      },
+      {
+        color: themeColors.default.primary[300],
+        keypath: 'team-outline-top_s1g1_s2g2_s3g1_s4g1_background Outlines'
       }
     ]
   }

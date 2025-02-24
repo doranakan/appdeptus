@@ -5,13 +5,9 @@ const AvatarMeta: Meta<typeof Avatar> = {
   title: 'Avatar',
   component: Avatar,
   args: {
-    user: {
-      createdAt: '',
-      id: '',
-      name: 'doranakan',
-      image:
-        'https://cdnb.artstation.com/p/assets/images/images/025/662/505/large/johannes-helgeson-horusver02-06.jpg?1586525189'
-    }
+    name: 'user name',
+    image:
+      'https://cdnb.artstation.com/p/assets/images/images/025/662/505/large/johannes-helgeson-horusver02-06.jpg?1586525189'
   }
 }
 
@@ -22,11 +18,7 @@ type Story = StoryObj<typeof Avatar>
 export const Default: Story = {}
 export const Fallback: Story = {
   args: {
-    user: {
-      createdAt: '',
-      id: '',
-      name: 'doranakan',
-      image: undefined
-    }
+    name: 'doranakan',
+    image: undefined
   }
 }
