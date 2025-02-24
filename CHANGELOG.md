@@ -9,6 +9,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+### Fixed
+
+### Deprecated
+
+### Removed
+
+## [0.2.2] - 2025-02-24
+
+### Added
+
+### Changed
+
 - Update armies api cache policies 🚓
 - Update games api cache policies 🚔
 - Update session api cache policies 🚨
