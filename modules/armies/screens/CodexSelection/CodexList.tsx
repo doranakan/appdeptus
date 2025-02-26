@@ -19,7 +19,7 @@ const CodexList = () => {
   const disabledArmies = useFeatureFlag('disabled-armies')
   const listRef = useRef<StackListMethods>(null)
 
-  const { data, isFetching, isError, isLoading, refetch } =
+  const { data, isFetching, isError, refetch } =
     useGetCodexListQuery(undefined, {
       selectFromResult: (res) => ({
         ...res,
@@ -92,7 +92,7 @@ const CodexList = () => {
         options={factionFilter}
       />
       {isError ? (
-        <Error />
+        <Error button={{ onPress: refetch, variant: 'callback', text: 'Retry' }} />
       ) : isFetching ? (
         <Loading />
       ) : !filteredData ? null : (
@@ -101,8 +101,6 @@ const CodexList = () => {
           data={filteredData}
           onItemPress={handlePress}
           selectedCodex={selectedCodex}
-          isLoading={isFetching && !isLoading}
-          onPullToRefresh={refetch}
         />
       )}
       <VStack className='h-8' />
