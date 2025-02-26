@@ -1,4 +1,5 @@
 import { withDelay, withTiming, Easing } from 'react-native-reanimated'
+import { type SpringConfig } from 'react-native-reanimated/lib/typescript/animation/springUtils'
 
 const CustomFadeIn = () => {
   'worklet'
@@ -49,4 +50,9 @@ const CustomFadeOut = () => {
   return { animations, initialValues }
 }
 
-export { CustomFadeIn, CustomFadeOut }
+const softSpringConfig: SpringConfig = {
+  stiffness: 140,
+  damping: 22
+}
+
+export { CustomFadeIn, CustomFadeOut, softSpringConfig }
