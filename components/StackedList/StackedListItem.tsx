@@ -6,8 +6,6 @@ import Animated, {
   useSharedValue,
   withSpring,
   type SharedValue,
-  FadeIn,
-  FadeOut,
   withTiming
 } from 'react-native-reanimated'
 import { COLLAPSED_STACK_OFFSET, ITEM_HEIGHT, STACK_OFFSET } from './constants'
@@ -15,6 +13,7 @@ import CodexListItem from 'appdeptus/modules/armies/screens/CodexSelection/Codex
 import { type Codex } from 'appdeptus/models'
 import { useCallback, useEffect } from 'react'
 import { useUnmount } from 'ahooks'
+import { CustomFadeIn, CustomFadeOut, softSpringConfig } from 'appdeptus/constants'
 
 type StackedListItemProps = {
   item: Codex
@@ -23,6 +22,7 @@ type StackedListItemProps = {
   selected?: boolean
   onPress: (codex: Codex) => void
   scrollY: SharedValue<number>
+  onAnimationEnd?: () => void
 }
 
 const StackedListItem = ({
@@ -70,14 +70,15 @@ const StackedListItem = ({
     (curr) => {
       switch (curr) {
         case null:
-          yOffset.value = withSpring(0)
+          yOffset.value = withSpring(0, softSpringConfig)
           break
         case index:
-          yOffset.value = withSpring(calculateTranslateOffset())
+          yOffset.value = withSpring(calculateTranslateOffset(), softSpringConfig)
           break
         default:
           yOffset.value = withSpring(
-            calculateTranslateOffset() + 250 + COLLAPSED_STACK_OFFSET * index
+            calculateTranslateOffset() + 250 + COLLAPSED_STACK_OFFSET * index,
+            softSpringConfig
           )
       }
     }
@@ -96,8 +97,8 @@ const StackedListItem = ({
       ]}
       className='absolute w-full'
       layout={LinearTransition}
-      entering={FadeIn}
-      exiting={FadeOut}
+      entering={CustomFadeIn}
+      exiting={CustomFadeOut}
       collapsable={false}
     >
       <CodexListItem
