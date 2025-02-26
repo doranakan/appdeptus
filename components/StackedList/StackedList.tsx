@@ -1,6 +1,6 @@
 import { useBoolean, usePrevious } from 'ahooks'
 import { type Codex } from 'appdeptus/models'
-import { useEffect, useMemo, useState } from 'react'
+import { forwardRef, type ForwardRefRenderFunction, useEffect, useImperativeHandle, useMemo, useState } from 'react'
 import { ActivityIndicator, Platform, type View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
@@ -26,16 +26,27 @@ type StackedListProps = {
   onPullToRefresh: () => void
 }
 
-const StackedList = ({
+type StackListMethods = {
+  reset: () => void
+}
+
+const StackedList: ForwardRefRenderFunction<StackListMethods, StackedListProps> = ({
   data,
   onItemPress,
   selectedCodex,
   isLoading,
   onPullToRefresh
-}: StackedListProps) => {
+}, ref) => {
   const scrollY = useSharedValue(0)
   const selectedIndex = useSharedValue<number | null>(null)
   const pullToRefreshOffset = useSharedValue(0)
+
+  useImperativeHandle(ref, () => ({
+    reset: () => {
+      scrollY.value = withTiming(0, { duration: 200 })
+      selectedIndex.value = null
+    }
+  }))
 
   const wasLoading = usePrevious(isLoading)
 
@@ -58,13 +69,6 @@ const StackedList = ({
       }
     }
   )
-
-  useEffect(() => {
-    if (!selectedCodex) {
-      selectedIndex.value = null
-      scrollY.value = withTiming(0)
-    }
-  }, [scrollY, selectedCodex, selectedIndex])
 
   const [containerHeight, setContainerHeight] = useState(0)
 
@@ -173,4 +177,5 @@ const StackedList = ({
   )
 }
 
-export default StackedList
+export type { StackListMethods }
+export default forwardRef(StackedList)

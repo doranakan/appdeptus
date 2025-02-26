@@ -7,15 +7,17 @@ import {
   memo,
   useCallback,
   useMemo,
+  useRef,
   useState
 } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useGetCodexListQuery } from '../../api'
-import StackedList from 'appdeptus/components/StackedList/StackedList'
+import StackedList, { type StackListMethods } from 'appdeptus/components/StackedList/StackedList'
 import { useFeatureFlag } from 'appdeptus/hooks'
 
 const CodexList = () => {
   const disabledArmies = useFeatureFlag('disabled-armies')
+  const listRef = useRef<StackListMethods>(null)
 
   const { data, isFetching, isError, isLoading, refetch } =
     useGetCodexListQuery(undefined, {
@@ -51,22 +53,18 @@ const CodexList = () => {
       reset()
       setSelectedFactions(option)
       dispatch(setTheme('default'))
+      listRef.current?.reset()
     },
     [dispatch, reset]
   )
 
   const handlePress = useCallback(
     (codex: Codex) => {
-      console.log('pressed', codex.name, 'selected', selectedCodex)
-
       if (selectedCodex === codex.name) {
-        console.log('INSIDE', { selectedCodex })
-
         reset()
         dispatch(setTheme('default'))
         return
       }
-
       if (detachment && selectedCodex !== codex.name) {
         reset({
           ...getValues(),
@@ -99,6 +97,7 @@ const CodexList = () => {
         <Loading />
       ) : !filteredData ? null : (
         <StackedList
+          ref={listRef}
           data={filteredData}
           onItemPress={handlePress}
           selectedCodex={selectedCodex}
