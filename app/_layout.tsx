@@ -16,6 +16,7 @@ import { ErrorBoundary } from 'appdeptus/components'
 import { GluestackUIProvider } from 'appdeptus/components/ui'
 import { defaultScreenOptions } from 'appdeptus/constants'
 import 'appdeptus/global.css'
+import ThemeSwitchProvider from 'appdeptus/providers/ThemeSwitchProvider/ThemeSwitchProvider'
 import { store } from 'appdeptus/store'
 import { SplashScreen, Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
@@ -81,10 +82,12 @@ const App = ({ children }: PropsWithChildren) => {
 }
 
 const AppLayout = () => (
-  <Stack screenOptions={defaultScreenOptions}>
-    <Stack.Screen name='(home)' />
-    <Stack.Screen name='(root)' />
-  </Stack>
+  <ThemeSwitchProvider>
+    <Stack screenOptions={defaultScreenOptions}>
+      <Stack.Screen name='(home)' />
+      <Stack.Screen name='(root)' />
+    </Stack>
+  </ThemeSwitchProvider>
 )
 
 const EntryPoint =
