@@ -1,14 +1,11 @@
-import {
-  Badge,
-  Card,
-  HStack,
-  PlayerTag,
-  Scoreboard,
-  VersusBackground,
-  VStack
-} from 'appdeptus/components'
 import { type EndedGame } from 'appdeptus/models/game'
 import { formatDistanceToNow } from 'date-fns'
+import Badge from '../Badge'
+import Card from '../Card'
+import PlayerTag from '../PlayerTag'
+import Scoreboard from '../Scoreboard'
+import { HStack, VStack } from '../ui'
+import VersusBackground from '../VersusBackground'
 
 type GameListItemProps = {
   game: EndedGame

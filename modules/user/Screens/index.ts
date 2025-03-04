@@ -1,3 +1,4 @@
+export { default as AdeptScreen } from './Adept'
 export { default as DeleteScreen } from './Delete'
 export { default as EditNameScreen } from './EditName'
 export { default as SettingsScreen } from './Settings'

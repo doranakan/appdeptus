@@ -6,10 +6,10 @@ import { userProfileSchema } from '../schemas'
 import { type UserApiTags } from '../tags'
 
 const getUserProfile = (builder: CoreEndpointBuilder<UserApiTags>) =>
-  builder.query<UserProfile, void>({
-    queryFn: async () => {
+  builder.query<UserProfile, string | void>({
+    queryFn: async (id) => {
       try {
-        const res = await getUserId()
+        const res = id ?? (await getUserId())
 
         if (typeof res === 'object') {
           return { erros: res.error }
@@ -33,7 +33,15 @@ const getUserProfile = (builder: CoreEndpointBuilder<UserApiTags>) =>
         return { error: JSON.stringify(error) }
       }
     },
-    providesTags: () => ['user']
+    providesTags: (_res, _err, id) =>
+      id
+        ? [
+            {
+              type: 'user',
+              id
+            }
+          ]
+        : ['user']
   })
 
 export default getUserProfile

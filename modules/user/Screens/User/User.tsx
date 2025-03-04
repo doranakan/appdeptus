@@ -1,18 +1,17 @@
 import logo from 'appdeptus/assets/svg/logo.svg'
 import {
-  Avatar,
   CardMenu,
   Disclaimer,
   HStack,
   Loading,
   NavigationHeader,
+  Profile,
   ScreenContainer,
   Text,
   TextLink,
   VStack
 } from 'appdeptus/components'
 import { useFeatureFlag } from 'appdeptus/hooks'
-import { formatDate } from 'date-fns'
 import * as Application from 'expo-application'
 import { Cog } from 'lucide-react-native'
 import { type ComponentProps, useMemo } from 'react'
@@ -72,32 +71,10 @@ const UserScreen = () => {
           href: 'user/settings'
         }}
       />
-      <VStack
-        className='items-center justify-center'
-        space='md'
-      >
-        <Avatar
-          user={data}
-          size='2xl'
-        />
-        <VStack
-          className='items-center justify-center'
-          space='xs'
-        >
-          <Text
-            family='heading-regular'
-            size='2xl'
-          >
-            {data.name}
-          </Text>
-          <Text
-            className='text-primary-400'
-            family='body-bold'
-          >
-            {`Member since ${formatDate(new Date(data.createdAt), 'MMMM yyyy')}`}
-          </Text>
-        </VStack>
-      </VStack>
+      <Profile
+        date={data.createdAt}
+        {...data}
+      />
 
       <VStack
         className='flex-1 justify-between py-4'

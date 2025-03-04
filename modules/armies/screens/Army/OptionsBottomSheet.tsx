@@ -13,18 +13,21 @@ import { useCanCreateTeams, useCanEmbarkUnits } from 'appdeptus/hooks'
 import { type Army } from 'appdeptus/models'
 import clsx from 'clsx'
 import { router } from 'expo-router'
-import { Settings, ShareIcon, Swords, Trash2 } from 'lucide-react-native'
+import { Save, Settings, ShareIcon, Swords, Trash2 } from 'lucide-react-native'
 import React, { memo, useCallback } from 'react'
 import { Platform, Share } from 'react-native'
 import { useDeleteArmyMutation } from '../../api'
+import { useSaveArmyCopy } from '../../hooks'
 import OptionButton from './OptionButton'
 import ref from './ref'
 
 type OptionsBottomSheetProps = {
   army: Army
+
+  isUsersArmy?: boolean
 }
 
-const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
+const OptionsBottomSheet = ({ army, isUsersArmy }: OptionsBottomSheetProps) => {
   const [deleteArmy, { isLoading }] = useDeleteArmyMutation()
 
   const [deletePromptVisible, { setFalse: hidePrompt, setTrue: showPrompt }] =
@@ -70,6 +73,8 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
     })
   }, [army.id])
 
+  const [saveArmy, { isLoading: isSaving }] = useSaveArmyCopy()
+
   const handleDelete = useCallback(async () => {
     const res = await deleteArmy(army.id)
 
@@ -105,11 +110,25 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
         >
           {army.isValid ? (
             <>
-              <OptionButton
-                icon={Swords}
-                onPress={playWithArmy}
-                title='Play'
-              />
+              {isUsersArmy ? (
+                <OptionButton
+                  icon={Swords}
+                  onPress={playWithArmy}
+                  title='Play'
+                />
+              ) : (
+                <OptionButton
+                  icon={Save}
+                  disabled={isSaving}
+                  loading={isLoading}
+                  onPress={async () => {
+                    await saveArmy(army)
+
+                    ref.current?.dismiss()
+                  }}
+                  title='Save'
+                />
+              )}
               <OptionButton
                 icon={ShareIcon}
                 onPress={shareArmy}
@@ -117,17 +136,20 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
               />
             </>
           ) : null}
-
-          <OptionButton
-            icon={Settings}
-            onPress={editArmy}
-            title='Edit'
-          />
-          <OptionButton
-            icon={Trash2}
-            onPress={showPrompt}
-            title='Delete'
-          />
+          {isUsersArmy ? (
+            <>
+              <OptionButton
+                icon={Settings}
+                onPress={editArmy}
+                title='Edit'
+              />
+              <OptionButton
+                icon={Trash2}
+                onPress={showPrompt}
+                title='Delete'
+              />
+            </>
+          ) : null}
         </HStack>
         {deletePromptVisible ? (
           <Card>
