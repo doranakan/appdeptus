@@ -3,10 +3,17 @@ import { coreApi } from 'appdeptus/api'
 import { Loading, ScreenContainer } from 'appdeptus/components'
 import { defaultScreenOptions } from 'appdeptus/constants'
 import { useGetSessionQuery } from 'appdeptus/modules/root/api'
+import {
+  useNotificationObserver,
+  useNotifications
+} from 'appdeptus/notifications'
 import { useAppDispatch } from 'appdeptus/store'
 import { Redirect, Stack } from 'expo-router'
 
 const HomeLayout = () => {
+  useNotifications()
+  useNotificationObserver()
+
   const { data: session, isLoading, isUninitialized } = useGetSessionQuery()
 
   const dispatch = useAppDispatch()

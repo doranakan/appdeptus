@@ -28,7 +28,11 @@ const RequestListScreen = () => {
 
   useEffect(() => {
     if (!data?.length) {
-      router.back()
+      if (router.canGoBack()) {
+        router.back()
+        return
+      }
+      router.replace('/')
     }
   }, [data?.length])
 
