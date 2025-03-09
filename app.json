@@ -34,7 +34,8 @@
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.RECORD_AUDIO"
-      ]
+      ],
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",
@@ -62,7 +63,17 @@
         }
       ],
       ["expo-apple-authentication"],
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/resources/adaptive-icon.png",
+          "color": "#18212F",
+          "defaultChannel": "default",
+          "sounds": ["./assets/sounds/notification.wav"],
+          "enableBackgroundRemoteNotifications": false
+        }
+      ]
     ],
     "experiments": {
       "tsconfigPaths": true

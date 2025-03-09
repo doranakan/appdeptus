@@ -28,6 +28,10 @@ const updateCommunityRequest = (
           return { error: JSON.stringify(updateRequestError) }
         }
 
+        if (!accepted) {
+          return { data: null }
+        }
+
         const { error: addUserError } = await supabase
           .from(Table.COMMUNITIES_USERS)
           .insert({

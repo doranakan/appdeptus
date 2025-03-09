@@ -15,7 +15,13 @@ const startGame = (builder: CoreEndpointBuilder<GamesApiTags>) =>
   builder.mutation<null, StartGameRequest>({
     queryFn: async ({ army, gameId }) => {
       try {
-        const { id: _, isValid: _isValid, codex, ...rest } = army
+        const {
+          id: _,
+          isValid: _isValid,
+          isSecret: _isSecret,
+          codex,
+          ...rest
+        } = army
 
         const roster = mapArmyToGameArmy(rest.roster)
 

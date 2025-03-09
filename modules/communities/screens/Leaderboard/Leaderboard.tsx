@@ -1,3 +1,4 @@
+import { skipToken } from '@reduxjs/toolkit/query'
 import {
   HStack,
   PlayerTag,
@@ -5,20 +6,11 @@ import {
   TableList,
   Text
 } from 'appdeptus/components'
-import { type UserProfile } from 'appdeptus/models'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { Link, useLocalSearchParams } from 'expo-router'
-import { merge } from 'lodash'
-import { type ComponentProps, useMemo } from 'react'
+import React, { type ComponentProps } from 'react'
 import { useGetCommunityGameListQuery, useGetCommunityQuery } from '../../api'
 import { CommunityScreenContainer } from '../../components'
-
-type LeaderboardEntry = {
-  user: UserProfile
-  w: number
-  l: number
-  t: number
-}
 
 const LeaderboardScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -27,89 +19,17 @@ const LeaderboardScreen = () => {
 
   const { data: community } = useGetCommunityQuery(id)
 
-  const members = useMemo(() => {
-    if (!community) {
-      return {}
-    }
-
-    return community.members.reduce<Record<string, LeaderboardEntry>>(
-      (acc, curr) => {
-        acc[curr.id] = {
-          user: curr,
-          w: 0,
-          l: 0,
-          t: 0
-        }
-        return acc
-      },
-      {}
-    )
-  }, [community])
-
-  const { data } = useGetCommunityGameListQuery(id)
-
-  const leaderboard = useMemo(() => {
-    if (!data) {
-      return undefined
-    }
-
-    const entries = data.reduce<Record<string, LeaderboardEntry>>(
-      (acc, game) => {
-        const { playerOne, playerTwo } = game
-
-        if (!acc[playerOne.profile.id]) {
-          acc[playerOne.profile.id] = {
-            user: playerOne.profile,
-            w: 0,
-            l: 0,
-            t: 0
-          }
-        }
-        if (!acc[playerTwo.profile.id]) {
-          acc[playerTwo.profile.id] = {
-            user: playerTwo.profile,
-            w: 0,
-            l: 0,
-            t: 0
-          }
-        }
-
-        const playerOneEntry = acc[playerOne.profile.id]
-        const playerTwoEntry = acc[playerTwo.profile.id]
-
-        if (playerOneEntry && playerTwoEntry) {
-          if (playerOne.score > playerTwo.score) {
-            playerOneEntry.w += 1
-            playerTwoEntry.l += 1
-          } else if (playerOne.score < playerTwo.score) {
-            playerTwoEntry.w += 1
-            playerOneEntry.l += 1
-          } else {
-            playerOneEntry.t += 1
-            playerTwoEntry.t += 1
-          }
-        }
-
-        return acc
-      },
-      {}
-    )
-
-    const completeLeaderboard = merge(entries, members)
-
-    return Object.values(completeLeaderboard).sort((a, b) => {
-      if (b.w !== a.w) return b.w - a.w
-
-      if (a.l !== b.l) return a.l - b.l
-
-      return b.t - a.t
-    })
-  }, [data, members])
+  const { data, isFetching } = useGetCommunityGameListQuery(
+    community ?? skipToken
+  )
 
   return (
-    <CommunityScreenContainer title='Leaderboard'>
+    <CommunityScreenContainer
+      title='Leaderboard'
+      isLoading={isFetching}
+    >
       <TableList
-        data={leaderboard}
+        data={data?.leaderboard}
         renderItem={({ item, index }) => (
           <>
             <HStack

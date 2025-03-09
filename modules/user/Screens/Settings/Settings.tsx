@@ -7,10 +7,13 @@ import {
   VStack
 } from 'appdeptus/components'
 import { useSignOutMutation } from 'appdeptus/modules/root/api'
+import { useUnregisterForNotifications } from 'appdeptus/notifications'
 import { LogOut } from 'lucide-react-native'
 
 const SettingsScreen = () => {
   const [signOut, { isLoading }] = useSignOutMutation()
+
+  const unregisterForNotifications = useUnregisterForNotifications()
 
   return (
     <ScreenContainer
@@ -22,7 +25,10 @@ const SettingsScreen = () => {
         variant='backButton'
         rightButton={{
           variant: 'callback',
-          onPress: signOut,
+          onPress: async () => {
+            unregisterForNotifications()
+            await signOut()
+          },
           loading: isLoading,
           disabled: isLoading,
           icon: LogOut

@@ -6,6 +6,7 @@ import {
   type Button,
   Loading,
   NavigationHeader,
+  NotificationBadge,
   Pressable,
   ScreenContainer,
   selectThemeName,
@@ -13,10 +14,13 @@ import {
   VStack
 } from 'appdeptus/components'
 import { defaultScreenOptions } from 'appdeptus/constants'
+import { type Notifications } from 'appdeptus/models'
 import { useGetArmyListQuery } from 'appdeptus/modules/armies/api'
 import { useGetGameQuery } from 'appdeptus/modules/games/api'
 import { ActiveGameTopBar } from 'appdeptus/modules/games/components'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
+import { useNotifications } from 'appdeptus/notifications'
+import { useGetNotificationsQuery } from 'appdeptus/notifications/api'
 import { Redirect, Tabs, useLocalSearchParams } from 'expo-router'
 import LottieView, { type AnimationObject } from 'lottie-react-native'
 import { Plus, Swords } from 'lucide-react-native'
@@ -32,6 +36,7 @@ import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
 
 const HomeLayout = () => {
+  useNotifications()
   const { showOnboarding } = useLocalSearchParams<{ showOnboarding: string }>()
 
   const themeName = useSelector(selectThemeName)
@@ -170,10 +175,20 @@ const TabBarButton = ({ children, onPress }: TabBarButtonProps) => (
 
 type TabIconProps = {
   focused: boolean
-  routeName: string
+  routeName: 'index' | 'communities-tab' | 'games-tab'
 }
 
+const tabNameToNotification = {
+  'communities-tab': 'communities',
+  'games-tab': 'games',
+  index: 'armies'
+} satisfies Record<TabIconProps['routeName'], keyof Notifications>
+
 const TabIcon = ({ focused, routeName }: TabIconProps) => {
+  const { data: notifications } = useGetNotificationsQuery()
+
+  const notificationCount = notifications?.[tabNameToNotification[routeName]]
+
   const animation = useRef<LottieView>(null)
 
   const config = tabNameToIconMap[routeName]
@@ -185,14 +200,21 @@ const TabIcon = ({ focused, routeName }: TabIconProps) => {
   })
 
   return (
-    <LottieView
-      loop={false}
-      ref={animation}
-      style={styles.lottieView}
-      source={config?.source}
-      colorFilters={!focused ? config?.colorFilters : undefined}
-      speed={2}
-    />
+    <VStack>
+      <LottieView
+        loop={false}
+        ref={animation}
+        style={styles.lottieView}
+        source={config?.source}
+        colorFilters={!focused ? config?.colorFilters : undefined}
+        speed={2}
+      />
+      {notificationCount ? (
+        <VStack className='absolute right-0 top-0'>
+          <NotificationBadge count={notificationCount} />
+        </VStack>
+      ) : null}
+    </VStack>
   )
 }
 

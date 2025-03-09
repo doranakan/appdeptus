@@ -3,9 +3,9 @@ import {
   ScreenContainer,
   ScreenTitle
 } from 'appdeptus/components'
-import { useIsInquisitor } from 'appdeptus/modules/armies/hooks'
 import { useGlobalSearchParams } from 'expo-router'
 import { useGetCommunityQuery } from '../../api'
+import useIsInquisitor from '../../hooks'
 import AdeptView from './AdeptView'
 import InquisitorView from './InquisitorView'
 

@@ -9,6 +9,7 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
+import clsx from 'clsx'
 import { Search } from 'lucide-react-native'
 import React, { memo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
@@ -62,7 +63,11 @@ const CommunityList = () => {
         />
         <FlatList
           className='flex-1'
-          contentContainerStyle={!data?.length ? { flex: 1 } : undefined}
+          contentContainerClassName={clsx(
+            isSearching || (!data?.length && !searchResults?.length)
+              ? 'flex-1'
+              : undefined
+          )}
           data={!searchResults && !isSearching ? data : searchResults}
           keyExtractor={({ id }) => String(id)}
           ItemSeparatorComponent={() => <VStack className='h-4' />}
@@ -102,7 +107,7 @@ const CommunityList = () => {
           renderItem={({ item }) => (
             <CommunityListItem
               community={item}
-              isMember={!!data?.find(({ id }) => item.id === id)}
+              isMember={!searchResults}
             />
           )}
           scrollEnabled={!isFetching}

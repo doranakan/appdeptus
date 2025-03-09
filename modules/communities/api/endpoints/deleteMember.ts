@@ -11,12 +11,13 @@ type DeleteMemberArgs = {
 
 const deleteMember = (builder: CoreEndpointBuilder<CommunitiesApiTags>) =>
   builder.mutation<null, DeleteMemberArgs>({
-    queryFn: async ({ memberId }) => {
+    queryFn: async ({ memberId, communityId }) => {
       try {
         const { data, error } = await supabase
           .from(Table.COMMUNITIES_USERS)
           .delete()
           .eq('user', memberId)
+          .eq('community', communityId)
 
         if (error) {
           return { error: JSON.stringify(error) }

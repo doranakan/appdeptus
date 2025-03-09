@@ -12,17 +12,20 @@ import { useGetCommunityQuery } from '../../api'
 
 type CommunityScreenContainerProps = PropsWithChildren<{
   title: string
+
+  isLoading?: boolean
 }>
 
 const CommunityScreenContainer = ({
   children,
-  title
+  title,
+  isLoading
 }: CommunityScreenContainerProps) => {
   const { id } = useLocalSearchParams<{ id: string }>()
 
-  const { data, isLoading, isError } = useGetCommunityQuery(id)
+  const { data, isFetching, isError } = useGetCommunityQuery(id)
 
-  if (isError || isLoading || !data) {
+  if (isError || isFetching || !data || isLoading) {
     return (
       <ScreenContainer
         safeAreaInsets={['top', 'bottom']}
@@ -30,7 +33,7 @@ const CommunityScreenContainer = ({
       >
         <NavigationHeader variant='backButton' />
         <VStack className='flex-1 items-center justify-center'>
-          {isLoading ? (
+          {isFetching || isLoading ? (
             <Loading />
           ) : (
             <Error description='There was an error with your request.' />

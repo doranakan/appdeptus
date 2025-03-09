@@ -4,6 +4,9 @@ import {
   coreApi,
   coreApiReducer,
   coreApiReducerPath,
+  notificationsApi,
+  notificationsApiReducer,
+  notificationsApiReducerPath,
   sessionApi,
   sessionApiReducer,
   sessionApiReducerPath
@@ -13,12 +16,14 @@ import { themeReducer } from 'appdeptus/components'
 const store = configureStore({
   reducer: {
     [coreApiReducerPath]: coreApiReducer,
+    [notificationsApiReducerPath]: notificationsApiReducer,
     [sessionApiReducerPath]: sessionApiReducer,
     theme: themeReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(coreApi.middleware)
+      .concat(notificationsApi.middleware)
       .concat(sessionApi.middleware)
 })
 

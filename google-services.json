@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "535932431249",
+    "project_id": "appdeptus",
+    "storage_bucket": "appdeptus.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:535932431249:android:1cc06518c1cd4c5b18c830",
+        "android_client_info": {
+          "package_name": "com.appdeptus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "535932431249-0hkonqkcp6ki9g23fja3g17h9u03kaln.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appdeptus",
+            "certificate_hash": "3b0ae3f562d6c40433b41c33c14178a82b992df5"
+          }
+        },
+        {
+          "client_id": "535932431249-t0gqvvk91r0v86uusosvko3je7eoi0le.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.appdeptus",
+            "certificate_hash": "97d6074ea186decfaa11e06cd0f298d7728db4b1"
+          }
+        },
+        {
+          "client_id": "535932431249-cjc6nfjhgaqo154rnu641j9k0mljuqda.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs3ynvK4axUoVZsfj1WFOcjWbw4U8Y7Vk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "535932431249-cjc6nfjhgaqo154rnu641j9k0mljuqda.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "535932431249-vesoagcrcra658q34jc2lfjpo48c65v2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.appdeptus",
+                "app_store_id": "6738840036"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

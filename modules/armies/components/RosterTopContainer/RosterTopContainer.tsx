@@ -5,6 +5,7 @@ import {
   Icon,
   InsetShadow,
   ScreenTitle,
+  selectThemeName,
   Text,
   themeColors,
   VStack
@@ -15,6 +16,7 @@ import { type Army } from 'appdeptus/models'
 import { Eye, EyeOff } from 'lucide-react-native'
 import { memo } from 'react'
 import { Switch } from 'react-native-gesture-handler'
+import { useSelector } from 'react-redux'
 import { useUpdateArmyData, useUpdateArmyVisibilityMutation } from '../../api'
 
 type RosterTopContainerProps = {
@@ -33,6 +35,8 @@ const RosterTopContainer = ({ army, isUsersArmy }: RosterTopContainerProps) => {
   const [updateArmyVisibility] = useUpdateArmyVisibilityMutation()
 
   const updateArmyData = useUpdateArmyData()
+
+  const theme = useSelector(selectThemeName)
 
   return (
     <VStack space='md'>
@@ -92,11 +96,11 @@ const RosterTopContainer = ({ army, isUsersArmy }: RosterTopContainerProps) => {
                   <Text>{`${army.isSecret ? 'Not visible' : 'Visible'} to communities`}</Text>
                 </HStack>
                 <Switch
-                  ios_backgroundColor={themeColors.default.secondary[300]}
-                  thumbColor={themeColors.default.primary[50]}
+                  ios_backgroundColor={themeColors[theme].secondary[300]}
+                  thumbColor={themeColors[theme].primary[50]}
                   trackColor={{
-                    false: themeColors.default.secondary[300],
-                    true: themeColors.default.tertiary[600]
+                    false: themeColors[theme].secondary[300],
+                    true: themeColors[theme].tertiary[600]
                   }}
                   onChange={() => {
                     updateArmyVisibility({
