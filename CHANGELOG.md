@@ -7,6 +7,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Deprecated
+
+### Removed
+
+## [0.3.0] - 2025-03-17
+
+### Added
+
 - Game lobby 🚻
 
 ### Changed
