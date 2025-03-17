@@ -1,0 +1,47 @@
+import { memo } from 'react'
+import { StyleSheet } from 'react-native'
+import Text from '../Text'
+import { HStack, VStack } from '../ui'
+
+type SingleDataTableProps = {
+  data: {
+    title: string
+    value: string
+  }[]
+}
+
+const SingleDataTable = ({ data }: SingleDataTableProps) => (
+  <VStack>
+    {data.map(({ title, value }) => (
+      <VStack key={title}>
+        <Line />
+        <HStack className='items-center py-2'>
+          <Text className='px-2 text-center'>{title}</Text>
+          <Text
+            className='flex-1 text-right'
+            family='body-bold'
+            numberOfLines={1}
+          >
+            {value}
+          </Text>
+        </HStack>
+      </VStack>
+    ))}
+    <Line />
+  </VStack>
+)
+
+const Line = () => (
+  <HStack
+    className='bg-primary-50/30'
+    style={styles.line}
+  />
+)
+
+const styles = StyleSheet.create({
+  line: {
+    height: 1
+  }
+})
+
+export default memo(SingleDataTable)

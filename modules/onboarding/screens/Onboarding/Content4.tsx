@@ -24,6 +24,8 @@ const Content4 = () => (
             status: 'ended',
             id: 1,
             lastUpdate: new Date(Date.now() - 100000000).toISOString(),
+            round: 5,
+            turn: 10,
             playerOne: {
               army: {
                 codex: {
@@ -43,7 +45,9 @@ const Content4 = () => (
                 createdAt: '',
                 id: '1'
               },
-              score: 12
+              score: 12,
+              isActive: true,
+              isReady: true
             },
             playerTwo: {
               army: {
@@ -64,7 +68,9 @@ const Content4 = () => (
                 createdAt: '',
                 id: '1'
               },
-              score: 19
+              score: 19,
+              isActive: false,
+              isReady: true
             }
           }}
         />
@@ -77,6 +83,8 @@ const Content4 = () => (
             status: 'ended',
             id: 1,
             lastUpdate: new Date(Date.now() - 700000000).toISOString(),
+            round: 5,
+            turn: 10,
             playerOne: {
               army: {
                 codex: {
@@ -96,7 +104,9 @@ const Content4 = () => (
                 createdAt: '',
                 id: '1'
               },
-              score: 45
+              score: 45,
+              isActive: true,
+              isReady: true
             },
             playerTwo: {
               army: {
@@ -117,7 +127,9 @@ const Content4 = () => (
                 createdAt: '',
                 id: '1'
               },
-              score: 80
+              score: 80,
+              isActive: false,
+              isReady: true
             }
           }}
         />
@@ -130,6 +142,8 @@ const Content4 = () => (
             status: 'ended',
             id: 1,
             lastUpdate: new Date(Date.now() - 1000000000).toISOString(),
+            round: 5,
+            turn: 10,
             playerOne: {
               army: {
                 codex: {
@@ -149,7 +163,9 @@ const Content4 = () => (
                 createdAt: '',
                 id: '1'
               },
-              score: 50
+              score: 50,
+              isActive: false,
+              isReady: true
             },
             playerTwo: {
               army: {
@@ -170,7 +186,9 @@ const Content4 = () => (
                 createdAt: '',
                 id: '1'
               },
-              score: 20
+              score: 20,
+              isActive: true,
+              isReady: true
             }
           }}
         />

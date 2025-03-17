@@ -27,7 +27,9 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
         id: '1',
         name: 'doranakan'
       },
-      score: 23
+      score: 23,
+      isActive: true,
+      isReady: true
     },
     playerTwo: {
       army: {
@@ -52,7 +54,9 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
         id: '2',
         name: 'ildenso'
       },
-      score: 12
+      score: 12,
+      isActive: false,
+      isReady: true
     }
   },
   component: Scoreboard
