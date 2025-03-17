@@ -1,11 +1,8 @@
 import { skipToken } from '@reduxjs/toolkit/query'
-import { useUnmount } from 'ahooks'
 import {
   type Button,
   NavigationHeader,
-  resetTheme,
   ScreenContainer,
-  selectThemeName,
   useToast,
   VStack
 } from 'appdeptus/components'
@@ -18,12 +15,10 @@ import {
   useGetInvalidUnitsQuery,
   useUpdateArmyMutation
 } from 'appdeptus/modules/armies/api'
-import { useAppDispatch } from 'appdeptus/store'
 import { router, Stack, useGlobalSearchParams, useSegments } from 'expo-router'
 import { Check, ChevronRight } from 'lucide-react-native'
 import { type ComponentProps, useCallback, useMemo } from 'react'
 import { FormProvider, type SubmitHandler, useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
 
 const ArmyBuilderLayout = () => {
   const { id } = useGlobalSearchParams<{ id: string }>()
@@ -79,10 +74,6 @@ const ArmyBuilderLayout = () => {
   const form = useForm<ArmyBuilder>({
     defaultValues
   })
-
-  const themeName = useSelector(selectThemeName)
-
-  const dispatch = useAppDispatch()
 
   const { formState, handleSubmit, watch } = form
 
@@ -259,12 +250,6 @@ const ArmyBuilderLayout = () => {
     units,
     warlord
   ])
-
-  useUnmount(() => {
-    if (themeName !== 'default' && !id) {
-      dispatch(resetTheme())
-    }
-  })
 
   return (
     <ScreenContainer

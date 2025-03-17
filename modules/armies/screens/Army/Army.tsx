@@ -5,7 +5,6 @@ import {
   Error,
   Loading,
   NavigationHeader,
-  resetTheme,
   ScreenContainer,
   setTheme,
   Text,
@@ -61,9 +60,6 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
 
   useEffect(() => {
     dispatch(setTheme(army.codex.name))
-    return () => {
-      dispatch(resetTheme())
-    }
   })
 
   return (

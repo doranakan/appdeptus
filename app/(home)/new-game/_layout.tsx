@@ -1,12 +1,10 @@
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { skipToken } from '@reduxjs/toolkit/query'
-import { useUnmount } from 'ahooks'
 import {
   type Button,
   Error,
   Loading,
   NavigationHeader,
-  resetTheme,
   ScreenContainer,
   VStack
 } from 'appdeptus/components'
@@ -18,7 +16,6 @@ import {
   NewGameBottomSheet,
   newGameBottomSheetRef
 } from 'appdeptus/modules/games/components'
-import { useAppDispatch } from 'appdeptus/store'
 import { Stack, useGlobalSearchParams, useSegments } from 'expo-router'
 import { ChevronRight, Dices } from 'lucide-react-native'
 import { type ComponentProps, useEffect, useMemo } from 'react'
@@ -155,12 +152,6 @@ const NewGameLayout = () => {
         return undefined
     }
   }, [canCreateTeams, canEmbarkUnits, routeName, selectedArmy])
-
-  const dispatch = useAppDispatch()
-
-  useUnmount(() => {
-    if (!preselectedArmyId) dispatch(resetTheme())
-  })
 
   const { data, isError, isLoading, isUninitialized } = useGetArmyQuery(
     preselectedArmyId ?? skipToken

@@ -5,7 +5,6 @@ import {
   Loading,
   NavigationHeader,
   PlayerTag,
-  resetTheme,
   ScreenContainer,
   ScreenSubtitle,
   setTheme,
@@ -45,9 +44,6 @@ const ShareScreen = () => {
   useEffect(() => {
     if (army) {
       dispatch(setTheme(army.codex.name))
-    }
-    return () => {
-      dispatch(resetTheme())
     }
   })
 
