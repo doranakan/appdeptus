@@ -5,20 +5,12 @@ type BaseGame = {
   id: number
   lastUpdate: string
   playerOne: Player
+  round: 1 | 2 | 3 | 4 | 5
+  turn: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
 }
 
 type ActiveGame = BaseGame & {
-  status:
-    | 'turn1_p1'
-    | 'turn1_p2'
-    | 'turn2_p1'
-    | 'turn2_p2'
-    | 'turn3_p1'
-    | 'turn3_p2'
-    | 'turn4_p1'
-    | 'turn4_p2'
-    | 'turn5_p1'
-    | 'turn5_p2'
+  status: 'in_lobby' | 'active'
   playerTwo: Player
 }
 
@@ -45,6 +37,8 @@ type BasePlayer = {
 
 type Player = BasePlayer & {
   army: GameArmy
+  isReady: boolean
+  isActive: boolean
 }
 
 const isActiveGame = (

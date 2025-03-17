@@ -7,16 +7,8 @@ import { z } from 'zod'
 const idSchema = z.number()
 
 const activeGameStatusSchema = z.union([
-  z.literal('turn1_p1'),
-  z.literal('turn1_p2'),
-  z.literal('turn2_p1'),
-  z.literal('turn2_p2'),
-  z.literal('turn3_p1'),
-  z.literal('turn3_p2'),
-  z.literal('turn4_p1'),
-  z.literal('turn4_p2'),
-  z.literal('turn5_p1'),
-  z.literal('turn5_p2')
+  z.literal('in_lobby'),
+  z.literal('active')
 ])
 
 const endedGameStatusSchema = z.literal('ended')
@@ -36,66 +28,106 @@ const createGameSchema = z.object({
   id: idSchema
 })
 
+const gameRoundSchema = z.union([
+  z.literal(1),
+  z.literal(2),
+  z.literal(3),
+  z.literal(4),
+  z.literal(5)
+])
+const gameTurnSchema = z.union([
+  z.literal(1),
+  z.literal(2),
+  z.literal(3),
+  z.literal(4),
+  z.literal(5),
+  z.literal(6),
+  z.literal(7),
+  z.literal(8),
+  z.literal(9),
+  z.literal(10)
+])
+
 const baseGameSchema = z
   .object({
     id: idSchema,
     army_one: gameArmySchema,
     cp_one: z.number(),
     player_one: playerSchema,
+    ready_one: z.boolean(),
     score_one: z.number(),
-    updated_at: z.string().optional()
+    updated_at: z.string().optional(),
+    round: gameRoundSchema,
+    turn: gameTurnSchema,
+    active_player: z.union([z.literal('one'), z.literal('two')])
   })
   .transform(
-    ({ army_one, player_one, cp_one, score_one, updated_at, ...rest }) => ({
+    ({
+      army_one,
+      player_one,
+      cp_one,
+      score_one,
+      updated_at,
+      active_player,
+      ready_one,
+      ...rest
+    }) => ({
       ...rest,
       playerOne: {
         cp: cp_one,
         profile: player_one,
         army: army_one,
-        score: score_one
+        score: score_one,
+        isReady: ready_one,
+        isActive: active_player === 'one'
       },
       lastUpdate: updated_at ?? new Date().toISOString()
     })
   )
 
-const endedGameSchema = baseGameSchema.and(
-  z
-    .object({
-      status: endedGameStatusSchema,
+const baseActiveGameSchema = baseGameSchema
+  .and(
+    z.object({
       army_two: gameArmySchema,
       cp_two: z.number(),
       player_two: playerSchema,
-      score_two: z.number()
+      score_two: z.number(),
+      ready_two: z.boolean()
     })
-    .transform(({ army_two, cp_two, player_two, score_two, ...rest }) => ({
+  )
+  .transform(
+    ({
+      army_two,
+      cp_two,
+      player_two,
+      score_two,
+      ready_two,
+      playerOne,
+      ...rest
+    }) => ({
       ...rest,
+      playerOne,
       playerTwo: {
         cp: cp_two,
         profile: player_two,
         army: army_two,
-        score: score_two
+        score: score_two,
+        isReady: ready_two,
+        isActive: !playerOne.isActive
       }
-    }))
+    })
+  )
+
+const endedGameSchema = baseActiveGameSchema.and(
+  z.object({
+    status: endedGameStatusSchema
+  })
 )
 
-const activeGameSchema = baseGameSchema.and(
-  z
-    .object({
-      status: activeGameStatusSchema,
-      army_two: gameArmySchema,
-      cp_two: z.number(),
-      player_two: playerSchema,
-      score_two: z.number()
-    })
-    .transform(({ army_two, cp_two, player_two, score_two, ...rest }) => ({
-      ...rest,
-      playerTwo: {
-        cp: cp_two,
-        profile: player_two,
-        army: army_two,
-        score: score_two
-      }
-    }))
+const activeGameSchema = baseActiveGameSchema.and(
+  z.object({
+    status: activeGameStatusSchema
+  })
 )
 
 const realtimeGameSchema = z
@@ -105,19 +137,38 @@ const realtimeGameSchema = z
     score_one: z.number(),
     score_two: z.number(),
     status: activeGameStatusSchema.or(endedGameStatusSchema),
-    updated_at: z.string()
+    updated_at: z.string(),
+    ready_one: z.boolean(),
+    ready_two: z.boolean(),
+    active_player: z.union([z.literal('one'), z.literal('two')]),
+    round: gameRoundSchema,
+    turn: gameTurnSchema
   })
   .transform(
-    ({ cp_one, cp_two, score_one, score_two, status, updated_at }) => ({
-      status,
+    ({
+      cp_one,
+      cp_two,
+      score_one,
+      score_two,
+      updated_at,
+      active_player,
+      ready_one,
+      ready_two,
+      ...rest
+    }) => ({
+      ...rest,
       lastUpdate: updated_at,
       playerOne: {
         cp: cp_one,
-        score: score_one
+        score: score_one,
+        isActive: active_player === 'one',
+        isReady: ready_one
       },
       playerTwo: {
         cp: cp_two,
-        score: score_two
+        score: score_two,
+        isActive: active_player === 'two',
+        isReady: ready_two
       }
     })
   )

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import GameDataTable from './GameDataTable'
+import GameDataTable from './DoubleDataTable'
 
 const GameDataTableMeta: Meta<typeof GameDataTable> = {
   title: 'GameDataTable',

@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 import Text from '../Text'
 import { HStack, VStack } from '../ui'
 
-type GameDataTableProps = {
+type DoubleDataTableProps = {
   data: {
     title: string
     valueL: string
@@ -11,7 +11,7 @@ type GameDataTableProps = {
   }[]
 }
 
-const GameDataTable = ({ data }: GameDataTableProps) => (
+const DoubleDataTable = ({ data }: DoubleDataTableProps) => (
   <VStack>
     {data.map(({ title, valueL, valueR }) => (
       <VStack key={title}>
@@ -52,4 +52,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default memo(GameDataTable)
+export default memo(DoubleDataTable)

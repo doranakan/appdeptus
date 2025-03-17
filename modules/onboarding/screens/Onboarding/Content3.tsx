@@ -1,5 +1,5 @@
 import {
-  GameDataTable,
+  DoubleDataTable,
   GameUnitListItem,
   HStack,
   PlayerTag,
@@ -18,6 +18,7 @@ const Content3 = () => (
     <VStack space='md'>
       <Animated.View entering={FadeIn}>
         <Scoreboard
+          status='ended'
           playerOne={{
             army: {
               codex: {
@@ -41,7 +42,9 @@ const Content3 = () => (
               id: '2',
               name: 'ildenso'
             },
-            score: 12
+            score: 12,
+            isActive: true,
+            isReady: true
           }}
           playerTwo={{
             army: {
@@ -66,7 +69,9 @@ const Content3 = () => (
               id: '1',
               name: 'doranakan'
             },
-            score: 23
+            score: 23,
+            isActive: false,
+            isReady: true
           }}
         />
       </Animated.View>
@@ -82,7 +87,7 @@ const Content3 = () => (
       <Animated.View
         entering={BounceInDown.duration(600).dampingRatio(200).delay(400)}
       >
-        <GameDataTable
+        <DoubleDataTable
           data={[
             {
               title: 'Warlord',

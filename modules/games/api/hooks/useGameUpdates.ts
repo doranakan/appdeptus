@@ -25,6 +25,7 @@ const useGameUpdates = (gameId: ActiveGame['id']) => {
 
             return {
               ...data,
+              ...parsedData,
               lastUpdate: parsedData.lastUpdate,
               playerOne: {
                 ...data.playerOne,

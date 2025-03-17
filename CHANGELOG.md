@@ -7,11 +7,16 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Game lobby 🚻
+
 ### Changed
+
+- Bottom sheet layout 🗒️
 
 ### Fixed
 
 - Game start api call 💥
+- Game flow ⚔️
 
 ### Deprecated
 

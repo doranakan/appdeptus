@@ -1,6 +1,6 @@
 import {
   Badge,
-  GameDataTable,
+  DoubleDataTable,
   HStack,
   PlayerTag,
   VStack
@@ -36,7 +36,7 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
   const destroyedUnitsOne = useDestroyedUnitCount(playerOne.army.roster)
   const destroyedUnitsTwo = useDestroyedUnitCount(playerTwo.army.roster)
 
-  const data = useMemo<ComponentProps<typeof GameDataTable>['data']>(
+  const data = useMemo<ComponentProps<typeof DoubleDataTable>['data']>(
     () => [
       {
         title: 'Warlord',
@@ -122,7 +122,7 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
           codex={playerTwo.army.codex.name}
         />
       </HStack>
-      <GameDataTable data={data} />
+      <DoubleDataTable data={data} />
     </VStack>
   )
 }

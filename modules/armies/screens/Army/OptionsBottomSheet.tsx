@@ -5,19 +5,19 @@ import {
   ButtonGroup,
   Card,
   HStack,
+  OptionButton,
   Text,
   useToast,
   VStack
 } from 'appdeptus/components'
 import { useCanCreateTeams, useCanEmbarkUnits } from 'appdeptus/hooks'
 import { type Army } from 'appdeptus/models'
-import clsx from 'clsx'
+import { useGetGameQuery } from 'appdeptus/modules/games/api'
 import { router } from 'expo-router'
 import { Settings, ShareIcon, Swords, Trash2 } from 'lucide-react-native'
 import React, { memo, useCallback } from 'react'
 import { Platform, Share } from 'react-native'
 import { useDeleteArmyMutation } from '../../api'
-import OptionButton from './OptionButton'
 import ref from './ref'
 
 type OptionsBottomSheetProps = {
@@ -32,6 +32,8 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
 
   const canCreateTeams = useCanCreateTeams(army.roster)
   const canEmbarkUnits = useCanEmbarkUnits(army.roster)
+
+  const { data: currentGame } = useGetGameQuery()
 
   const playWithArmy = useCallback(() => {
     ref.current?.dismiss()
@@ -99,18 +101,19 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
         >
           Options
         </Text>
-        <HStack
-          className={clsx(deletePromptVisible && 'opacity-60')}
-          style={{ justifyContent: 'space-evenly' }}
-        >
+        <HStack style={{ justifyContent: 'space-evenly' }}>
           {army.isValid ? (
             <>
+              {!currentGame ? (
+                <OptionButton
+                  disabled={deletePromptVisible}
+                  icon={Swords}
+                  onPress={playWithArmy}
+                  title='Play'
+                />
+              ) : null}
               <OptionButton
-                icon={Swords}
-                onPress={playWithArmy}
-                title='Play'
-              />
-              <OptionButton
+                disabled={deletePromptVisible}
                 icon={ShareIcon}
                 onPress={shareArmy}
                 title='Share'
@@ -119,11 +122,13 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
           ) : null}
 
           <OptionButton
+            disabled={deletePromptVisible}
             icon={Settings}
             onPress={editArmy}
             title='Edit'
           />
           <OptionButton
+            disabled={deletePromptVisible}
             icon={Trash2}
             onPress={showPrompt}
             title='Delete'

@@ -10,13 +10,12 @@ import {
 } from 'appdeptus/components'
 import InnerBorder from 'appdeptus/components/InnerBorder'
 import { type CreateGame } from 'appdeptus/models/game'
-import { BlurView } from 'expo-blur'
 import { CameraView, useCameraPermissions } from 'expo-camera'
 import { router } from 'expo-router'
 import LottieView from 'lottie-react-native'
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { useStartGameMutation } from '../../api'
+import { useGoToLobbyMutation } from '../../api'
 import { NEW_GAME_SLUG } from '../../constants'
 
 const CameraScreen = () => {
@@ -24,7 +23,7 @@ const CameraScreen = () => {
 
   const { watch } = useFormContext<CreateGame>()
 
-  const [startGame, { isLoading }] = useStartGameMutation()
+  const [goToLobby, { isLoading }] = useGoToLobbyMutation()
 
   const [gameId, setGameId] = useState<number>()
 
@@ -32,7 +31,7 @@ const CameraScreen = () => {
 
   useAsyncEffect(async () => {
     if (gameId && !isLoading) {
-      const res = await startGame({ gameId, army: watch('playerOne.army') })
+      const res = await goToLobby({ gameId, army: watch('playerOne.army') })
 
       if ('error' in res) {
         show({ title: '⚠️ error', description: String(res.error) })
@@ -41,7 +40,7 @@ const CameraScreen = () => {
 
       router.dismissAll()
 
-      router.replace(`game/${gameId}`)
+      router.replace(`game/${gameId}/lobby`)
     }
   }, [gameId])
 
@@ -94,11 +93,9 @@ const CameraScreen = () => {
     >
       <VStack className='flex-1 bg-primary-950/60'>
         {isLoading ? (
-          <BlurView style={{ flex: 1 }}>
-            <VStack className='flex-1 items-center justify-center bg-primary-950/80'>
-              <Loading />
-            </VStack>
-          </BlurView>
+          <VStack className='flex-1 items-center justify-center bg-primary-950/80'>
+            <Loading />
+          </VStack>
         ) : (
           <VStack
             className='p-4'
@@ -115,17 +112,15 @@ const CameraScreen = () => {
             </Text>
             <VStack className='overflow-hidden rounded-3xl bg-primary-50/10'>
               <InnerBorder>
-                <BlurView intensity={15}>
-                  <LottieView
-                    autoPlay
-                    source={qrCode}
-                    style={{
-                      aspectRatio: 1,
-                      opacity: 0.4,
-                      width: '100%'
-                    }}
-                  />
-                </BlurView>
+                <LottieView
+                  autoPlay
+                  source={qrCode}
+                  style={{
+                    aspectRatio: 1,
+                    opacity: 0.4,
+                    width: '100%'
+                  }}
+                />
               </InnerBorder>
             </VStack>
           </VStack>

@@ -15,7 +15,7 @@ const Backdrop = ({ animatedIndex, onPress }: BackdropProps) => {
   }))
   return (
     <Animated.View
-      className='absolute h-full w-full bg-primary-950/60'
+      className='absolute h-full w-full bg-primary-950/90'
       style={style}
     >
       <Pressable

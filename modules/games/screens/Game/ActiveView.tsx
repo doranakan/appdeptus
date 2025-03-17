@@ -12,20 +12,21 @@ import {
 import { type GameArmy, type UserProfile } from 'appdeptus/models'
 import { type ActiveGame } from 'appdeptus/models/game'
 import { useAppDispatch } from 'appdeptus/store'
-import { ArrowBigRightDash } from 'lucide-react-native'
+import { EllipsisVertical } from 'lucide-react-native'
 import { useCallback, useState } from 'react'
 import {
-  useEndGameMutation,
   useGameArmyUpdates,
   useGameUpdates,
-  useNextTurnMutation,
+  useGetGameQuery,
   useUpdateGameArmyMutation
 } from '../../api'
 import { Background } from '../../components'
 import Commands from './Commands'
+import GameBottomSheet from './GameBottomSheet'
 import GameDetail from './GameDetail'
 import ModelBottomSheet from './ModelBottomSheet'
-import ref from './ref'
+import { gameRef, modelRef } from './refs'
+import useCurrentPlayer from './useCurrentPlayer'
 
 type ActiveViewProps = {
   game: ActiveGame
@@ -33,38 +34,26 @@ type ActiveViewProps = {
 }
 
 const ActiveView = ({ game, user }: ActiveViewProps) => {
-  const [selectedUnit, setSelectedUnit] = useState<GameArmy['roster'][number]>()
+  const { isLoading, refetch } = useGetGameQuery(game.id)
 
   useGameUpdates(game.id)
   useGameArmyUpdates(game)
 
-  const [nextTurn, { isLoading: isMovingToNextTurn }] = useNextTurnMutation()
-  const [endGame, { isLoading: isGameEnding }] = useEndGameMutation()
+  const currentPlayer = useCurrentPlayer(game)
 
-  const dispatch = useAppDispatch()
-
-  const [selectedPlayer, setSelectedPlayer] = useState<'One' | 'Two'>('One')
-
-  const advanceTurnOrComplete = useCallback(async () => {
-    if (game.status !== 'turn5_p2') {
-      return await nextTurn({
-        currentStatus: game.status,
-        gameId: game.id
-      })
-    }
-
-    return await endGame(game.id)
-  }, [endGame, game.id, game.status, nextTurn])
-
+  const [selectedUnit, setSelectedUnit] = useState<GameArmy['roster'][number]>(
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    game.playerOne.army.roster[0]!
+  )
   const handlePressedItem = useCallback((item: GameArmy['roster'][number]) => {
     setSelectedUnit(item)
-    ref.current?.present()
+    modelRef.current?.present()
   }, [])
 
   const { show } = useToast()
 
   const [updateArmy] = useUpdateGameArmyMutation()
-
+  const [selectedPlayer, setSelectedPlayer] = useState<'One' | 'Two'>('One')
   const handleArmyUpdate = useCallback(
     async (unit: GameArmy['roster'][number]) => {
       const roster = game[`player${selectedPlayer}`].army.roster.map((u) => {
@@ -103,6 +92,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
     [game, selectedPlayer, show, updateArmy]
   )
 
+  const dispatch = useAppDispatch()
   useMount(() => {
     dispatch(
       setTheme(
@@ -128,20 +118,21 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
         <NavigationHeader
           variant='backButton'
           progress={{
-            currentStep: turnToStep[game.status],
+            currentStep: game.turn,
             steps: 10,
-            text: turnName[game.status]
+            text: `Round ${game.round} - ${currentPlayer.isActive ? 'Your' : "Opponent's"} turn`
           }}
           rightButton={{
-            disabled: isMovingToNextTurn || isGameEnding,
-            onPress: advanceTurnOrComplete,
+            onPress: () => gameRef.current?.present(),
             variant: 'callback',
-            loading: isMovingToNextTurn || isGameEnding,
-            icon: ArrowBigRightDash
+
+            icon: EllipsisVertical
           }}
         />
         <Scoreboard {...game} />
         <GameArmyRoster
+          onRefresh={refetch}
+          refreshing={isLoading}
           ListHeaderComponent={
             <VStack space='md'>
               <GameDetail {...game} />
@@ -176,34 +167,9 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
           editable={user.id === game[`player${selectedPlayer}`].profile.id}
         />
       ) : null}
+      <GameBottomSheet game={game} />
     </VStack>
   )
 }
-
-const turnName = {
-  turn1_p1: 'Attacker - Turn 1',
-  turn1_p2: 'Defender - Turn 1',
-  turn2_p1: 'Attacker - Turn 2',
-  turn2_p2: 'Defender - Turn 2',
-  turn3_p1: 'Attacker - Turn 3',
-  turn3_p2: 'Defender - Turn 3',
-  turn4_p1: 'Attacker - Turn 4',
-  turn4_p2: 'Defender - Turn 4',
-  turn5_p1: 'Attacker - Turn 5',
-  turn5_p2: 'Defender - Turn 5'
-} as const satisfies Record<ActiveGame['status'], string>
-
-const turnToStep = {
-  turn1_p1: 1,
-  turn1_p2: 2,
-  turn2_p1: 3,
-  turn2_p2: 4,
-  turn3_p1: 5,
-  turn3_p2: 6,
-  turn4_p1: 7,
-  turn4_p2: 8,
-  turn5_p1: 9,
-  turn5_p2: 10
-} as const satisfies Record<ActiveGame['status'], number>
 
 export default ActiveView

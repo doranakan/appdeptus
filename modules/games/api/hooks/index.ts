@@ -6,9 +6,12 @@ const {
   useGetEndedGameListQuery,
   useGetNewGameQuery,
   useGetGameQuery,
+  useGoToLobbyMutation,
   useLazyGetGameQuery,
   useNextTurnMutation,
   useStartGameMutation,
+  useSetFirstPlayerMutation,
+  useSetReadyPlayerMutation,
   useUpdateGameArmyMutation,
   useUpdateScoreAndCPMutation
 } = gamesApi
@@ -19,8 +22,11 @@ export {
   useGetEndedGameListQuery,
   useGetGameQuery,
   useGetNewGameQuery,
+  useGoToLobbyMutation,
   useLazyGetGameQuery,
   useNextTurnMutation,
+  useSetFirstPlayerMutation,
+  useSetReadyPlayerMutation,
   useStartGameMutation,
   useUpdateGameArmyMutation,
   useUpdateScoreAndCPMutation

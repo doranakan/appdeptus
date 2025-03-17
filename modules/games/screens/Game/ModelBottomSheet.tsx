@@ -6,7 +6,7 @@ import Text from '../../../../components/Text'
 import { VStack } from '../../../../components/ui'
 import UnitName from '../../../../components/UnitName'
 import Model from './Model'
-import ref from './ref'
+import { modelRef } from './refs'
 
 type ModelBottomSheetProps = {
   onStatusUpdated: (unit: GameArmy['roster'][number]) => Promise<void>
@@ -276,9 +276,9 @@ const ModelBottomSheet = ({
 
   return (
     <BottomSheet
-      ref={ref}
+      ref={modelRef}
       onPressBackdrop={() => {
-        ref.current?.dismiss()
+        modelRef.current?.dismiss()
       }}
     >
       <VStack space='md'>{models}</VStack>
