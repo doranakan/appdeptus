@@ -1,7 +1,6 @@
 import {
   GameArmyRoster,
   NavigationHeader,
-  resetTheme,
   Scoreboard,
   ScreenContainer,
   setTheme,
@@ -33,10 +32,6 @@ const EndedViewScreen = ({ game }: EndedViewScreenProps) => {
             : game.playerTwo.army.codex.name
       )
     )
-
-    return () => {
-      dispatch(resetTheme())
-    }
   }, [
     dispatch,
     game.playerOne.army.codex.name,
@@ -59,7 +54,7 @@ const EndedViewScreen = ({ game }: EndedViewScreenProps) => {
         <NavigationHeader variant='backButton' />
         <Scoreboard
           {...game}
-          final
+          status='ended'
         />
         <GameArmyRoster
           roster={
