@@ -1,10 +1,10 @@
 import {
+  ArmyBackground,
   ArmyRoster,
   ScreenContainer,
   ScreenTitle,
   Text,
   themeColors,
-  VersusBackground,
   VStack
 } from 'appdeptus/components'
 import { type CreateGame } from 'appdeptus/models/game'
@@ -25,13 +25,10 @@ const DoubleCheckScreen = () => {
   }
 
   return (
-    <ScreenContainer
-      className='bg-primary-950 p-4'
-      space='md'
-    >
+    <ScreenContainer className='bg-primary-950'>
       <VStack className='absolute h-full w-full'>
+        <ArmyBackground codex={codex} />
         <VStack className='flex-1'>
-          <VersusBackground codexOne={codex} />
           <LinearGradient
             colors={[
               themeColors[codex].primary[950],
@@ -40,30 +37,33 @@ const DoubleCheckScreen = () => {
             style={styles.gradient}
           />
         </VStack>
-        <VStack className='flex-1' />
       </VStack>
-
-      <ScreenTitle>{codex}</ScreenTitle>
-
-      <Text
-        family='body-regular-italic'
-        size='sm'
+      <VStack
+        className='flex-1 p-4'
+        space='md'
       >
-        Your forces are assembled and your army stands ready, warrior! Tap the
-        QR Seal of the machine God in the top right. This sacred glyph shall
-        encode your war protocols. Let your opponent scan it, and the rites of
-        battle shall commence.
-      </Text>
+        <ScreenTitle>{codex}</ScreenTitle>
 
-      <ArmyRoster
-        ListHeaderComponent={
-          <VStack space='md'>
-            <DataTable />
-            <VStack />
-          </VStack>
-        }
-        roster={roster}
-      />
+        <Text
+          family='body-regular-italic'
+          size='sm'
+        >
+          Your forces are assembled and your army stands ready, warrior! Tap the
+          QR Seal of the machine God in the top right. This sacred glyph shall
+          encode your war protocols. Let your opponent scan it, and the rites of
+          battle shall commence.
+        </Text>
+
+        <ArmyRoster
+          ListHeaderComponent={
+            <VStack space='md'>
+              <DataTable />
+              <VStack />
+            </VStack>
+          }
+          roster={roster}
+        />
+      </VStack>
     </ScreenContainer>
   )
 }

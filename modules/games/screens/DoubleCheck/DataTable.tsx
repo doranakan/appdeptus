@@ -1,4 +1,4 @@
-import { GameDataTable } from 'appdeptus/components'
+import { SingleDataTable } from 'appdeptus/components'
 import { useModelCount, useUnitCount, useWarlord } from 'appdeptus/hooks'
 import { type CreateGame } from 'appdeptus/models/game'
 import { memo } from 'react'
@@ -15,27 +15,23 @@ const DataTable = () => {
   const models = useModelCount(army.roster)
 
   return (
-    <GameDataTable
+    <SingleDataTable
       data={[
         {
           title: 'Points',
-          valueL: String(army.points),
-          valueR: ''
+          value: String(army.points)
         },
         {
           title: 'Warlord',
-          valueL: warlord?.name ?? '',
-          valueR: ''
+          value: warlord?.name ?? ''
         },
         {
           title: 'Units',
-          valueL: String(units),
-          valueR: ''
+          value: String(units)
         },
         {
           title: 'Models',
-          valueL: String(models),
-          valueR: ''
+          value: String(models)
         }
       ]}
     />

@@ -39,7 +39,7 @@ const QRCodeScreen = () => {
   const goToGame = useCallback(() => {
     router.dismissAll()
 
-    router.replace(`game/${gameId}`)
+    router.replace(`game/${gameId}/lobby`)
   }, [gameId])
 
   const refreshStatus = useCallback(async () => {
