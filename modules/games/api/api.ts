@@ -5,7 +5,10 @@ import {
   getEndedGameList,
   getGame,
   getNewGame,
+  goToLobby,
   nextTurn,
+  setFirstPlayer,
+  setReadyPlayer,
   startGame,
   updateGameArmy,
   updateScoreAndCP
@@ -23,8 +26,11 @@ const gamesApi = coreApi
       getEndedGameList: getEndedGameList(builder),
       getGame: getGame(builder),
       getNewGame: getNewGame(builder),
+      goToLobby: goToLobby(builder),
       nextTurn: nextTurn(builder),
       startGame: startGame(builder),
+      setFirstPlayer: setFirstPlayer(builder),
+      setReadyPlayer: setReadyPlayer(builder),
       updateGameArmy: updateGameArmy(builder),
       updateScoreAndCP: updateScoreAndCP(builder)
     }),

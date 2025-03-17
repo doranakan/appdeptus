@@ -1,22 +1,29 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
-import { type ActiveGame, type EndedGame } from 'appdeptus/models/game'
+import { type ActiveGame } from 'appdeptus/models/game'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
+import { round } from 'lodash'
 import { type GamesApiTags } from '../tags'
 
 type NextTurnParams = {
-  currentStatus: ActiveGame['status']
+  currentActivePlayer: 'one' | 'two'
+  currentTurn: ActiveGame['turn']
   gameId: ActiveGame['id']
 }
 
 const nextTurn = (builder: CoreEndpointBuilder<GamesApiTags>) =>
   builder.mutation<null, NextTurnParams>({
-    queryFn: async ({ currentStatus, gameId }) => {
+    queryFn: async ({ currentActivePlayer, currentTurn, gameId }) => {
       try {
         const { data, error } = await supabase
           .from(Table.GAMES)
           .update({
-            status: mapNextTurn[currentStatus]
+            active_player: currentActivePlayer === 'one' ? 'two' : 'one',
+            turn: currentTurn + 1,
+            round:
+              currentTurn % 2 === 0
+                ? currentTurn / 2 + 1
+                : round(currentTurn / 2)
           })
           .eq('id', gameId)
 
@@ -37,21 +44,5 @@ const nextTurn = (builder: CoreEndpointBuilder<GamesApiTags>) =>
       }
     ]
   })
-
-const mapNextTurn = {
-  turn1_p1: 'turn1_p2',
-  turn1_p2: 'turn2_p1',
-  turn2_p1: 'turn2_p2',
-  turn2_p2: 'turn3_p1',
-  turn3_p1: 'turn3_p2',
-  turn3_p2: 'turn4_p1',
-  turn4_p1: 'turn4_p2',
-  turn4_p2: 'turn5_p1',
-  turn5_p1: 'turn5_p2',
-  turn5_p2: 'ended'
-} as const satisfies Record<
-  ActiveGame['status'],
-  ActiveGame['status'] | EndedGame['status']
->
 
 export default nextTurn

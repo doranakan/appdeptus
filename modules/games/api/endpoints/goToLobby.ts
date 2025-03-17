@@ -6,13 +6,13 @@ import { createGameArmy } from '../schemas'
 import { type GamesApiTags } from '../tags'
 import { mapArmyToGameArmy } from '../util'
 
-type StartGameRequest = {
+type GoToLobbyRequest = {
   army: Omit<Army, 'user'>
   gameId: number
 }
 
-const startGame = (builder: CoreEndpointBuilder<GamesApiTags>) =>
-  builder.mutation<null, StartGameRequest>({
+const goToLobby = (builder: CoreEndpointBuilder<GamesApiTags>) =>
+  builder.mutation<null, GoToLobbyRequest>({
     queryFn: async ({ army, gameId }) => {
       try {
         const { id: _, isValid: _isValid, codex, ...rest } = army
@@ -43,7 +43,7 @@ const startGame = (builder: CoreEndpointBuilder<GamesApiTags>) =>
           .update({
             army_two: gameArmyId,
             player_two: userId,
-            status: 'active'
+            status: 'in_lobby'
           })
           .eq('id', gameId)
 
@@ -60,4 +60,4 @@ const startGame = (builder: CoreEndpointBuilder<GamesApiTags>) =>
       !err ? [{ type: 'game-list', id }] : []
   })
 
-export default startGame
+export default goToLobby
