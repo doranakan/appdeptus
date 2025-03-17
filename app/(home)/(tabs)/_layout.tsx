@@ -6,6 +6,7 @@ import {
   Loading,
   NavigationHeader,
   Pressable,
+  resetTheme,
   ScreenContainer,
   selectThemeName,
   themeColors,
@@ -16,18 +17,33 @@ import { useGetArmyListQuery } from 'appdeptus/modules/armies/api'
 import { useGetGameQuery } from 'appdeptus/modules/games/api'
 import { ActiveGameTopBar } from 'appdeptus/modules/games/components'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
-import { Redirect, Tabs, useLocalSearchParams } from 'expo-router'
+import { useAppDispatch } from 'appdeptus/store'
+import {
+  Redirect,
+  Tabs,
+  useFocusEffect,
+  useLocalSearchParams
+} from 'expo-router'
 import LottieView, { type AnimationObject } from 'lottie-react-native'
 import { Plus, Swords } from 'lucide-react-native'
 import {
   type ComponentProps,
   type PropsWithChildren,
+  useCallback,
   useEffect,
   useMemo,
   useRef
 } from 'react'
 import { type GestureResponderEvent, StyleSheet } from 'react-native'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import Animated, {
+  LinearTransition,
+  SlideInUp,
+  SlideOutUp,
+  useAnimatedStyle,
+  withDelay,
+  withTiming
+} from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
 
 const HomeLayout = () => {
@@ -38,6 +54,28 @@ const HomeLayout = () => {
   const { bottom } = useSafeAreaInsets()
 
   const { data: activeGame } = useGetGameQuery()
+
+  const { top } = useSafeAreaInsets()
+
+  const mainContainerStyle = useAnimatedStyle(
+    () => ({
+      flex: 1,
+      paddingTop: activeGame
+        ? withDelay(500, withTiming(0, { duration: 500 }))
+        : top
+    }),
+    [activeGame]
+  )
+
+  const dispatch = useAppDispatch()
+
+  useFocusEffect(
+    useCallback(() => {
+      if (themeName !== 'default') {
+        dispatch(resetTheme())
+      }
+    }, [dispatch, themeName])
+  )
 
   if (showOnboarding) {
     return (
@@ -56,10 +94,16 @@ const HomeLayout = () => {
       className='flex-1 bg-primary-950'
       space='md'
     >
-      <ActiveGameTopBar />
-      <SafeAreaView
-        edges={activeGame ? [] : ['top']}
-        style={styles.safeArea}
+      <Animated.View
+        layout={LinearTransition.duration(500)}
+        entering={SlideInUp.duration(500)}
+        exiting={SlideOutUp.duration(500)}
+      >
+        <ActiveGameTopBar />
+      </Animated.View>
+      <Animated.View
+        layout={LinearTransition.duration(500)}
+        style={mainContainerStyle}
       >
         <VStack
           className='flex-1'
@@ -95,7 +139,7 @@ const HomeLayout = () => {
             />
           </Tabs>
         </VStack>
-      </SafeAreaView>
+      </Animated.View>
     </VStack>
   )
 }
@@ -196,9 +240,6 @@ const GamesTabIcon = (props: Pick<TabIconProps, 'focused'>) => (
 )
 
 const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1
-  },
   lottieView: {
     height: 46,
     width: 46

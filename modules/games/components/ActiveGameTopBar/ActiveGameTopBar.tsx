@@ -8,12 +8,13 @@ import {
   VStack
 } from 'appdeptus/components'
 import { type ActiveGame } from 'appdeptus/models/game'
+import clsx from 'clsx'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Link, useFocusEffect } from 'expo-router'
 import { memo, useCallback } from 'react'
 import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useGetGameQuery } from '../../api'
+import { useGameUpdates, useGetGameQuery } from '../../api'
 
 const ActiveGameTopBar = () => {
   const { data: game, refetch } = useGetGameQuery()
@@ -38,6 +39,8 @@ type ActiveGameTopBarContentProps = {
 const ActiveGameTopBarContent = ({ gameId }: ActiveGameTopBarContentProps) => {
   const { data: game } = useGetGameQuery(gameId)
 
+  useGameUpdates(gameId)
+
   if (!game) {
     return null
   }
@@ -45,11 +48,11 @@ const ActiveGameTopBarContent = ({ gameId }: ActiveGameTopBarContentProps) => {
   return (
     <Link
       asChild
-      href={`game/${game.id}`}
+      href={`game/${game.id}${game.status === 'in_lobby' ? '/lobby' : ''}`}
     >
       <Pressable>
         <VStack
-          className='bg-primary-950 shadow-sm'
+          className='bg-primary-950 shadow-md'
           style={styles.container}
         >
           <VersusBackground
@@ -61,6 +64,7 @@ const ActiveGameTopBarContent = ({ gameId }: ActiveGameTopBarContentProps) => {
               <Scoreboard
                 playerOne={game.playerOne}
                 playerTwo={game.playerTwo}
+                status={game.status}
               />
             </VStack>
             <HStack
@@ -75,12 +79,18 @@ const ActiveGameTopBarContent = ({ gameId }: ActiveGameTopBarContentProps) => {
                 style={styles.gradient}
               />
               <Text
-                className='text-success-300'
+                className={clsx(
+                  game.status === 'in_lobby'
+                    ? 'text-warning-700'
+                    : 'text-success-300'
+                )}
                 size='2xl'
               >
                 •
               </Text>
-              <Text family='body-bold'>Locked in Battle</Text>
+              <Text family='body-bold'>
+                {game.status === 'in_lobby' ? 'Deploying' : 'Locked in Battle'}
+              </Text>
             </HStack>
           </SafeAreaView>
         </VStack>
