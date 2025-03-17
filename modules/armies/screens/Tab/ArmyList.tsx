@@ -10,6 +10,7 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
+import clsx from 'clsx'
 import { Link } from 'expo-router'
 import { Search } from 'lucide-react-native'
 import React, { memo, useMemo, useState } from 'react'
@@ -66,8 +67,10 @@ const ArmyList = () => {
           }
         />
         <FlatList
-          className='flex-1'
-          contentContainerStyle={!data?.length ? { flex: 1 } : undefined}
+          className='flex-1 overflow-x-visible'
+          contentContainerClassName={clsx(
+            !data?.length && 'flex-1 overflow-x-visible'
+          )}
           data={filteredData}
           keyExtractor={({ id }) => String(id)}
           ItemSeparatorComponent={() => <VStack className='h-4' />}
