@@ -11,6 +11,7 @@ const {
   useNextTurnMutation,
   useStartGameMutation,
   useSetFirstPlayerMutation,
+  useSetRankedGameMutation,
   useSetReadyPlayerMutation,
   useUpdateGameArmyMutation,
   useUpdateScoreAndCPMutation
@@ -26,6 +27,7 @@ export {
   useLazyGetGameQuery,
   useNextTurnMutation,
   useSetFirstPlayerMutation,
+  useSetRankedGameMutation,
   useSetReadyPlayerMutation,
   useStartGameMutation,
   useUpdateGameArmyMutation,

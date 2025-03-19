@@ -2,6 +2,7 @@ import {
   gameArmySchema,
   gameRosterSchema
 } from 'appdeptus/modules/armies/api/schemas'
+import { baseCommunitySchema } from 'appdeptus/modules/communities/api/schemas'
 import { z } from 'zod'
 
 const idSchema = z.number()
@@ -59,6 +60,7 @@ const baseGameSchema = z
     updated_at: z.string().optional(),
     round: gameRoundSchema,
     turn: gameTurnSchema,
+    community: baseCommunitySchema.optional(),
     active_player: z.union([z.literal('one'), z.literal('two')])
   })
   .transform(
@@ -142,7 +144,8 @@ const realtimeGameSchema = z
     ready_two: z.boolean(),
     active_player: z.union([z.literal('one'), z.literal('two')]),
     round: gameRoundSchema,
-    turn: gameTurnSchema
+    turn: gameTurnSchema,
+    communityId: idSchema.optional()
   })
   .transform(
     ({

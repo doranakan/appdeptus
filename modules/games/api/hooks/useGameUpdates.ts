@@ -23,6 +23,15 @@ const useGameUpdates = (gameId: ActiveGame['id']) => {
               mapNullToUndefined(newData)
             )
 
+            if (data.community?.id === parsedData.communityId) {
+              dispatch(
+                gamesApi.util.invalidateTags([
+                  { type: 'game-list', id: data.id }
+                ])
+              )
+              return data
+            }
+
             return {
               ...data,
               ...parsedData,

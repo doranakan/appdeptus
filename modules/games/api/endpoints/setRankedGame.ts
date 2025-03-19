@@ -1,21 +1,23 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
+import { type Community } from 'appdeptus/models'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { type GamesApiTags } from '../tags'
 
-type SetFirstPlayerRequest = {
-  firstPlayer: 'one' | 'two'
+type SetRankedGameRequest = {
   gameId: number
+
+  communityId?: Community['id']
 }
 
-const setFirstPlayer = (builder: CoreEndpointBuilder<GamesApiTags>) =>
-  builder.mutation<null, SetFirstPlayerRequest>({
-    queryFn: async ({ firstPlayer, gameId }) => {
+const setRankedGame = (builder: CoreEndpointBuilder<GamesApiTags>) =>
+  builder.mutation<null, SetRankedGameRequest>({
+    queryFn: async ({ gameId, communityId }) => {
       try {
         const { data, error } = await supabase
           .from(Table.GAMES)
           .update({
-            active_player: firstPlayer,
+            community: communityId ?? null,
             ready_one: false,
             ready_two: false
           })
@@ -34,4 +36,4 @@ const setFirstPlayer = (builder: CoreEndpointBuilder<GamesApiTags>) =>
       !err ? [{ type: 'game-list', id }] : []
   })
 
-export default setFirstPlayer
+export default setRankedGame

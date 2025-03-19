@@ -1,3 +1,4 @@
+import { useMount } from 'ahooks'
 import {
   Card,
   Error,
@@ -5,16 +6,20 @@ import {
   Loading,
   NavigationHeader,
   ScreenContainer,
+  selectThemeName,
+  setTheme,
   Text,
   themeColors,
   VersusBackground,
   VStack
 } from 'appdeptus/components'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
+import { useAppDispatch } from 'appdeptus/store'
 import { router, useGlobalSearchParams } from 'expo-router'
 import { Check, Clock10 } from 'lucide-react-native'
 import { useEffect } from 'react'
 import { Switch } from 'react-native-gesture-handler'
+import { useSelector } from 'react-redux'
 import {
   useGameUpdates,
   useGetGameQuery,
@@ -22,6 +27,7 @@ import {
   useSetReadyPlayerMutation
 } from '../../api'
 import DataTable from './DataTable'
+import RankedSelector from './RankedSelector'
 import Roster from './Roster'
 
 const LobbyScreen = () => {
@@ -45,6 +51,15 @@ const LobbyScreen = () => {
   useEffect(() => {
     if (game?.status === 'active') {
       router.replace(`game/${gameId}`)
+    }
+  })
+
+  const themeName = useSelector(selectThemeName)
+  const dispatch = useAppDispatch()
+
+  useMount(() => {
+    if (themeName === 'default') {
+      dispatch(setTheme(player.army.codex.name))
     }
   })
 
@@ -93,7 +108,7 @@ const LobbyScreen = () => {
         />
       </VStack>
       <VStack
-        className='flex-1 p-4'
+        className='flex-1 px-4'
         space='md'
       >
         <NavigationHeader
@@ -110,6 +125,7 @@ const LobbyScreen = () => {
             loading: isSettingReady,
             disabled: isSettingReady
           }}
+          title={player.isReady ? 'waiting for opponent' : 'setup game'}
         />
 
         <DataTable
@@ -156,6 +172,7 @@ const LobbyScreen = () => {
                 value={player.isActive}
               />
             </HStack>
+            <RankedSelector game={game} />
           </VStack>
         </Card>
 

@@ -13,6 +13,7 @@ import {
   updateGameArmy,
   updateScoreAndCP
 } from './endpoints'
+import setRankedGame from './endpoints/setRankedGame'
 import { gamesApiTags } from './tags'
 
 const gamesApi = coreApi
@@ -30,6 +31,7 @@ const gamesApi = coreApi
       nextTurn: nextTurn(builder),
       startGame: startGame(builder),
       setFirstPlayer: setFirstPlayer(builder),
+      setRankedGame: setRankedGame(builder),
       setReadyPlayer: setReadyPlayer(builder),
       updateGameArmy: updateGameArmy(builder),
       updateScoreAndCP: updateScoreAndCP(builder)
