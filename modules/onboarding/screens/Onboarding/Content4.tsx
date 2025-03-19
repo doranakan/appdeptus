@@ -1,5 +1,4 @@
-import { Text, VStack } from 'appdeptus/components'
-import GameListItem from 'appdeptus/modules/games/screens/Tab/GameListItem'
+import { GameListItem, Text, VStack } from 'appdeptus/components'
 import { memo } from 'react'
 import Animated, {
   BounceInDown,
