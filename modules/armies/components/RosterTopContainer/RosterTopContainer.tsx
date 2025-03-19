@@ -86,7 +86,7 @@ const RosterTopContainer = ({ army, isUsersArmy }: RosterTopContainerProps) => {
             >
               <HStack className='items-center justify-between bg-primary-800 p-2'>
                 <HStack
-                  className='items-center px-2'
+                  className='flex-1 items-center px-2'
                   space='md'
                 >
                   <Icon
