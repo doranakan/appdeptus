@@ -1,4 +1,3 @@
-import { type UserProfile } from 'appdeptus/models'
 import clsx from 'clsx'
 import React, { type ComponentProps, memo } from 'react'
 import { ActivityIndicator } from 'react-native'
@@ -11,24 +10,25 @@ import {
 } from '../ui'
 
 type AvatarProps = {
-  user: UserProfile | undefined
+  name: string | undefined
 
+  image?: string
   size?: ComponentProps<typeof GSAvatar>['size']
 }
 
-const Avatar = ({ size, user }: AvatarProps) => (
+const Avatar = ({ size, image, name }: AvatarProps) => (
   <VStack>
     <InnerBorder rounded='full'>
-      <GSAvatar size={size ?? 'lg'}>
-        {user ? (
+      <GSAvatar size={size}>
+        {name ? (
           <>
             <AvatarFallbackText className={clsx(size === '2xl' && 'pt-2')}>
-              {user.name}
+              {name}
             </AvatarFallbackText>
-            {user.image ? (
+            {image ? (
               <AvatarImage
                 source={{
-                  uri: user.image
+                  uri: image
                 }}
               />
             ) : null}
