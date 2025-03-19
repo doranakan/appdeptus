@@ -38,8 +38,7 @@ const InquisitorView = () => {
               href: `communities/${id}/request-list`,
               title: 'Requests',
               variant: 'internal',
-              notifications: requests?.length,
-              disabled: !requests?.length
+              notifications: requests?.length
             },
             {
               href: `communities/${id}/manage-adepts`,
