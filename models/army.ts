@@ -21,6 +21,7 @@ type BaseArmy = {
 type Army = BaseArmy & {
   roster: (Unit | Team | Embarked)[]
   user: UserProfile
+  isSecret: boolean
   isValid: boolean
 }
 

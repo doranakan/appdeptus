@@ -222,17 +222,15 @@ const armySchema = z
       id: z.string(),
       name: z.string(),
       created_at: z.string()
-    })
+    }),
+    secret: z.boolean(),
+    roster: z.array(z.union([unitSchema, teamSchema, embarkedSchema])),
+    valid: z.boolean()
   })
   .and(baseArmySchema)
-  .and(
-    z.object({
-      roster: z.array(z.union([unitSchema, teamSchema, embarkedSchema])),
-      valid: z.boolean()
-    })
-  )
-  .transform(({ user_id, valid, ...rest }) => ({
+  .transform(({ user_id, secret, valid, ...rest }) => ({
     ...rest,
+    isSecret: secret,
     isValid: valid,
     user: {
       ...user_id,

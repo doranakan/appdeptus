@@ -12,6 +12,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
+import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { useAppDispatch } from 'appdeptus/store'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useLocalSearchParams } from 'expo-router'
@@ -56,6 +57,10 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
     army.isValid ? skipToken : army
   )
 
+  const { data: user } = useGetUserProfileQuery()
+
+  const isUsersArmy = user?.id === army.user.id
+
   const dispatch = useAppDispatch()
 
   useEffect(() => {
@@ -89,7 +94,10 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
         <ArmyRoster
           ListHeaderComponent={
             <VStack space='md'>
-              <RosterTopContainer army={army} />
+              <RosterTopContainer
+                army={army}
+                isUsersArmy={isUsersArmy}
+              />
               <Text
                 className='uppercase'
                 family='body-bold'
@@ -103,7 +111,10 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
           invalidUnits={invalidUnits}
         />
       </VStack>
-      <OptionsBottomSheet army={army} />
+      <OptionsBottomSheet
+        army={army}
+        isUsersArmy={isUsersArmy}
+      />
     </ScreenContainer>
   )
 }

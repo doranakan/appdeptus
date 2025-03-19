@@ -14,17 +14,20 @@ import { useCanCreateTeams, useCanEmbarkUnits } from 'appdeptus/hooks'
 import { type Army } from 'appdeptus/models'
 import { useGetGameQuery } from 'appdeptus/modules/games/api'
 import { router } from 'expo-router'
-import { Settings, ShareIcon, Swords, Trash2 } from 'lucide-react-native'
+import { Save, Settings, ShareIcon, Swords, Trash2 } from 'lucide-react-native'
 import React, { memo, useCallback } from 'react'
 import { Platform, Share } from 'react-native'
 import { useDeleteArmyMutation } from '../../api'
+import { useSaveArmyCopy } from '../../hooks'
 import ref from './ref'
 
 type OptionsBottomSheetProps = {
   army: Army
+
+  isUsersArmy?: boolean
 }
 
-const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
+const OptionsBottomSheet = ({ army, isUsersArmy }: OptionsBottomSheetProps) => {
   const [deleteArmy, { isLoading }] = useDeleteArmyMutation()
 
   const [deletePromptVisible, { setFalse: hidePrompt, setTrue: showPrompt }] =
@@ -72,6 +75,8 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
     })
   }, [army.id])
 
+  const [saveArmy, { isLoading: isSaving }] = useSaveArmyCopy()
+
   const handleDelete = useCallback(async () => {
     const res = await deleteArmy(army.id)
 
@@ -104,35 +109,49 @@ const OptionsBottomSheet = ({ army }: OptionsBottomSheetProps) => {
         <HStack style={{ justifyContent: 'space-evenly' }}>
           {army.isValid ? (
             <>
-              {!currentGame ? (
+              {!currentGame && isUsersArmy ? (
                 <OptionButton
                   disabled={deletePromptVisible}
                   icon={Swords}
                   onPress={playWithArmy}
                   title='Play'
                 />
-              ) : null}
+              ) : (
+                <OptionButton
+                  icon={Save}
+                  disabled={deletePromptVisible || isSaving}
+                  loading={isLoading}
+                  onPress={async () => {
+                    await saveArmy(army)
+
+                    ref.current?.dismiss()
+                  }}
+                  title='Save'
+                />
+              )}
               <OptionButton
-                disabled={deletePromptVisible}
                 icon={ShareIcon}
                 onPress={shareArmy}
                 title='Share'
               />
             </>
           ) : null}
-
-          <OptionButton
-            disabled={deletePromptVisible}
-            icon={Settings}
-            onPress={editArmy}
-            title='Edit'
-          />
-          <OptionButton
-            disabled={deletePromptVisible}
-            icon={Trash2}
-            onPress={showPrompt}
-            title='Delete'
-          />
+          {isUsersArmy ? (
+            <>
+              <OptionButton
+                disabled={deletePromptVisible}
+                icon={Settings}
+                onPress={editArmy}
+                title='Edit'
+              />
+              <OptionButton
+                disabled={deletePromptVisible}
+                icon={Trash2}
+                onPress={showPrompt}
+                title='Delete'
+              />
+            </>
+          ) : null}
         </HStack>
         {deletePromptVisible ? (
           <Card>
