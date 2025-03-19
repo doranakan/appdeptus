@@ -6,10 +6,20 @@ type CoreEndpointBuilder<T extends string = never> = EndpointBuilder<
   'coreApi'
 >
 
+type NotificationsEndpointBuilder<T extends string = never> = EndpointBuilder<
+  BaseQueryFn,
+  T,
+  'notificationsApi'
+>
+
 type SessionEndpointBuilder<T extends string = never> = EndpointBuilder<
   BaseQueryFn,
   T,
   'sessionApi'
 >
 
-export type { CoreEndpointBuilder, SessionEndpointBuilder }
+export type {
+  CoreEndpointBuilder,
+  NotificationsEndpointBuilder,
+  SessionEndpointBuilder
+}

@@ -8,7 +8,9 @@ enum Table {
   GAMES = 'games',
   TIERS = 'unit_tiers',
   UNITS = 'units',
-  USERS = 'users'
+  USERS = 'users',
+  USER_NOTIFICATIONS = 'user_notifications',
+  USERS_PUSH_TOKENS = 'users_push_tokens'
 }
 
 export { Table }
