@@ -130,14 +130,16 @@ const RosterTopContainer = ({ army, isUsersArmy }: RosterTopContainerProps) => {
                 >
                   ⚠️ Inquisition Warning
                 </Text>
-                <Text
-                  className='text-justify'
-                  family='body-regular-italic'
-                  size='sm'
-                >
-                  This army has been updated. You need to apply changes and save
-                  it to use it in your games again.
-                </Text>
+                {isUsersArmy ? (
+                  <Text
+                    className='text-justify'
+                    family='body-regular-italic'
+                    size='sm'
+                  >
+                    This codex has been updated. You need to apply changes and
+                    save it to use it in your games again.
+                  </Text>
+                ) : null}
               </VStack>
             </InnerBorder>
           ) : null}
