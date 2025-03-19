@@ -1,5 +1,6 @@
 export * from './army'
 export * from './codex'
+export * from './community'
 export * from './detachment'
 export * from './emailAuthForm'
 export * from './notifications'

@@ -32,6 +32,7 @@ const {
   useGetCodexListQuery,
   useGetDetachmentListQuery,
   useGetUnitListQuery,
+  useGetUserArmyListQuery,
   useGetInvalidUnitsQuery,
   useUpdateArmyMutation,
   useUpdateArmyVisibilityMutation
@@ -46,6 +47,7 @@ export {
   useGetDetachmentListQuery,
   useGetInvalidUnitsQuery,
   useGetUnitListQuery,
+  useGetUserArmyListQuery,
   useUpdateArmyData,
   useUpdateArmyMutation,
   useUpdateArmyVisibilityMutation

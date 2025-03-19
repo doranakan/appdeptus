@@ -1,4 +1,5 @@
 import { type Army, type GameArmy } from './army'
+import { type Community } from './community'
 import { type UserProfile } from './userProfile'
 
 type BaseGame = {
@@ -7,6 +8,7 @@ type BaseGame = {
   playerOne: Player
   round: 1 | 2 | 3 | 4 | 5
   turn: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
+  community?: Omit<Community, 'members'>
 }
 
 type ActiveGame = BaseGame & {

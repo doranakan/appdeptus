@@ -8,6 +8,7 @@ import {
   getDetachmentList,
   getInvalidUnits,
   getUnitList,
+  getUserArmyList,
   updateArmy,
   updateArmyVisibility
 } from './endpoints'
@@ -27,6 +28,7 @@ const armiesApi = coreApi
       getDetachmentList: getDetachmentList(builder),
       getInvalidUnits: getInvalidUnits(builder),
       getUnitList: getUnitList(builder),
+      getUserArmyList: getUserArmyList(builder),
       updateArmy: updateArmy(builder),
       updateArmyVisibility: updateArmyVisibility(builder)
     }),
