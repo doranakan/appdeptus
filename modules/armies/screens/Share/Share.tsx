@@ -10,18 +10,17 @@ import {
   setTheme,
   Text,
   themeColors,
-  useToast,
   VStack
 } from 'appdeptus/components'
-import { type Unit } from 'appdeptus/models'
 import { useAppDispatch } from 'appdeptus/store'
 import { LinearGradient } from 'expo-linear-gradient'
 import { router, useLocalSearchParams } from 'expo-router'
 import { RotateCcw, Save } from 'lucide-react-native'
 import { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
-import { useCreateArmyMutation, useGetArmyQuery } from '../../api'
+import { useGetArmyQuery } from '../../api'
 import { RosterTopContainer } from '../../components'
+import { useSaveArmyCopy } from '../../hooks'
 
 const ShareScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -35,9 +34,7 @@ const ShareScreen = () => {
     refetch
   } = useGetArmyQuery(id)
 
-  const [saveArmy, { isLoading: isSaving }] = useCreateArmyMutation()
-
-  const { show } = useToast()
+  const [saveArmy, { isLoading: isSaving }] = useSaveArmyCopy()
 
   const dispatch = useAppDispatch()
 
@@ -101,27 +98,7 @@ const ShareScreen = () => {
           variant='closeButton'
           rightButton={{
             onPress: async () => {
-              const { roster, isValid: _isValid, ...restArmy } = army
-
-              const units = roster.filter(
-                (unit): unit is Unit =>
-                  unit.type !== 'embarked' && unit.type !== 'team'
-              )
-
-              const res = await saveArmy({ ...restArmy, units })
-
-              if ('error' in res) {
-                show({
-                  description: String(res.error),
-                  title: '⚠️ error'
-                })
-                return
-              }
-
-              show({
-                description: 'army saved correctly',
-                title: '✅ operation completed'
-              })
+              await saveArmy(army)
 
               if (router.canGoBack()) {
                 router.back()
