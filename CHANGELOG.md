@@ -7,6 +7,14 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Push notifications 📣
+- Communities tab 🗂️
+- Community creation 🆕
+- Community requests 🔔
+- Community members 👥
+- Community games 🎲
+- Community leaderboard ♟️
+
 ### Changed
 
 ### Fixed
