@@ -15,10 +15,7 @@ const NewGameBottomSheet = () => (
     ref={ref}
     onPressBackdrop={() => ref.current?.dismiss()}
   >
-    <VStack
-      className='flex-1'
-      space='md'
-    >
+    <VStack space='md'>
       <Text
         className='text-center'
         family='body-bold'
