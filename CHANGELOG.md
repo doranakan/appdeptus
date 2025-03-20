@@ -11,6 +11,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+### Deprecated
+
+### Removed
+
+## [0.3.1] - 2025-03-20
+
+### Added
+
+### Changed
+
+### Fixed
+
 - Tab screens background on Android 🤖
 - New game bottomsheet layout 🪚
 
