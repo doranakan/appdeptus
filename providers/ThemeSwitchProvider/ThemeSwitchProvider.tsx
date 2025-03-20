@@ -30,17 +30,20 @@ const ThemeSwitchProvider = ({ children }: PropsWithChildren) => {
   const [circleCoords, setCircleCoords] = useState({ x: 0, y: 0 })
   const { height } = useWindowDimensions()
   const dispatch = useAppDispatch()
-  const [, start] = useTransition()
+  const [pending, start] = useTransition()
   const radius = useSharedValue(0)
 
   const reset = useCallback(() => {
     start(() => {
       setImage(null)
     })
-    start(() => {
+  }, [])
+
+  useEffect(() => {
+    if (!pending) {
       radius.value = 0
-    })
-  }, [radius])
+    }
+  }, [pending, radius])
 
   useEffect(() => {
     if (image) {
