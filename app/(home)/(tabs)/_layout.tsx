@@ -114,6 +114,9 @@ const HomeLayout = () => {
             screenOptions={{
               ...defaultScreenOptions,
               header: (props) => <Header {...props} />,
+              sceneStyle: {
+                backgroundColor: themeColors[themeName].primary['950']
+              },
               headerShown: true,
               tabBarButton: TabBarButton,
               tabBarStyle: {
@@ -190,10 +193,7 @@ type TabBarButtonProps = PropsWithChildren<{
 }>
 
 const TabBarButton = ({ children, onPress }: TabBarButtonProps) => (
-  <Pressable
-    className=''
-    onPress={onPress}
-  >
+  <Pressable onPress={onPress}>
     <VStack className='self-center bg-primary-950 py-4'>{children}</VStack>
   </Pressable>
 )

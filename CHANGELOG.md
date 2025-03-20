@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Tab screens background on Android 🤖
+
 ### Deprecated
 
 ### Removed
