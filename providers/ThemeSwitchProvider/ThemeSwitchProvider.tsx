@@ -5,6 +5,7 @@ import {
   Image,
   makeImageFromView,
   Mask,
+  Rect,
   type SkImage
 } from '@shopify/react-native-skia'
 import {
@@ -28,7 +29,7 @@ const ThemeSwitchProvider = ({ children }: PropsWithChildren) => {
   const [image, setImage] = useState<SkImage | null>(null)
   const wrapperRef = useRef<View>(null)
   const [circleCoords, setCircleCoords] = useState({ x: 0, y: 0 })
-  const { height } = useWindowDimensions()
+  const { height, width } = useWindowDimensions()
   const dispatch = useAppDispatch()
   const [pending, start] = useTransition()
   const radius = useSharedValue(0)
@@ -76,7 +77,7 @@ const ThemeSwitchProvider = ({ children }: PropsWithChildren) => {
             mode='luminance'
             mask={
               <Group>
-                <Circle cx={circleCoords.x} cy={circleCoords.y} r={height} color="white" />
+                <Rect x={0} y={0} height={height} width={width} color="white" />
                 <Circle cx={circleCoords.x} cy={circleCoords.y} r={radius} color="black" />
               </Group>
             }
