@@ -128,7 +128,8 @@ const CommunityScreen = () => {
               <OptionButton
                 icon={Cog}
                 href={`communities/${id}/settings`}
-                title='Settings'
+                text='Settings'
+                variant='link'
               />
             ) : (
               <OptionButton
@@ -147,9 +148,10 @@ const CommunityScreen = () => {
                     description: 'The Inquisitor has been notified.'
                   })
                 }}
-                title={requested ? 'Pending' : 'Join'}
+                text={requested ? 'Pending' : 'Join'}
                 loading={isSendingRequest}
                 disabled={requested || isSendingRequest}
+                variant='callback'
               />
             )}
             <OptionButton
@@ -166,14 +168,16 @@ const CommunityScreen = () => {
                   url
                 })
               }}
-              title='Share'
+              text='Share'
+              variant='callback'
             />
             {isInquisitor ? (
               <OptionButton
                 icon={Bell}
                 href={`communities/${id}/request-list`}
-                title='Requests'
+                text='Requests'
                 notifications={notifications}
+                variant='link'
               />
             ) : null}
           </HStack>

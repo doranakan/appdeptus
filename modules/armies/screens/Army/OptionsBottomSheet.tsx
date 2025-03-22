@@ -114,7 +114,8 @@ const OptionsBottomSheet = ({ army, isUsersArmy }: OptionsBottomSheetProps) => {
                   disabled={deletePromptVisible}
                   icon={Swords}
                   onPress={playWithArmy}
-                  title='Play'
+                  text='Play'
+                  variant='callback'
                 />
               ) : (
                 <OptionButton
@@ -126,13 +127,15 @@ const OptionsBottomSheet = ({ army, isUsersArmy }: OptionsBottomSheetProps) => {
 
                     ref.current?.dismiss()
                   }}
-                  title='Save'
+                  text='Save'
+                  variant='callback'
                 />
               )}
               <OptionButton
                 icon={ShareIcon}
                 onPress={shareArmy}
-                title='Share'
+                text='Share'
+                variant='callback'
               />
             </>
           ) : null}
@@ -142,13 +145,15 @@ const OptionsBottomSheet = ({ army, isUsersArmy }: OptionsBottomSheetProps) => {
                 disabled={deletePromptVisible}
                 icon={Settings}
                 onPress={editArmy}
-                title='Edit'
+                text='Edit'
+                variant='callback'
               />
               <OptionButton
                 disabled={deletePromptVisible}
                 icon={Trash2}
                 onPress={showPrompt}
-                title='Delete'
+                text='Delete'
+                variant='callback'
               />
             </>
           ) : null}
