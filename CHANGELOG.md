@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - User profile images 📸
 - Community profile images 🖼️
 - Links to user profiles 🔗
+- Profile image selection during onboarding 🤳🏼
 
 ### Changed
 

@@ -8,10 +8,10 @@ const Text6 = () => (
         family='heading-regular'
         size='3xl'
       >
-        All set
+        Get ready
       </Text>
 
-      <Text>Choose your nickname and start.</Text>
+      <Text>Customize your profile and start.</Text>
     </VStack>
   </Animated.View>
 )
