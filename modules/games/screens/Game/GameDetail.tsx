@@ -105,10 +105,14 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
   return (
     <VStack space='md'>
       <HStack className='justify-between'>
-        <PlayerTag player={playerOne.profile} />
+        <PlayerTag
+          player={playerOne.profile}
+          linked
+        />
         <PlayerTag
           player={playerTwo.profile}
           reversed
+          linked
         />
       </HStack>
       <HStack className='justify-between'>
