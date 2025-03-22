@@ -17,7 +17,6 @@ import {
 } from 'appdeptus/components'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { useGlobalSearchParams } from 'expo-router'
-import { snakeCase } from 'lodash'
 import { useRef, useState } from 'react'
 import { useDeleteMemberMutation, useGetCommunityQuery } from '../../api'
 
@@ -99,9 +98,7 @@ const ManageAdeptsScreen = () => {
             <Text>
               Are you sure to kick{' '}
               <Text family='body-bold'>
-                {snakeCase(
-                  data?.members.find(({ id }) => selectedUser === id)?.name
-                )}
+                {data?.members.find(({ id }) => selectedUser === id)?.name}
               </Text>{' '}
               from this community?
             </Text>

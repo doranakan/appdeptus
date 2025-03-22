@@ -9,6 +9,7 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
+import { lowerCase } from 'lodash'
 import { CircleCheck, CircleX, Edit, Save } from 'lucide-react-native'
 import React, { memo, useState } from 'react'
 import { ActivityIndicator } from 'react-native'
@@ -71,7 +72,9 @@ const NameForm = ({
       <VStack space='xs'>
         <Input
           Icon={Edit}
-          onChangeText={setName}
+          onChangeText={(val) => {
+            setName(lowerCase(val.replace(' ', '')))
+          }}
           value={name}
         />
         <HStack

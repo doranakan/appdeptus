@@ -1,5 +1,4 @@
 import { formatDate } from 'date-fns'
-import { snakeCase } from 'lodash'
 import { memo } from 'react'
 import Avatar from '../Avatar'
 import Text from '../Text'
@@ -31,7 +30,7 @@ const Profile = ({ date, name, image, variant = 'user' }: ProfileProps) => (
         family='heading-regular'
         size='2xl'
       >
-        {snakeCase(name)}
+        {name}
       </Text>
       <Text
         className='text-primary-400'

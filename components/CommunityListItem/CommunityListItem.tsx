@@ -1,5 +1,4 @@
 import { type Community } from 'appdeptus/models'
-import { snakeCase } from 'lodash'
 import { memo } from 'react'
 import Avatar from '../Avatar'
 import Card from '../Card'
@@ -30,7 +29,7 @@ const CommunityListItem = ({
         family='body-bold'
         size='lg'
       >
-        {snakeCase(community.name)}
+        {community.name}
       </Text>
       {notificationCount ? (
         <HStack className='h-8 w-8 items-center justify-center rounded-full bg-tertiary-600'>

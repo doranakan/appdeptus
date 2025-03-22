@@ -1,5 +1,4 @@
 import { type UserProfile } from 'appdeptus/models'
-import { snakeCase } from 'lodash'
 import { type PropsWithChildren } from 'react'
 import Avatar from '../Avatar'
 import Card from '../Card'
@@ -28,7 +27,7 @@ const UserListItem = ({
           family='body-bold'
           size='lg'
         >
-          {`${snakeCase(user.name)}${current ? '(you)' : ''}`}
+          {`${user.name}${current ? '(you)' : ''}`}
         </Text>
         <Text
           className='text-primary-300'

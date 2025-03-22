@@ -1,4 +1,5 @@
 import { Input } from 'appdeptus/components'
+import { lowerCase } from 'lodash'
 import { User } from 'lucide-react-native'
 import { memo } from 'react'
 import Animated, { FadeIn } from 'react-native-reanimated'
@@ -13,7 +14,9 @@ const Content6 = ({ setNickname, nickname }: Content6Props) => (
     <Input
       autoFocus
       Icon={User}
-      onChangeText={setNickname}
+      onChangeText={(val) => {
+        setNickname(lowerCase(val.replace(' ', '')))
+      }}
       value={nickname}
       placeholder='enter_your_battle_name'
     />

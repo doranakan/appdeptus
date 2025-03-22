@@ -2,7 +2,6 @@ import { skipToken } from '@reduxjs/toolkit/query'
 import { Avatar, Card, HStack, Pressable, Text } from 'appdeptus/components'
 import { type Community } from 'appdeptus/models'
 import { Link } from 'expo-router'
-import { snakeCase } from 'lodash'
 import { memo } from 'react'
 import {
   useGetCommunityQuery,
@@ -43,7 +42,7 @@ const CommunityListItem = ({ community, isMember }: CommunityListItemProps) => {
               family='body-bold'
               size='lg'
             >
-              {snakeCase(community.name)}
+              {community.name}
             </Text>
             {requests?.length ? (
               <HStack className='h-8 w-8 items-center justify-center rounded-full bg-tertiary-600'>
