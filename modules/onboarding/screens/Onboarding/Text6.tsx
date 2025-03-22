@@ -1,19 +1,19 @@
 import { Text, VStack } from 'appdeptus/components'
 import Animated, { FadeIn } from 'react-native-reanimated'
 
-const Text5 = () => (
+const Text6 = () => (
   <Animated.View entering={FadeIn.delay(400)}>
     <VStack space='md'>
       <Text
         family='heading-regular'
         size='3xl'
       >
-        Communities
+        All set
       </Text>
 
-      <Text>Create or join a community, share rosters, play ranked games.</Text>
+      <Text>Choose your nickname and start.</Text>
     </VStack>
   </Animated.View>
 )
 
-export default Text5
+export default Text6
