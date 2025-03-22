@@ -13,6 +13,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Changed
 
+- Force users to add an image to new communities 🫵🏼
+
 ### Fixed
 
 ### Deprecated

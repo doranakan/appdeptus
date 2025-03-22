@@ -21,7 +21,7 @@ const CreateScreen = () => {
       title: '✅ Community created!'
     })
 
-    router.dismissTo('/communities-tab')
+    router.replace(`community/${res.data}/edit-image`)
   }
 
   return (
