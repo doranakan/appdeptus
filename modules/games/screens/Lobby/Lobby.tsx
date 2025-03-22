@@ -105,6 +105,7 @@ const LobbyScreen = () => {
         <VersusBackground
           codexOne={game.playerOne.army.codex.name}
           codexTwo={game.playerTwo.army.codex.name}
+          bottomGradient
         />
       </VStack>
       <VStack
