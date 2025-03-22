@@ -1,4 +1,28 @@
+import { type Army } from 'appdeptus/models'
+import { useAppDispatch } from 'appdeptus/store'
+import { useCallback } from 'react'
 import armiesApi from './api'
+
+const useUpdateArmyData = () => {
+  const dispatch = useAppDispatch()
+
+  return useCallback(
+    ({ id, isSecret }: Pick<Army, 'id' | 'isSecret'>) => {
+      dispatch(
+        armiesApi.util.updateQueryData(
+          'getArmy',
+          String(id),
+          (data) => ({
+            ...data,
+            isSecret
+          }),
+          true
+        )
+      )
+    },
+    [dispatch]
+  )
+}
 
 const {
   useCreateArmyMutation,
@@ -8,8 +32,10 @@ const {
   useGetCodexListQuery,
   useGetDetachmentListQuery,
   useGetUnitListQuery,
+  useGetUserArmyListQuery,
   useGetInvalidUnitsQuery,
-  useUpdateArmyMutation
+  useUpdateArmyMutation,
+  useUpdateArmyVisibilityMutation
 } = armiesApi
 
 export {
@@ -21,5 +47,8 @@ export {
   useGetDetachmentListQuery,
   useGetInvalidUnitsQuery,
   useGetUnitListQuery,
-  useUpdateArmyMutation
+  useGetUserArmyListQuery,
+  useUpdateArmyData,
+  useUpdateArmyMutation,
+  useUpdateArmyVisibilityMutation
 }

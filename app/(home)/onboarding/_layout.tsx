@@ -1,7 +1,7 @@
 import { defaultScreenOptions } from 'appdeptus/constants'
 import { Stack } from 'expo-router'
 
-const Onboardingayout = () => (
+const OnboardingLayout = () => (
   <Stack
     initialRouteName='index'
     screenOptions={{ ...defaultScreenOptions, animationTypeForReplace: 'pop' }}
@@ -10,4 +10,4 @@ const Onboardingayout = () => (
   </Stack>
 )
 
-export default Onboardingayout
+export default OnboardingLayout

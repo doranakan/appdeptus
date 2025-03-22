@@ -8,6 +8,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import { router } from 'expo-router'
+import { lowerCase } from 'lodash'
 import { Save, User } from 'lucide-react-native'
 import { useCallback } from 'react'
 import {
@@ -77,7 +78,9 @@ const Form = ({ name: initialName }: FormProps) => {
             <VStack space='md'>
               <Input
                 Icon={User}
-                onChangeText={field.onChange}
+                onChangeText={(val) => {
+                  field.onChange(lowerCase(val.replace(' ', '')))
+                }}
                 placeholder='The name displayed on your dog tag'
                 {...field}
                 onSubmitEditing={form.handleSubmit(handleUpdateUserName)}

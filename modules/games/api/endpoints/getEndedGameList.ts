@@ -37,6 +37,9 @@ const getEndedGameList = (builder: CoreEndpointBuilder<GamesApiTags>) =>
               codex!inner(
                 *
               )
+            ),
+            community (
+              *
             )
             `
           )

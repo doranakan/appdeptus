@@ -8,10 +8,10 @@ const Text5 = () => (
         family='heading-regular'
         size='3xl'
       >
-        All set
+        Communities
       </Text>
 
-      <Text>Choose your nickname and start.</Text>
+      <Text>Create or join a community, share rosters, play ranked games.</Text>
     </VStack>
   </Animated.View>
 )

@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import GameDataTable from './DoubleDataTable'
+import DoubleDataTable from './DoubleDataTable'
 
-const GameDataTableMeta: Meta<typeof GameDataTable> = {
-  title: 'GameDataTable',
-  component: GameDataTable,
+const DoubleDataTableMeta: Meta<typeof DoubleDataTable> = {
+  title: 'DoubleDataTable',
+  component: DoubleDataTable,
   args: {
     data: [
       {
@@ -20,8 +20,8 @@ const GameDataTableMeta: Meta<typeof GameDataTable> = {
   }
 }
 
-export default GameDataTableMeta
+export default DoubleDataTableMeta
 
-type Story = StoryObj<typeof GameDataTable>
+type Story = StoryObj<typeof DoubleDataTable>
 
 export const Default: Story = {}

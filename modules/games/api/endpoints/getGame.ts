@@ -17,11 +17,7 @@ const getGame = (builder: CoreEndpointBuilder<GamesApiTags>) =>
           return { error: JSON.stringify(error) }
         }
 
-        if (!data?.length) {
-          return { data: null }
-        }
-
-        if (!data[0]) {
+        if (!data?.[0]) {
           return { data: null }
         }
 
@@ -46,26 +42,29 @@ const getGameWithId = async (gameId: ActiveGame['id']) =>
     .from(Table.GAMES)
     .select(
       `
+          *,
+          player_one (
+            *
+          ),
+          army_one (
             *,
-            player_one (
+            codex!inner(
               *
-            ),
-            army_one (
-              *,
-              codex!inner(
-                *
-              )
-            ),
-            player_two (
-              *
-            ),
-            army_two (
-              *,
-              codex!inner(
-                *
-              )
             )
-            `
+          ),
+          player_two (
+            *
+          ),
+          army_two (
+            *,
+            codex!inner(
+              *
+            )
+          ),
+          community (
+            *
+          )
+      `
     )
     .eq('id', gameId)
 
@@ -80,26 +79,29 @@ const getGameWithouId = async () => {
     .from(Table.GAMES)
     .select(
       `
+          *,
+          player_one (
+            *
+          ),
+          army_one (
             *,
-            player_one (
+            codex!inner(
               *
-            ),
-            army_one (
-              *,
-              codex!inner(
-                *
-              )
-            ),
-            player_two (
-              *
-            ),
-            army_two (
-              *,
-              codex!inner(
-                *
-              )
             )
-            `
+          ),
+          player_two (
+            *
+          ),
+          army_two (
+            *,
+            codex!inner(
+              *
+            )
+          ),
+          community (
+            *
+          )
+      `
     )
     .or(`player_one.eq.${userId},player_two.eq.${userId}`)
     .not('status', 'eq', 'new')

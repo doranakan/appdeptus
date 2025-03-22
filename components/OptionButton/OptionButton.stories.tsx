@@ -11,7 +11,8 @@ const OptionButtonMeta: Meta<typeof OptionButton> = {
     icon: Skull,
     loading: false,
     onPress: noop,
-    title: 'Option button'
+    text: 'Option button',
+    variant: 'callback'
   }
 }
 

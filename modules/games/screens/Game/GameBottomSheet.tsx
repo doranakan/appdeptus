@@ -64,7 +64,8 @@ const GameBottomSheet = ({ game }: GameBottomSheetProps) => {
             loading={isGameEnding}
             icon={Handshake}
             onPress={showPrompt}
-            title='End game'
+            text='End game'
+            variant='callback'
           />
           <OptionButton
             disabled={
@@ -76,7 +77,8 @@ const GameBottomSheet = ({ game }: GameBottomSheetProps) => {
             loading={isMovingToNextTurn}
             icon={ArrowRightFromLine}
             onPress={advanceTurn}
-            title='Next turn'
+            text='Next turn'
+            variant='callback'
           />
         </HStack>
         {endGamePromptVisible ? (

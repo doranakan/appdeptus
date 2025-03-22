@@ -15,7 +15,9 @@ const setFirstPlayer = (builder: CoreEndpointBuilder<GamesApiTags>) =>
         const { data, error } = await supabase
           .from(Table.GAMES)
           .update({
-            active_player: firstPlayer
+            active_player: firstPlayer,
+            ready_one: false,
+            ready_two: false
           })
           .eq('id', gameId)
 

@@ -71,7 +71,7 @@ const TabMenu = <T extends Readonly<string>>({
       >
         {options.map((opt, idx) => (
           <TabMenuItem
-            key={opt}
+            key={`${opt}-${idx}`}
             onPress={() => {
               setSelectedIndex(idx)
             }}

@@ -1,10 +1,12 @@
 import { type BottomTabHeaderProps } from '@react-navigation/bottom-tabs'
+import book from 'appdeptus/assets/lotties/book.json'
+import team from 'appdeptus/assets/lotties/competitiveness.json'
 import dice from 'appdeptus/assets/lotties/dice.json'
-import plan from 'appdeptus/assets/lotties/plan.json'
 import {
   type Button,
   Loading,
   NavigationHeader,
+  NotificationBadge,
   Pressable,
   resetTheme,
   ScreenContainer,
@@ -13,10 +15,13 @@ import {
   VStack
 } from 'appdeptus/components'
 import { defaultScreenOptions } from 'appdeptus/constants'
+import { type Notifications } from 'appdeptus/models'
 import { useGetArmyListQuery } from 'appdeptus/modules/armies/api'
 import { useGetGameQuery } from 'appdeptus/modules/games/api'
 import { ActiveGameTopBar } from 'appdeptus/modules/games/components'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
+import { useNotifications } from 'appdeptus/notifications'
+import { useNotificationsQueryState } from 'appdeptus/notifications/api'
 import { useAppDispatch } from 'appdeptus/store'
 import {
   Redirect,
@@ -46,7 +51,9 @@ import Animated, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
 
-const HomeLayout = () => {
+const TabsLayout = () => {
+  useNotifications()
+
   const { showOnboarding } = useLocalSearchParams<{ showOnboarding: string }>()
 
   const themeName = useSelector(selectThemeName)
@@ -140,6 +147,13 @@ const HomeLayout = () => {
                 tabBarIcon: GamesTabIcon
               }}
             />
+            <Tabs.Screen
+              name='communities-tab'
+              options={{
+                tabBarLabel: '',
+                tabBarIcon: CommunitiesTabIcon
+              }}
+            />
           </Tabs>
         </VStack>
       </Animated.View>
@@ -167,6 +181,12 @@ const Header = ({ route }: BottomTabHeaderProps) => {
           disabled: !armies?.length || !!activeGame,
           href: 'new-game',
           icon: Swords,
+          variant: 'link'
+        }
+      case 'communities-tab':
+        return {
+          href: 'community/create',
+          icon: Plus,
           variant: 'link'
         }
 
@@ -200,10 +220,20 @@ const TabBarButton = ({ children, onPress }: TabBarButtonProps) => (
 
 type TabIconProps = {
   focused: boolean
-  routeName: string
+  routeName: 'index' | 'communities-tab' | 'games-tab'
 }
 
+const tabNameToNotification = {
+  'communities-tab': 'communities',
+  'games-tab': 'games',
+  index: 'armies'
+} satisfies Record<TabIconProps['routeName'], keyof Notifications>
+
 const TabIcon = ({ focused, routeName }: TabIconProps) => {
+  const { data: notifications } = useNotificationsQueryState()
+
+  const notificationCount = notifications?.[tabNameToNotification[routeName]]
+
   const animation = useRef<LottieView>(null)
 
   const config = tabNameToIconMap[routeName]
@@ -215,14 +245,21 @@ const TabIcon = ({ focused, routeName }: TabIconProps) => {
   })
 
   return (
-    <LottieView
-      loop={false}
-      ref={animation}
-      style={styles.lottieView}
-      source={config?.source}
-      colorFilters={!focused ? config?.colorFilters : undefined}
-      speed={2}
-    />
+    <VStack>
+      <LottieView
+        loop={false}
+        ref={animation}
+        style={styles.lottieView}
+        source={config?.source}
+        colorFilters={!focused ? config?.colorFilters : undefined}
+        speed={2}
+      />
+      {notificationCount ? (
+        <VStack className='absolute right-0 top-0'>
+          <NotificationBadge count={notificationCount} />
+        </VStack>
+      ) : null}
+    </VStack>
   )
 }
 
@@ -236,6 +273,12 @@ const GamesTabIcon = (props: Pick<TabIconProps, 'focused'>) => (
   <TabIcon
     {...props}
     routeName='games-tab'
+  />
+)
+const CommunitiesTabIcon = (props: Pick<TabIconProps, 'focused'>) => (
+  <TabIcon
+    {...props}
+    routeName='communities-tab'
   />
 )
 
@@ -254,23 +297,19 @@ const tabNameToIconMap: Record<
   }
 > = {
   index: {
-    source: plan,
+    source: book,
     colorFilters: [
       {
         color: themeColors.default.primary[300],
-        keypath: 'Sheet 5'
+        keypath: 'cart-outline-top_s1g1_s2g1_s3g1_s4g1_background Outlines'
       },
       {
         color: themeColors.default.primary[300],
-        keypath: 'Sheet 4'
+        keypath: 'cart-outline-top_s1g1_s2g2_s3g1_s4g1_background Outlines'
       },
       {
         color: themeColors.default.primary[300],
-        keypath: 'Sheet 3'
-      },
-      {
-        color: themeColors.default.primary[300],
-        keypath: 'Fix'
+        keypath: 'cart-outline-top_s1g1_s2g2_s3g1_s4g1 Outlines'
       }
     ]
   },
@@ -294,7 +333,24 @@ const tabNameToIconMap: Record<
         keypath: 'line 2'
       }
     ]
+  },
+  'communities-tab': {
+    source: team,
+    colorFilters: [
+      {
+        color: themeColors.default.primary[300],
+        keypath: 'Competitivenes-outline-top_s1g1_s2g2_s3g1_s4g1_background'
+      },
+      {
+        color: themeColors.default.primary[300],
+        keypath: 'Competitivenes-outline-top_s1g1_s2g2_s3g1_s4g2'
+      },
+      {
+        color: themeColors.default.primary[300],
+        keypath: 'Competitivenes-outline-bot_s1g1_s2g1_s3g1_s4g1_background'
+      }
+    ]
   }
 }
 
-export default HomeLayout
+export default TabsLayout

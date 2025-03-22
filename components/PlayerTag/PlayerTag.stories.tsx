@@ -9,7 +9,9 @@ const PlayerTagMeta: Meta<typeof PlayerTag> = {
       createdAt: '',
       id: '',
       name: 'doranakan'
-    }
+    },
+    reversed: false,
+    showHash: false
   }
 }
 

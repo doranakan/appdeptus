@@ -11,12 +11,14 @@ const CardMenuMeta: Meta<typeof CardMenu> = {
       {
         href: '',
         title: 'Navigation link',
-        variant: 'internal'
+        variant: 'internal',
+        notifications: 0
       },
       {
         href: 'https://appdeptus.com',
         title: 'External link',
-        variant: 'external'
+        variant: 'external',
+        notifications: 0
       }
     ]
   }

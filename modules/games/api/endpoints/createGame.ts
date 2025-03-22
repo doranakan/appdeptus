@@ -8,7 +8,14 @@ import { mapArmyToGameArmy } from '../util'
 
 const createGame = (builder: CoreEndpointBuilder<GamesApiTags>) =>
   builder.mutation<Army['id'], Omit<Army, 'user'>>({
-    queryFn: async ({ id: _id, isValid: _isValid, codex, roster, ...rest }) => {
+    queryFn: async ({
+      id: _id,
+      isValid: _isValid,
+      isSecret: _isSecret,
+      codex,
+      roster,
+      ...rest
+    }) => {
       const gameArmyRoster = mapArmyToGameArmy(roster)
 
       try {

@@ -10,10 +10,15 @@ import { HStack, VStack, themeColors } from '../ui'
 type VersusBackgroundProps = {
   codexOne: CodexName
 
+  bottomGradient?: boolean
   codexTwo?: CodexName
 }
 
-const VersusBackground = ({ codexOne, codexTwo }: VersusBackgroundProps) => {
+const VersusBackground = ({
+  codexOne,
+  codexTwo,
+  bottomGradient
+}: VersusBackgroundProps) => {
   const themeName = useSelector(selectThemeName)
   return (
     <HStack className='absolute h-full w-full'>
@@ -41,13 +46,15 @@ const VersusBackground = ({ codexOne, codexTwo }: VersusBackgroundProps) => {
           style={styles.gradient}
         />
       </VStack>
-      <LinearGradient
-        colors={[
-          `${themeColors[themeName].primary[950]}00`,
-          themeColors[themeName].primary[950]
-        ]}
-        style={styles.bottomGradient}
-      />
+      {bottomGradient ? (
+        <LinearGradient
+          colors={[
+            `${themeColors[themeName].primary[950]}00`,
+            themeColors[themeName].primary[950]
+          ]}
+          style={styles.bottomGradient}
+        />
+      ) : null}
     </HStack>
   )
 }

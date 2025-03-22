@@ -33,7 +33,8 @@ export const RightButton: Story = {
       disabled: true,
       onPress: () => {},
       icon: Check,
-      variant: 'callback'
+      variant: 'callback',
+      notifications: 0
     }
   }
 }
@@ -45,5 +46,11 @@ export const Progress: Story = {
       steps: 3,
       text: 'progress'
     }
+  }
+}
+export const Title: Story = {
+  args: {
+    ...RightButton.args,
+    title: 'Header Title'
   }
 }

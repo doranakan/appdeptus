@@ -3,6 +3,7 @@ import {
   EmptyListItem,
   Error,
   FilterTopBar,
+  GameListItem,
   Loading,
   Pressable,
   themeColors,
@@ -12,7 +13,6 @@ import { Link } from 'expo-router'
 import { useMemo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import { useGetEndedGameListQuery } from '../../api'
-import GameListItem from './GameListItem'
 
 const GameList = () => {
   const { data, isLoading, isError, isFetching, refetch } =

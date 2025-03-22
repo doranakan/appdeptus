@@ -4,6 +4,11 @@ export {
   reducerPath as coreApiReducerPath
 } from './core'
 export {
+  default as notificationsApi,
+  reducer as notificationsApiReducer,
+  reducerPath as notificationsApiReducerPath
+} from './notifications'
+export {
   default as sessionApi,
   reducer as sessionApiReducer,
   reducerPath as sessionApiReducerPath

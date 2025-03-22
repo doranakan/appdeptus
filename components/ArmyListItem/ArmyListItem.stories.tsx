@@ -32,3 +32,14 @@ export const Selected: Story = {
     variant: 'selected'
   }
 }
+export const Shared: Story = {
+  args: {
+    shareBy: {
+      createdAt: '',
+      id: '',
+      name: 'the warmaster',
+      image:
+        'https://cdnb.artstation.com/p/assets/images/images/025/662/505/large/johannes-helgeson-horusver02-06.jpg?1586525189'
+    }
+  }
+}

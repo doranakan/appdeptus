@@ -31,7 +31,8 @@ const NewGameBottomSheet = () => (
             router.push('new-game/qr-code')
           }}
           icon={QrCode}
-          title='QR-Code'
+          text='QR-Code'
+          variant='callback'
         />
         <OptionButton
           onPress={() => {
@@ -39,7 +40,8 @@ const NewGameBottomSheet = () => (
             router.push('new-game/camera')
           }}
           icon={Scan}
-          title='Scanner'
+          text='Scanner'
+          variant='callback'
         />
       </HStack>
     </VStack>

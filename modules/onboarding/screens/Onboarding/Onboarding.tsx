@@ -24,17 +24,19 @@ import Content2 from './Content2'
 import Content3 from './Content3'
 import Content4 from './Content4'
 import Content5 from './Content5'
+import Content6 from './Content6'
 import Text0 from './Text0'
 import Text1 from './Text1'
 import Text2 from './Text2'
 import Text3 from './Text3'
 import Text4 from './Text4'
 import Text5 from './Text5'
+import Text6 from './Text6'
 
 const OnboardingScreen = () => {
   const [step, { dec, inc }] = useCounter(0, {
     min: 0,
-    max: 5
+    max: 6
   })
 
   const [nickname, setNickname] = useState('')
@@ -55,6 +57,8 @@ const OnboardingScreen = () => {
         return <Text4 />
       case 5:
         return <Text5 />
+      case 6:
+        return <Text6 />
       default:
         return <Text0 />
     }
@@ -71,8 +75,10 @@ const OnboardingScreen = () => {
       case 4:
         return <Content4 />
       case 5:
+        return <Content5 />
+      case 6:
         return (
-          <Content5
+          <Content6
             nickname={nickname}
             setNickname={setNickname}
           />
@@ -90,9 +96,9 @@ const OnboardingScreen = () => {
     >
       <HStack
         className='justify-between'
-        reversed={step < 2 || step > 4}
+        reversed={step < 2 || step > 5}
       >
-        {step > 1 && step < 5 ? (
+        {step > 1 && step < 6 ? (
           <Animated.View
             entering={FadeIn}
             exiting={FadeOut}
@@ -109,11 +115,11 @@ const OnboardingScreen = () => {
         ) : null}
         <Animated.View entering={FadeIn.duration(1000).delay(2000)}>
           <Button
-            disabled={(step === 5 && !nickname.trim().length) || isLoading}
+            disabled={(step === 6 && !nickname.trim().length) || isLoading}
             loading={isLoading}
             variant='callback'
             onPress={async () => {
-              if (step === 5) {
+              if (step === 6) {
                 const res = await saveNickname(nickname)
 
                 if ('error' in res) {
@@ -125,13 +131,13 @@ const OnboardingScreen = () => {
               }
               inc(1)
             }}
-            icon={step === 5 ? Save : step === 4 ? Check : ChevronRight}
+            icon={step === 6 ? Save : step === 5 ? Check : ChevronRight}
           />
         </Animated.View>
       </HStack>
       <VStack className='py-8'>{Text}</VStack>
 
-      {step > 0 && step < 5 ? (
+      {step > 0 && step < 6 ? (
         <Animated.View
           layout={LinearTransition}
           className='flex-1 rounded-3xl bg-secondary-950 p-4 shadow-md'

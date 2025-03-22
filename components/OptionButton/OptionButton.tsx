@@ -1,30 +1,31 @@
-import { type LucideIcon } from 'lucide-react-native'
+import { type ComponentProps } from 'react'
 import Button from '../Button'
+import NotificationBadge from '../NotificationBadge'
 import Text from '../Text'
 import { VStack } from '../ui'
 
 type OptionButtonProps = {
-  icon: LucideIcon
-  onPress: () => void
-  title: string
+  text: string
 
-  disabled?: boolean
-  loading?: boolean
-}
+  notifications?: number
+} & ComponentProps<typeof Button>
 
-const OptionButton = ({ icon, onPress, title, ...rest }: OptionButtonProps) => (
+const OptionButton = ({ text, notifications, ...props }: OptionButtonProps) => (
   <VStack
     className='items-center'
     space='xs'
   >
     <Button
-      {...rest}
-      onPress={onPress}
-      variant='callback'
-      icon={icon}
+      text=''
       color='secondary'
+      {...props}
     />
-    <Text>{title}</Text>
+    <Text>{text}</Text>
+    {notifications ? (
+      <VStack className='absolute right-0 top-0'>
+        <NotificationBadge count={notifications} />
+      </VStack>
+    ) : null}
   </VStack>
 )
 
