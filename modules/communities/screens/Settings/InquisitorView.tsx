@@ -35,18 +35,18 @@ const InquisitorView = () => {
           }
           items={[
             {
-              href: `communities/${id}/request-list`,
+              href: `community/${id}/request-list`,
               title: 'Requests',
               variant: 'internal',
               notifications: requests?.length
             },
             {
-              href: `communities/${id}/manage-adepts`,
+              href: `community/${id}/manage-adepts`,
               title: 'Manage Adepts',
               variant: 'internal'
             },
             {
-              href: `communities/${id}/edit-name`,
+              href: `community/${id}/edit-name`,
               title: 'Edit name',
               variant: 'internal'
             }
@@ -63,12 +63,12 @@ const InquisitorView = () => {
           }
           items={[
             {
-              href: `communities/${id}/privacy`,
+              href: `community/${id}/privacy`,
               title: 'Privacy',
               variant: 'internal'
             },
             {
-              href: `communities/${id}/delete`,
+              href: `community/${id}/delete`,
               title: 'Delete community',
               variant: 'internal'
             }

@@ -127,7 +127,7 @@ const CommunityScreen = () => {
             {isMember ? (
               <OptionButton
                 icon={Cog}
-                href={`communities/${id}/settings`}
+                href={`community/${id}/settings`}
                 text='Settings'
                 variant='link'
               />
@@ -174,7 +174,7 @@ const CommunityScreen = () => {
             {isInquisitor ? (
               <OptionButton
                 icon={Bell}
-                href={`communities/${id}/request-list`}
+                href={`community/${id}/request-list`}
                 text='Requests'
                 notifications={notifications}
                 variant='link'
@@ -194,22 +194,22 @@ const CommunityScreen = () => {
               }
               items={[
                 {
-                  href: `communities/${data.id}/members`,
+                  href: `community/${data.id}/members`,
                   title: 'Members',
                   variant: 'internal'
                 },
                 {
-                  href: `communities/${data.id}/armies`,
+                  href: `community/${data.id}/armies`,
                   title: 'Armies',
                   variant: 'internal'
                 },
                 {
-                  href: `communities/${data.id}/games`,
+                  href: `community/${data.id}/games`,
                   title: 'Games',
                   variant: 'internal'
                 },
                 {
-                  href: `communities/${data.id}/leaderboard`,
+                  href: `community/${data.id}/leaderboard`,
                   title: 'Leaderboard',
                   variant: 'internal'
                 }

@@ -18,7 +18,7 @@ const AdeptView = () => {
         }
         items={[
           {
-            href: `communities/${id}/leave`,
+            href: `community/${id}/leave`,
             title: 'Leave community',
             variant: 'internal'
           }

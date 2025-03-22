@@ -185,7 +185,7 @@ const Header = ({ route }: BottomTabHeaderProps) => {
         }
       case 'communities-tab':
         return {
-          href: 'communities/create',
+          href: 'community/create',
           icon: Plus,
           variant: 'link'
         }

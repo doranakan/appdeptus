@@ -28,7 +28,7 @@ const CommunityListItem = ({ community, isMember }: CommunityListItemProps) => {
   return (
     <Link
       asChild
-      href={`communities/${community.id}`}
+      href={`community/${community.id}`}
     >
       <Pressable>
         <Card>
