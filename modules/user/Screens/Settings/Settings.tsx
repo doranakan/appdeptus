@@ -49,6 +49,11 @@ const SettingsScreen = () => {
             href: 'user/settings/edit-name',
             title: 'Change nickname',
             variant: 'internal'
+          },
+          {
+            href: 'user/settings/edit-image',
+            title: 'Change image',
+            variant: 'internal'
           }
         ]}
       />

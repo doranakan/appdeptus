@@ -20,9 +20,7 @@ const getCommunity = (builder: CoreEndpointBuilder<CommunitiesApiTags>) =>
                 members: communities_users (
                   *,
                   user (
-                    id,
-                    name,
-                    created_at
+                    *
                   )
                 )
             `

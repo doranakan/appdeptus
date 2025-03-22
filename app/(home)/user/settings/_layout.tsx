@@ -7,8 +7,9 @@ const UserSettingsLayout = () => (
     screenOptions={defaultScreenOptions}
   >
     <Stack.Screen name='index' />
-    <Stack.Screen name='edit-name' />
     <Stack.Screen name='delete' />
+    <Stack.Screen name='edit-image' />
+    <Stack.Screen name='edit-name' />
   </Stack>
 )
 

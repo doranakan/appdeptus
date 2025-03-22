@@ -1,5 +1,13 @@
 import userApi from './api'
 
-const { useGetUserProfileQuery, useUpdateUserNameMutation } = userApi
+const {
+  useGetUserProfileQuery,
+  useUpdateUserImageMutation,
+  useUpdateUserNameMutation
+} = userApi
 
-export { useGetUserProfileQuery, useUpdateUserNameMutation }
+export {
+  useGetUserProfileQuery,
+  useUpdateUserImageMutation,
+  useUpdateUserNameMutation
+}

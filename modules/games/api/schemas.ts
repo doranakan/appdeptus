@@ -18,7 +18,8 @@ const playerSchema = z
   .object({
     created_at: z.string(),
     id: z.string(),
-    name: z.string()
+    name: z.string(),
+    image: z.string().optional()
   })
   .transform(({ created_at, ...rest }) => ({ ...rest, createdAt: created_at }))
 

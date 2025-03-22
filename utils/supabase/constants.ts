@@ -16,4 +16,8 @@ enum Table {
   USERS_PUSH_TOKENS = 'users_push_tokens'
 }
 
-export { Table }
+enum Bucket {
+  PROFILE_IMAGES = 'profile_images'
+}
+
+export { Bucket, Table }

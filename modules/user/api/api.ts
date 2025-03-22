@@ -1,5 +1,5 @@
 import { coreApi } from 'appdeptus/api'
-import { getUserProfile, updateUserName } from './endpoints'
+import { getUserProfile, updateUserImage, updateUserName } from './endpoints'
 import { userApiTags } from './tags'
 
 const userApi = coreApi
@@ -7,6 +7,7 @@ const userApi = coreApi
   .injectEndpoints({
     endpoints: (builder) => ({
       getUserProfile: getUserProfile(builder),
+      updateUserImage: updateUserImage(builder),
       updateUserName: updateUserName(builder)
     }),
     overrideExisting: true

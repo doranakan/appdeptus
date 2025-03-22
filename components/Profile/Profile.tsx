@@ -1,8 +1,9 @@
 import { formatDate } from 'date-fns'
+import { Link } from 'expo-router'
 import { memo } from 'react'
 import Avatar from '../Avatar'
 import Text from '../Text'
-import { VStack } from '../ui'
+import { Pressable, VStack } from '../ui'
 
 type ProfileProps = {
   date: string
@@ -10,28 +11,51 @@ type ProfileProps = {
 
   image?: string
   variant?: 'community' | 'user'
+  imageLink?: string
+  nameLink?: string
 }
 
-const Profile = ({ date, name, image, variant = 'user' }: ProfileProps) => (
+const Profile = ({
+  date,
+  name,
+  image,
+  variant = 'user',
+  imageLink,
+  nameLink
+}: ProfileProps) => (
   <VStack
     className='items-center justify-center'
     space='md'
   >
-    <Avatar
-      name={name}
-      image={image}
-      size='2xl'
-    />
+    <Link
+      asChild
+      href={imageLink ?? ''}
+    >
+      <Pressable disabled={!imageLink}>
+        <Avatar
+          name={name}
+          image={image}
+          size='2xl'
+        />
+      </Pressable>
+    </Link>
     <VStack
       className='items-center justify-center'
       space='xs'
     >
-      <Text
-        family='heading-regular'
-        size='2xl'
+      <Link
+        asChild
+        href={nameLink ?? ''}
       >
-        {name}
-      </Text>
+        <Pressable disabled={!nameLink}>
+          <Text
+            family='heading-regular'
+            size='2xl'
+          >
+            {name}
+          </Text>
+        </Pressable>
+      </Link>
       <Text
         className='text-primary-400'
         family='body-bold'

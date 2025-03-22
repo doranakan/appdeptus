@@ -73,6 +73,12 @@
           "sounds": ["./assets/sounds/notification.wav"],
           "enableBackgroundRemoteNotifications": false
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Appdeptus wants to access your gallery to allow you set up your profile image."
+        }
       ]
     ],
     "experiments": {

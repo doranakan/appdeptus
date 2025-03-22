@@ -21,7 +21,10 @@ const UserListItem = ({
       className='items-center p-4'
       space='md'
     >
-      <Avatar {...user} />
+      <Avatar
+        {...user}
+        image={user.image}
+      />
       <VStack className='flex-1'>
         <Text
           family='body-bold'

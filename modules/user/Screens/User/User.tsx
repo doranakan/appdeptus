@@ -74,6 +74,8 @@ const UserScreen = () => {
       <Profile
         date={data.createdAt}
         {...data}
+        imageLink='user/settings/edit-image'
+        nameLink='user/settings/edit-name'
       />
 
       <VStack
