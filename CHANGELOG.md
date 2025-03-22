@@ -7,6 +7,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Deprecated
+
+### Removed
+
+## [0.4.0] - 2025-03-22
+
+### Added
+
 - Push notifications 📣
 - Communities tab 🗂️
 - Community creation 🆕
