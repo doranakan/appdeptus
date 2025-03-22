@@ -63,7 +63,7 @@ const OptionsBottomSheet = ({ army, isUsersArmy }: OptionsBottomSheetProps) => {
   const shareArmy = useCallback(() => {
     ref.current?.dismiss()
 
-    const url = `https://open.appdeptus.com/share.html?id=${army.id}`
+    const url = `https://open.appdeptus.com/share-army-roster.html?id=${army.id}`
 
     Share.share({
       title: 'Share your army roster',

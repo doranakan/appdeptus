@@ -159,11 +159,13 @@ const CommunityScreen = () => {
               onPress={() => {
                 const url = `https://open.appdeptus.com/share-community.html?id=${id}`
 
+                const message = `Join ${data.name} on Appdeptus! Connect with other adepts, share your armies and start playing ranked games!`
+
                 Share.share({
                   title: `Share ${data.name}`,
                   message: Platform.select({
-                    android: `Join ${data.name} on Appdeptus! Connect with other adepts, share your army, and start playing ranked games!\n${url}`,
-                    ios: `Join ${data.name} on Appdeptus! Connect with other adepts, share your army, and start playing ranked games!`
+                    android: `${message}\n${url}`,
+                    ios: message
                   }),
                   url
                 })
