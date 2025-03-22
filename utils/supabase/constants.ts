@@ -17,6 +17,7 @@ enum Table {
 }
 
 enum Bucket {
+  COMMUNITY_IMAGES = 'community_images',
   PROFILE_IMAGES = 'profile_images'
 }
 

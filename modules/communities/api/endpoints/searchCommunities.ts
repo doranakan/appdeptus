@@ -1,6 +1,6 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type Community } from 'appdeptus/models'
-import { supabase } from 'appdeptus/utils'
+import { mapNullToUndefined, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { searchCommunitySchema } from '../schemas'
 import { type CommunitiesApiTags } from '../tags'
@@ -18,7 +18,9 @@ const searchCommunities = (builder: CoreEndpointBuilder<CommunitiesApiTags>) =>
           return { error: JSON.stringify(error) }
         }
 
-        const communities = await searchCommunitySchema.parseAsync(data)
+        const communities = await searchCommunitySchema.parseAsync(
+          mapNullToUndefined(data)
+        )
 
         return { data: communities }
       } catch (error) {

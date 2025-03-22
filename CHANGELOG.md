@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Added
 
 - User profile images 📸
+- Community profile images 🖼️
 
 ### Changed
 

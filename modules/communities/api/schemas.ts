@@ -14,7 +14,8 @@ const baseCommunitySchema = z
     id: z.number(),
     name: z.string(),
     created_at: z.string(),
-    secret: z.boolean()
+    secret: z.boolean(),
+    image: z.string().optional()
   })
   .transform(({ created_at, secret, ...community }) => ({
     ...community,

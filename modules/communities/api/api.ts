@@ -12,6 +12,7 @@ import {
   searchCommunities,
   searchCommunity,
   sendCommunityRequest,
+  updateCommunityImage,
   updateCommunityName,
   updateCommunityRequest,
   updateCommunityVisibility
@@ -36,6 +37,7 @@ const communitiesApi = coreApi
       searchCommunities: searchCommunities(builder),
       searchCommunity: searchCommunity(builder),
       sendCommunityRequest: sendCommunityRequest(builder),
+      updateCommunityImage: updateCommunityImage(builder),
       updateCommunityName: updateCommunityName(builder),
       updateCommunityRequest: updateCommunityRequest(builder),
       updateCommunityVisibility: updateCommunityVisibility(builder)

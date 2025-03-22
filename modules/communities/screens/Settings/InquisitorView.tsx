@@ -49,6 +49,11 @@ const InquisitorView = () => {
               href: `community/${id}/edit-name`,
               title: 'Edit name',
               variant: 'internal'
+            },
+            {
+              href: `community/${id}/edit-image`,
+              title: 'Edit image',
+              variant: 'internal'
             }
           ]}
         />

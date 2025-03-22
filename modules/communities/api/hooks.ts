@@ -13,6 +13,7 @@ const {
   useLazySearchCommunityQuery,
   useGetCommunityQuery,
   useSendCommunityRequestMutation,
+  useUpdateCommunityImageMutation,
   useUpdateCommunityNameMutation,
   useUpdateCommunityRequestMutation,
   useUpdateCommunityVisibilityMutation
@@ -35,6 +36,7 @@ export {
   useLazySearchCommunityQuery,
   useSearchCommunitiesQueryState,
   useSendCommunityRequestMutation,
+  useUpdateCommunityImageMutation,
   useUpdateCommunityNameMutation,
   useUpdateCommunityRequestMutation,
   useUpdateCommunityVisibilityMutation

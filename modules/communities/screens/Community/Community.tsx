@@ -121,6 +121,12 @@ const CommunityScreen = () => {
             date={data.createdAt}
             {...data}
             variant='community'
+            nameLink={
+              isInquisitor ? `community/${data.id}/edit-name` : undefined
+            }
+            imageLink={
+              isInquisitor ? `community/${data.id}/edit-image` : undefined
+            }
           />
 
           <HStack style={{ justifyContent: 'space-around' }}>

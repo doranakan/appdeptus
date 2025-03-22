@@ -17,6 +17,7 @@ const getCommunity = (builder: CoreEndpointBuilder<CommunitiesApiTags>) =>
                 name,
                 created_at,
                 secret,
+                image,
                 members: communities_users (
                   *,
                   user (
