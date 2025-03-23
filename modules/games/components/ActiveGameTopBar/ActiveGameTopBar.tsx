@@ -58,6 +58,7 @@ const ActiveGameTopBarContent = ({ gameId }: ActiveGameTopBarContentProps) => {
           <VersusBackground
             codexOne={game.playerOne.army.codex.name}
             codexTwo={game.playerTwo.army.codex.name}
+            variant='avatar'
           />
           <SafeAreaView edges={['top']}>
             <VStack className='p-4'>

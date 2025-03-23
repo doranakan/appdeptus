@@ -19,13 +19,14 @@ const GameListItem = ({ game }: GameListItemProps) => (
       <VersusBackground
         codexOne={game.playerOne.army.codex.name}
         codexTwo={game.playerTwo.army.codex.name}
+        variant='avatar'
       />
       <VStack
         className='p-4'
         space='md'
       >
         <HStack
-          className='justify-end'
+          className='justify-center'
           space='sm'
         >
           <Badge
