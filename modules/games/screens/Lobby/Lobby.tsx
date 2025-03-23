@@ -103,6 +103,16 @@ const LobbyScreen = () => {
     <ScreenContainer safeAreaInsets={['top', 'bottom']}>
       <VStack className='absolute h-full w-full'>
         <VersusBackground
+          highlight={
+            game.playerOne.isReady && game.playerTwo.isReady
+              ? 'both'
+              : game.playerOne.isReady
+                ? 'left'
+                : game.playerTwo.isReady
+                  ? 'right'
+                  : 'none'
+          }
+          variant='full-art'
           codexOne={game.playerOne.army.codex.name}
           codexTwo={game.playerTwo.army.codex.name}
           bottomGradient

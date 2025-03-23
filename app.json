@@ -47,7 +47,11 @@
       [
         "expo-asset",
         {
-          "assets": ["./assets/resources/armies", "./assets/resources/misc"]
+          "assets": [
+            "./assets/resources/armies",
+            "./assets/resources/misc",
+            "./assets/resources/avatars"
+          ]
         }
       ],
       [

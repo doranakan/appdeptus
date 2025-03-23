@@ -18,6 +18,7 @@ const ArmyRoster = ({
 }: ArmyRosterProps) => (
   <FlatList
     data={roster}
+    contentContainerClassName='pt-32'
     showsVerticalScrollIndicator={false}
     ItemSeparatorComponent={() => <VStack className='h-4' />}
     keyExtractor={(unit) => {

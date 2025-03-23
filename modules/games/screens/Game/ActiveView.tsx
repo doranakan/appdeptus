@@ -106,6 +106,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
   return (
     <VStack className='flex-1 bg-primary-950'>
       <Background
+        highlight={game.playerOne.isActive ? 'left' : 'right'}
         codexOne={game.playerOne.army.codex.name}
         codexTwo={game.playerTwo.army.codex.name}
       />
