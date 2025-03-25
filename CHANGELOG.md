@@ -18,6 +18,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Notification updates 🔧
+
 ### Deprecated
 
 ### Removed
