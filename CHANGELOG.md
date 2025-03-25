@@ -7,6 +7,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Deprecated
+
+### Removed
+
+## [0.5.0] - 2025-03-25
+
+### Added
+
 - User profile images 📸
 - Community profile images 🖼️
 - Links to user profiles 🔗
