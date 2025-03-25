@@ -4,6 +4,7 @@ import {
   ButtonGroup,
   EmptyListItem,
   NavigationHeader,
+  Pressable,
   ScreenContainer,
   ScreenTitle,
   Text,
@@ -12,7 +13,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import clsx from 'clsx'
-import { useGlobalSearchParams } from 'expo-router'
+import { Link, useGlobalSearchParams } from 'expo-router'
 import { FlatList } from 'react-native-gesture-handler'
 import {
   useGetCommunityRequestListQuery,
@@ -54,70 +55,78 @@ const RequestListScreen = () => {
           />
         }
         renderItem={({ item }) => (
-          <UserListItem user={item.user}>
-            <VStack className='items-center'>
-              <ButtonGroup>
-                <Button
-                  onPress={async () => {
-                    const res = await updateRequest({
-                      accepted: false,
-                      communityId: Number(id),
-                      userId: item.user.id
-                    })
+          <Link
+            asChild
+            href={`user/${item.user.id}`}
+          >
+            <Pressable>
+              <UserListItem user={item.user}>
+                <VStack className='items-center'>
+                  <ButtonGroup>
+                    <Button
+                      onPress={async () => {
+                        const res = await updateRequest({
+                          accepted: false,
+                          communityId: Number(id),
+                          userId: item.user.id
+                        })
 
-                    if ('error' in res) {
-                      show({
-                        title: '⚠️ error',
-                        description: String(res.error)
-                      })
+                        if ('error' in res) {
+                          show({
+                            title: '⚠️ error',
+                            description: String(res.error)
+                          })
 
-                      return
-                    }
+                          return
+                        }
 
-                    show({
-                      title: '🚫 Denied!',
-                      description:
-                        'That adept will not be part of your community, Inquisitor.'
-                    })
-                  }}
-                  variant='callback'
-                  text='deny'
-                  size='sm'
-                  loading={isLoading}
-                  disabled={isLoading}
-                />
-                <Button
-                  onPress={async () => {
-                    const res = await updateRequest({
-                      accepted: true,
-                      communityId: Number(id),
-                      userId: item.user.id
-                    })
+                        show({
+                          title: '🚫 Denied!',
+                          description:
+                            'That adept will not be part of your community, Inquisitor.'
+                        })
+                      }}
+                      variant='callback'
+                      text='deny'
+                      size='sm'
+                      loading={isLoading}
+                      disabled={isLoading}
+                    />
+                    <Button
+                      onPress={async () => {
+                        const res = await updateRequest({
+                          accepted: true,
+                          communityId: Number(id),
+                          userId: item.user.id
+                        })
 
-                    if ('error' in res) {
-                      show({
-                        title: '⚠️ error',
-                        description: String(res.error)
-                      })
+                        if ('error' in res) {
+                          show({
+                            title: '⚠️ error',
+                            description: String(res.error)
+                          })
 
-                      return
-                    }
+                          return
+                        }
 
-                    show({
-                      title: '✅ Accepted!',
-                      description: 'Your community has a new adept, Inquisitor.'
-                    })
-                  }}
-                  variant='callback'
-                  text='accept'
-                  color='primary'
-                  size='sm'
-                  loading={isLoading}
-                  disabled={isLoading}
-                />
-              </ButtonGroup>
-            </VStack>
-          </UserListItem>
+                        show({
+                          title: '✅ Accepted!',
+                          description:
+                            'Your community has a new adept, Inquisitor.'
+                        })
+                      }}
+                      variant='callback'
+                      text='accept'
+                      color='primary'
+                      size='sm'
+                      loading={isLoading}
+                      disabled={isLoading}
+                    />
+                  </ButtonGroup>
+                </VStack>
+              </UserListItem>
+            </Pressable>
+          </Link>
         )}
       />
     </ScreenContainer>
