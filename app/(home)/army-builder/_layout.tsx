@@ -40,7 +40,7 @@ const ArmyBuilderLayout = () => {
       }
     }
 
-    const { isValid: _, ...restArmy } = army
+    const { isValid: _isValid, isSecret: _isSecret, ...restArmy } = army
 
     if (invalidUnits.length) {
       const validUnits = unitsToEdit.filter(

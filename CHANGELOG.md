@@ -13,6 +13,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Army editing error during save 💾
+
 ### Deprecated
 
 ### Removed
