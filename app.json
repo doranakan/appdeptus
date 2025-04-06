@@ -3,7 +3,7 @@
     "owner": "appdeptus",
     "name": "Appdeptus",
     "slug": "appdeptus",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "scheme": "appdeptus",
     "orientation": "portrait",
     "icon": "./assets/resources/icon.png",
