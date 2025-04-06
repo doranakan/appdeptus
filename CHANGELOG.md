@@ -7,6 +7,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+### Changed
+
+### Fixed
+
+### Deprecated
+
+### Removed
+
+## [0.5.1] - 2025-04-06
+
+### Added
+
 - Link to community request users 🔗
 
 ### Changed
