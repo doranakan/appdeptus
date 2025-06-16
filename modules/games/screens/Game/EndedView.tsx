@@ -43,6 +43,13 @@ const EndedViewScreen = ({ game }: EndedViewScreenProps) => {
   return (
     <VStack className='flex-1 bg-primary-950'>
       <Background
+        highlight={
+          game.playerOne.score === game.playerTwo.score
+            ? 'both'
+            : game.playerOne.score > game.playerTwo.score
+              ? 'left'
+              : 'right'
+        }
         codexOne={game.playerOne.army.codex.name}
         codexTwo={game.playerTwo.army.codex.name}
       />
