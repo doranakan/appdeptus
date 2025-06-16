@@ -56,8 +56,16 @@ const ActiveGameTopBarContent = ({ gameId }: ActiveGameTopBarContentProps) => {
           style={styles.container}
         >
           <VersusBackground
+            highlight={
+              game.status === 'in_lobby'
+                ? 'both'
+                : game.playerOne.isActive
+                  ? 'left'
+                  : 'right'
+            }
             codexOne={game.playerOne.army.codex.name}
             codexTwo={game.playerTwo.army.codex.name}
+            variant='avatar'
           />
           <SafeAreaView edges={['top']}>
             <VStack className='p-4'>

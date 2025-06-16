@@ -28,10 +28,8 @@ import thousand_sons from 'assets/resources/armies/thousand_sons.jpg'
 import tyranids from 'assets/resources/armies/tyranids.jpg'
 import world_eaters from 'assets/resources/armies/world_eaters.jpg'
 import { Asset } from 'expo-asset'
-import { LinearGradient } from 'expo-linear-gradient'
 import { memo } from 'react'
 import { StyleSheet } from 'react-native'
-import { themeColors, VStack } from '../ui'
 type ArmyBackgroundProps = {
   codex: CodexName
 }
@@ -39,28 +37,15 @@ const ArmyBackground = ({ codex }: ArmyBackgroundProps) => {
   const image = Asset.fromModule(source[codex])
 
   return (
-    <VStack className='absolute h-full w-full'>
-      <Image
-        source={{ uri: image.localUri ?? image.uri }}
-        style={styles.image}
-        resizeMode={Image.resizeMode.cover}
-      />
-
-      <LinearGradient
-        colors={[
-          themeColors[codex].primary[800],
-          themeColors[codex].tertiary[800]
-        ]}
-        start={{ x: 0, y: 1 }}
-        end={{ x: 1, y: 0 }}
-        style={styles.gradient}
-      />
-    </VStack>
+    <Image
+      source={{ uri: image.localUri ?? image.uri }}
+      style={styles.image}
+      resizeMode={Image.resizeMode.cover}
+    />
   )
 }
 
 const styles = StyleSheet.create({
-  gradient: { width: '100%', height: '100%', opacity: 0.8 },
   image: { position: 'absolute', width: '100%', height: '100%', flex: 1 }
 })
 

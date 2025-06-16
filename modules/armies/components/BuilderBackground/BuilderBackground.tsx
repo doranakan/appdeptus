@@ -23,6 +23,8 @@ const ArmyBuilderBackground = () => {
         <LinearGradient
           colors={[
             themeColors[themeName].primary[950],
+            `${themeColors[themeName].primary[950]}50`,
+            `${themeColors[themeName].primary[950]}00`,
             `${themeColors[themeName].primary[950]}00`,
             themeColors[themeName].primary[950]
           ]}

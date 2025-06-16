@@ -67,6 +67,7 @@ const LeaderboardScreen = () => {
         )}
         ListHeaderComponent={
           <HStack className='justify-end py-4'>
+            <VStack className='flex-1' />
             <ScoreCard
               l='l'
               t='t'

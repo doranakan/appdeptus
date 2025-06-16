@@ -17,15 +17,23 @@ const GameListItem = ({ game }: GameListItemProps) => (
   <Card>
     <VStack className='bg-primary-950 shadow-md'>
       <VersusBackground
+        highlight={
+          game.playerOne.score === game.playerTwo.score
+            ? 'both'
+            : game.playerOne.score > game.playerTwo.score
+              ? 'left'
+              : 'right'
+        }
         codexOne={game.playerOne.army.codex.name}
         codexTwo={game.playerTwo.army.codex.name}
+        variant='avatar'
       />
       <VStack
         className='p-4'
         space='md'
       >
         <HStack
-          className='justify-end'
+          className='justify-center'
           space='sm'
         >
           <Badge

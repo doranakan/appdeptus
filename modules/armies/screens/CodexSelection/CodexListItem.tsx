@@ -1,12 +1,5 @@
-import {
-  ArmyBackground,
-  Card,
-  Pressable,
-  Text,
-  VStack
-} from 'appdeptus/components'
+import { ArmyAvatar, Card, Pressable, VStack } from 'appdeptus/components'
 import { type Codex } from 'appdeptus/models'
-import clsx from 'clsx'
 import { memo } from 'react'
 
 type CodexListItemProps = {
@@ -18,7 +11,7 @@ type CodexListItemProps = {
 
 const CodexListItem = ({ codex, onPress, selected }: CodexListItemProps) => (
   <Pressable
-    className='active:opacity-80'
+    className='h-full w-full active:opacity-80'
     onPress={() => {
       onPress(codex)
     }}
@@ -32,18 +25,8 @@ const CodexListItem = ({ codex, onPress, selected }: CodexListItemProps) => (
             : 'selectable-alt'
       }
     >
-      <VStack
-        className={clsx(['absolute h-full w-full', selected && 'opacity-20'])}
-      >
-        <ArmyBackground codex={codex.name} />
-      </VStack>
-      <VStack className='p-4'>
-        <Text
-          family='body-bold'
-          size='lg'
-        >
-          {codex.name}
-        </Text>
+      <VStack className='h-full w-full'>
+        <ArmyAvatar codex={codex.name} />
       </VStack>
     </Card>
   </Pressable>

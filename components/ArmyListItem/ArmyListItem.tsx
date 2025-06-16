@@ -1,12 +1,13 @@
 import { type CodexName, type UserProfile } from 'appdeptus/models'
 
+import { LinearGradient } from 'expo-linear-gradient'
 import { memo, type ComponentProps } from 'react'
 import ArmyBackground from '../ArmyBackground'
 import Badge from '../Badge'
 import Card from '../Card'
 import PlayerTag from '../PlayerTag'
 import Text from '../Text'
-import { HStack, VStack } from '../ui'
+import { HStack, themeColors, VStack } from '../ui'
 
 type ArmyListItemProps = {
   codex: CodexName
@@ -31,7 +32,38 @@ const ArmyListItem = ({
 }: ArmyListItemProps) => (
   <Card variant={variant}>
     <VStack className='bg-primary-950 shadow-md'>
-      <ArmyBackground codex={codex} />
+      <HStack className='absolute h-full w-full'>
+        <ArmyBackground codex={codex} />
+
+        <LinearGradient
+          colors={[
+            themeColors[codex].primary[800],
+            `${themeColors[codex].primary[800]}00`
+          ]}
+          start={{ x: 0, y: 1 }}
+          end={{ x: 1, y: 0 }}
+          style={{
+            width: '50%',
+            height: '100%',
+            position: 'absolute',
+            left: 0
+          }}
+        />
+        <LinearGradient
+          colors={[
+            themeColors[codex].primary[800],
+            `${themeColors[codex].primary[800]}00`
+          ]}
+          start={{ x: 1, y: 1 }}
+          end={{ x: 0, y: 0 }}
+          style={{
+            width: '50%',
+            height: '100%',
+            position: 'absolute',
+            right: 0
+          }}
+        />
+      </HStack>
       {!isValid ? (
         <Text
           className='rounded-2xl bg-warning-400 px-4 py-1'

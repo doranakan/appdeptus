@@ -7,9 +7,13 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
+- Fan art illustrations 🖼️
+
 ### Changed
 
 ### Fixed
+
+- QR code on tablet 🧩
 
 ### Deprecated
 
