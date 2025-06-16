@@ -11,6 +11,7 @@ import {
 } from 'appdeptus/components'
 import { type CreateGame } from 'appdeptus/models/game'
 import { router } from 'expo-router'
+import { clamp } from 'lodash'
 import { useCallback, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useWindowDimensions } from 'react-native'
@@ -113,7 +114,7 @@ const QRCodeScreen = () => {
       <Card>
         <QRCode
           value={`${NEW_GAME_SLUG}${gameId}`}
-          size={window.width - 28}
+          size={clamp(window.width - 28, 552)}
         />
       </Card>
       <ScrollView contentContainerClassName='pb-4'>
