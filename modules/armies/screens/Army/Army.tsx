@@ -82,7 +82,10 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
         </VStack>
         <VStack className='flex-1' />
       </VStack>
-      <VStack className='flex-1 px-4'>
+      <VStack
+        className='flex-1 px-4'
+        space='md'
+      >
         <NavigationHeader
           variant='backButton'
           rightButton={{
