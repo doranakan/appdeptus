@@ -8,7 +8,6 @@ import {
   VStack
 } from 'appdeptus/components'
 import { router } from 'expo-router'
-import { lowerCase } from 'lodash'
 import { Save, User } from 'lucide-react-native'
 import { useCallback } from 'react'
 import {
@@ -79,7 +78,7 @@ const Form = ({ name: initialName }: FormProps) => {
               <Input
                 Icon={User}
                 onChangeText={(val) => {
-                  field.onChange(lowerCase(val.replace(' ', '')))
+                  field.onChange(val.replace(' ', '').toLowerCase())
                 }}
                 placeholder='The name displayed on your dog tag'
                 {...field}

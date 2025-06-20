@@ -9,7 +9,6 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
-import { lowerCase } from 'lodash'
 import { CircleCheck, CircleX, Edit, Save } from 'lucide-react-native'
 import React, { memo, useState } from 'react'
 import { ActivityIndicator } from 'react-native'
@@ -73,7 +72,7 @@ const NameForm = ({
         <Input
           Icon={Edit}
           onChangeText={(val) => {
-            setName(lowerCase(val.replace(' ', '')))
+            setName(val.replace(' ', '').toLowerCase())
           }}
           value={name}
         />

@@ -11,6 +11,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+- Nickname and community forms to support special chars 🔧
+
 ### Deprecated
 
 ### Removed

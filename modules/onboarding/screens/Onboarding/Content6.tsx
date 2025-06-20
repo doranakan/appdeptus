@@ -11,7 +11,6 @@ import {
   useGetUserProfileQuery,
   useUpdateUserImageMutation
 } from 'appdeptus/modules/user/api'
-import { lowerCase } from 'lodash'
 import { Upload, User } from 'lucide-react-native'
 import { memo } from 'react'
 import Animated, { FadeIn } from 'react-native-reanimated'
@@ -76,7 +75,7 @@ const Content6 = ({ setNickname, nickname }: Content6Props) => {
           autoFocus
           Icon={User}
           onChangeText={(val) => {
-            setNickname(lowerCase(val.replace(' ', '')))
+            setNickname(val.replace(' ', '').toLowerCase())
           }}
           value={nickname}
           placeholder='enter_your_battle_name'
