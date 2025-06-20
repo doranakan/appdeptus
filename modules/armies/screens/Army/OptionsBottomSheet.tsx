@@ -109,15 +109,7 @@ const OptionsBottomSheet = ({ army, isUsersArmy }: OptionsBottomSheetProps) => {
         <HStack style={{ justifyContent: 'space-evenly' }}>
           {army.isValid ? (
             <>
-              {!currentGame && isUsersArmy ? (
-                <OptionButton
-                  disabled={deletePromptVisible}
-                  icon={Swords}
-                  onPress={playWithArmy}
-                  text='Play'
-                  variant='callback'
-                />
-              ) : (
+              {!isUsersArmy ? (
                 <OptionButton
                   icon={Save}
                   disabled={deletePromptVisible || isSaving}
@@ -130,7 +122,15 @@ const OptionsBottomSheet = ({ army, isUsersArmy }: OptionsBottomSheetProps) => {
                   text='Save'
                   variant='callback'
                 />
-              )}
+              ) : !currentGame ? (
+                <OptionButton
+                  disabled={deletePromptVisible}
+                  icon={Swords}
+                  onPress={playWithArmy}
+                  text='Play'
+                  variant='callback'
+                />
+              ) : null}
               <OptionButton
                 icon={ShareIcon}
                 onPress={shareArmy}

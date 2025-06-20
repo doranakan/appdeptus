@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 ### Fixed
 
 - Nickname and community forms to support special chars 🔧
+- Save button in army screen showing improperly 🫥
 
 ### Deprecated
 
