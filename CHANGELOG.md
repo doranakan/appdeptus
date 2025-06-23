@@ -11,6 +11,18 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ### Fixed
 
+### Deprecated
+
+### Removed
+
+## [1.0.1] - 2025-06-23
+
+### Added
+
+### Changed
+
+### Fixed
+
 - Nickname and community forms to support special chars 🔧
 - Save button in army screen showing improperly 🫥
 - Community requests failing on users with no avatar set 🤳🏼
