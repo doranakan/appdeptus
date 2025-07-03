@@ -66,7 +66,7 @@ const TabMenu = <T extends Readonly<string>>({
   return (
     <InsetShadow borderRadius={22}>
       <View
-        className='w-full flex-row items-center rounded-3xl bg-primary-800 p-2'
+        className='w-full flex-row items-center rounded-3xl p-2'
         onLayout={onLayout}
       >
         {options.map((opt, idx) => (
@@ -81,8 +81,8 @@ const TabMenu = <T extends Readonly<string>>({
         ))}
         <Animated.View
           pointerEvents='none'
-          className='absolute -z-10 h-full rounded-2xl bg-primary-950 shadow'
-          style={selectorStyle}
+          className='absolute h-full rounded-2xl bg-primary-950 shadow'
+          style={[selectorStyle, { zIndex: 2 }]}
         >
           <InnerBorder rounded='2xl'>
             <View className='h-full w-full' />

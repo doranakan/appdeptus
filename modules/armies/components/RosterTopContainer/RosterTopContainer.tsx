@@ -84,7 +84,7 @@ const RosterTopContainer = ({ army, isUsersArmy }: RosterTopContainerProps) => {
               className='overflow-hidden rounded-3xl'
               borderRadius={20}
             >
-              <HStack className='items-center justify-between bg-primary-800 p-2'>
+              <HStack className='items-center justify-between p-2'>
                 <HStack
                   className='flex-1 items-center px-2'
                   space='md'

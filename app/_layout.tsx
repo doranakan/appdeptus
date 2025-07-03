@@ -17,7 +17,7 @@ import { GluestackUIProvider } from 'appdeptus/components/ui'
 import { defaultScreenOptions } from 'appdeptus/constants'
 import 'appdeptus/global.css'
 import { store } from 'appdeptus/store'
-import { SplashScreen, Stack } from 'expo-router'
+import { SplashScreen, Stack, useNavigationContainerRef } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { PostHogProvider } from 'posthog-react-native'
 import { type PropsWithChildren, useEffect } from 'react'
@@ -32,6 +32,7 @@ import { Provider } from 'react-redux'
 SplashScreen.preventAutoHideAsync()
 
 const App = ({ children }: PropsWithChildren) => {
+  const navigationRef = useNavigationContainerRef()
   const [fontLoaded] = useFonts({
     Silkscreen_400Regular,
     IBMPlexMono_400Regular,
@@ -62,6 +63,9 @@ const App = ({ children }: PropsWithChildren) => {
               options={{
                 host: 'https://eu.i.posthog.com',
                 disabled: __DEV__
+              }}
+              autocapture={{
+                navigationRef
               }}
             >
               <BottomSheetModalProvider>
