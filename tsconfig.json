@@ -12,6 +12,7 @@
         "./*"
       ]
     },
+    "moduleSuffixes": [".android", ".ios", ""],
     "exactOptionalPropertyTypes": false
   },
   "include": [
