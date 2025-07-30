@@ -114,6 +114,7 @@ const ShareScreen = () => {
           }}
         />
         <ArmyRoster
+          codexName={army.codex.name}
           ListHeaderComponent={
             <VStack space='md'>
               <ScreenSubtitle>shared by:</ScreenSubtitle>
