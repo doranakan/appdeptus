@@ -1,6 +1,5 @@
 import { skipToken } from '@reduxjs/toolkit/query'
 import {
-  ArmyBackground,
   ArmyRoster,
   Error,
   Loading,
@@ -8,17 +7,14 @@ import {
   ScreenContainer,
   setTheme,
   Text,
-  themeColors,
   VStack
 } from 'appdeptus/components'
 import { type Army } from 'appdeptus/models'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { useAppDispatch } from 'appdeptus/store'
-import { LinearGradient } from 'expo-linear-gradient'
 import { useLocalSearchParams } from 'expo-router'
 import { EllipsisVertical } from 'lucide-react-native'
 import React, { useEffect } from 'react'
-import { StyleSheet } from 'react-native'
 import { useGetArmyQuery, useGetInvalidUnitsQuery } from '../../api'
 import { RosterTopContainer } from '../../components'
 import OptionsBottomSheet from './OptionsBottomSheet'
@@ -69,19 +65,6 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
 
   return (
     <ScreenContainer safeAreaInsets={['bottom', 'top']}>
-      <VStack className='absolute h-full w-full'>
-        <VStack className='flex-1'>
-          <ArmyBackground codex={army.codex.name} />
-          <LinearGradient
-            colors={[
-              `${themeColors[army.codex.name].primary[950]}00`,
-              themeColors[army.codex.name].primary[950]
-            ]}
-            style={styles.gradient}
-          />
-        </VStack>
-        <VStack className='flex-1' />
-      </VStack>
       <VStack
         className='flex-1 px-4'
         space='md'
@@ -95,6 +78,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
           }}
         />
         <ArmyRoster
+          codexName={army.codex.name}
           ListHeaderComponent={
             <VStack space='md'>
               <RosterTopContainer
@@ -121,12 +105,5 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
     </ScreenContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  gradient: {
-    height: '100%',
-    width: '100%'
-  }
-})
 
 export default ArmyScreen
