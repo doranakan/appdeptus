@@ -29,7 +29,8 @@ type AnimatedArmyRosterProps = Partial<
 const AnimatedArmyRoster = ({
   roster,
   codexName,
-  invalidUnits
+  invalidUnits,
+  ...rest
 }: AnimatedArmyRosterProps) => {
   const { width: screenWidth } = useWindowDimensions()
   const { top: topInset } = useSafeAreaInsets()
@@ -100,8 +101,10 @@ const AnimatedArmyRoster = ({
         </VStack>
         <VStack className='flex-1' />
       </VStack>
+
       <GestureDetector gesture={panGesture ?? Gesture.Pan().enabled(false)}>
         <ArmyRoster
+          {...rest}
           roster={roster}
           ref={flatListRef}
           onScroll={onScroll}
