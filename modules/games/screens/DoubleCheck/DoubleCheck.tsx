@@ -55,7 +55,6 @@ const DoubleCheckScreen = () => {
         </Text>
 
         <ArmyRoster
-          codexName={codex}
           ListHeaderComponent={
             <VStack space='md'>
               <DataTable />
