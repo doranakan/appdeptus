@@ -1,6 +1,6 @@
 import { skipToken } from '@reduxjs/toolkit/query'
 import {
-  ArmyRoster,
+  AnimatedArmyRoster,
   Error,
   Loading,
   NavigationHeader,
@@ -77,7 +77,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
             icon: EllipsisVertical
           }}
         />
-        <ArmyRoster
+        <AnimatedArmyRoster
           codexName={army.codex.name}
           ListHeaderComponent={
             <VStack space='md'>
