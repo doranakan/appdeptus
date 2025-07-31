@@ -14,9 +14,6 @@ const useArmyRosterBackgroundAnimation =
     const scale = useDerivedValue(() =>
       interpolate(scrollValue.value, [0, -200], [1, 1.2], Extrapolation.CLAMP)
     )
-    const opacity = useDerivedValue(() =>
-      interpolate(scrollValue.value, [0, -200], [1, 0.8], Extrapolation.CLAMP)
-    )
 
     const onScroll = useAnimatedScrollHandler({
       onScroll: (event) => {
@@ -27,11 +24,10 @@ const useArmyRosterBackgroundAnimation =
     return useMemo(
       () => ({
         onScroll,
-        opacity,
         scale,
         scrollValue
       }),
-      [onScroll, opacity, scale, scrollValue]
+      [onScroll, scale, scrollValue]
     )
   }
 

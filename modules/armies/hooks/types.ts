@@ -7,7 +7,6 @@ import {
 
 type ArmyRosterBackgroundAnimationObject = {
   onScroll: ScrollHandlerProcessed
-  opacity: SharedValue<number>
   panGesture?: PanGesture
   panGestureRef?: MutableRefObject<PanGesture | undefined>
   panScrollValue?: SharedValue<number>
