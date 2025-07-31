@@ -19,7 +19,7 @@ const useArmyRosterBackgroundAnimation =
       interpolate(panScrollValue.value, [0, 200], [1, 1.2], Extrapolation.CLAMP)
     )
     const opacity = useDerivedValue(() =>
-      interpolate(panScrollValue.value, [0, 200], [1, 0], Extrapolation.CLAMP)
+      interpolate(panScrollValue.value, [0, 200], [1, 0.8], Extrapolation.CLAMP)
     )
 
     const onScroll = useAnimatedScrollHandler({
