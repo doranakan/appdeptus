@@ -37,7 +37,6 @@ const AnimatedArmyRoster = ({
 
   const {
     onScroll,
-    opacity,
     scale,
     scrollValue,
     panGesture,
@@ -52,7 +51,6 @@ const AnimatedArmyRoster = ({
   }))
 
   const rBgStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
     transform: [{ scale: scale.value }]
   }))
 
@@ -92,6 +90,7 @@ const AnimatedArmyRoster = ({
           >
             <LinearGradient
               colors={[
+                `${themeColors[codexName].primary[950]}00`,
                 `${themeColors[codexName].primary[950]}00`,
                 themeColors[codexName].primary[950]
               ]}
