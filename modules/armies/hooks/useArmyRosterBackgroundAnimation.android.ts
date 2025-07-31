@@ -44,9 +44,15 @@ const useArmyRosterBackgroundAnimation =
           })
           .onFinalize(() => {
             if (panScrollValue.value > 100) {
-              panScrollValue.value = withSpring(200)
+              panScrollValue.value = withSpring(200, {
+                stiffness: 150,
+                damping: 25
+              })
             } else {
-              panScrollValue.value = withSpring(0)
+              panScrollValue.value = withSpring(0, {
+                stiffness: 150,
+                damping: 25
+              })
             }
           }),
       [panScrollValue, scrollValue.value]
