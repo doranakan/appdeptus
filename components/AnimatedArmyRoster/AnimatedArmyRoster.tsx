@@ -15,7 +15,7 @@ import Animated, {
 import ArmyBackground from '../ArmyBackground'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { useArmyRosterBackgroundAnimation } from 'appdeptus/modules/armies/hooks'
+import useArmyRosterBackgroundAnimation from 'appdeptus/modules/armies/hooks/useArmyRosterBackgroundAnimation'
 import ArmyRoster from '../ArmyRoster'
 
 type AnimatedArmyRosterProps = Partial<
