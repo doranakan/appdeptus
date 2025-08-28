@@ -66,11 +66,9 @@ const AnimatedArmyRoster = ({
     if (scrollValue.value > 0) {
       return
     }
-    if (scrollValue.value > -100) {
-      runOnJS(revealArtwork)(0)
-      return
+    if (scrollValue.value <= -200) {
+      runOnJS(revealArtwork)(-200)
     }
-    runOnJS(revealArtwork)(-200)
   }
 
   return (

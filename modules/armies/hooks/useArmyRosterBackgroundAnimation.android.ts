@@ -7,9 +7,13 @@ import {
   interpolate,
   Extrapolation,
   useAnimatedScrollHandler,
-  withSpring
+  withSpring,
+  runOnJS,
+  useAnimatedReaction
 } from 'react-native-reanimated'
 import { type ArmyRosterBackgroundAnimationObject } from './types'
+import * as Haptics from 'expo-haptics'
+import { useMemoizedFn } from 'ahooks'
 
 const useArmyRosterBackgroundAnimation =
   (): ArmyRosterBackgroundAnimationObject => {
@@ -25,6 +29,9 @@ const useArmyRosterBackgroundAnimation =
       }
     })
     const panGestureRef = useRef<PanGesture>()
+    const impact = useMemoizedFn((style: Haptics.ImpactFeedbackStyle) => {
+      Haptics.impactAsync(style)
+    })
 
     const panGesture = useMemo(
       () =>
@@ -53,6 +60,18 @@ const useArmyRosterBackgroundAnimation =
             }
           }),
       [panScrollValue, scrollValue.value]
+    )
+    useAnimatedReaction(
+      () => panScrollValue.value,
+      (curr, prev) => {
+        if (curr === 200) {
+          runOnJS(impact)(Haptics.ImpactFeedbackStyle.Medium)
+          return
+        }
+        if (curr < (prev ?? 0) && prev === 200) {
+          runOnJS(impact)(Haptics.ImpactFeedbackStyle.Medium)
+        }
+      }
     )
 
     return useMemo(
