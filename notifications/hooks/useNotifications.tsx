@@ -13,8 +13,9 @@ const useNotifications = () => {
 
   const [addPushToken] = useAddPushTokenMutation()
 
-  const notificationListener = useRef<Notifications.EventSubscription>()
-  const responseListener = useRef<Notifications.EventSubscription>()
+  const notificationListener =
+    useRef<Notifications.EventSubscription>(undefined)
+  const responseListener = useRef<Notifications.EventSubscription>(undefined)
 
   useEffect(() => {
     registerForNotifications().then((token) => {
@@ -30,12 +31,8 @@ const useNotifications = () => {
       Notifications.addNotificationResponseReceivedListener(noop)
 
     return () => {
-      notificationListener.current &&
-        Notifications.removeNotificationSubscription(
-          notificationListener.current
-        )
-      responseListener.current &&
-        Notifications.removeNotificationSubscription(responseListener.current)
+      notificationListener.current?.remove()
+      responseListener.current?.remove()
     }
   }, [addPushToken])
 
@@ -52,7 +49,9 @@ Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
     shouldPlaySound: true,
-    shouldSetBadge: true
+    shouldSetBadge: true,
+    shouldShowBanner: false,
+    shouldShowList: false
   })
 })
 
