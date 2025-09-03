@@ -30,23 +30,39 @@ import world_eaters from 'assets/resources/armies/world_eaters.jpg'
 import { Asset } from 'expo-asset'
 import { memo } from 'react'
 import { StyleSheet } from 'react-native'
+import Animated, {
+  makeMutable,
+  type SharedValue,
+  useAnimatedStyle
+} from 'react-native-reanimated'
 type ArmyBackgroundProps = {
   codex: CodexName
+  scale?: SharedValue<number>
 }
-const ArmyBackground = ({ codex }: ArmyBackgroundProps) => {
+const ArmyBackground = ({
+  codex,
+  scale = makeMutable(1)
+}: ArmyBackgroundProps) => {
   const image = Asset.fromModule(source[codex])
 
+  const rStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }]
+  }))
+
   return (
-    <Image
-      source={{ uri: image.localUri ?? image.uri }}
-      style={styles.image}
-      resizeMode={Image.resizeMode.cover}
-    />
+    <Animated.View style={[styles.container, rStyle]}>
+      <Image
+        source={{ uri: image.localUri ?? image.uri }}
+        style={styles.image}
+        resizeMode={Image.resizeMode.cover}
+      />
+    </Animated.View>
   )
 }
 
 const styles = StyleSheet.create({
-  image: { position: 'absolute', width: '100%', height: '100%', flex: 1 }
+  image: { flex: 1 },
+  container: { position: 'absolute', width: '100%', height: '100%', flex: 1 }
 })
 
 const source = {

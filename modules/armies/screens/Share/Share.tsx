@@ -1,6 +1,6 @@
 import {
+  AnimatedArmyRoster,
   ArmyBackground,
-  ArmyRoster,
   Error,
   Loading,
   NavigationHeader,
@@ -113,7 +113,8 @@ const ShareScreen = () => {
             loading: isSaving
           }}
         />
-        <ArmyRoster
+        <AnimatedArmyRoster
+          codexName={army.codex.name}
           ListHeaderComponent={
             <VStack space='md'>
               <ScreenSubtitle>shared by:</ScreenSubtitle>

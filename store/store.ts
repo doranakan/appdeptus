@@ -11,7 +11,7 @@ import {
   sessionApiReducer,
   sessionApiReducerPath
 } from 'appdeptus/api'
-import { themeReducer } from 'appdeptus/components'
+import { themeReducer } from 'appdeptus/components/store'
 
 const store = configureStore({
   reducer: {
