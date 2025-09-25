@@ -7,7 +7,6 @@
     "scheme": "appdeptus",
     "newArchEnabled": true,
     "orientation": "portrait",
-    "icon": "./assets/resources/icon.png",
     "userInterfaceStyle": "light",
     "jsEngine": "hermes",
     "splash": {
@@ -23,7 +22,8 @@
       "appleTeamId": "637BR9U962",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
-      }
+      },
+      "icon": "./assets/resources/appdeptus.icon"
     },
     "android": {
       "edgeToEdgeEnabled": true,
