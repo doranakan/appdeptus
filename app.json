@@ -5,7 +5,6 @@
     "slug": "appdeptus",
     "version": "1.0.1",
     "scheme": "appdeptus",
-    "newArchEnabled": true,
     "orientation": "portrait",
     "icon": "./assets/resources/icon.png",
     "userInterfaceStyle": "light",
