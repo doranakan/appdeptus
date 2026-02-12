@@ -109,15 +109,6 @@ const UnitSelectionScreen = () => {
           />
         ) : null}
 
-        {/* {unitTypes && unitTypes.length > 1 ? (
-          <FilterTopBar
-            values={unitTypes.map((type) => pluralize(type))}
-            onPress={(type) => {
-              setSelectedType(singular(type) as (typeof unitTypes)[number])
-            }}
-            selectedValue={pluralize(selectedType)}
-          />
-        ) : null} */}
         <UnitList units={units ?? []} />
       </VStack>
     </ScreenContainer>

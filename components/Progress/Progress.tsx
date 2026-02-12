@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withSpring
+  withTiming
 } from 'react-native-reanimated'
 import { useSelector } from 'react-redux'
 import InnerBorder from '../InnerBorder'
@@ -28,10 +28,7 @@ const Progress = ({ currentStep, steps, text }: ProgressProps) => {
   }, [currentStep, steps, widthPercentage])
 
   const rStyle = useAnimatedStyle(() => ({
-    width: withSpring(`${widthPercentage.value}%`, {
-      stiffness: 120,
-      damping: 19
-    })
+    width: withTiming(`${widthPercentage.value}%`)
   }))
 
   return (
