@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { type LayoutChangeEvent, View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
-  withSpring
+  withTiming
 } from 'react-native-reanimated'
 import InnerBorder from '../InnerBorder'
 import InsetShadow from '../InsetShadow'
@@ -53,10 +53,7 @@ const TabMenu = <T extends Readonly<string>>({
   const rStyle = useAnimatedStyle(() => ({
     transform: [
       {
-        translateX: withSpring(translationX.value, {
-          stiffness: 130,
-          damping: 19
-        })
+        translateX: withTiming(translationX.value)
       }
     ]
   }))
@@ -93,4 +90,4 @@ const TabMenu = <T extends Readonly<string>>({
   )
 }
 
-export default TabMenu
+export default memo(TabMenu)
