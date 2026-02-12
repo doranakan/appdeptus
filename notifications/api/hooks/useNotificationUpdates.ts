@@ -13,8 +13,6 @@ const useNotificationUpdates = () => {
 
   useNotificationUpdateListener({
     eventHandler: ({ new: newData }) => {
-      console.log(JSON.stringify(newData))
-
       if (newData.notifications.communities) {
         dispatch(
           communitiesApi.util.invalidateTags(['requests', 'communities'])
