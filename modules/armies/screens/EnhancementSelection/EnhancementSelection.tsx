@@ -11,7 +11,7 @@ const EnhancementSelectionScreen = () => {
   const selectedCodex = watch('codex')
   const selectedDetachment = watch('detachment')
 
-  const { enhancements } = useGetDetachmentListQuery(selectedCodex.id, {
+  const { enhancements } = useGetDetachmentListQuery(selectedCodex, {
     selectFromResult: ({ data }) => ({
       enhancements: data?.find(({ id }) => id === selectedDetachment.id)
         ?.enhancements

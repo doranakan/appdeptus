@@ -16,7 +16,7 @@ import { useGetDetachmentListQuery } from '../../api'
 const DetachmentList = () => {
   const { setValue, watch } = useFormContext<ArmyBuilder>()
 
-  const selectedCodex = watch('codex.id')
+  const selectedCodex = watch('codex')
 
   const { data, isError, isFetching, refetch } =
     useGetDetachmentListQuery(selectedCodex)
