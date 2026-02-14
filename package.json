@@ -8,7 +8,7 @@
     "ios": "DARK_MODE=media expo run:ios",
     "web": "DARK_MODE=media expo start --web",
     "storybook-generate": "sb-rn-get-stories",
-    "postinstall": "bunx setup-skia-web"
+    "postinstall": "bun setup-skia-web"
   },
   "dependencies": {
     "@d11/react-native-fast-image": "^8.12.0",
