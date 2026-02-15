@@ -1,0 +1,46 @@
+{
+  "fill": {
+    "automatic-gradient": "srgb:0.09412,0.12941,0.18431,1.00000"
+  },
+  "groups": [
+    {
+      "blur-material": null,
+      "hidden": false,
+      "layers": [
+        {
+          "image-name": "logo.png",
+          "name": "logo",
+          "position": {
+            "scale": 0.52,
+            "translation-in-points": [0.5390625, 3.80859375]
+          }
+        }
+      ],
+      "shadow-specializations": [
+        {
+          "appearance": "light",
+          "value": {
+            "kind": "neutral",
+            "opacity": 1
+          }
+        },
+        {
+          "appearance": "tinted",
+          "value": {
+            "kind": "neutral",
+            "opacity": 1
+          }
+        }
+      ],
+      "specular": true,
+      "translucency": {
+        "enabled": true,
+        "value": 0.3
+      }
+    }
+  ],
+  "supported-platforms": {
+    "circles": ["watchOS"],
+    "squares": "shared"
+  }
+}
