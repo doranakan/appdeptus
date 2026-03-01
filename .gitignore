@@ -7,6 +7,10 @@ node_modules
 dist
 package-lock.json
 
+# Backlog.md
+backlog/
+CLAUDE.md
+
 # macOS
 *.DS_Store
 .AppleDouble
