@@ -5,7 +5,7 @@ import { Table } from 'appdeptus/utils/supabase'
 import { type TournamentsApiTags } from '../tags'
 
 const createTournament = (builder: CoreEndpointBuilder<TournamentsApiTags>) =>
-  builder.mutation<null, CreateTournament>({
+  builder.mutation<number, CreateTournament>({
     queryFn: async ({ communityId, pointsLimit, registrationDeadline, ...rest }) => {
       try {
         const userId = await getUserId()
@@ -14,7 +14,7 @@ const createTournament = (builder: CoreEndpointBuilder<TournamentsApiTags>) =>
           return { error: userId.error }
         }
 
-        const { error } = await supabase
+        const { data: result, error } = await supabase
           .from(Table.TOURNAMENTS)
           .insert({
             ...rest,
@@ -23,12 +23,14 @@ const createTournament = (builder: CoreEndpointBuilder<TournamentsApiTags>) =>
             points_limit: pointsLimit,
             registration_deadline: registrationDeadline
           })
+          .select('id')
+          .single()
 
         if (error) {
           return { error: JSON.stringify(error) }
         }
 
-        return { data: null }
+        return { data: result.id }
       } catch (error) {
         return { error: JSON.stringify(error) }
       }

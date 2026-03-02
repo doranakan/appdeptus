@@ -2,6 +2,7 @@ import { type BottomTabHeaderProps } from '@react-navigation/bottom-tabs'
 import book from 'appdeptus/assets/lotties/book.json'
 import team from 'appdeptus/assets/lotties/competitiveness.json'
 import dice from 'appdeptus/assets/lotties/dice.json'
+import plan from 'appdeptus/assets/lotties/plan.json'
 import {
   type Button,
   Loading,
@@ -154,6 +155,13 @@ const TabsLayout = () => {
                 tabBarIcon: CommunitiesTabIcon
               }}
             />
+            <Tabs.Screen
+              name='tournaments-tab'
+              options={{
+                tabBarLabel: '',
+                tabBarIcon: TournamentsTabIcon
+              }}
+            />
           </Tabs>
         </VStack>
       </Animated.View>
@@ -189,6 +197,12 @@ const Header = ({ route }: BottomTabHeaderProps) => {
           icon: Plus,
           variant: 'link'
         }
+      case 'tournaments-tab':
+        return {
+          href: 'tournament/create',
+          icon: Plus,
+          variant: 'link'
+        }
 
       default:
         return undefined
@@ -220,19 +234,24 @@ const TabBarButton = ({ children, onPress }: TabBarButtonProps) => (
 
 type TabIconProps = {
   focused: boolean
-  routeName: 'index' | 'communities-tab' | 'games-tab'
+  routeName: 'index' | 'communities-tab' | 'games-tab' | 'tournaments-tab'
 }
 
-const tabNameToNotification = {
+const tabNameToNotification: Partial<
+  Record<TabIconProps['routeName'], keyof Notifications>
+> = {
   'communities-tab': 'communities',
   'games-tab': 'games',
   index: 'armies'
-} satisfies Record<TabIconProps['routeName'], keyof Notifications>
+}
 
 const TabIcon = ({ focused, routeName }: TabIconProps) => {
   const { data: notifications } = useNotificationsQueryState()
 
-  const notificationCount = notifications?.[tabNameToNotification[routeName]]
+  const notificationKey = tabNameToNotification[routeName]
+  const notificationCount = notificationKey
+    ? notifications?.[notificationKey]
+    : undefined
 
   const animation = useRef<LottieView>(null)
 
@@ -281,6 +300,12 @@ const CommunitiesTabIcon = (props: Pick<TabIconProps, 'focused'>) => (
     routeName='communities-tab'
   />
 )
+const TournamentsTabIcon = (props: Pick<TabIconProps, 'focused'>) => (
+  <TabIcon
+    {...props}
+    routeName='tournaments-tab'
+  />
+)
 
 const styles = StyleSheet.create({
   lottieView: {
@@ -301,15 +326,7 @@ const tabNameToIconMap: Record<
     colorFilters: [
       {
         color: themeColors.default.primary[300],
-        keypath: 'cart-outline-top_s1g1_s2g1_s3g1_s4g1_background Outlines'
-      },
-      {
-        color: themeColors.default.primary[300],
-        keypath: 'cart-outline-top_s1g1_s2g2_s3g1_s4g1_background Outlines'
-      },
-      {
-        color: themeColors.default.primary[300],
-        keypath: 'cart-outline-top_s1g1_s2g2_s3g1_s4g1 Outlines'
+        keypath: '*'
       }
     ]
   },
@@ -322,15 +339,7 @@ const tabNameToIconMap: Record<
       },
       {
         color: themeColors.default.primary[300],
-        keypath: 'dice 2'
-      },
-      {
-        color: themeColors.default.primary[300],
-        keypath: 'line'
-      },
-      {
-        color: themeColors.default.primary[300],
-        keypath: 'line 2'
+        keypath: '*'
       }
     ]
   },
@@ -339,15 +348,16 @@ const tabNameToIconMap: Record<
     colorFilters: [
       {
         color: themeColors.default.primary[300],
-        keypath: 'Competitivenes-outline-top_s1g1_s2g2_s3g1_s4g1_background'
-      },
+        keypath: '*'
+      }
+    ]
+  },
+  'tournaments-tab': {
+    source: plan,
+    colorFilters: [
       {
         color: themeColors.default.primary[300],
-        keypath: 'Competitivenes-outline-top_s1g1_s2g2_s3g1_s4g2'
-      },
-      {
-        color: themeColors.default.primary[300],
-        keypath: 'Competitivenes-outline-bot_s1g1_s2g1_s3g1_s4g1_background'
+        keypath: '*'
       }
     ]
   }
