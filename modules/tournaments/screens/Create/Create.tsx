@@ -1,6 +1,7 @@
 import { type BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
+  AddressAutocomplete,
   BottomSheet,
   Card,
   CommunityListItem,
@@ -26,7 +27,6 @@ import {
   Check,
   DollarSign,
   Hash,
-  MapPin,
   Tag,
   Users,
   X
@@ -163,10 +163,9 @@ const CreateScreen = () => {
               render={({ field, fieldState }) => (
                 <VStack space='xs'>
                   <Text family='body-bold'>Address</Text>
-                  <Input
-                    Icon={MapPin}
+                  <AddressAutocomplete
                     onBlur={field.onBlur}
-                    onChangeText={field.onChange}
+                    onChange={field.onChange}
                     placeholder='Tournament location'
                     value={field.value ?? ''}
                   />
