@@ -1,10 +1,10 @@
 import { type BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import DateTimePicker from '@react-native-community/datetimepicker'
 import {
   BottomSheet,
   Card,
   CommunityListItem,
+  DateTimePicker,
   HStack,
   Icon,
   Input,
@@ -20,11 +20,9 @@ import {
 } from 'appdeptus/components'
 import { type Community } from 'appdeptus/models'
 import { useGetCommunityListQuery } from 'appdeptus/modules/communities/api'
-import { format } from 'date-fns'
 import { router } from 'expo-router'
 import {
   AlignLeft,
-  Calendar,
   Check,
   DollarSign,
   Hash,
@@ -54,9 +52,6 @@ const CreateScreen = () => {
     Community,
     'members'
   > | null>(null)
-
-  const [showDatePicker, setShowDatePicker] = useState(false)
-  const [datePickerMode, setDatePickerMode] = useState<'date' | 'time'>('date')
 
   const {
     control,
@@ -188,64 +183,10 @@ const CreateScreen = () => {
               render={({ field }) => (
                 <VStack space='xs'>
                   <Text family='body-bold'>Date & Time</Text>
-                  <Pressable
-                    onPress={() => {
-                      setDatePickerMode('date')
-                      setShowDatePicker(true)
-                    }}
-                  >
-                    <Card>
-                      <HStack
-                        className='items-center p-4'
-                        space='md'
-                      >
-                        <Icon
-                          as={Calendar}
-                          className='color-primary-300'
-                        />
-                        <Text family='body-bold'>
-                          {format(
-                            field.value ?? new Date(),
-                            'MMM d, yyyy · HH:mm'
-                          )}
-                        </Text>
-                      </HStack>
-                    </Card>
-                  </Pressable>
-                  {showDatePicker && (
-                    <DateTimePicker
-                      display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                      mode={Platform.OS === 'ios' ? 'datetime' : datePickerMode}
-                      textColor='white'
-                      value={field.value ?? new Date()}
-                      onChange={(_, date) => {
-                        if (!date) {
-                          setShowDatePicker(false)
-                          return
-                        }
-                        if (Platform.OS === 'android') {
-                          if (datePickerMode === 'date') {
-                            const updated = new Date(field.value ?? new Date())
-                            updated.setFullYear(
-                              date.getFullYear(),
-                              date.getMonth(),
-                              date.getDate()
-                            )
-                            field.onChange(updated)
-                            setDatePickerMode('time')
-                          } else {
-                            const updated = new Date(field.value ?? new Date())
-                            updated.setHours(date.getHours(), date.getMinutes())
-                            field.onChange(updated)
-                            setShowDatePicker(false)
-                            setDatePickerMode('date')
-                          }
-                        } else {
-                          field.onChange(date)
-                        }
-                      }}
-                    />
-                  )}
+                  <DateTimePicker
+                    value={field.value ?? new Date()}
+                    onChange={field.onChange}
+                  />
                 </VStack>
               )}
             />
