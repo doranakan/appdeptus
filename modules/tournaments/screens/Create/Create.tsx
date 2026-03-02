@@ -1,17 +1,9 @@
-import { type BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
   AddressAutocomplete,
-  BottomSheet,
-  Card,
-  CommunityListItem,
   DateTimePicker,
-  HStack,
-  Icon,
   Input,
-  Loading,
   NavigationHeader,
-  Pressable,
   ScreenContainer,
   ScreenTitle,
   TabMenu,
@@ -19,19 +11,15 @@ import {
   useToast,
   VStack
 } from 'appdeptus/components'
-import { type Community } from 'appdeptus/models'
-import { useGetCommunityListQuery } from 'appdeptus/modules/communities/api'
 import { router } from 'expo-router'
 import {
   AlignLeft,
   Check,
   DollarSign,
   Hash,
-  Tag,
-  Users,
-  X
+  Tag
 } from 'lucide-react-native'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
 import { useCreateTournamentMutation } from '../../api'
@@ -42,16 +30,6 @@ const FORMAT_OPTIONS = ['Elimination', 'Swiss']
 const CreateScreen = () => {
   const [createTournament] = useCreateTournamentMutation()
   const { show } = useToast()
-
-  const { data: communities, isLoading: isLoadingCommunities } =
-    useGetCommunityListQuery()
-
-  const bottomSheetRef = useRef<BottomSheetModalMethods>(null)
-
-  const [selectedCommunity, setSelectedCommunity] = useState<Omit<
-    Community,
-    'members'
-  > | null>(null)
 
   const {
     control,
@@ -190,39 +168,6 @@ const CreateScreen = () => {
               )}
             />
 
-            <VStack space='xs'>
-              <Text family='body-bold'>Community (optional)</Text>
-              <Pressable onPress={() => bottomSheetRef.current?.present()}>
-                <Card>
-                  <HStack
-                    className='items-center p-4'
-                    space='md'
-                  >
-                    <Icon
-                      as={Users}
-                      className='color-primary-300'
-                    />
-                    <Text className='flex-1'>
-                      {selectedCommunity?.name ?? 'No community'}
-                    </Text>
-                    {selectedCommunity ? (
-                      <Pressable
-                        onPress={() => {
-                          setValue('communityId', undefined)
-                          setSelectedCommunity(null)
-                        }}
-                      >
-                        <Icon
-                          as={X}
-                          className='color-primary-300'
-                        />
-                      </Pressable>
-                    ) : null}
-                  </HStack>
-                </Card>
-              </Pressable>
-            </VStack>
-
             <Controller
               control={control}
               name='pointsLimit'
@@ -280,39 +225,6 @@ const CreateScreen = () => {
           </VStack>
         </ScrollView>
       </KeyboardAvoidingView>
-
-      <BottomSheet
-        ref={bottomSheetRef}
-        onDismiss={() => bottomSheetRef.current?.dismiss()}
-      >
-        <VStack space='md'>
-          <Text
-            className='text-center'
-            family='body-bold'
-          >
-            Select community
-          </Text>
-          {isLoadingCommunities ? (
-            <Loading />
-          ) : (
-            communities?.map((community) => (
-              <Pressable
-                key={community.id}
-                onPress={() => {
-                  setValue('communityId', community.id)
-                  setSelectedCommunity(community)
-                  bottomSheetRef.current?.dismiss()
-                }}
-              >
-                <CommunityListItem
-                  community={community}
-                  selected={selectedCommunity?.id === community.id}
-                />
-              </Pressable>
-            ))
-          )}
-        </VStack>
-      </BottomSheet>
     </ScreenContainer>
   )
 }

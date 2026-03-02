@@ -76,7 +76,6 @@ type CreateTournament = {
   price?: number
   description?: string
   registrationDeadline?: string
-  communityId?: number
 }
 
 export type {

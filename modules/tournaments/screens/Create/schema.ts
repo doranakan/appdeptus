@@ -7,8 +7,7 @@ const createTournamentSchema = z.object({
   format: z.enum(['single_elimination', 'swiss']),
   pointsLimit: z.string().optional(),
   price: z.string().optional(),
-  description: z.string().optional(),
-  communityId: z.number().int().optional()
+  description: z.string().optional()
 })
 
 type CreateTournamentForm = z.infer<typeof createTournamentSchema>
