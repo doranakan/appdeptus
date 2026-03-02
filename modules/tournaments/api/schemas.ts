@@ -75,7 +75,7 @@ const tournamentSchema = z
     date: z.string(),
     format: z.enum(['single_elimination', 'swiss']),
     status: z.enum(['open', 'ready', 'started', 'ended']),
-    points_limit: z.number().optional(),
+    points_limit: z.number(),
     price: z.number().optional(),
     description: z.string().optional(),
     registration_deadline: z.string().optional(),
@@ -98,7 +98,7 @@ const tournamentRegistrationSchema = z
     created_at: z.string(),
     tournament: z.number(),
     user: tournamentUserSchema,
-    army: tournamentArmySchema
+    army: tournamentArmySchema.optional()
   })
   .transform(({ created_at, ...rest }) => ({
     ...rest,
@@ -154,9 +154,20 @@ const tournamentMatchSchema = z
     })
   )
 
+const tournamentStatusCheckSchema = z.object({
+  status: z.enum(['open', 'ready', 'started', 'ended']),
+  registration_deadline: z.string().optional()
+})
+
+const tournamentRegistrationArmyCheckSchema = z.object({
+  army: z.number().nullable()
+})
+
 export {
   tournamentMatchSchema,
+  tournamentRegistrationArmyCheckSchema,
   tournamentRegistrationSchema,
   tournamentRoundSchema,
-  tournamentSchema
+  tournamentSchema,
+  tournamentStatusCheckSchema
 }

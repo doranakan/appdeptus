@@ -1,3 +1,5 @@
+export { default as ArmySelectionScreen } from './ArmySelection/ArmySelection'
 export { default as CreateScreen } from './Create'
+export { default as RegisterScreen } from './Register/Register'
 export { default as TournamentScreen } from './Tournament'
 export { default as TournamentsTab } from './Tab'

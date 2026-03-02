@@ -21,7 +21,7 @@ type Tournament = {
   date: string
   format: TournamentFormat
   status: TournamentStatus
-  pointsLimit?: number
+  pointsLimit: number
   price?: number
   description?: string
   registrationDeadline?: string
@@ -41,7 +41,7 @@ type TournamentRegistration = {
   createdAt: string
   tournament: number
   user: UserProfile
-  army: TournamentArmy
+  army?: TournamentArmy
 }
 
 type TournamentRound = {

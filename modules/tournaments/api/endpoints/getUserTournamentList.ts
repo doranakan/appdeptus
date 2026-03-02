@@ -23,10 +23,11 @@ const getUserTournamentList = (
             `
               *,
               organizer (*),
-              community (*)
+              community (*),
+              tournament_registrations!inner (user)
             `
           )
-          .eq('organizer', userId)
+          .eq('tournament_registrations.user', userId)
           .order('date', { ascending: true })
 
         if (error) {

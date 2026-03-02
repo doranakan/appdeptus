@@ -11,11 +11,16 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
+import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { format } from 'date-fns'
 import { useLocalSearchParams } from 'expo-router'
-import { ScrollView } from 'react-native-gesture-handler'
-import { RefreshControl } from 'react-native'
-import { useGetTournamentQuery } from '../../api'
+import { ShareIcon } from 'lucide-react-native'
+import { Platform, Share } from 'react-native'
+import { RefreshControl, ScrollView } from 'react-native-gesture-handler'
+import {
+  useGetTournamentQuery,
+  useGetUserRegistrationListQuery
+} from '../../api'
 
 const formatLabelMap = {
   single_elimination: 'Single Elimination',
@@ -32,13 +37,11 @@ const statusLabelMap = {
 const TournamentScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
 
-  const {
-    data,
-    isLoading,
-    isError,
-    isFetching,
-    refetch
-  } = useGetTournamentQuery(Number(id))
+  const { data, isLoading, isError, isFetching, refetch } =
+    useGetTournamentQuery(Number(id))
+
+  const { data: profile } = useGetUserProfileQuery()
+  const { data: registrations } = useGetUserRegistrationListQuery()
 
   if (isLoading) {
     return (
@@ -62,6 +65,24 @@ const TournamentScreen = () => {
         <Error description='There was an error loading the tournament' />
       </ScreenContainer>
     )
+  }
+
+  const isOrganizer = profile?.id === data.organizer.id
+  const registration = registrations?.find((r) => r.tournament === Number(id))
+  const needsArmySelection =
+    registration && !registration.army && data.status === 'ready'
+
+  const shareLink = `https://open.appdeptus.com/tournament-register.html?id=${data.id}`
+
+  const handleShare = () => {
+    Share.share({
+      title: `Join ${data.name}`,
+      message: Platform.select({
+        android: `You're invited to join ${data.name} on Appdeptus!\n${shareLink}`,
+        ios: `You're invited to join ${data.name} on Appdeptus!`
+      }),
+      url: shareLink
+    })
   }
 
   const tableData = [
@@ -90,6 +111,15 @@ const TournamentScreen = () => {
       <NavigationHeader
         title='tournament'
         variant='backButton'
+        {...(isOrganizer
+          ? {
+              rightButton: {
+                icon: ShareIcon,
+                onPress: handleShare,
+                variant: 'callback'
+              }
+            }
+          : {})}
       />
       <ScrollView
         refreshControl={
@@ -116,6 +146,26 @@ const TournamentScreen = () => {
                 <Text family='body-regular-italic'>{data.description}</Text>
               </VStack>
             </Card>
+          ) : null}
+
+          {needsArmySelection ? (
+            <CardMenu
+              Header={
+                <Text
+                  className='p-4 uppercase'
+                  family='body-bold'
+                >
+                  Action required
+                </Text>
+              }
+              items={[
+                {
+                  href: `tournament/army-selection/${id}`,
+                  title: 'Select your army',
+                  variant: 'internal'
+                }
+              ]}
+            />
           ) : null}
 
           {data.community ? (
