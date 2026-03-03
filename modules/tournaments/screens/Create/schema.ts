@@ -7,7 +7,7 @@ const createTournamentSchema = z
     date: z.date({ required_error: 'Date is required' }),
     format: z.enum(['single_elimination', 'swiss']),
     numberOfRounds: z.string().optional(),
-    pointsLimit: z.string().optional(),
+    pointsLimit: z.string(),
     price: z.string().optional(),
     description: z.string().optional()
   })

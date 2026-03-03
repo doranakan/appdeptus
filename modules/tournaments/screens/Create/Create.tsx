@@ -195,7 +195,7 @@ const CreateScreen = () => {
               name='pointsLimit'
               render={({ field }) => (
                 <VStack space='xs'>
-                  <Text family='body-bold'>Points limit (optional)</Text>
+                  <Text family='body-bold'>Points limit</Text>
                   <Input
                     Icon={Hash}
                     keyboardType='numeric'

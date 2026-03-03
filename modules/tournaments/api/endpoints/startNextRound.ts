@@ -3,33 +3,23 @@ import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { createRoundResponseSchema } from '../schemas'
 import { type TournamentsApiTags } from '../tags'
+import { pair, shuffle } from '../utils'
 
 type StartNextRound = {
   tournamentId: number
   completedRoundId: number
   nextRoundNumber: number
-}
-
-const shuffle = <T>(arr: T[]): T[] => {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
-
-const pair = <T>(items: T[]): [T, T][] => {
-  const pairs: [T, T][] = []
-  for (let i = 0; i + 1 < items.length; i += 2) {
-    pairs.push([items[i], items[i + 1]])
-  }
-  return pairs
+  pairingMode?: 'auto' | 'manual'
 }
 
 const startNextRound = (builder: CoreEndpointBuilder<TournamentsApiTags>) =>
-  builder.mutation<null, StartNextRound>({
-    queryFn: async ({ tournamentId, completedRoundId, nextRoundNumber }) => {
+  builder.mutation<{ roundId: number }, StartNextRound>({
+    queryFn: async ({
+      tournamentId,
+      completedRoundId,
+      nextRoundNumber,
+      pairingMode = 'auto'
+    }) => {
       try {
         // Fetch tournament format
         const { data: tournament, error: tournamentError } = await supabase
@@ -123,26 +113,28 @@ const startNextRound = (builder: CoreEndpointBuilder<TournamentsApiTags>) =>
             .sort((a, b) => (winCounts.get(b) ?? 0) - (winCounts.get(a) ?? 0))
         }
 
-        // Create matches for the new round
-        const pairs = pair(playerIds)
+        if (pairingMode === 'auto') {
+          // Create matches for the new round
+          const pairs = pair(playerIds)
 
-        const matchInserts = pairs.map(([p1, p2]) => ({
-          round: newRoundId,
-          player_one: p1,
-          player_two: p2
-        }))
+          const matchInserts = pairs.map(([p1, p2]) => ({
+            round: newRoundId,
+            player_one: p1,
+            player_two: p2
+          }))
 
-        if (matchInserts.length > 0) {
-          const { error: matchError } = await supabase
-            .from(Table.TOURNAMENT_MATCHES)
-            .insert(matchInserts)
+          if (matchInserts.length > 0) {
+            const { error: matchError } = await supabase
+              .from(Table.TOURNAMENT_MATCHES)
+              .insert(matchInserts)
 
-          if (matchError) {
-            return { error: 'Failed to create matches' }
+            if (matchError) {
+              return { error: 'Failed to create matches' }
+            }
           }
         }
 
-        return { data: null }
+        return { data: { roundId: newRoundId } }
       } catch (error) {
         return { error: JSON.stringify(error) }
       }

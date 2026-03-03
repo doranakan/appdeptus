@@ -1,6 +1,7 @@
 import { coreApi } from 'appdeptus/api'
 import {
   confirmMatch,
+  createManualPairings,
   createMatch,
   createRound,
   createTournament,
@@ -31,6 +32,7 @@ const tournamentsApi = coreApi
   .injectEndpoints({
     endpoints: (builder) => ({
       confirmMatch: confirmMatch(builder),
+      createManualPairings: createManualPairings(builder),
       createMatch: createMatch(builder),
       createRound: createRound(builder),
       createTournament: createTournament(builder),

@@ -13,6 +13,7 @@ import {
 } from 'appdeptus/components'
 import { type TournamentMatch, type TournamentRound } from 'appdeptus/models'
 import { useLocalSearchParams, useRouter } from 'expo-router'
+import { Shuffle, Users } from 'lucide-react-native'
 import { RefreshControl, ScrollView } from 'react-native-gesture-handler'
 import {
   useGetTournamentMatchListQuery,
@@ -90,7 +91,10 @@ type RoundSectionProps = {
   isFinalRound: boolean
   isStartingNextRound: boolean
   isEndingTournament: boolean
-  onNextRound: (completedRound: TournamentRound) => void
+  onNextRound: (
+    completedRound: TournamentRound,
+    pairingMode: 'auto' | 'manual'
+  ) => void
   onTournamentEnd: () => void
 }
 
@@ -153,14 +157,28 @@ const RoundSection = ({
             variant='callback'
           />
         ) : (
-          <Button
-            loading={isStartingNextRound}
-            onPress={() => {
-              onNextRound(round)
-            }}
-            text='Create Next Round'
-            variant='callback'
-          />
+          <HStack space='sm'>
+            <Button
+              className='flex-1'
+              icon={Shuffle}
+              loading={isStartingNextRound}
+              onPress={() => {
+                onNextRound(round, 'auto')
+              }}
+              text='Auto Pair'
+              variant='callback'
+            />
+            <Button
+              className='flex-1'
+              icon={Users}
+              disabled={isStartingNextRound}
+              onPress={() => {
+                onNextRound(round, 'manual')
+              }}
+              text='Manual Pair'
+              variant='callback'
+            />
+          </HStack>
         )
       ) : null}
     </VStack>
@@ -169,6 +187,7 @@ const RoundSection = ({
 
 const RoundsScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
+  const router = useRouter()
   const { show } = useToast()
 
   const {
@@ -221,15 +240,26 @@ const RoundsScreen = () => {
     )
   }
 
-  const handleNextRound = async (completedRound: TournamentRound) => {
+  const handleNextRound = async (
+    completedRound: TournamentRound,
+    pairingMode: 'auto' | 'manual'
+  ) => {
     const result = await startNextRound({
       tournamentId: Number(id),
       completedRoundId: completedRound.id,
-      nextRoundNumber: completedRound.roundNumber + 1
+      nextRoundNumber: completedRound.roundNumber + 1,
+      pairingMode
     })
 
     if ('error' in result) {
       show({ title: '⚠️ Error', description: 'Failed to create next round' })
+      return
+    }
+
+    if (pairingMode === 'manual' && result.data) {
+      router.push(
+        `/tournament/${id}/round-pairing?roundId=${result.data.roundId}`
+      )
     }
   }
 

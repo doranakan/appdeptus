@@ -8,6 +8,8 @@ const TournamentDetailLayout = () => (
   >
     <Stack.Screen name='index' />
     <Stack.Screen name='rounds' />
+    <Stack.Screen name='start-pairing' />
+    <Stack.Screen name='round-pairing' />
     <Stack.Screen name='match/[matchId]' />
   </Stack>
 )

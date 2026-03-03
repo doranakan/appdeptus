@@ -15,17 +15,14 @@ import { router } from 'expo-router'
 import { Play, RefreshCw, ShareIcon, Shield } from 'lucide-react-native'
 import { memo, useCallback, useState } from 'react'
 import { Platform, Share } from 'react-native'
-import {
-  useStartTournamentMutation,
-  useUpdateTournamentStatusMutation
-} from '../../api'
+import { useUpdateTournamentStatusMutation } from '../../api'
 import ref from './ref'
 
-type ConfirmAction = 'ready' | 'reopen' | 'start' | null
+type ConfirmAction = 'ready' | 'reopen' | null
 
 const confirmCopy: Record<
   NonNullable<ConfirmAction>,
-  { title: string; confirm: string }
+  { title: string, confirm: string }
 > = {
   ready: {
     title: 'Lock registrations and move to Ready?',
@@ -34,11 +31,6 @@ const confirmCopy: Record<
   reopen: {
     title: 'Reopen registrations?',
     confirm: 'Reopen'
-  },
-  start: {
-    title:
-      'Start the tournament? This cannot be undone. All pending games for participants will be terminated and the first round will be generated.',
-    confirm: 'Start'
   }
 }
 
@@ -53,7 +45,6 @@ const OptionsBottomSheet = ({ tournament }: OptionsBottomSheetProps) => {
     useBoolean(false)
 
   const [updateTournamentStatus] = useUpdateTournamentStatusMutation()
-  const [startTournament] = useStartTournamentMutation()
 
   const dismiss = useCallback(() => {
     ref.current?.dismiss()
@@ -76,6 +67,11 @@ const OptionsBottomSheet = ({ tournament }: OptionsBottomSheetProps) => {
       show({ title: '⚠️ Error', description: 'Failed to share tournament' })
     })
   }, [dismiss, tournament.id, tournament.name, show])
+
+  const handleStart = useCallback(() => {
+    dismiss()
+    router.push(`/tournament/${tournament.id}/start-pairing`)
+  }, [dismiss, tournament.id])
 
   const handleConfirm = useCallback(async () => {
     if (!confirmAction) return
@@ -107,25 +103,12 @@ const OptionsBottomSheet = ({ tournament }: OptionsBottomSheetProps) => {
         return
       }
       dismiss()
-      return
-    }
-
-    if (confirmAction === 'start') {
-      const result = await startTournament({ id: tournament.id })
-      stopExecuting()
-      if ('error' in result) {
-        show({ title: '⚠️ Error', description: String(result.error) })
-        return
-      }
-      dismiss()
-      router.push(`/tournament/${tournament.id}/rounds`)
     }
   }, [
     confirmAction,
     dismiss,
     show,
     startExecuting,
-    startTournament,
     stopExecuting,
     tournament.id,
     updateTournamentStatus
@@ -158,7 +141,9 @@ const OptionsBottomSheet = ({ tournament }: OptionsBottomSheetProps) => {
               <OptionButton
                 disabled={Boolean(confirmAction)}
                 icon={Shield}
-                onPress={() => setConfirmAction('ready')}
+                onPress={() => {
+                  setConfirmAction('ready')
+                }}
                 text='Set Ready'
                 variant='callback'
               />
@@ -170,14 +155,16 @@ const OptionsBottomSheet = ({ tournament }: OptionsBottomSheetProps) => {
               <OptionButton
                 disabled={Boolean(confirmAction)}
                 icon={RefreshCw}
-                onPress={() => setConfirmAction('reopen')}
+                onPress={() => {
+                  setConfirmAction('reopen')
+                }}
                 text='Reopen'
                 variant='callback'
               />
               <OptionButton
                 disabled={Boolean(confirmAction)}
                 icon={Play}
-                onPress={() => setConfirmAction('start')}
+                onPress={handleStart}
                 text='Start'
                 variant='callback'
               />
@@ -196,7 +183,9 @@ const OptionsBottomSheet = ({ tournament }: OptionsBottomSheetProps) => {
                 <Button
                   color='primary'
                   disabled={isExecuting}
-                  onPress={() => setConfirmAction(null)}
+                  onPress={() => {
+                    setConfirmAction(null)
+                  }}
                   size='sm'
                   text='Cancel'
                   variant='callback'

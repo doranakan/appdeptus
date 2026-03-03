@@ -5,30 +5,14 @@ import { Table } from 'appdeptus/utils/supabase'
 import { createRoundResponseSchema, tournamentRegistrationArmyCheckSchema } from '../schemas'
 import { type TournamentsApiTags } from '../tags'
 
-const shuffle = <T>(arr: T[]): T[] => {
-  const a = [...arr]
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[a[i], a[j]] = [a[j], a[i]]
-  }
-  return a
-}
-
-const pair = <T>(items: T[]): [T, T][] => {
-  const pairs: [T, T][] = []
-  for (let i = 0; i + 1 < items.length; i += 2) {
-    pairs.push([items[i], items[i + 1]])
-  }
-  return pairs
-}
-
 type StartTournament = {
   id: Tournament['id']
+  pairs: [string, string][]
 }
 
 const startTournament = (builder: CoreEndpointBuilder<TournamentsApiTags>) =>
   builder.mutation<null, StartTournament>({
-    queryFn: async ({ id }) => {
+    queryFn: async ({ id, pairs }) => {
       try {
         // Validate all registrations have armies
         const { data: registrations, error: regError } = await supabase
@@ -96,17 +80,14 @@ const startTournament = (builder: CoreEndpointBuilder<TournamentsApiTags>) =>
           return { error: roundResult.error.message }
         }
 
-        // Generate random pairings
-        const playerIds = shuffle(registrations.map((r) => r.user as string))
-        const pairs = pair(playerIds)
+        // Create matches from provided pairs
+        if (pairs.length > 0) {
+          const matchInserts = pairs.map(([p1, p2]) => ({
+            round: roundResult.data.id,
+            player_one: p1,
+            player_two: p2
+          }))
 
-        const matchInserts = pairs.map(([p1, p2]) => ({
-          round: roundResult.data.id,
-          player_one: p1,
-          player_two: p2
-        }))
-
-        if (matchInserts.length > 0) {
           const { error: matchError } = await supabase
             .from(Table.TOURNAMENT_MATCHES)
             .insert(matchInserts)

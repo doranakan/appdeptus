@@ -1,4 +1,5 @@
 export { default as confirmMatch } from './confirmMatch'
+export { default as createManualPairings } from './createManualPairings'
 export { default as createMatch } from './createMatch'
 export { default as createRound } from './createRound'
 export { default as createTournament } from './createTournament'

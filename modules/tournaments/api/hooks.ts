@@ -2,6 +2,7 @@ import tournamentsApi from './api'
 
 const {
   useConfirmMatchMutation,
+  useCreateManualPairingsMutation,
   useCreateMatchMutation,
   useCreateRoundMutation,
   useCreateTournamentMutation,
@@ -26,6 +27,7 @@ const {
 
 export {
   useConfirmMatchMutation,
+  useCreateManualPairingsMutation,
   useCreateMatchMutation,
   useCreateRoundMutation,
   useCreateTournamentMutation,
