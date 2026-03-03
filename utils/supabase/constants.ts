@@ -11,6 +11,10 @@ enum Table {
   GAMES = 'games',
   TIERS = 'unit_tiers',
   UNITS = 'units',
+  TOURNAMENT_MATCHES = 'tournament_matches',
+  TOURNAMENT_REGISTRATIONS = 'tournament_registrations',
+  TOURNAMENT_ROUNDS = 'tournament_rounds',
+  TOURNAMENTS = 'tournaments',
   USERS = 'users',
   USER_NOTIFICATIONS = 'user_notifications',
   USERS_PUSH_TOKENS = 'users_push_tokens'
