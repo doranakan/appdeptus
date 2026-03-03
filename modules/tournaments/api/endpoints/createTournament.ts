@@ -6,7 +6,7 @@ import { type TournamentsApiTags } from '../tags'
 
 const createTournament = (builder: CoreEndpointBuilder<TournamentsApiTags>) =>
   builder.mutation<number, CreateTournament>({
-    queryFn: async ({ pointsLimit, registrationDeadline, ...rest }) => {
+    queryFn: async ({ numberOfRounds, pointsLimit, registrationDeadline, ...rest }) => {
       try {
         const userId = await getUserId()
 
@@ -19,6 +19,7 @@ const createTournament = (builder: CoreEndpointBuilder<TournamentsApiTags>) =>
           .insert({
             ...rest,
             organizer: userId,
+            number_of_rounds: numberOfRounds,
             points_limit: pointsLimit,
             registration_deadline: registrationDeadline
           })

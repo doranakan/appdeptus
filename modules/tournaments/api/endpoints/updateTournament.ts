@@ -8,13 +8,19 @@ type UpdateTournament = Partial<CreateTournament> & { id: number }
 
 const updateTournament = (builder: CoreEndpointBuilder<TournamentsApiTags>) =>
   builder.mutation<null, UpdateTournament>({
-    queryFn: async ({ id, communityId, pointsLimit, registrationDeadline, ...rest }) => {
+    queryFn: async ({
+      id,
+      numberOfRounds,
+      pointsLimit,
+      registrationDeadline,
+      ...rest
+    }) => {
       try {
         const { error } = await supabase
           .from(Table.TOURNAMENTS)
           .update({
             ...rest,
-            community: communityId,
+            number_of_rounds: numberOfRounds,
             points_limit: pointsLimit,
             registration_deadline: registrationDeadline
           })

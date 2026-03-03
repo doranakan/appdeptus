@@ -12,21 +12,23 @@ type SingleDataTableProps = {
 
 const SingleDataTable = ({ data }: SingleDataTableProps) => (
   <VStack>
-    {data.map(({ title, value }) => (
-      <VStack key={title}>
-        <Line />
-        <HStack className='items-center py-2'>
-          <Text className='px-2 text-center'>{title}</Text>
-          <Text
-            className='flex-1 text-right'
-            family='body-bold'
-            numberOfLines={1}
-          >
-            {value}
-          </Text>
-        </HStack>
-      </VStack>
-    ))}
+    {data.map(({ title, value }) =>
+      value ? (
+        <VStack key={title}>
+          <Line />
+          <HStack className='items-center py-2'>
+            <Text className='px-2 text-center'>{title}</Text>
+            <Text
+              className='flex-1 text-right'
+              family='body-bold'
+              numberOfLines={1}
+            >
+              {value}
+            </Text>
+          </HStack>
+        </VStack>
+      ) : null
+    )}
     <Line />
   </VStack>
 )

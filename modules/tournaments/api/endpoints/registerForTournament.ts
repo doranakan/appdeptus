@@ -22,7 +22,7 @@ const registerForTournament = (
 
         const { data: tournamentData, error: tournamentError } = await supabase
           .from(Table.TOURNAMENTS)
-          .select('status, registration_deadline')
+          .select('status, registration_deadline, organizer')
           .eq('id', tournamentId)
           .single()
 
@@ -33,6 +33,10 @@ const registerForTournament = (
         const tournament = tournamentStatusCheckSchema.parse(
           mapNullToUndefined(tournamentData)
         )
+
+        if (tournament.organizer === userId) {
+          return { error: 'Organizers cannot register as participants' }
+        }
 
         if (tournament.status !== 'open') {
           return { error: 'Tournament registration is closed' }

@@ -7,6 +7,8 @@ const TournamentDetailLayout = () => (
     screenOptions={defaultScreenOptions}
   >
     <Stack.Screen name='index' />
+    <Stack.Screen name='rounds' />
+    <Stack.Screen name='match/[matchId]' />
   </Stack>
 )
 

@@ -22,6 +22,7 @@ type Tournament = {
   format: TournamentFormat
   status: TournamentStatus
   pointsLimit: number
+  numberOfRounds?: number
   price?: number
   description?: string
   registrationDeadline?: string
@@ -72,6 +73,7 @@ type CreateTournament = {
   address: string
   date: string
   format: TournamentFormat
+  numberOfRounds?: number
   pointsLimit?: number
   price?: number
   description?: string

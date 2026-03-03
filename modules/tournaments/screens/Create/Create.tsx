@@ -12,13 +12,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import { router } from 'expo-router'
-import {
-  AlignLeft,
-  Check,
-  DollarSign,
-  Hash,
-  Tag
-} from 'lucide-react-native'
+import { AlignLeft, Check, DollarSign, Hash, Tag } from 'lucide-react-native'
 import { useCallback } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { KeyboardAvoidingView, Platform, ScrollView } from 'react-native'
@@ -35,6 +29,7 @@ const CreateScreen = () => {
     control,
     handleSubmit,
     setValue,
+    watch,
     formState: { isSubmitting, isValid }
   } = useForm<CreateTournamentForm>({
     mode: 'onBlur',
@@ -45,6 +40,8 @@ const CreateScreen = () => {
     }
   })
 
+  const format = watch('format')
+
   const onFormatSelected = useCallback(
     (_: string, index: number) => {
       setValue('format', index === 0 ? 'single_elimination' : 'swiss')
@@ -54,6 +51,7 @@ const CreateScreen = () => {
 
   const onSubmit = async ({
     date,
+    numberOfRounds,
     pointsLimit,
     price,
     description,
@@ -62,6 +60,7 @@ const CreateScreen = () => {
     const res = await createTournament({
       ...rest,
       date: new Date(date).toISOString(),
+      numberOfRounds: numberOfRounds ? Number(numberOfRounds) : undefined,
       pointsLimit: pointsLimit ? parseInt(pointsLimit, 10) : undefined,
       price: price ? parseInt(price, 10) : undefined,
       description: description ?? undefined
@@ -114,6 +113,29 @@ const CreateScreen = () => {
                 onOptionSelected={onFormatSelected}
               />
             </VStack>
+
+            {format === 'swiss' ? (
+              <Controller
+                control={control}
+                name='numberOfRounds'
+                render={({ field, fieldState }) => (
+                  <VStack space='xs'>
+                    <Text family='body-bold'>Number of rounds</Text>
+                    <Input
+                      Icon={Hash}
+                      keyboardType='numeric'
+                      onBlur={field.onBlur}
+                      onChangeText={field.onChange}
+                      placeholder='e.g. 4'
+                      value={field.value ?? ''}
+                    />
+                    {fieldState.error ? (
+                      <ErrorText message={fieldState.error.message} />
+                    ) : null}
+                  </VStack>
+                )}
+              />
+            ) : null}
 
             <Controller
               control={control}

@@ -1,6 +1,7 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
+import { createRoundResponseSchema } from '../schemas'
 import { type TournamentsApiTags } from '../tags'
 
 type CreateRound = {
@@ -9,21 +10,25 @@ type CreateRound = {
 }
 
 const createRound = (builder: CoreEndpointBuilder<TournamentsApiTags>) =>
-  builder.mutation<null, CreateRound>({
+  builder.mutation<{ id: number }, CreateRound>({
     queryFn: async ({ tournamentId, roundNumber }) => {
       try {
-        const { error } = await supabase
+        const { data, error } = await supabase
           .from(Table.TOURNAMENT_ROUNDS)
           .insert({
             tournament: tournamentId,
             round_number: roundNumber
           })
+          .select('id')
+          .single()
 
         if (error) {
           return { error: JSON.stringify(error) }
         }
 
-        return { data: null }
+        const parsed = createRoundResponseSchema.parse(data)
+
+        return { data: { id: parsed.id } }
       } catch (error) {
         return { error: JSON.stringify(error) }
       }
