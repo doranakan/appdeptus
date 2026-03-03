@@ -17,6 +17,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "icon": "./assets/resources/ios.icon/",
       "bundleIdentifier": "com.appdeptus",
       "supportsTablet": true,
       "usesAppleSignIn": true,
