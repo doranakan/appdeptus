@@ -1,4 +1,4 @@
-import { type BottomTabHeaderProps } from '@react-navigation/bottom-tabs'
+import { type BottomTabHeaderProps } from 'expo-router/js-tabs'
 import book from 'appdeptus/assets/lotties/book.json'
 import team from 'appdeptus/assets/lotties/competitiveness.json'
 import dice from 'appdeptus/assets/lotties/dice.json'
