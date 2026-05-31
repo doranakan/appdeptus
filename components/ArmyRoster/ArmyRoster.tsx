@@ -26,8 +26,8 @@ type ArmyRosterProps = {
   ListHeaderComponent?: ComponentProps<
     typeof Animated.FlatList
   >['ListHeaderComponent']
-
   invalidUnits?: Army['roster'][number]['id'][]
+  onOverScroll?: (onOverScroll: number) => void
 }
 
 const SNAP_THRESHOLD = 100
@@ -36,7 +36,8 @@ const EXPANDED_TRANSLATION = 250
 const ArmyRoster = ({
   roster,
   ListHeaderComponent,
-  invalidUnits = []
+  invalidUnits = [],
+  onOverScroll
 }: ArmyRosterProps) => {
   const scrollRef = useAnimatedRef<Animated.FlatList>()
   const isOnTop = useSharedValue(true)
@@ -80,8 +81,15 @@ const ArmyRoster = ({
     () => translation.value >= SNAP_THRESHOLD,
     (crossed, prev) => {
       if (crossed && prev === false) {
-        scheduleOnRN(Haptics.impactAsync, Haptics.ImpactFeedbackStyle.Medium)
+        scheduleOnRN(Haptics.impactAsync, Haptics.ImpactFeedbackStyle.Rigid)
       }
+    }
+  )
+
+  useAnimatedReaction(
+    () => translation.value,
+    (curr) => {
+      onOverScroll?.(curr)
     }
   )
   const rStyle = useAnimatedStyle(() => ({
