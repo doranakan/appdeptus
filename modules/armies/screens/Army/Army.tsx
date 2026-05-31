@@ -20,12 +20,17 @@ import { useAppDispatch } from 'appdeptus/store'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useLocalSearchParams } from 'expo-router'
 import { Component, EllipsisVertical } from 'lucide-react-native'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { useGetArmyQuery, useGetInvalidUnitsQuery } from '../../api'
 import { RosterTopContainer } from '../../components'
 import OptionsBottomSheet from './OptionsBottomSheet'
 import ref from './ref'
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue
+} from 'react-native-reanimated'
 
 const ArmyScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -54,6 +59,7 @@ const ArmyScreen = () => {
 type ArmyContainerProps = {
   army: Army
 }
+const AnimatedGradient = Animated.createAnimatedComponent(LinearGradient)
 
 const ArmyContainer = ({ army }: ArmyContainerProps) => {
   const { data: invalidUnits } = useGetInvalidUnitsQuery(
@@ -70,19 +76,36 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
     dispatch(setTheme(army.codex.name))
   })
 
+  const scaling = useSharedValue(1)
+  const onOverScroll = useCallback(
+    (num: number) => {
+      'worklet'
+      scaling.value = interpolate(num, [0, 250], [1, 1.1])
+    },
+    [scaling]
+  )
+
+  const rArtworkStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scaling.value }],
+    flex: 1
+  }))
+  const rGradientStyle = useAnimatedStyle(() => ({
+    opacity: interpolate(scaling.value, [1, 1.1], [1, 0])
+  }))
+
   return (
     <ScreenContainer safeAreaInsets={['bottom', 'top']}>
       <VStack className='absolute h-full w-full'>
-        <VStack className='flex-1'>
+        <Animated.View style={rArtworkStyle}>
           <ArmyBackground codex={army.codex.name} />
-          <LinearGradient
+          <AnimatedGradient
             colors={[
               `${themeColors[army.codex.name].primary[950]}00`,
               themeColors[army.codex.name].primary[950]
             ]}
-            style={styles.gradient}
+            style={[rGradientStyle, styles.gradient]}
           />
-        </VStack>
+        </Animated.View>
         <VStack className='flex-1' />
       </VStack>
       <VStack
@@ -98,6 +121,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
           }}
         />
         <ArmyRoster
+          onOverScroll={onOverScroll}
           ListHeaderComponent={
             <VStack space='md'>
               <RosterTopContainer
