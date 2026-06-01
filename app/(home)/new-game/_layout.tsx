@@ -1,4 +1,4 @@
-import { DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import { DefaultTheme, ThemeProvider } from 'expo-router/react-navigation'
 import { skipToken } from '@reduxjs/toolkit/query'
 import {
   type Button,

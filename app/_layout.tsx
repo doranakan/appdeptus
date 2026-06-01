@@ -78,7 +78,6 @@ const App = ({ children }: PropsWithChildren) => {
       <StatusBar
         animated
         style='light'
-        translucent
       />
     </SafeAreaProvider>
   )
