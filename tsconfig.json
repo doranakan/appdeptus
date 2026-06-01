@@ -6,7 +6,7 @@
   "compilerOptions": {
     "checkJs": false,
     "strict": true,
-    "baseUrl": ".",
+    "moduleSuffixes": ["", ".android", ".ios"],
     "paths": {
       "appdeptus/*": [
         "./*"
