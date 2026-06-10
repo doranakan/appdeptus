@@ -1,0 +1,51 @@
+import tournamentsApi from './api'
+
+const {
+  useConfirmMatchMutation,
+  useCreateManualPairingsMutation,
+  useCreateMatchMutation,
+  useCreateRoundMutation,
+  useCreateTournamentMutation,
+  useDeleteTournamentMutation,
+  useGetTournamentListQuery,
+  useGetTournamentMatchListQuery,
+  useGetTournamentQuery,
+  useGetTournamentRegistrationListQuery,
+  useGetTournamentRoundListQuery,
+  useGetUserRegistrationListQuery,
+  useGetUserTournamentListQuery,
+  useRegisterForTournamentMutation,
+  useSelectTournamentArmyMutation,
+  useStartNextRoundMutation,
+  useStartTournamentMutation,
+  useUnregisterFromTournamentMutation,
+  useUpdateMatchMutation,
+  useUpdateRoundStatusMutation,
+  useUpdateTournamentMutation,
+  useUpdateTournamentStatusMutation
+} = tournamentsApi
+
+export {
+  useConfirmMatchMutation,
+  useCreateManualPairingsMutation,
+  useCreateMatchMutation,
+  useCreateRoundMutation,
+  useCreateTournamentMutation,
+  useDeleteTournamentMutation,
+  useGetTournamentListQuery,
+  useGetTournamentMatchListQuery,
+  useGetTournamentQuery,
+  useGetTournamentRegistrationListQuery,
+  useGetTournamentRoundListQuery,
+  useGetUserRegistrationListQuery,
+  useGetUserTournamentListQuery,
+  useRegisterForTournamentMutation,
+  useSelectTournamentArmyMutation,
+  useStartNextRoundMutation,
+  useStartTournamentMutation,
+  useUnregisterFromTournamentMutation,
+  useUpdateMatchMutation,
+  useUpdateRoundStatusMutation,
+  useUpdateTournamentMutation,
+  useUpdateTournamentStatusMutation
+}
