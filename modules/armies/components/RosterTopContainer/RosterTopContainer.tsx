@@ -13,6 +13,7 @@ import {
 import InnerBorder from 'appdeptus/components/InnerBorder'
 import { useModelCount, useUnitCount, useWarlord } from 'appdeptus/hooks'
 import { type Army } from 'appdeptus/models'
+import { mapBattleSize } from 'appdeptus/utils'
 import { Eye, EyeOff } from 'lucide-react-native'
 import { memo } from 'react'
 import { Switch } from 'react-native-gesture-handler'
@@ -62,7 +63,7 @@ const RosterTopContainer = ({ army, isUsersArmy }: RosterTopContainerProps) => {
           >
             <Text>Battle Size:</Text>
             <Badge
-              text={army.battleSize}
+              text={mapBattleSize(army.battleSize)}
               variant='tertiary'
             />
           </HStack>
