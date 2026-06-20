@@ -17,8 +17,9 @@ const DetachmentSelectionScreen = () => {
         space='md'
       >
         <TopBar
-          subtitle='detachments'
+          subtitle='detachment points'
           title={selectedCodex?.name}
+          step='detachments'
         />
         <DetachmentList />
       </VStack>

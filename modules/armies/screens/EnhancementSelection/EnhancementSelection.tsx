@@ -1,7 +1,7 @@
 import { ScreenContainer, VStack } from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
+import { useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { useGetDetachmentListQuery } from '../../api'
 import { ArmyBuilderBackground, TopBar } from '../../components'
 import EnhancementAssignment from './EnhancementAssignment'
 
@@ -9,14 +9,13 @@ const EnhancementSelectionScreen = () => {
   const { watch } = useFormContext<ArmyBuilder>()
 
   const selectedCodex = watch('codex')
-  const selectedDetachment = watch('detachment')
 
-  const { enhancements } = useGetDetachmentListQuery(selectedCodex, {
-    selectFromResult: ({ data }) => ({
-      enhancements: data?.find(({ id }) => id === selectedDetachment.id)
-        ?.enhancements
-    })
-  })
+  const detachments = watch('detachments')
+
+  const enhancements = useMemo(
+    () => detachments?.flatMap((d) => d.enhancements) ?? [],
+    [detachments]
+  )
 
   return (
     <ScreenContainer safeAreaInsets={['bottom']}>
@@ -26,10 +25,11 @@ const EnhancementSelectionScreen = () => {
         space='md'
       >
         <TopBar
-          subtitle={selectedDetachment.name}
+          subtitle=''
           title={selectedCodex.name}
+          step='units'
         />
-        {enhancements ? (
+        {enhancements.length > 0 ? (
           <EnhancementAssignment enhancements={enhancements} />
         ) : null}
       </VStack>

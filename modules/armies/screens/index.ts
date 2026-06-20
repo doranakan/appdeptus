@@ -1,4 +1,5 @@
 export { default as ArmyScreen } from './Army'
+export { default as BattleSizeSelectionScreen } from './BattleSizeSelection'
 export { default as CodexSelectionScreen } from './CodexSelection'
 export { default as DetachmentSelectionScreen } from './DetachmentSelection'
 export { default as EnhancementSelectionScreen } from './EnhancementSelection'

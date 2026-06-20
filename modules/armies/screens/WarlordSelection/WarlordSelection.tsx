@@ -9,7 +9,6 @@ const WarlordSelectionScreen = () => {
   const { watch } = useFormContext<ArmyBuilder>()
 
   const selectedCodex = watch('codex.name')
-  const selectedDetachment = watch('detachment')
 
   return (
     <ScreenContainer safeAreaInsets={['bottom']}>
@@ -19,8 +18,9 @@ const WarlordSelectionScreen = () => {
         space='md'
       >
         <TopBar
-          subtitle={selectedDetachment.name}
+          subtitle='Your army'
           title={selectedCodex}
+          step='units'
         />
 
         <NameInput />

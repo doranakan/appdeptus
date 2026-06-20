@@ -32,9 +32,11 @@ type GameArmy = BaseArmy & {
   roster: (GameUnit | GameTeam | GameEmbarked)[]
 }
 
-type ArmyBuilder = BaseArmy & {
+type ArmyBuilder = Omit<BaseArmy, 'detachments'> & {
   units: Unit[]
   user: UserProfile
+} & {
+  detachments: Detachment[]
 }
 
 export type { Army, ArmyBuilder, BattleSize, GameArmy }

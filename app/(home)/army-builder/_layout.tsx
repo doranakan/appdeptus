@@ -116,7 +116,8 @@ const ArmyBuilderLayout = () => {
     [show, updateArmy]
   )
 
-  const [codex, detachments, units, name] = watch([
+  const [battleSize, codex, detachments, units, name] = watch([
+    'battleSize',
     'codex',
     'detachments',
     'units',
@@ -138,37 +139,49 @@ const ArmyBuilderLayout = () => {
 
   const currentStep = useMemo(() => {
     switch (routeName) {
-      case 'army-builder': {
+      case 'codex-selection': {
         return !codex ? 1 : 2
       }
       case '[id]':
+      case 'battle-size-selection': {
+        return !battleSize ? 3 : 4
+      }
       case 'detachment-selection': {
-        return !detachments?.length ? 3 : 4
+        return !detachments?.length ? 5 : 6
       }
       case 'unit-selection': {
-        return unitSelectionButtonDisabled ? 5 : 6
+        return unitSelectionButtonDisabled ? 7 : 8
       }
       case 'enhancement-selection': {
-        return 7
+        return 9
       }
       case 'warlord-selection': {
-        return 8 + (name ? 1 : 0) + (warlord ? 1 : 0)
+        return 10 + (name ? 1 : 0) + (warlord ? 1 : 0)
       }
       default:
         return 0
     }
-  }, [codex, detachments, name, routeName, unitSelectionButtonDisabled, warlord])
+  }, [
+    battleSize,
+    codex,
+    detachments,
+    name,
+    routeName,
+    unitSelectionButtonDisabled,
+    warlord
+  ])
 
   const text = useMemo(() => {
     switch (routeName) {
-      case 'army-builder': {
+      case 'codex-selection': {
         return codex ? `selected: ${codex.name}` : 'select codex'
       }
       case '[id]':
+      case 'battle-size-selection': {
+        return 'select battle size'
+      }
       case 'detachment-selection': {
-        return detachments?.length
-          ? `selected: ${detachments.map((d) => d.name).join(', ')}`
-          : 'select detachment'
+        return 'select detachments'
       }
       case 'unit-selection': {
         return 'select units'
@@ -182,19 +195,27 @@ const ArmyBuilderLayout = () => {
       default:
         return ''
     }
-  }, [codex, detachments, routeName])
+  }, [codex, routeName])
 
   const rightButton = useMemo<ComponentProps<typeof Button> | undefined>(() => {
     switch (routeName) {
-      case 'army-builder': {
+      case 'codex-selection': {
         return {
           disabled: !codex,
+          icon: ChevronRight,
+          href: 'army-builder/battle-size-selection',
+          variant: 'link'
+        }
+      }
+      case '[id]':
+      case 'battle-size-selection': {
+        return {
+          disabled: !battleSize,
           icon: ChevronRight,
           href: 'army-builder/detachment-selection',
           variant: 'link'
         }
       }
-      case '[id]':
       case 'detachment-selection': {
         return {
           disabled: !detachments?.length,
@@ -240,6 +261,7 @@ const ArmyBuilderLayout = () => {
         return undefined
     }
   }, [
+    battleSize,
     codex,
     detachments,
     editArmy,
@@ -264,7 +286,7 @@ const ArmyBuilderLayout = () => {
           variant='backButton'
           progress={{
             currentStep,
-            steps: 10,
+            steps: 12,
             text
           }}
           rightButton={rightButton}
@@ -272,10 +294,11 @@ const ArmyBuilderLayout = () => {
       </VStack>
       <FormProvider {...form}>
         <Stack
-          initialRouteName='index'
+          initialRouteName='codex-selection'
           screenOptions={defaultScreenOptions}
         >
-          <Stack.Screen name='index' />
+          <Stack.Screen name='battle-size-selection' />
+          <Stack.Screen name='codex-selection' />
           <Stack.Screen name='detachment-selection' />
           <Stack.Screen name='[id]' />
           <Stack.Screen name='enhancement-selection' />
