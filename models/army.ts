@@ -17,7 +17,7 @@ type BaseArmy = {
   id: number
   name: string
   points: number
-  detachments: Detachment[]
+  detachments: [Detachment, ...Detachment[]]
   battleSize: BattleSize
 }
 

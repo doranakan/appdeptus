@@ -14,7 +14,11 @@ const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
           .from(Table.UNITS)
           .select(
             `
-              *,
+              id,
+              name,
+              type,
+              hero,
+              battleline,
               unit_tiers(
                 id,
                 models,
@@ -40,18 +44,22 @@ const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
             .from(Table.UNITS)
             .select(
               `
-            *,
-            unit_tiers(
               id,
-              models,
-              points
+              name,
+              type,
+              hero,
+              battleline,
+              unit_tiers(
+                id,
+                models,
+                points
               ),
               unit_upgrades(
                 id,
                 name,
                 points
-                )
-                `
+              )
+            `
             )
             .eq('codex', codex.expansionOf)
             .filter('hero', 'not.eq', true)
