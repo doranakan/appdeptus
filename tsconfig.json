@@ -20,7 +20,6 @@
     "**/*.tsx",
     "env.d.ts",
     "app.config.js",
-    "tailwind.config.js",
     "nativewind-env.d.ts"
   ]
 }
