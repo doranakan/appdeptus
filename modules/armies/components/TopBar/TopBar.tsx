@@ -9,9 +9,9 @@ import {
   VStack
 } from 'appdeptus/components'
 import { type ArmyBuilder } from 'appdeptus/models'
-import { mapBattleSizeDp } from 'appdeptus/utils'
+import { mapBattleSizeDp, mapBattleSizePointCap } from 'appdeptus/utils'
 import clsx from 'clsx'
-import { Info } from 'lucide-react-native'
+import { Info, TriangleAlert } from 'lucide-react-native'
 import { memo, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useGetUnitListQuery } from '../../api'
@@ -38,6 +38,12 @@ const TopBar = ({ subtitle, step, title }: TopBarProps) => {
   const battleSize = watch('battleSize')
 
   const detachments = watch('detachments')
+
+  const pointCapExceeded = useMemo(() => {
+    if (!battleSize) return false
+    const cap = mapBattleSizePointCap(battleSize)
+    return points > cap
+  }, [battleSize, points])
 
   const counter = useMemo(() => {
     const armyPoints = `${points}pts`
@@ -84,8 +90,11 @@ const TopBar = ({ subtitle, step, title }: TopBarProps) => {
               </Text>
               {step !== 'detachments' && unitTypes.length > 1 ? (
                 <Icon
-                  as={Info}
-                  className={clsx(['text-primary-50', !points && 'opacity-60'])}
+                  as={pointCapExceeded ? TriangleAlert : Info}
+                  className={clsx([
+                    pointCapExceeded ? 'text-error-400' : 'text-primary-50',
+                    !points && 'opacity-60'
+                  ])}
                 />
               ) : null}
             </HStack>

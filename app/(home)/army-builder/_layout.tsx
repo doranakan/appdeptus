@@ -15,6 +15,7 @@ import {
   useGetInvalidUnitsQuery,
   useUpdateArmyMutation
 } from 'appdeptus/modules/armies/api'
+import { mapBattleSizePointCap } from 'appdeptus/utils'
 import { router, Stack, useGlobalSearchParams, useSegments } from 'expo-router'
 import { Check, ChevronRight } from 'lucide-react-native'
 import { type ComponentProps, useCallback, useMemo } from 'react'
@@ -116,15 +117,22 @@ const ArmyBuilderLayout = () => {
     [show, updateArmy]
   )
 
-  const [battleSize, codex, detachments, units, name] = watch([
+  const [battleSize, codex, detachments, units, name, points] = watch([
     'battleSize',
     'codex',
     'detachments',
     'units',
-    'name'
+    'name',
+    'points'
   ])
 
   const warlord = useWarlord(units ?? [])
+
+  const pointCapExceeded = useMemo(() => {
+    if (!battleSize) return false
+    const cap = mapBattleSizePointCap(battleSize)
+    return points > cap
+  }, [battleSize, points])
 
   const unitSelectionButtonDisabled = useMemo(
     () =>
@@ -233,7 +241,7 @@ const ArmyBuilderLayout = () => {
           ).length > 0
 
         return {
-          disabled: unitSelectionButtonDisabled,
+          disabled: unitSelectionButtonDisabled || pointCapExceeded,
           icon: ChevronRight,
           href: canUpgradeUnits
             ? 'army-builder/enhancement-selection'
@@ -243,6 +251,7 @@ const ArmyBuilderLayout = () => {
       }
       case 'enhancement-selection': {
         return {
+          disabled: pointCapExceeded,
           icon: ChevronRight,
           href: 'army-builder/warlord-selection',
           variant: 'link'
@@ -270,6 +279,7 @@ const ArmyBuilderLayout = () => {
     id,
     name,
     newArmy,
+    pointCapExceeded,
     routeName,
     unitSelectionButtonDisabled,
     units,

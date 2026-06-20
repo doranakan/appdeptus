@@ -3,20 +3,16 @@ import { type ArmyBuilder, type BattleSize } from 'appdeptus/models'
 import { type LucideIcon, Rocket, Sword, Swords } from 'lucide-react-native'
 import { useFormContext } from 'react-hook-form'
 import { Pressable } from 'react-native'
-const BATTLE_SIZES: {
-  description: string
-  icon: LucideIcon
-  label: string
-  value: BattleSize
-}[] = [
+
+const BATTLE_SIZES = [
   {
-    description: '2 DP',
+    description: '1000PTS | 2DP',
     icon: Sword,
     label: 'Incursion',
     value: 'incursion'
   },
   {
-    description: '3 DP',
+    description: '2000PTS | 3DP',
     icon: Swords,
     label: 'Strike Force',
     value: 'strike-force'
@@ -27,7 +23,12 @@ const BATTLE_SIZES: {
     label: 'Unbound',
     value: 'free'
   }
-]
+] as const satisfies {
+  description: string
+  icon: LucideIcon
+  label: string
+  value: BattleSize
+}[]
 
 const BattleSizeList = () => {
   const { setValue, watch } = useFormContext<ArmyBuilder>()

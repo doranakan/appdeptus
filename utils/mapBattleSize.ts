@@ -15,8 +15,16 @@ const battleSizeDp = {
 const mapBattleSize = (battleSize: BattleSize): string =>
   battleSizeLabels[battleSize]
 
+const battleSizePointCap = {
+  incursion: 1000,
+  'strike-force': 2000,
+  free: 99999
+} as const satisfies Record<BattleSize, number>
+
 const mapBattleSizeDp = (battleSize: BattleSize): number =>
   battleSizeDp[battleSize]
 
-export { mapBattleSizeDp }
-export default mapBattleSize
+const mapBattleSizePointCap = (battleSize: BattleSize): number =>
+  battleSizePointCap[battleSize]
+
+export { mapBattleSize, mapBattleSizeDp, mapBattleSizePointCap }
