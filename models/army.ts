@@ -10,12 +10,15 @@ import {
 } from './unit'
 import { type UserProfile } from './userProfile'
 
+type BattleSize = 'incursion' | 'strike_force' | 'free'
+
 type BaseArmy = {
   codex: Codex
   id: number
   name: string
   points: number
-  detachment: Detachment
+  detachments: Detachment[]
+  battleSize: BattleSize
 }
 
 type Army = BaseArmy & {
@@ -34,4 +37,4 @@ type ArmyBuilder = BaseArmy & {
   user: UserProfile
 }
 
-export type { Army, ArmyBuilder, GameArmy }
+export type { Army, ArmyBuilder, BattleSize, GameArmy }
