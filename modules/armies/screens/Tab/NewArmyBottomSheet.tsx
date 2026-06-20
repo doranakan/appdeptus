@@ -1,8 +1,8 @@
-import { type BottomSheetModal } from '@gorhom/bottom-sheet'
 import { useBoolean } from 'ahooks'
 import { BottomSheet, Button, Text, VStack } from 'appdeptus/components'
 import { router, useLocalSearchParams } from 'expo-router'
-import { memo, useEffect, useRef } from 'react'
+import { memo, useEffect } from 'react'
+import ref from './ref'
 
 const NewArmyBottomSheet = () => {
   const { showNewArmyBottomSheet } = useLocalSearchParams<{
@@ -10,8 +10,6 @@ const NewArmyBottomSheet = () => {
   }>()
 
   const [viewed, { setTrue: setViewed }] = useBoolean()
-
-  const ref = useRef<BottomSheetModal>(null)
 
   const dismiss = () => {
     ref.current?.dismiss()
