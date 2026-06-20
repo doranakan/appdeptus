@@ -138,7 +138,9 @@ const characterSchema = armyUnitSchema
 const leaderSchema = armyUnitSchema
   .merge(z.object({ type: baseLeaderSchema }))
   .and(heroOrEnhanceableSchema)
-const squadSchema = armyUnitSchema.merge(z.object({ type: baseSquadSchema }))
+const squadSchema = armyUnitSchema.merge(
+  z.object({ type: baseSquadSchema, battleline: z.boolean().default(false) })
+)
 const transportSchema = armyUnitSchema.merge(
   z.object({ type: baseTransportSchema })
 )
@@ -153,7 +155,7 @@ const gameLeaderSchema = gameArmyUnitSchema
   .merge(z.object({ type: baseLeaderSchema }))
   .and(heroOrEnhanceableSchema)
 const gameSquadSchema = gameArmyUnitSchema.merge(
-  z.object({ type: baseSquadSchema })
+  z.object({ type: baseSquadSchema, battleline: z.boolean().default(false) })
 )
 const gameTransportSchema = gameArmyUnitSchema.merge(
   z.object({ type: baseTransportSchema })
@@ -212,31 +214,35 @@ const battleSizeSchema = z.union([
   z.literal('free')
 ])
 
+const armyDetachmentSchema = baseDetachmentSchema
+  .merge(z.object({ detachment_enhancements: z.array(enhancementSchema) }))
+  .transform(({ detachment_enhancements, detachment_points, ...rest }) => ({
+    ...rest,
+    enhancements: detachment_enhancements,
+    detachmentPoints: detachment_points
+  }))
+
 const baseArmySchema = z
   .object({
     codex: codexSchema,
-    detachments: z.array(
-      baseDetachmentSchema
-        .merge(
-          z.object({ detachment_enhancements: z.array(enhancementSchema) })
-        )
-        .transform(
-          ({ detachment_enhancements, detachment_points, ...rest }) => ({
-            ...rest,
-            enhancements: detachment_enhancements,
-            detachmentPoints: detachment_points
-          })
-        )
-    ),
+    detachment: armyDetachmentSchema.optional(),
+    detachments: z.array(armyDetachmentSchema).nullable().optional(),
     battle_size: battleSizeSchema,
     id: idSchema,
     name: z.string(),
     points: z.number()
   })
-  .transform(({ battle_size, ...rest }) => ({
+  .transform(({ battle_size, detachment, detachments, ...rest }) => ({
     ...rest,
-    battleSize: battle_size
+    battleSize: battle_size,
+    detachments: (detachments?.length ? detachments : detachment ? [detachment] : null) as [
+      ReturnType<typeof armyDetachmentSchema.parse>,
+      ...ReturnType<typeof armyDetachmentSchema.parse>[]
+    ]
   }))
+  .refine(({ detachments }) => detachments !== null && detachments.length > 0, {
+    message: 'Army must have at least one detachment'
+  })
 
 const armySchema = z
   .object({
@@ -283,7 +289,8 @@ const selectableLeaderSchema = z.object({
 })
 
 const selectableSquadSchema = z.object({
-  type: baseSquadSchema
+  type: baseSquadSchema,
+  battleline: z.boolean().default(false)
 })
 const selectableTransportSchema = z.object({
   type: baseTransportSchema

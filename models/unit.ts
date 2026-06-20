@@ -31,6 +31,7 @@ type BaseLeader = CoreUnit &
 
 type BaseSquad = CoreUnit & {
   type: 'squad'
+  battleline: boolean
 }
 
 type BaseTransport = CoreUnit & {
