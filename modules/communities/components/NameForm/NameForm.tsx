@@ -10,7 +10,7 @@ import {
   VStack
 } from 'appdeptus/components'
 import { CircleCheck, CircleX, Edit, Save } from 'lucide-react-native'
-import React, { memo, useState } from 'react'
+import { memo, useState } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { useLazySearchCommunityQuery } from '../../api'
 

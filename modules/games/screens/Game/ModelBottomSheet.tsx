@@ -1,6 +1,6 @@
 import { useDebounceEffect } from 'ahooks'
 import { type GameArmy, type GameTeam, type GameUnit } from 'appdeptus/models'
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { BottomSheet } from '../../../../components/BottomSheet'
 import Text from '../../../../components/Text'
 import { VStack } from '../../../../components/ui'

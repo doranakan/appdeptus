@@ -90,4 +90,4 @@ const TabMenu = <T extends Readonly<string>>({
   )
 }
 
-export default memo(TabMenu)
+export default memo(TabMenu) as typeof TabMenu

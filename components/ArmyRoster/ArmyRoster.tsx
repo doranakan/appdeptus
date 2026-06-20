@@ -1,5 +1,5 @@
 import { type Army } from 'appdeptus/models'
-import React, { type ComponentProps, memo } from 'react'
+import { type ComponentProps, memo } from 'react'
 import { FlatList } from 'react-native'
 import { VStack } from '../ui'
 import { UnitListItem } from '../UnitListItem'

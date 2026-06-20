@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, { type ComponentProps, memo } from 'react'
+import { type ComponentProps, memo } from 'react'
 import { ActivityIndicator } from 'react-native'
 import InnerBorder from '../InnerBorder'
 import {

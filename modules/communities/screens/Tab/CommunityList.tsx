@@ -11,7 +11,7 @@ import {
 } from 'appdeptus/components'
 import clsx from 'clsx'
 import { Search } from 'lucide-react-native'
-import React, { memo, useState } from 'react'
+import { memo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import {
   useGetCommunityListQuery,

@@ -1,6 +1,6 @@
 import { type BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import type { Meta, StoryObj } from '@storybook/react'
-import React, { createRef } from 'react'
+import { createRef } from 'react'
 import Button from '../Button'
 import Text from '../Text'
 import { VStack } from '../ui'

@@ -13,7 +13,7 @@ import {
 import clsx from 'clsx'
 import { Link } from 'expo-router'
 import { Search } from 'lucide-react-native'
-import React, { memo, useMemo, useState } from 'react'
+import { memo, useMemo, useState } from 'react'
 import { FlatList, RefreshControl } from 'react-native'
 import { useGetArmyListQuery } from '../../api'
 import NewArmyBottomSheet from './NewArmyBottomSheet'

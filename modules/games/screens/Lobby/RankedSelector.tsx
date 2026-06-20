@@ -13,7 +13,7 @@ import {
 import { type ActiveGame, type EndedGame } from 'appdeptus/models/game'
 import { useGetCommonCommunitiesQuery } from 'appdeptus/modules/communities/api'
 import { Medal } from 'lucide-react-native'
-import React, { memo, useRef, useState } from 'react'
+import { memo, useRef, useState } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { Switch } from 'react-native-gesture-handler'
 import { useSetRankedGameMutation } from '../../api'

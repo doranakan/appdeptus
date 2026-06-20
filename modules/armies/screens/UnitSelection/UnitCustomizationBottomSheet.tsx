@@ -19,7 +19,7 @@ import {
   SquareCheck
 } from 'lucide-react-native'
 import pluralize from 'pluralize'
-import React, { memo, useEffect, useMemo } from 'react'
+import { memo, useEffect, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import ref from './ref'
 
