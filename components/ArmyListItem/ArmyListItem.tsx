@@ -1,4 +1,5 @@
 import { type BattleSize, type CodexName, type UserProfile } from 'appdeptus/models'
+import { mapBattleSize } from 'appdeptus/utils'
 
 import { LinearGradient } from 'expo-linear-gradient'
 import { memo, type ComponentProps } from 'react'
@@ -97,7 +98,7 @@ const ArmyListItem = ({
           <Text>{name}</Text>
           <Badge
             codex={codex}
-            text={battleSize}
+            text={mapBattleSize(battleSize)}
           />
         </HStack>
       </VStack>
