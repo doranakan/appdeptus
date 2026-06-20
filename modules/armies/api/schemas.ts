@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { type SelectableUnit } from 'appdeptus/models'
+import { type Enhancement, type SelectableUnit } from 'appdeptus/models'
 import { z } from 'zod'
 
 const idSchema = z.number()
@@ -222,10 +222,21 @@ const armyDetachmentSchema = baseDetachmentSchema
     detachmentPoints: detachment_points
   }))
 
+const legacyDetachmentSchema = z
+  .object({
+    id: idSchema,
+    name: z.string()
+  })
+  .transform(({ ...rest }) => ({
+    ...rest,
+    enhancements: [] as Enhancement[],
+    detachmentPoints: 1
+  }))
+
 const baseArmySchema = z
   .object({
     codex: codexSchema,
-    detachment: armyDetachmentSchema.optional(),
+    detachment: legacyDetachmentSchema.optional(),
     detachments: z.array(armyDetachmentSchema).nullable().optional(),
     battle_size: battleSizeSchema,
     id: idSchema,
