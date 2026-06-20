@@ -1,32 +1,22 @@
 import {
   createContext,
   type PropsWithChildren,
-  useCallback,
   useContext,
-  useRef,
-  useState
+  useRef
 } from 'react'
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 
 type DevMenuContextValue = {
   sheetRef: React.RefObject<BottomSheetModalMethods | null>
-  storybookActive: boolean
-  launchStorybook: () => void
 }
 
 const DevMenuContext = createContext<DevMenuContextValue | null>(null)
 
 export const DevMenuProvider = ({ children }: PropsWithChildren) => {
   const sheetRef = useRef<BottomSheetModalMethods>(null)
-  const [storybookActive, setStorybookActive] = useState(false)
-
-  const launchStorybook = useCallback(() => {
-    sheetRef.current?.dismiss()
-    setStorybookActive(true)
-  }, [])
 
   return (
-    <DevMenuContext.Provider value={{ sheetRef, storybookActive, launchStorybook }}>
+    <DevMenuContext.Provider value={{ sheetRef }}>
       {children}
     </DevMenuContext.Provider>
   )

@@ -1,10 +1,17 @@
 import { BottomSheet, Button } from 'appdeptus/components'
+import { router } from 'expo-router'
 import { BookOpen } from 'lucide-react-native'
+import { useCallback } from 'react'
 import { Text, View } from 'react-native'
 import { useDevMenu } from './DevMenuContext'
 
 const DevMenuSheet = () => {
-  const { sheetRef, launchStorybook } = useDevMenu()
+  const { sheetRef } = useDevMenu()
+
+  const handleStorybookPress = useCallback(() => {
+    sheetRef.current?.dismiss()
+    router.push('/storybook')
+  }, [sheetRef])
 
   return (
     <BottomSheet ref={sheetRef}>
@@ -17,7 +24,7 @@ const DevMenuSheet = () => {
           color='secondary'
           icon={BookOpen}
           text='Launch Storybook'
-          onPress={launchStorybook}
+          onPress={handleStorybookPress}
         />
       </View>
     </BottomSheet>

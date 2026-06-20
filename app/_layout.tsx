@@ -16,8 +16,7 @@ import { ErrorBoundary } from 'appdeptus/components'
 import {
   DevMenuProvider,
   DevMenuSheet,
-  DevTrigger,
-  useDevMenu
+  DevTrigger
 } from 'appdeptus/components/DevMenu'
 import { GluestackUIProvider } from 'appdeptus/components/ui'
 import { defaultScreenOptions } from 'appdeptus/constants'
@@ -26,7 +25,7 @@ import { store } from 'appdeptus/store'
 import { SplashScreen, Stack, useNavigationContainerRef } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { PostHogProvider } from 'posthog-react-native'
-import { Fragment, type PropsWithChildren, useEffect } from 'react'
+import { type PropsWithChildren, useEffect } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import {
   initialWindowMetrics,
@@ -93,34 +92,22 @@ const AppLayout = () => (
   <Stack screenOptions={defaultScreenOptions}>
     <Stack.Screen name='(home)' />
     <Stack.Screen name='(root)' />
+    {__DEV__ && (
+      <Stack.Screen
+        name='storybook'
+        options={{ presentation: 'modal', headerShown: false }}
+      />
+    )}
   </Stack>
 )
-
-// __DEV__ is replaced with `false` by Metro in production builds, so
-// the require below is dead code and excluded from the production bundle.
-const StorybookApp = __DEV__ ? require('../.storybook').default : null
-
-const DevAwareContent = () => {
-  const { storybookActive } = useDevMenu()
-
-  if (storybookActive && StorybookApp) {
-    return <StorybookApp />
-  }
-
-  return (
-    <Fragment>
-      <AppLayout />
-      <DevTrigger />
-      <DevMenuSheet />
-    </Fragment>
-  )
-}
 
 const Layout = () => (
   <App>
     {__DEV__ ? (
       <DevMenuProvider>
-        <DevAwareContent />
+        <AppLayout />
+        <DevTrigger />
+        <DevMenuSheet />
       </DevMenuProvider>
     ) : (
       <AppLayout />
