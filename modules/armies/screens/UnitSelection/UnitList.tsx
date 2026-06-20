@@ -4,6 +4,7 @@ import {
   type SelectableUnit,
   type Unit
 } from 'appdeptus/models'
+import { mapBattleSizeDp } from 'appdeptus/utils'
 import * as Crypto from 'expo-crypto'
 import { memo, useCallback, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -19,6 +20,9 @@ type UnitListProps = {
 
 const UnitList = ({ units }: UnitListProps) => {
   const { setValue, watch } = useFormContext<ArmyBuilder>()
+
+  const battleSize = watch('battleSize')
+  const unitLimit = mapBattleSizeDp(battleSize)
 
   const handleAdd = useCallback(
     (unit: SelectableUnit) => {
@@ -57,8 +61,12 @@ const UnitList = ({ units }: UnitListProps) => {
         ({ name }) => item.name === name
       )
 
+      const isBattleline = item.type === 'squad' && item.battleline
+      const maxCount = isBattleline ? unitLimit * 2 : unitLimit
+
       return (
         <UnitListItem
+          maxCount={maxCount}
           selectedUnits={selectedUnits.length ? selectedUnits : undefined}
           onPressAdd={handleAdd}
           onPressEdit={handleEdit}
