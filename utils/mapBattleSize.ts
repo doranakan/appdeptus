@@ -2,13 +2,13 @@ import { type BattleSize } from 'appdeptus/models'
 
 const battleSizeLabels: Record<BattleSize, string> = {
   incursion: 'Incursion',
-  strike_force: 'Strike Force',
+  'strike-force': 'Strike Force',
   free: 'Unbound'
 }
 
 const battleSizeDp: Record<BattleSize, number | null> = {
   incursion: 2,
-  strike_force: 3,
+  'strike-force': 3,
   free: null
 }
 

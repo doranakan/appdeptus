@@ -10,7 +10,7 @@ import {
 } from './unit'
 import { type UserProfile } from './userProfile'
 
-type BattleSize = 'incursion' | 'strike_force' | 'free'
+type BattleSize = 'incursion' | 'strike-force' | 'free'
 
 type BaseArmy = {
   codex: Codex

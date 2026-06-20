@@ -210,7 +210,7 @@ const gameEmbarkedSchema = z.object({
 
 const battleSizeSchema = z.union([
   z.literal('incursion'),
-  z.literal('strike_force'),
+  z.literal('strike-force'),
   z.literal('free')
 ])
 

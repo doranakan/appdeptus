@@ -10,6 +10,7 @@ import {
 import { type ArmyBuilder, type BattleSize } from 'appdeptus/models'
 import { type LucideIcon, Rocket, Sword, Swords } from 'lucide-react-native'
 import { useFormContext } from 'react-hook-form'
+import { ArmyBuilderBackground } from '../../components'
 
 const BATTLE_SIZES: {
   description: string
@@ -27,7 +28,7 @@ const BATTLE_SIZES: {
     description: '3 DP',
     icon: Swords,
     label: 'Strike Force',
-    value: 'strike_force'
+    value: 'strike-force'
   },
   {
     description: 'No restrictions',
@@ -47,6 +48,7 @@ const BattleSizeSelection = () => {
       safeAreaInsets={['bottom']}
       hideBottomGradient
     >
+      <ArmyBuilderBackground />
       <VStack
         className='flex-1 px-4 py-4'
         space='md'
