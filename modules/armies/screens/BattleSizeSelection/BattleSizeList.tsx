@@ -41,6 +41,9 @@ const BattleSizeList = () => {
         <Pressable
           key={value}
           onPress={() => {
+            if (value !== battleSize) {
+              setValue('detachments', [])
+            }
             setValue('battleSize', value)
           }}
         >
