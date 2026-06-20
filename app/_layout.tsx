@@ -12,8 +12,8 @@ import {
 } from '@expo-google-fonts/ibm-plex-mono'
 import { Silkscreen_400Regular } from '@expo-google-fonts/silkscreen'
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
-import { ErrorBoundary } from 'appdeptus/components'
-import { GluestackUIProvider } from 'appdeptus/components/ui'
+import { ErrorBoundary, selectThemeName } from 'appdeptus/components'
+import { GluestackUIProvider, themeColors } from 'appdeptus/components/ui'
 import { defaultScreenOptions } from 'appdeptus/constants'
 import 'appdeptus/global.css'
 import { store } from 'appdeptus/store'
@@ -26,7 +26,7 @@ import {
   initialWindowMetrics,
   SafeAreaProvider
 } from 'react-native-safe-area-context'
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 SplashScreen.preventAutoHideAsync()
@@ -83,12 +83,23 @@ const App = ({ children }: PropsWithChildren) => {
   )
 }
 
-const AppLayout = () => (
-  <Stack screenOptions={defaultScreenOptions}>
-    <Stack.Screen name='(home)' />
-    <Stack.Screen name='(root)' />
-  </Stack>
-)
+const AppLayout = () => {
+  const theme = useSelector(selectThemeName)
+
+  return (
+    <Stack
+      screenOptions={{
+        ...defaultScreenOptions,
+        contentStyle: {
+          backgroundColor: themeColors[theme].primary[950]
+        }
+      }}
+    >
+      <Stack.Screen name='(home)' />
+      <Stack.Screen name='(root)' />
+    </Stack>
+  )
+}
 
 const EntryPoint =
   process.env.EXPO_PUBLIC_STORYBOOK_ENABLED === 'true'
