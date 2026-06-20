@@ -5,7 +5,7 @@ import {
   type Unit
 } from 'appdeptus/models'
 import * as Crypto from 'expo-crypto'
-import React, { memo, useCallback, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { type ListRenderItem } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'

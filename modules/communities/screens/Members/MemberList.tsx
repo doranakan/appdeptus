@@ -1,7 +1,7 @@
 import { Text, themeColors, VStack } from 'appdeptus/components'
 import { useLocalSearchParams } from 'expo-router'
 import { sortBy } from 'lodash'
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { RefreshControl } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import { useGetCommunityQuery } from '../../api'

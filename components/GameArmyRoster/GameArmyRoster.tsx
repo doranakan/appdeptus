@@ -1,5 +1,5 @@
 import { type GameArmy } from 'appdeptus/models'
-import React, { type ComponentProps, memo } from 'react'
+import { type ComponentProps, memo } from 'react'
 import { FlatList } from 'react-native'
 import { RefreshControl } from 'react-native-gesture-handler'
 import { useSelector } from 'react-redux'

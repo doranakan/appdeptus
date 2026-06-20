@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { LinearGradient } from 'expo-linear-gradient'
-import React, { type ComponentProps, type PropsWithChildren } from 'react'
+import { type ComponentProps, type PropsWithChildren } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useSelector } from 'react-redux'
 import { selectThemeName } from '../store'

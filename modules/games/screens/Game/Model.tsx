@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { Minus, Plus, Skull } from 'lucide-react-native'
-import React, { memo, useState } from 'react'
+import { memo, useState } from 'react'
 import Button from '../../../../components/Button'
 import ButtonGroup from '../../../../components/ButtonGroup'
 import Card from '../../../../components/Card'

@@ -11,7 +11,7 @@ import {
 import { type Army } from 'appdeptus/models'
 import clsx from 'clsx'
 import { Info } from 'lucide-react-native'
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useGetUnitListQuery } from '../../api'
 import { useUnitTypes } from '../../hooks'

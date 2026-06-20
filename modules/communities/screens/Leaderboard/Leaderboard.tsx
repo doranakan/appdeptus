@@ -11,7 +11,7 @@ import {
 } from 'appdeptus/components'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { Link, useLocalSearchParams } from 'expo-router'
-import React, { type ComponentProps } from 'react'
+import { type ComponentProps } from 'react'
 import { useGetCommunityQuery } from '../../api'
 
 const LeaderboardScreen = () => {

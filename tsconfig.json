@@ -12,7 +12,8 @@
         "./*"
       ]
     },
-    "exactOptionalPropertyTypes": false
+    "exactOptionalPropertyTypes": false,
+    "jsx": "react-jsx"
   },
   "include": [
     "**/*.ts",
