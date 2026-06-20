@@ -7,13 +7,15 @@ import { insertArmyEntries } from '../utils'
 
 const createArmy = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
   builder.mutation<null, ArmyBuilder>({
-    queryFn: async ({ codex, units, id: _id, user: _user, ...rest }) => {
+    queryFn: async ({ codex, units, detachments, battleSize, id: _id, user: _user, ...rest }) => {
       try {
         const { data, error } = await supabase
           .from(Table.ARMIES)
           .insert({
             codex: codex.id,
             roster: units,
+            detachments,
+            battle_size: battleSize,
             ...rest
           })
           .select('id')

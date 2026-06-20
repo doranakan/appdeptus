@@ -32,8 +32,9 @@ const ArmyBuilderLayout = () => {
   const defaultValues = useMemo(() => {
     if (!army) {
       return {
+        battleSize: undefined,
         codex: undefined,
-        detachment: undefined,
+        detachments: [],
         name: '',
         points: 0,
         units: []
@@ -115,9 +116,9 @@ const ArmyBuilderLayout = () => {
     [show, updateArmy]
   )
 
-  const [codex, detachment, units, name] = watch([
+  const [codex, detachments, units, name] = watch([
     'codex',
-    'detachment',
+    'detachments',
     'units',
     'name'
   ])
@@ -142,7 +143,7 @@ const ArmyBuilderLayout = () => {
       }
       case '[id]':
       case 'detachment-selection': {
-        return !detachment ? 3 : 4
+        return !detachments?.length ? 3 : 4
       }
       case 'unit-selection': {
         return unitSelectionButtonDisabled ? 5 : 6
@@ -156,7 +157,7 @@ const ArmyBuilderLayout = () => {
       default:
         return 0
     }
-  }, [codex, detachment, name, routeName, unitSelectionButtonDisabled, warlord])
+  }, [codex, detachments, name, routeName, unitSelectionButtonDisabled, warlord])
 
   const text = useMemo(() => {
     switch (routeName) {
@@ -165,7 +166,9 @@ const ArmyBuilderLayout = () => {
       }
       case '[id]':
       case 'detachment-selection': {
-        return detachment ? `selected: ${detachment.name}` : 'select detachment'
+        return detachments?.length
+          ? `selected: ${detachments.map((d) => d.name).join(', ')}`
+          : 'select detachment'
       }
       case 'unit-selection': {
         return 'select units'
@@ -179,7 +182,7 @@ const ArmyBuilderLayout = () => {
       default:
         return ''
     }
-  }, [codex, detachment, routeName])
+  }, [codex, detachments, routeName])
 
   const rightButton = useMemo<ComponentProps<typeof Button> | undefined>(() => {
     switch (routeName) {
@@ -194,7 +197,7 @@ const ArmyBuilderLayout = () => {
       case '[id]':
       case 'detachment-selection': {
         return {
-          disabled: !detachment,
+          disabled: !detachments?.length,
           icon: ChevronRight,
           href: 'army-builder/unit-selection',
           variant: 'link'
@@ -238,7 +241,7 @@ const ArmyBuilderLayout = () => {
     }
   }, [
     codex,
-    detachment,
+    detachments,
     editArmy,
     formState.isSubmitting,
     handleSubmit,

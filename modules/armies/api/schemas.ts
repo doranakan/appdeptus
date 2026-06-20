@@ -74,7 +74,8 @@ const enhancementSchema = z.object({
 
 const baseDetachmentSchema = z.object({
   id: idSchema,
-  name: z.string()
+  name: z.string(),
+  detachment_points: z.number()
 })
 
 const detachmentListSchema = z.array(
@@ -84,9 +85,10 @@ const detachmentListSchema = z.array(
         detachment_enhancements: z.array(enhancementSchema)
       })
     )
-    .transform(({ detachment_enhancements, ...rest }) => ({
+    .transform(({ detachment_enhancements, detachment_points, ...rest }) => ({
       ...rest,
-      enhancements: detachment_enhancements
+      enhancements: detachment_enhancements,
+      detachmentPoints: detachment_points
     }))
 )
 
@@ -204,17 +206,37 @@ const gameEmbarkedSchema = z.object({
   type: baseEmbarkedSchema
 })
 
-const baseArmySchema = z.object({
-  codex: codexSchema,
-  detachment: baseDetachmentSchema.merge(
-    z.object({
-      enhancements: z.array(enhancementSchema)
-    })
-  ),
-  id: idSchema,
-  name: z.string(),
-  points: z.number()
-})
+const battleSizeSchema = z.union([
+  z.literal('incursion'),
+  z.literal('strike_force'),
+  z.literal('free')
+])
+
+const baseArmySchema = z
+  .object({
+    codex: codexSchema,
+    detachments: z.array(
+      baseDetachmentSchema
+        .merge(
+          z.object({ detachment_enhancements: z.array(enhancementSchema) })
+        )
+        .transform(
+          ({ detachment_enhancements, detachment_points, ...rest }) => ({
+            ...rest,
+            enhancements: detachment_enhancements,
+            detachmentPoints: detachment_points
+          })
+        )
+    ),
+    battle_size: battleSizeSchema,
+    id: idSchema,
+    name: z.string(),
+    points: z.number()
+  })
+  .transform(({ battle_size, ...rest }) => ({
+    ...rest,
+    battleSize: battle_size
+  }))
 
 const armySchema = z
   .object({
