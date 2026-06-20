@@ -55,7 +55,7 @@ const ArmyList = () => {
           <Pressable>
             <ArmyListItem
               codex={item.codex.name}
-              detachment={item.detachment.name}
+              battleSize={item.battleSize}
               name={item.name}
               points={item.points}
               isValid={item.isValid}

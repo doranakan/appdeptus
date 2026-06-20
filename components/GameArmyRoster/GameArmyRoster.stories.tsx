@@ -55,7 +55,8 @@ const GameArmyRosterMeta: Meta<typeof GameArmyRoster> = {
         ],
         points: 180,
         upgrades: [],
-        type: 'squad'
+        type: 'squad',
+        battleline: false
       },
       {
         id: 2,
@@ -105,7 +106,8 @@ const GameArmyRosterMeta: Meta<typeof GameArmyRoster> = {
         ],
         points: 160,
         upgrades: [],
-        type: 'squad'
+        type: 'squad',
+        battleline: false
       }
     ]
   }

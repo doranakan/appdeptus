@@ -60,9 +60,9 @@ const RosterTopContainer = ({ army, isUsersArmy }: RosterTopContainerProps) => {
             className='items-center'
             space='md'
           >
-            <Text>Detachment:</Text>
+            <Text>Battle Size:</Text>
             <Badge
-              text={army.detachment.name}
+              text={army.battleSize}
               variant='tertiary'
             />
           </HStack>
