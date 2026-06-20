@@ -117,12 +117,12 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
       </HStack>
       <HStack className='justify-between'>
         <Badge
-          text={playerOne.army.detachment.name}
+          text={playerOne.army.battleSize}
           codex={playerOne.army.codex.name}
         />
 
         <Badge
-          text={playerTwo.army.detachment.name}
+          text={playerTwo.army.battleSize}
           codex={playerTwo.army.codex.name}
         />
       </HStack>
