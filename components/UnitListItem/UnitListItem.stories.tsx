@@ -72,6 +72,7 @@ export const Team: Story = {
     item: {
       id: 'id',
       type: 'team',
+      attachment: 'leader',
       leader: {
         id: 0,
         name: 'Khârn the Betrayer',
@@ -102,6 +103,7 @@ export const Embarked: Story = {
         {
           id: '0',
           type: 'team',
+          attachment: 'leader',
           leader: {
             id: 0,
             name: 'Khârn the Betrayer',

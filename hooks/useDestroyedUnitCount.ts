@@ -18,7 +18,10 @@ const useDestroyedUnitCount = (units: GameArmy['roster']) =>
               unit.crew.reduce((a, c) => {
                 if (c.type === 'team') {
                   return (
-                    a + isUnitDestroyed(c.bodyguard) + isUnitDestroyed(c.leader)
+                    a +
+                    isUnitDestroyed(c.bodyguard) +
+                    ('leader' in c ? isUnitDestroyed(c.leader) : 0) +
+                    ('support' in c ? isUnitDestroyed(c.support) : 0)
                   )
                 }
                 return a + isUnitDestroyed(c)
@@ -29,7 +32,8 @@ const useDestroyedUnitCount = (units: GameArmy['roster']) =>
           case 'team':
             return (
               acc +
-              isUnitDestroyed(unit.leader) +
+              ('leader' in unit ? isUnitDestroyed(unit.leader) : 0) +
+              ('support' in unit ? isUnitDestroyed(unit.support) : 0) +
               isUnitDestroyed(unit.bodyguard)
             )
 

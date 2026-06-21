@@ -41,6 +41,7 @@ const Content2 = () => (
         <UnitListItem
           item={{
             type: 'team',
+            attachment: 'leader',
             leader: {
               name: 'Captain in Terminator Armour',
               upgrades: [],

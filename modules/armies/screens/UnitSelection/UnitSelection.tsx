@@ -44,7 +44,7 @@ const UnitSelectionScreen = () => {
       units: data?.filter(({ type: t }) => {
         switch (selectedType) {
           case 'character':
-            return t === 'character' || t === 'leader'
+            return t === 'character' || t === 'leader' || t === 'support'
           case 'monster':
           case 'vehicle':
             return t === 'vehicle' || t === 'transport'

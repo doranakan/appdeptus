@@ -12,7 +12,9 @@ const WarlordList = () => {
     () =>
       units.filter<Character | Leader>(
         (unit): unit is Character | Leader =>
-          unit.type === 'character' || unit.type === 'leader'
+          unit.type === 'character' ||
+          unit.type === 'leader' ||
+          unit.type === 'support'
       ),
     [units]
   )

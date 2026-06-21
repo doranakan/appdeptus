@@ -29,6 +29,11 @@ type BaseLeader = CoreUnit &
     type: 'leader'
   }
 
+type BaseSupport = CoreUnit &
+  (Hero | Enhanceable) & {
+    type: 'support'
+  }
+
 type BaseSquad = CoreUnit & {
   type: 'squad'
   battleline: boolean
@@ -45,6 +50,7 @@ type BaseVehicle = CoreUnit & {
 type BaseUnit =
   | BaseCharacter
   | BaseLeader
+  | BaseSupport
   | BaseSquad
   | BaseTransport
   | BaseVehicle
@@ -58,6 +64,9 @@ type Character = BaseCharacter & {
 type Leader = BaseLeader & {
   tier: Tier
 }
+type Support = BaseSupport & {
+  tier: Tier
+}
 type Squad = BaseSquad & {
   tier: Tier
 }
@@ -68,17 +77,15 @@ type Vehicle = BaseVehicle & {
   tier: Tier
 }
 
-type Team<L extends BaseLeader = Leader, B extends BaseSquad = Squad> = {
-  id: string
-  leader: L
-  bodyguard: B
-  type: 'team'
-}
+type Team<L extends BaseLeader = Leader, S extends BaseSupport = Support, B extends BaseSquad = Squad> =
+  | { id: string; type: 'team'; attachment: 'leader'; leader: L; bodyguard: B }
+  | { id: string; type: 'team'; attachment: 'support'; support: S; bodyguard: B }
+  | { id: string; type: 'team'; attachment: 'both'; leader: L; support: S; bodyguard: B }
 
 type Embarked<
   TR extends BaseTransport = Transport,
   U extends BaseUnit = Unit,
-  TE extends Team<BaseLeader, BaseSquad> = Team
+  TE extends Team<BaseLeader, BaseSupport, BaseSquad> = Team
 > = {
   id: string
   transport: TR
@@ -112,23 +119,34 @@ type GameStats = {
 
 type GameUnit = BaseUnit & GameStats
 
-type GameTeam = Team<BaseLeader & GameStats, BaseSquad & GameStats>
+type GameTeam = Team<BaseLeader & GameStats, BaseSupport & GameStats, BaseSquad & GameStats>
 
 type GameTransport = BaseTransport & GameStats
 
 type GameEmbarked = Embarked<GameTransport, GameUnit, GameTeam>
 
-type HeroUnit = Hero & (BaseCharacter | BaseLeader)
+type HeroUnit = Hero & (BaseCharacter | BaseLeader | BaseSupport)
+
+const getTeamAttachers = <
+  L extends BaseLeader,
+  S extends BaseSupport,
+  B extends BaseSquad
+>(
+  team: Team<L, S, B>
+): (L | S)[] => [
+  ...('leader' in team ? [team.leader] : []),
+  ...('support' in team ? [team.support] : [])
+]
 
 const isHero = (unit: BaseUnit | SelectableUnit): unit is HeroUnit => {
   return (
-    (unit.type === 'character' || unit.type === 'leader') &&
+    (unit.type === 'character' || unit.type === 'leader' || unit.type === 'support') &&
     'hero' in unit &&
     unit.hero
   )
 }
 
-export { isHero }
+export { getTeamAttachers, isHero }
 
 export type {
   Character,
@@ -140,6 +158,7 @@ export type {
   Leader,
   SelectableUnit,
   Squad,
+  Support,
   Team,
   Transport,
   Unit,

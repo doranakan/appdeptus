@@ -14,13 +14,22 @@ const mapRosterToUnits = (units: Army['roster'] | GameArmy['roster']) =>
           curr.transport,
           ...curr.crew.flatMap((embarked) =>
             embarked.type === 'team'
-              ? [embarked.leader, embarked.bodyguard]
+              ? [
+                  ...('leader' in embarked ? [embarked.leader] : []),
+                  ...('support' in embarked ? [embarked.support] : []),
+                  embarked.bodyguard
+                ]
               : embarked
           )
         ]
 
       case 'team':
-        return [...acc, curr.leader, curr.bodyguard]
+        return [
+          ...acc,
+          ...('leader' in curr ? [curr.leader] : []),
+          ...('support' in curr ? [curr.support] : []),
+          curr.bodyguard
+        ]
 
       default:
         return [...acc, curr]

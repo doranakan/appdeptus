@@ -126,6 +126,7 @@ const heroOrEnhanceableSchema = z.discriminatedUnion('hero', [
 
 const baseCharacterSchema = z.literal('character')
 const baseLeaderSchema = z.literal('leader')
+const baseSupportSchema = z.literal('support')
 const baseSquadSchema = z.literal('squad')
 const baseTransportSchema = z.literal('transport')
 const baseVehicleSchema = z.literal('vehicle')
@@ -137,6 +138,9 @@ const characterSchema = armyUnitSchema
   .and(heroOrEnhanceableSchema)
 const leaderSchema = armyUnitSchema
   .merge(z.object({ type: baseLeaderSchema }))
+  .and(heroOrEnhanceableSchema)
+const supportSchema = armyUnitSchema
+  .merge(z.object({ type: baseSupportSchema }))
   .and(heroOrEnhanceableSchema)
 const squadSchema = armyUnitSchema.merge(
   z.object({ type: baseSquadSchema, battleline: z.boolean().default(false) })
@@ -154,6 +158,9 @@ const gameCharacterSchema = gameArmyUnitSchema
 const gameLeaderSchema = gameArmyUnitSchema
   .merge(z.object({ type: baseLeaderSchema }))
   .and(heroOrEnhanceableSchema)
+const gameSupportSchema = gameArmyUnitSchema
+  .merge(z.object({ type: baseSupportSchema }))
+  .and(heroOrEnhanceableSchema)
 const gameSquadSchema = gameArmyUnitSchema.merge(
   z.object({ type: baseSquadSchema, battleline: z.boolean().default(false) })
 )
@@ -167,6 +174,7 @@ const gameVehicleSchema = gameArmyUnitSchema.merge(
 const unitSchema = z.union([
   characterSchema,
   leaderSchema,
+  supportSchema,
   squadSchema,
   transportSchema,
   vehicleSchema
@@ -175,24 +183,23 @@ const unitSchema = z.union([
 const gameUnitSchema = z.union([
   gameCharacterSchema,
   gameLeaderSchema,
+  gameSupportSchema,
   gameSquadSchema,
   gameTransportSchema,
   gameVehicleSchema
 ])
 
-const teamSchema = z.object({
-  id: z.string(),
-  bodyguard: squadSchema,
-  leader: leaderSchema,
-  type: baseTeamSchema
-})
+const teamSchema = z.discriminatedUnion('attachment', [
+  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('leader'), leader: leaderSchema, bodyguard: squadSchema }),
+  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('support'), support: supportSchema, bodyguard: squadSchema }),
+  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('both'), leader: leaderSchema, support: supportSchema, bodyguard: squadSchema })
+])
 
-const gameTeamSchema = z.object({
-  id: z.string(),
-  bodyguard: gameSquadSchema,
-  leader: gameLeaderSchema,
-  type: baseTeamSchema
-})
+const gameTeamSchema = z.discriminatedUnion('attachment', [
+  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('leader'), leader: gameLeaderSchema, bodyguard: gameSquadSchema }),
+  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('support'), support: gameSupportSchema, bodyguard: gameSquadSchema }),
+  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('both'), leader: gameLeaderSchema, support: gameSupportSchema, bodyguard: gameSquadSchema })
+])
 
 const embarkedSchema = z.object({
   id: z.string(),
@@ -300,6 +307,11 @@ const selectableLeaderSchema = z.object({
   hero: z.boolean()
 })
 
+const selectableSupportSchema = z.object({
+  type: baseSupportSchema,
+  hero: z.boolean()
+})
+
 const selectableSquadSchema = z.object({
   type: baseSquadSchema,
   battleline: z.boolean().default(false)
@@ -330,6 +342,7 @@ const selectableUnitSchema = baseSelectableUnitSchema.and(
   z.discriminatedUnion('type', [
     selectableCharacterSchema,
     selectableLeaderSchema,
+    selectableSupportSchema,
     selectableSquadSchema,
     selectableTransportSchema,
     selectableVehicleSchema
@@ -344,6 +357,7 @@ const invalidUnitsSchema = z.array(
     type: z.union([
       baseCharacterSchema,
       baseLeaderSchema,
+      baseSupportSchema,
       baseSquadSchema,
       baseTransportSchema,
       baseVehicleSchema
