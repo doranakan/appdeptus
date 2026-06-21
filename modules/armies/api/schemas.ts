@@ -282,9 +282,13 @@ const gameArmySchema = baseArmySchema.and(
   z.object({ roster: gameRosterSchema })
 )
 
-const armyListSchema = z.array(armySchema)
+const armyListSchema = z
+  .array(armySchema.nullable().catch(null))
+  .transform((arr) => arr.filter((a) => a !== null))
 
-const codexListSchema = z.array(codexSchema)
+const codexListSchema = z
+  .array(codexSchema.nullable().catch(null))
+  .transform((arr) => arr.filter((c) => c !== null))
 
 const selectableCharacterSchema = z.object({
   type: baseCharacterSchema,
