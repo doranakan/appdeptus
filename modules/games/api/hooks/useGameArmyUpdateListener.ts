@@ -1,3 +1,4 @@
+import { supabase } from 'appdeptus/utils'
 import { useEffect } from 'react'
 import { gameArmyUpdates } from '../realtime'
 
@@ -5,10 +6,12 @@ const useGameArmyUpdateListener = (
   args: Parameters<typeof gameArmyUpdates>[0]
 ) => {
   useEffect(() => {
-    const sub = gameArmyUpdates(args).subscribe()
+    const channel = gameArmyUpdates(args)
+
+    channel.subscribe()
 
     return () => {
-      sub.unsubscribe()
+      supabase.removeChannel(channel)
     }
   })
 }
