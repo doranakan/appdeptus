@@ -12,10 +12,11 @@ import {
 } from 'appdeptus/components'
 import { useCanCreateTeams, useCanEmbarkUnits } from 'appdeptus/hooks'
 import { type Army } from 'appdeptus/models'
+import { useGetUnitAttachmentsQuery } from 'appdeptus/modules/armies/api'
 import { useGetGameQuery } from 'appdeptus/modules/games/api'
 import { router } from 'expo-router'
 import { Save, Settings, ShareIcon, Swords, Trash2 } from 'lucide-react-native'
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import { Platform, Share } from 'react-native'
 import { useDeleteArmyMutation } from '../../api'
 import { useSaveArmyCopy } from '../../hooks'
@@ -33,7 +34,17 @@ const OptionsBottomSheet = ({ army, isUsersArmy }: OptionsBottomSheetProps) => {
   const [deletePromptVisible, { setFalse: hidePrompt, setTrue: showPrompt }] =
     useBoolean()
 
-  const canCreateTeams = useCanCreateTeams(army.roster)
+  const attacherIds = useMemo(
+    () =>
+      army.roster
+        .filter(({ type }) => type === 'leader' || type === 'support')
+        .map(({ id }) => Number(id)),
+    [army.roster]
+  )
+
+  const { data: attachments } = useGetUnitAttachmentsQuery(attacherIds)
+
+  const canCreateTeams = useCanCreateTeams(army.roster, attachments)
   const canEmbarkUnits = useCanEmbarkUnits(army.roster)
 
   const { data: currentGame } = useGetGameQuery()
@@ -42,7 +53,7 @@ const OptionsBottomSheet = ({ army, isUsersArmy }: OptionsBottomSheetProps) => {
     ref.current?.dismiss()
 
     if (canCreateTeams) {
-      router.push(`new-game/leader-selection?preselectedArmyId=${army.id}`)
+      router.push(`new-game/attached-unit-selection?preselectedArmyId=${army.id}`)
       return
     }
     if (canEmbarkUnits) {

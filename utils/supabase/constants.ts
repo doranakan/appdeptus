@@ -10,6 +10,7 @@ enum Table {
   GAME_ARMIES = 'game_armies',
   GAMES = 'games',
   TIERS = 'unit_tiers',
+  UNIT_ATTACHMENTS = 'unit_attachments',
   UNITS = 'units',
   USERS = 'users',
   USER_NOTIFICATIONS = 'user_notifications',
