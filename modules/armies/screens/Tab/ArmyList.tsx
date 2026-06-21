@@ -10,6 +10,8 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
+import { type BattleSize } from 'appdeptus/models'
+import { battleSizeLabels } from 'appdeptus/utils'
 import clsx from 'clsx'
 import { Link } from 'expo-router'
 import { Search } from 'lucide-react-native'
@@ -20,8 +22,9 @@ import NewArmyBottomSheet from './NewArmyBottomSheet'
 
 const ArmyList = () => {
   const [searchString, setSearchString] = useState('')
-  const [pointFilter, setPointFilter] =
-    useState<keyof typeof pointFiltersToLimits>('all')
+  const [battleSizeFilter, setBattleSizeFilter] = useState<'all' | BattleSize>(
+    'all'
+  )
 
   const { data, isLoading, isError, isFetching, refetch } =
     useGetArmyListQuery()
@@ -31,19 +34,15 @@ const ArmyList = () => {
       return []
     }
 
-    const { lowerLimit, upperLimit } = pointFiltersToLimits[pointFilter]
-
     return data
       .filter(
         ({ codex, name }) =>
           name.includes(searchString) || codex.name.includes(searchString)
       )
-      .filter(({ points }) =>
-        pointFilter === 'all'
-          ? true
-          : points > lowerLimit && points <= upperLimit
+      .filter(({ battleSize }) =>
+        battleSizeFilter === 'all' ? true : battleSize === battleSizeFilter
       )
-  }, [data, pointFilter, searchString])
+  }, [data, battleSizeFilter, searchString])
 
   return (
     <>
@@ -58,13 +57,10 @@ const ArmyList = () => {
           value={searchString}
         />
         <FilterTopBar
-          onPress={setPointFilter}
-          selectedValue={pointFilter}
-          values={
-            Array.from(
-              Object.keys(pointFiltersToLimits)
-            ) as (keyof typeof pointFiltersToLimits)[]
-          }
+          labels={battleSizeLabels}
+          onPress={setBattleSizeFilter}
+          selectedValue={battleSizeFilter}
+          values={['all', 'incursion', 'strike-force', 'free'] as const}
         />
         <FlatList
           className='flex-1'
@@ -119,35 +115,6 @@ const ArmyList = () => {
     </>
   )
 }
-
-const pointFiltersToLimits = {
-  all: {
-    lowerLimit: 0,
-    upperLimit: 99999
-  },
-  '2000pts': {
-    lowerLimit: 1900,
-    upperLimit: 2000
-  },
-  '1500pts': {
-    lowerLimit: 1400,
-    upperLimit: 1500
-  },
-  '1000pts': {
-    lowerLimit: 900,
-    upperLimit: 1000
-  },
-  '500pts': {
-    lowerLimit: 400,
-    upperLimit: 500
-  }
-} as const satisfies Record<
-  string,
-  {
-    lowerLimit: number
-    upperLimit: number
-  }
->
 
 const emptyListLabels = {
   data: {

@@ -4,12 +4,14 @@ import Text from '../Text'
 import { HStack, Pressable, VStack } from '../ui'
 
 type FilterTopBarProps<T extends string> = {
+  labels?: Partial<Record<T, string>>
   onPress: (value: T) => void
   selectedValue: T
   values: readonly T[]
 }
 
 const FilterTopBar = <T extends string>({
+  labels,
   onPress,
   selectedValue,
   values
@@ -36,7 +38,7 @@ const FilterTopBar = <T extends string>({
               family='body-bold'
               size='lg'
             >
-              {value}
+              {labels?.[value] ?? value}
             </Text>
           </Pressable>
         ))}

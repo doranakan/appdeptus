@@ -27,4 +27,9 @@ const mapBattleSizeDp = (battleSize: BattleSize): number =>
 const mapBattleSizePointCap = (battleSize: BattleSize): number =>
   battleSizePointCap[battleSize]
 
-export { mapBattleSize, mapBattleSizeDp, mapBattleSizePointCap }
+export {
+  battleSizeLabels,
+  mapBattleSize,
+  mapBattleSizeDp,
+  mapBattleSizePointCap
+}
