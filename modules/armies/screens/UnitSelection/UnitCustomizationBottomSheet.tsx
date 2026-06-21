@@ -244,14 +244,6 @@ const UnitCustomizationBottomSheet = ({
                       upgradePoints -
                       (enhancement?.points ?? 0)
                   )
-
-                  if (enhancement) {
-                    const enhancements = watch('detachment.enhancements')
-                    setValue(
-                      'detachment.enhancements',
-                      enhancements.filter(({ id }) => enhancement.id === id)
-                    )
-                  }
                 }}
                 text='delete'
                 size='sm'

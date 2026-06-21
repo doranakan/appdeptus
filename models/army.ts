@@ -35,7 +35,6 @@ type GameArmy = BaseArmy & {
 type ArmyBuilder = Omit<BaseArmy, 'detachments'> & {
   units: Unit[]
   user: UserProfile
-} & {
   detachments: Detachment[]
 }
 

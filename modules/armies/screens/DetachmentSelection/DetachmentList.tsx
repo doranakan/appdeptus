@@ -9,7 +9,7 @@ import {
   themeColors,
   VStack
 } from 'appdeptus/components'
-import { type ArmyBuilder } from 'appdeptus/models'
+import { type ArmyBuilder, type Detachment } from 'appdeptus/models'
 import { mapBattleSizeDp } from 'appdeptus/utils'
 import { Component } from 'lucide-react-native'
 import { memo, useCallback } from 'react'
@@ -29,14 +29,25 @@ const DetachmentList = () => {
 
   const dpTotal = mapBattleSizeDp(battleSize)
   const dpUsed =
-    detachments?.reduce((acc, d) => acc + d.detachmentPoints, 0) ?? 0
+    detachments?.reduce((acc, d) => {
+      const selectedDetachment = data?.find(({ id }) => id === d.id)
+
+      return (
+        acc + (selectedDetachment ? selectedDetachment.detachmentPoints : 0)
+      )
+    }, 0) ?? 0
 
   const handlePress = useCallback(
-    (item: NonNullable<typeof data>[number]) => {
-      const isSelected = detachments?.some(({ id }) => id === item.id)
+    ({
+      id: pressedId,
+      detachmentPoints,
+      enhancements: _,
+      ...rest
+    }: Detachment) => {
+      const isSelected = detachments?.some(({ id }) => id === pressedId)
 
       if (isSelected) {
-        const updated = detachments.filter(({ id }) => id !== item.id)
+        const updated = detachments.filter(({ id }) => id !== pressedId)
         setValue('detachments', updated)
         setValue(
           'units',
@@ -47,13 +58,13 @@ const DetachmentList = () => {
         return
       }
 
-      if (dpTotal !== null && dpUsed + item.detachmentPoints > dpTotal) {
+      if (dpTotal !== null && dpUsed + detachmentPoints > dpTotal) {
         return
       }
 
       const updated = [
-        ...(detachments ?? []),
-        { ...item, enhancements: item.enhancements ?? [] }
+        ...detachments,
+        { id: pressedId, detachmentPoints, enhancements: [], ...rest }
       ]
       setValue('detachments', updated)
     },

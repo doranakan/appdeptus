@@ -74,7 +74,7 @@ const UnitList = ({ units }: UnitListProps) => {
         />
       )
     },
-    [handleAdd, handleEdit, watch]
+    [handleAdd, handleEdit, unitLimit, watch]
   )
 
   return (

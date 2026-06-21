@@ -86,7 +86,7 @@ type Embarked<
   type: 'embarked'
 }
 
-type SelectableUnit = Omit<BaseUnit, 'selectionId' | 'teamId'> & {
+type SelectableUnit = Exclude<BaseUnit, 'selectionId' | 'teamId'> & {
   tiers: [Tier, ...Tier[]]
 }
 

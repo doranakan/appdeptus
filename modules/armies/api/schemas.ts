@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { type Enhancement, type SelectableUnit } from 'appdeptus/models'
+import { type Army, type SelectableUnit } from 'appdeptus/models'
 import { z } from 'zod'
 
 const idSchema = z.number()
@@ -75,22 +75,22 @@ const enhancementSchema = z.object({
 const baseDetachmentSchema = z.object({
   id: idSchema,
   name: z.string(),
-  detachment_points: z.number()
+  enhancements: z.array(enhancementSchema)
 })
 
-const detachmentListSchema = z.array(
-  baseDetachmentSchema
-    .merge(
-      z.object({
-        detachment_enhancements: z.array(enhancementSchema)
-      })
-    )
-    .transform(({ detachment_enhancements, detachment_points, ...rest }) => ({
-      ...rest,
-      enhancements: detachment_enhancements,
-      detachmentPoints: detachment_points
-    }))
+const legacyDetachmentSchema = baseDetachmentSchema.and(
+  z.object({
+    detachmentPoints: z.number().nullish().default(1)
+  })
 )
+
+const detachmentSchema = baseDetachmentSchema.and(
+  z.object({
+    detachmentPoints: z.number()
+  })
+)
+
+const detachmentListSchema = z.array(detachmentSchema)
 
 const armyUnitSchema = baseUnitSchema.merge(
   z.object({
@@ -214,45 +214,42 @@ const battleSizeSchema = z.union([
   z.literal('free')
 ])
 
-const armyDetachmentSchema = baseDetachmentSchema
-  .merge(z.object({ detachment_enhancements: z.array(enhancementSchema) }))
-  .transform(({ detachment_enhancements, detachment_points, ...rest }) => ({
-    ...rest,
-    enhancements: detachment_enhancements,
-    detachmentPoints: detachment_points
-  }))
-
-const legacyDetachmentSchema = z
-  .object({
-    id: idSchema,
-    name: z.string()
-  })
-  .transform(({ ...rest }) => ({
-    ...rest,
-    enhancements: [] as Enhancement[],
-    detachmentPoints: 1
-  }))
-
 const baseArmySchema = z
   .object({
     codex: codexSchema,
-    detachment: legacyDetachmentSchema.optional(),
-    detachments: z.array(armyDetachmentSchema).nullable().optional(),
     battle_size: battleSizeSchema,
     id: idSchema,
     name: z.string(),
     points: z.number()
   })
-  .transform(({ battle_size, detachment, detachments, ...rest }) => ({
-    ...rest,
-    battleSize: battle_size,
-    detachments: (detachments?.length ? detachments : detachment ? [detachment] : null) as [
-      ReturnType<typeof armyDetachmentSchema.parse>,
-      ...ReturnType<typeof armyDetachmentSchema.parse>[]
-    ]
-  }))
-  .refine(({ detachments }) => detachments !== null && detachments.length > 0, {
-    message: 'Army must have at least one detachment'
+  .and(
+    z.union([
+      z.object({ detachment: legacyDetachmentSchema }),
+      z.object({ detachments: z.array(detachmentSchema).nonempty() })
+    ])
+  )
+  .transform(({ battle_size, ...rest }) => {
+    const battleSize = battle_size
+
+    if ('detachment' in rest) {
+      return {
+        ...rest,
+        battleSize,
+        detachments: [rest.detachment] as [
+          Army['detachments'][0],
+          ...Army['detachments'][0][]
+        ]
+      }
+    }
+
+    return {
+      ...rest,
+      detachments: rest.detachments as [
+        Army['detachments'][0],
+        ...Army['detachments'][0][]
+      ],
+      battleSize: battle_size
+    }
   })
 
 const armySchema = z
