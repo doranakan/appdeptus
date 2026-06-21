@@ -37,7 +37,10 @@ const EnhancementAssignment = ({
     () =>
       units.filter<(Character | Leader) & Enhanceable>(
         (unit): unit is (Character | Leader) & Enhanceable =>
-          (unit.type === 'character' || unit.type === 'leader') && !unit.hero
+          (unit.type === 'character' ||
+            unit.type === 'leader' ||
+            unit.type === 'support') &&
+          !unit.hero
       ),
     [units]
   )

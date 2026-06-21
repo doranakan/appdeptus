@@ -2,15 +2,17 @@ import { type SelectableUnit } from 'appdeptus/models'
 import {
   Anvil,
   Bus,
-  Shield,
-  UserRound,
+  ShieldPlus,
+  ShieldUser,
+  SquareUserRound,
   UsersRound,
   type LucideIcon
 } from 'lucide-react-native'
 
 const unitTypeToIcon = {
-  character: UserRound,
-  leader: Shield,
+  character: SquareUserRound,
+  leader: ShieldUser,
+  support: ShieldPlus,
   squad: UsersRound,
   transport: Bus,
   vehicle: Anvil

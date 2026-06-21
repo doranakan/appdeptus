@@ -47,7 +47,7 @@ const EmbarkedUnitsBottomSheet = ({
                 {unit.type === 'team' ? 'team' : 'unit'}
               </Text>
               {unit.type === 'team' ? (
-                <Text>{`${unit.leader.name} & ${unit.bodyguard.name}`}</Text>
+                <Text>{[...('leader' in unit ? [unit.leader.name] : []), ...('support' in unit ? [unit.support.name] : []), unit.bodyguard.name].join(' & ')}</Text>
               ) : (
                 <Text>{unit.name}</Text>
               )}

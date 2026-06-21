@@ -1,5 +1,5 @@
 import { useDebounceEffect } from 'ahooks'
-import { type GameArmy, type GameTeam, type GameUnit } from 'appdeptus/models'
+import { getTeamAttachers, type GameArmy, type GameTeam, type GameUnit } from 'appdeptus/models'
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { BottomSheet } from '../../../../components/BottomSheet'
 import Text from '../../../../components/Text'
@@ -62,16 +62,16 @@ const ModelBottomSheet = ({
                     }
                   }
                 }
-                if (embarked.leader.selectionId === id) {
+                const attacher = getTeamAttachers(embarked).find(
+                  (a) => a.selectionId === id
+                )
+                if (attacher) {
+                  const key = 'leader' in embarked && embarked.leader.selectionId === id ? 'leader' : 'support'
                   return {
                     ...embarked,
-                    leader: {
-                      ...embarked.leader,
-                      models: updateKilledModels(
-                        embarked.leader.models,
-                        index,
-                        killed
-                      )
+                    [key]: {
+                      ...attacher,
+                      models: updateKilledModels(attacher.models, index, killed)
                     }
                   }
                 }
@@ -96,15 +96,20 @@ const ModelBottomSheet = ({
             })
             return
           }
-          if (id === unit.leader.selectionId) {
-            setUnit({
-              ...unit,
-              leader: {
-                ...unit.leader,
-                models: updateKilledModels(unit.leader.models, index, killed)
-              }
-            })
-            return
+          {
+            const attacher = getTeamAttachers(unit).find(
+              (a) => a.selectionId === id
+            )
+            if (attacher) {
+              const key = 'leader' in unit && unit.leader.selectionId === id ? 'leader' : 'support'
+              setUnit({
+                ...unit,
+                [key]: {
+                  ...attacher,
+                  models: updateKilledModels(attacher.models, index, killed)
+                }
+              })
+            }
           }
           return
         default:
@@ -142,16 +147,16 @@ const ModelBottomSheet = ({
                     }
                   }
                 }
-                if (embarked.leader.selectionId === id) {
+                const attacher = getTeamAttachers(embarked).find(
+                  (a) => a.selectionId === id
+                )
+                if (attacher) {
+                  const key = 'leader' in embarked && embarked.leader.selectionId === id ? 'leader' : 'support'
                   return {
                     ...embarked,
-                    leader: {
-                      ...embarked.leader,
-                      models: updateWoundedModels(
-                        embarked.leader.models,
-                        index,
-                        wounds
-                      )
+                    [key]: {
+                      ...attacher,
+                      models: updateWoundedModels(attacher.models, index, wounds)
                     }
                   }
                 }
@@ -179,15 +184,20 @@ const ModelBottomSheet = ({
             })
             return
           }
-          if (id === unit.leader.selectionId) {
-            setUnit({
-              ...unit,
-              leader: {
-                ...unit.leader,
-                models: updateWoundedModels(unit.leader.models, index, wounds)
-              }
-            })
-            return
+          {
+            const attacher = getTeamAttachers(unit).find(
+              (a) => a.selectionId === id
+            )
+            if (attacher) {
+              const key = 'leader' in unit && unit.leader.selectionId === id ? 'leader' : 'support'
+              setUnit({
+                ...unit,
+                [key]: {
+                  ...attacher,
+                  models: updateWoundedModels(attacher.models, index, wounds)
+                }
+              })
+            }
           }
           return
         default:
@@ -231,7 +241,7 @@ const ModelBottomSheet = ({
               if (u.type === 'team') {
                 return (
                   <Team
-                    key={`${u.leader.name}${u.bodyguard.name}-${i}`}
+                    key={`${u.id}-${i}`}
                     setKilled={setKilledModel}
                     setWounds={setWoundedModel}
                     team={u}
@@ -333,14 +343,17 @@ const Team = ({ editable, team, ...handlers }: TeamProps) => (
       className='uppercase'
       family='body-bold'
     >
-      {`${team.leader.name} & ${team.bodyguard.name}`}
+      {[...getTeamAttachers(team).map((a) => a.name), team.bodyguard.name].join(' & ')}
     </Text>
 
-    <Unit
-      editable={editable}
-      unit={team.leader}
-      {...handlers}
-    />
+    {getTeamAttachers(team).map((attacher) => (
+      <Unit
+        key={attacher.selectionId}
+        editable={editable}
+        unit={attacher}
+        {...handlers}
+      />
+    ))}
 
     <Unit
       editable={editable}

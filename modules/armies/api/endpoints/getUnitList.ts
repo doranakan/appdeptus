@@ -37,7 +37,7 @@ const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
           return { error: JSON.stringify(mainCodexError) }
         }
 
-        const units = unitListSchema.parse(mapNullToUndefined(mainCodexData))
+        const units = unitListSchema.parse(mapNullToUndefined(mainCodexData)) as SelectableUnit[]
 
         if (codex.expansionOf) {
           const { data: baseCodexData, error: baseCodexError } = await supabase
@@ -70,7 +70,7 @@ const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
 
           const baseUnits = unitListSchema.parse(
             mapNullToUndefined(baseCodexData)
-          )
+          ) as SelectableUnit[]
 
           units.push(...baseUnits)
         }

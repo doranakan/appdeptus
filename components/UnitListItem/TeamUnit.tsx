@@ -4,12 +4,14 @@ import { Icon, VStack } from '../ui'
 
 type TeamUnitProps = {
   BodyGuard: ReactElement
-  Leader: ReactElement
+  Leader?: ReactElement
+  Support?: ReactElement
 }
 
-const TeamUnit = ({ BodyGuard, Leader }: TeamUnitProps) => (
+const TeamUnit = ({ BodyGuard, Leader, Support }: TeamUnitProps) => (
   <VStack space='sm'>
     {Leader}
+    {Support}
     <Icon
       as={Link}
       className='px-4 color-primary-50'

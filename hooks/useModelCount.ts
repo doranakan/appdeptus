@@ -1,9 +1,4 @@
-import {
-  type Army,
-  type GameArmy,
-  type GameUnit,
-  type Unit
-} from 'appdeptus/models'
+import { type Army, type GameArmy, type GameUnit, type Unit } from 'appdeptus/models'
 import { useMemo } from 'react'
 
 const calcUnitModelCount = (unit: Unit | GameUnit) =>
@@ -23,7 +18,8 @@ const useModelCount = (units: Army['roster'] | GameArmy['roster']) =>
                   return (
                     a +
                     calcUnitModelCount(c.bodyguard) +
-                    calcUnitModelCount(c.leader)
+                    ('leader' in c ? calcUnitModelCount(c.leader) : 0) +
+                    ('support' in c ? calcUnitModelCount(c.support) : 0)
                   )
                 }
                 return a + calcUnitModelCount(c)
@@ -34,7 +30,8 @@ const useModelCount = (units: Army['roster'] | GameArmy['roster']) =>
           case 'team':
             return (
               acc +
-              calcUnitModelCount(unit.leader) +
+              ('leader' in unit ? calcUnitModelCount(unit.leader) : 0) +
+              ('support' in unit ? calcUnitModelCount(unit.support) : 0) +
               calcUnitModelCount(unit.bodyguard)
             )
 

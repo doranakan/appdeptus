@@ -11,7 +11,7 @@ import {
 import { defaultScreenOptions, formSheetOptions } from 'appdeptus/constants'
 import { useCanCreateTeams, useCanEmbarkUnits } from 'appdeptus/hooks'
 import { type CreateGame } from 'appdeptus/models/game'
-import { useGetArmyQuery } from 'appdeptus/modules/armies/api'
+import { useGetArmyQuery, useGetUnitAttachmentsQuery } from 'appdeptus/modules/armies/api'
 import {
   NewGameBottomSheet,
   newGameBottomSheetRef
@@ -41,7 +41,17 @@ const NewGameLayout = () => {
 
   const routeName = segments[segments.length - 1]
 
-  const canCreateTeams = useCanCreateTeams(selectedArmy?.roster ?? [])
+  const attacherIds = useMemo(
+    () =>
+      (selectedArmy?.roster ?? [])
+        .filter(({ type }) => type === 'leader' || type === 'support')
+        .map(({ id }) => Number(id)),
+    [selectedArmy]
+  )
+
+  const { data: attachments } = useGetUnitAttachmentsQuery(attacherIds)
+
+  const canCreateTeams = useCanCreateTeams(selectedArmy?.roster ?? [], attachments)
   const canEmbarkUnits = useCanEmbarkUnits(selectedArmy?.roster ?? [])
 
   const currentStep = useMemo(() => {
@@ -59,7 +69,7 @@ const NewGameLayout = () => {
       case 'new-game':
         return !selectedArmy ? 1 : 2
 
-      case 'leader-selection':
+      case 'attached-unit-selection':
         return 3
 
       case 'embarked-selection':
@@ -81,8 +91,8 @@ const NewGameLayout = () => {
         return !selectedArmy ? 'select army' : selectedArmy.name
 
       case '[id]':
-      case 'leader-selection':
-        return 'select leaders'
+      case 'attached-unit-selection':
+        return 'attached units'
 
       case 'embarked-selection':
         return 'select units to embark'
@@ -114,7 +124,7 @@ const NewGameLayout = () => {
         }
 
       case '[id]':
-      case 'leader-selection':
+      case 'attached-unit-selection':
         return {
           icon: ChevronRight,
           href: canEmbarkUnits
@@ -218,7 +228,7 @@ const NewGameLayout = () => {
           >
             <Stack.Screen name='index' />
             <Stack.Screen name='[id]' />
-            <Stack.Screen name='leader-selection' />
+            <Stack.Screen name='attached-unit-selection' />
             <Stack.Screen name='embarked-selection' />
             <Stack.Screen name='double-check' />
             <Stack.Screen

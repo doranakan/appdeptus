@@ -14,7 +14,10 @@ const useModelsLeft = (unit: GameArmy['roster'][number]) =>
           switch (u.type) {
             case 'team':
               return (
-                acc + calcModelsLeft(u.bodyguard) + calcModelsLeft(u.leader)
+                acc +
+                calcModelsLeft(u.bodyguard) +
+                ('leader' in u ? calcModelsLeft(u.leader) : 0) +
+                ('support' in u ? calcModelsLeft(u.support) : 0)
               )
             default:
               return acc + calcModelsLeft(u)
@@ -24,7 +27,11 @@ const useModelsLeft = (unit: GameArmy['roster'][number]) =>
         return transportModelsLeft + crewModelsLeft
       }
       case 'team':
-        return calcModelsLeft(unit.bodyguard) + calcModelsLeft(unit.leader)
+        return (
+          calcModelsLeft(unit.bodyguard) +
+          ('leader' in unit ? calcModelsLeft(unit.leader) : 0) +
+          ('support' in unit ? calcModelsLeft(unit.support) : 0)
+        )
 
       default:
         return calcModelsLeft(unit)

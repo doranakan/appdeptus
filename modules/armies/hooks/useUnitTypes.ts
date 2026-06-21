@@ -9,6 +9,7 @@ const useUnitTypes = (units: SelectableUnit[], codex: CodexName) =>
         units.map(({ type }) => {
           switch (type) {
             case 'leader':
+            case 'support':
               return 'character'
             case 'transport':
             case 'vehicle':

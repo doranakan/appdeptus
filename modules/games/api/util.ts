@@ -21,10 +21,13 @@ const mapArmyToGameArmy = (roster: Army['roster']): GameArmy['roster'] =>
           crew: item.crew.map((crewItem) => {
             switch (crewItem.type) {
               case 'team':
-                return {
-                  ...crewItem,
-                  bodyguard: mapUnitToGameUnit(crewItem.bodyguard),
-                  leader: mapUnitToGameUnit(crewItem.leader)
+                switch (crewItem.attachment) {
+                  case 'leader':
+                    return { ...crewItem, bodyguard: mapUnitToGameUnit(crewItem.bodyguard), leader: mapUnitToGameUnit(crewItem.leader) }
+                  case 'support':
+                    return { ...crewItem, bodyguard: mapUnitToGameUnit(crewItem.bodyguard), support: mapUnitToGameUnit(crewItem.support) }
+                  case 'both':
+                    return { ...crewItem, bodyguard: mapUnitToGameUnit(crewItem.bodyguard), leader: mapUnitToGameUnit(crewItem.leader), support: mapUnitToGameUnit(crewItem.support) }
                 }
 
               default:
@@ -35,10 +38,13 @@ const mapArmyToGameArmy = (roster: Army['roster']): GameArmy['roster'] =>
       }
 
       case 'team':
-        return {
-          ...item,
-          bodyguard: mapUnitToGameUnit(item.bodyguard),
-          leader: mapUnitToGameUnit(item.leader)
+        switch (item.attachment) {
+          case 'leader':
+            return { ...item, bodyguard: mapUnitToGameUnit(item.bodyguard), leader: mapUnitToGameUnit(item.leader) } satisfies GameArmy['roster'][number]
+          case 'support':
+            return { ...item, bodyguard: mapUnitToGameUnit(item.bodyguard), support: mapUnitToGameUnit(item.support) } satisfies GameArmy['roster'][number]
+          case 'both':
+            return { ...item, bodyguard: mapUnitToGameUnit(item.bodyguard), leader: mapUnitToGameUnit(item.leader), support: mapUnitToGameUnit(item.support) } satisfies GameArmy['roster'][number]
         }
       default:
         return mapUnitToGameUnit(item)

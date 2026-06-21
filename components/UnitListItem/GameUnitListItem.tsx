@@ -127,7 +127,8 @@ type TeamDetailProps = {
 const TeamDetail = ({ team }: TeamDetailProps) => (
   <TeamUnit
     BodyGuard={<UnitDetail unit={team.bodyguard} />}
-    Leader={<UnitDetail unit={team.leader} />}
+    Leader={'leader' in team ? <UnitDetail unit={team.leader} /> : undefined}
+    Support={'support' in team ? <UnitDetail unit={team.support} /> : undefined}
   />
 )
 

@@ -18,7 +18,8 @@ const useKilledModelCount = (units: GameArmy['roster']) =>
                   return (
                     a +
                     calcKilledModels(c.bodyguard) +
-                    calcKilledModels(c.leader)
+                    ('leader' in c ? calcKilledModels(c.leader) : 0) +
+                    ('support' in c ? calcKilledModels(c.support) : 0)
                   )
                 }
                 return a + calcKilledModels(c)
@@ -29,7 +30,8 @@ const useKilledModelCount = (units: GameArmy['roster']) =>
           case 'team':
             return (
               acc +
-              calcKilledModels(unit.leader) +
+              ('leader' in unit ? calcKilledModels(unit.leader) : 0) +
+              ('support' in unit ? calcKilledModels(unit.support) : 0) +
               calcKilledModels(unit.bodyguard)
             )
 

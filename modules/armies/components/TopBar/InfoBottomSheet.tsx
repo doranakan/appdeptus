@@ -164,7 +164,7 @@ const baseUnitDetail = {
     models: 0,
     points: 0
   },
-  monster: {
+  support: {
     count: 0,
     models: 0,
     points: 0

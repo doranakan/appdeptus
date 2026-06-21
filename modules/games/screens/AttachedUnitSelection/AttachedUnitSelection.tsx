@@ -6,9 +6,9 @@ import {
 } from 'appdeptus/components'
 import { type CreateGame } from 'appdeptus/models/game'
 import { useWatch } from 'react-hook-form'
-import LeaderSelectionList from './LeaderSelectionList'
+import AttachedUnitSelectionList from './AttachedUnitSelectionList'
 
-const LeaderSelectionScreen = () => {
+const AttachedUnitSelectionScreen = () => {
   const watch = useWatch<CreateGame>()
 
   const codex = watch.playerOne?.army?.codex?.name
@@ -23,16 +23,16 @@ const LeaderSelectionScreen = () => {
       space='md'
     >
       <ScreenTitle>{codex}</ScreenTitle>
-      <ScreenSubtitle>choose your leaders</ScreenSubtitle>
+      <ScreenSubtitle>form attached units</ScreenSubtitle>
 
       <VStack
         className='flex-1'
         space='md'
       >
-        <LeaderSelectionList />
+        <AttachedUnitSelectionList />
       </VStack>
     </ScreenContainer>
   )
 }
 
-export default LeaderSelectionScreen
+export default AttachedUnitSelectionScreen
