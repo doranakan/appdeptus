@@ -12,9 +12,12 @@ const createGame = (builder: CoreEndpointBuilder<GamesApiTags>) =>
       id: _id,
       isValid: _isValid,
       isSecret: _isSecret,
+      battleSize,
+      detachments,
       codex,
       roster,
-      ...rest
+      name,
+      points
     }) => {
       const gameArmyRoster = mapArmyToGameArmy(roster)
 
@@ -24,7 +27,10 @@ const createGame = (builder: CoreEndpointBuilder<GamesApiTags>) =>
           .insert({
             codex: codex.id,
             roster: gameArmyRoster,
-            ...rest
+            detachments,
+            battle_size: battleSize,
+            name,
+            points
           })
           .select('id')
 

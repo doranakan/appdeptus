@@ -20,17 +20,24 @@ const goToLobby = (builder: CoreEndpointBuilder<GamesApiTags>) =>
           isValid: _isValid,
           isSecret: _isSecret,
           codex,
-          ...rest
+          battleSize,
+          detachments,
+          roster: armyRoster,
+          name,
+          points
         } = army
 
-        const roster = mapArmyToGameArmy(rest.roster)
+        const roster = mapArmyToGameArmy(armyRoster)
 
         const { data: gameArmyData, error: gameArmyError } = await supabase
           .from(Table.GAME_ARMIES)
           .insert({
             codex: codex.id,
-            ...rest,
-            roster
+            battle_size: battleSize,
+            detachments,
+            roster,
+            name,
+            points
           })
           .select('id')
 

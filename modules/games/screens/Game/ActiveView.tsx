@@ -132,6 +132,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
         />
         <Scoreboard {...game} />
         <GameArmyRoster
+          army={game[`player${selectedPlayer}`].army}
           onRefresh={refetch}
           refreshing={isLoading}
           ListHeaderComponent={
@@ -150,13 +151,7 @@ const ActiveView = ({ game, user }: ActiveViewProps) => {
                   game.playerTwo.army.codex.name
                 ]}
               />
-              <VStack />
             </VStack>
-          }
-          roster={
-            selectedPlayer === 'One'
-              ? game.playerOne.army.roster
-              : game.playerTwo.army.roster
           }
           onPressItem={handlePressedItem}
         />

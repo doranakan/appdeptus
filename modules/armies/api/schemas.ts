@@ -86,7 +86,7 @@ const legacyDetachmentSchema = baseDetachmentSchema.and(
 
 const detachmentSchema = baseDetachmentSchema.and(
   z.object({
-    detachmentPoints: z.number()
+    detachmentPoints: z.number().default(1)
   })
 )
 
@@ -217,7 +217,7 @@ const battleSizeSchema = z.union([
 const baseArmySchema = z
   .object({
     codex: codexSchema,
-    battle_size: battleSizeSchema,
+    battle_size: battleSizeSchema.default('free'),
     id: idSchema,
     name: z.string(),
     points: z.number()
