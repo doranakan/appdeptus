@@ -49,17 +49,17 @@ const CodexList = () => {
 
   const { getValues, reset, setValue, watch } = useFormContext<ArmyBuilder>()
 
-  const [selectedCodex, detachment] = watch(['codex.name', 'detachment'])
+  const [selectedCodex, detachments] = watch(['codex.name', 'detachments'])
 
   const dispatch = useAppDispatch()
 
   const handlePress = useCallback(
     (codex: Codex) => {
-      if (detachment && selectedCodex !== codex.name) {
+      if (detachments?.length && selectedCodex !== codex.name) {
         reset({
           ...getValues(),
           name: '',
-          detachment: undefined,
+          detachments: [],
           units: [],
           points: 0
         })
@@ -69,7 +69,7 @@ const CodexList = () => {
 
       dispatch(setTheme(codex.name))
     },
-    [detachment, dispatch, getValues, reset, selectedCodex, setValue]
+    [detachments, dispatch, getValues, reset, selectedCodex, setValue]
   )
 
   return (

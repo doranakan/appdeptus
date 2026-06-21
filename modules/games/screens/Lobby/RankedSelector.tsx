@@ -39,7 +39,7 @@ const RankedSelector = ({ game }: RankedSelectorProps) => {
   return (
     <>
       <HStack className='items-center justify-between'>
-        <VStack>
+        <VStack className='flex-1'>
           <Text family='body-bold'>Ranked:</Text>
           {game.community ? (
             <Pressable onPress={() => ref.current?.present()}>

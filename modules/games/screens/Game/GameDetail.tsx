@@ -13,6 +13,7 @@ import {
   useWarlord
 } from 'appdeptus/hooks'
 import { type Player } from 'appdeptus/models/game'
+import { mapBattleSize } from 'appdeptus/utils'
 import { type ComponentProps, memo, useMemo } from 'react'
 
 type GameDetailProps = {
@@ -117,12 +118,12 @@ const GameDetail = ({ playerOne, playerTwo }: GameDetailProps) => {
       </HStack>
       <HStack className='justify-between'>
         <Badge
-          text={playerOne.army.detachment.name}
+          text={mapBattleSize(playerOne.army.battleSize)}
           codex={playerOne.army.codex.name}
         />
 
         <Badge
-          text={playerTwo.army.detachment.name}
+          text={mapBattleSize(playerTwo.army.battleSize)}
           codex={playerTwo.army.codex.name}
         />
       </HStack>

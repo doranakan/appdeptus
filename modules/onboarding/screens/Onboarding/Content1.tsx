@@ -22,7 +22,7 @@ const Content1 = () => (
       >
         <ArmyListItem
           codex='Space Marines'
-          detachment='Gladius Task Force'
+          battleSize='strike-force'
           name='Tournament'
           points={2000}
         />
@@ -32,7 +32,7 @@ const Content1 = () => (
       >
         <ArmyListItem
           codex='Adepta Sororitas'
-          detachment='Penitent Host'
+          battleSize='free'
           name='Boarding Actions'
           points={500}
         />
@@ -42,7 +42,7 @@ const Content1 = () => (
       >
         <ArmyListItem
           codex='World Eaters'
-          detachment='Berzerked Warband'
+          battleSize='incursion'
           name='Incursion'
           points={1000}
         />

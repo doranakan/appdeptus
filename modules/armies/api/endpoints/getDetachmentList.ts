@@ -15,8 +15,9 @@ const getDetachmentList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
           .select(
             `
               id,
-              name, 
-              detachment_enhancements(
+              name,
+              detachmentPoints:detachment_points,
+              enhancements:detachment_enhancements(
                 id,
                 name,
                 points
@@ -37,8 +38,9 @@ const getDetachmentList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
             .select(
               `
               id,
-              name, 
-              detachment_enhancements(
+              name,
+              detachmentPoints:detachment_points,
+              enhancements:detachment_enhancements(
                 id,
                 name,
                 points

@@ -11,6 +11,7 @@ import { isHero, type SelectableUnit, type Unit } from 'appdeptus/models'
 import { memo, useMemo } from 'react'
 
 type UnitListItemProps = {
+  maxCount: number
   onPressAdd: (unit: SelectableUnit) => void
   onPressEdit: (unit: SelectableUnit) => void
   selectedUnits: Unit[] | undefined
@@ -18,6 +19,7 @@ type UnitListItemProps = {
 }
 
 const UnitListItem = ({
+  maxCount,
   onPressAdd,
   onPressEdit,
   selectedUnits,
@@ -73,7 +75,7 @@ const UnitListItem = ({
               />
             ) : null}
             <Button
-              disabled={isHero(unit) && count > 0}
+              disabled={(isHero(unit) && count > 0) || count >= maxCount}
               onPress={() => {
                 onPressAdd(unit)
               }}

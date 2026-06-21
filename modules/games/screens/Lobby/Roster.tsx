@@ -14,16 +14,20 @@ const Roster = ({ game }: RosterProps) => {
       className='flex-1'
       space='md'
     >
-      <TabMenu
-        options={[
-          game.playerOne.army.codex.name,
-          game.playerTwo.army.codex.name
-        ]}
-        onOptionSelected={(_option, index) => {
-          setSelectedPlayer(index === 0 ? 'One' : 'Two')
-        }}
+      <GameArmyRoster
+        army={game[`player${selectedPlayer}`].army}
+        ListHeaderComponent={
+          <TabMenu
+            options={[
+              game.playerOne.army.codex.name,
+              game.playerTwo.army.codex.name
+            ]}
+            onOptionSelected={(_option, index) => {
+              setSelectedPlayer(index === 0 ? 'One' : 'Two')
+            }}
+          />
+        }
       />
-      <GameArmyRoster roster={game[`player${selectedPlayer}`].army.roster} />
     </VStack>
   )
 }

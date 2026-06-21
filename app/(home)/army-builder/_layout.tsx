@@ -15,6 +15,7 @@ import {
   useGetInvalidUnitsQuery,
   useUpdateArmyMutation
 } from 'appdeptus/modules/armies/api'
+import { mapBattleSizePointCap } from 'appdeptus/utils'
 import { router, Stack, useGlobalSearchParams, useSegments } from 'expo-router'
 import { Check, ChevronRight } from 'lucide-react-native'
 import { type ComponentProps, useCallback, useMemo } from 'react'
@@ -32,8 +33,9 @@ const ArmyBuilderLayout = () => {
   const defaultValues = useMemo(() => {
     if (!army) {
       return {
+        battleSize: undefined,
         codex: undefined,
-        detachment: undefined,
+        detachments: [],
         name: '',
         points: 0,
         units: []
@@ -115,14 +117,22 @@ const ArmyBuilderLayout = () => {
     [show, updateArmy]
   )
 
-  const [codex, detachment, units, name] = watch([
+  const [battleSize, codex, detachments, units, name, points] = watch([
+    'battleSize',
     'codex',
-    'detachment',
+    'detachments',
     'units',
-    'name'
+    'name',
+    'points'
   ])
 
   const warlord = useWarlord(units ?? [])
+
+  const pointCapExceeded = useMemo(() => {
+    if (!battleSize) return false
+    const cap = mapBattleSizePointCap(battleSize)
+    return points > cap
+  }, [battleSize, points])
 
   const unitSelectionButtonDisabled = useMemo(
     () =>
@@ -137,35 +147,49 @@ const ArmyBuilderLayout = () => {
 
   const currentStep = useMemo(() => {
     switch (routeName) {
-      case 'army-builder': {
+      case 'codex-selection': {
         return !codex ? 1 : 2
       }
       case '[id]':
+      case 'battle-size-selection': {
+        return !battleSize ? 3 : 4
+      }
       case 'detachment-selection': {
-        return !detachment ? 3 : 4
+        return !detachments?.length ? 5 : 6
       }
       case 'unit-selection': {
-        return unitSelectionButtonDisabled ? 5 : 6
+        return unitSelectionButtonDisabled ? 7 : 8
       }
       case 'enhancement-selection': {
-        return 7
+        return 9
       }
       case 'warlord-selection': {
-        return 8 + (name ? 1 : 0) + (warlord ? 1 : 0)
+        return 10 + (name ? 1 : 0) + (warlord ? 1 : 0)
       }
       default:
         return 0
     }
-  }, [codex, detachment, name, routeName, unitSelectionButtonDisabled, warlord])
+  }, [
+    battleSize,
+    codex,
+    detachments,
+    name,
+    routeName,
+    unitSelectionButtonDisabled,
+    warlord
+  ])
 
   const text = useMemo(() => {
     switch (routeName) {
-      case 'army-builder': {
+      case 'codex-selection': {
         return codex ? `selected: ${codex.name}` : 'select codex'
       }
       case '[id]':
+      case 'battle-size-selection': {
+        return 'select battle size'
+      }
       case 'detachment-selection': {
-        return detachment ? `selected: ${detachment.name}` : 'select detachment'
+        return 'select detachments'
       }
       case 'unit-selection': {
         return 'select units'
@@ -179,22 +203,30 @@ const ArmyBuilderLayout = () => {
       default:
         return ''
     }
-  }, [codex, detachment, routeName])
+  }, [codex, routeName])
 
   const rightButton = useMemo<ComponentProps<typeof Button> | undefined>(() => {
     switch (routeName) {
-      case 'army-builder': {
+      case 'codex-selection': {
         return {
           disabled: !codex,
+          icon: ChevronRight,
+          href: 'army-builder/battle-size-selection',
+          variant: 'link'
+        }
+      }
+      case '[id]':
+      case 'battle-size-selection': {
+        return {
+          disabled: !battleSize,
           icon: ChevronRight,
           href: 'army-builder/detachment-selection',
           variant: 'link'
         }
       }
-      case '[id]':
       case 'detachment-selection': {
         return {
-          disabled: !detachment,
+          disabled: !detachments?.length,
           icon: ChevronRight,
           href: 'army-builder/unit-selection',
           variant: 'link'
@@ -209,7 +241,7 @@ const ArmyBuilderLayout = () => {
           ).length > 0
 
         return {
-          disabled: unitSelectionButtonDisabled,
+          disabled: unitSelectionButtonDisabled || pointCapExceeded,
           icon: ChevronRight,
           href: canUpgradeUnits
             ? 'army-builder/enhancement-selection'
@@ -219,6 +251,7 @@ const ArmyBuilderLayout = () => {
       }
       case 'enhancement-selection': {
         return {
+          disabled: pointCapExceeded,
           icon: ChevronRight,
           href: 'army-builder/warlord-selection',
           variant: 'link'
@@ -237,14 +270,16 @@ const ArmyBuilderLayout = () => {
         return undefined
     }
   }, [
+    battleSize,
     codex,
-    detachment,
+    detachments,
     editArmy,
     formState.isSubmitting,
     handleSubmit,
     id,
     name,
     newArmy,
+    pointCapExceeded,
     routeName,
     unitSelectionButtonDisabled,
     units,
@@ -261,7 +296,7 @@ const ArmyBuilderLayout = () => {
           variant='backButton'
           progress={{
             currentStep,
-            steps: 10,
+            steps: 12,
             text
           }}
           rightButton={rightButton}
@@ -269,10 +304,11 @@ const ArmyBuilderLayout = () => {
       </VStack>
       <FormProvider {...form}>
         <Stack
-          initialRouteName='index'
+          initialRouteName='codex-selection'
           screenOptions={defaultScreenOptions}
         >
-          <Stack.Screen name='index' />
+          <Stack.Screen name='battle-size-selection' />
+          <Stack.Screen name='codex-selection' />
           <Stack.Screen name='detachment-selection' />
           <Stack.Screen name='[id]' />
           <Stack.Screen name='enhancement-selection' />

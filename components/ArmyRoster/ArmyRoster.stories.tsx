@@ -35,7 +35,8 @@ const ArmyRosterMeta: Meta<typeof ArmyRoster> = {
           points: 180
         },
         upgrades: [],
-        type: 'squad'
+        type: 'squad',
+        battleline: false
       },
       {
         id: 2,
@@ -47,7 +48,8 @@ const ArmyRosterMeta: Meta<typeof ArmyRoster> = {
           points: 160
         },
         upgrades: [],
-        type: 'squad'
+        type: 'squad',
+        battleline: false
       }
     ]
   }

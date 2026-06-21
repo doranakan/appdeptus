@@ -72,6 +72,7 @@ export const Squad: Story = {
         { wounds: 0, killed: false }
       ],
       type: 'squad',
+        battleline: false,
       upgrades: []
     }
   }
@@ -104,6 +105,7 @@ export const Team: Story = {
           { wounds: 0, killed: false }
         ],
         type: 'squad',
+        battleline: false,
         upgrades: []
       }
     }
@@ -141,6 +143,7 @@ export const Embarked: Story = {
               { wounds: 0, killed: false }
             ],
             type: 'squad',
+        battleline: false,
             upgrades: []
           }
         },

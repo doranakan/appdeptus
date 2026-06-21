@@ -8,10 +8,11 @@ import {
   Text,
   VStack
 } from 'appdeptus/components'
-import { type Army } from 'appdeptus/models'
+import { type ArmyBuilder } from 'appdeptus/models'
+import { mapBattleSizeDp, mapBattleSizePointCap } from 'appdeptus/utils'
 import clsx from 'clsx'
-import { Info } from 'lucide-react-native'
-import { memo } from 'react'
+import { Info, TriangleAlert } from 'lucide-react-native'
+import { memo, useMemo } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useGetUnitListQuery } from '../../api'
 import { useUnitTypes } from '../../hooks'
@@ -21,10 +22,11 @@ import ref from './ref'
 type TopBarProps = {
   subtitle: string
   title: string
+  step: 'detachments' | 'units'
 }
 
-const TopBar = ({ subtitle, title }: TopBarProps) => {
-  const { watch } = useFormContext<Army>()
+const TopBar = ({ subtitle, step, title }: TopBarProps) => {
+  const { watch } = useFormContext<ArmyBuilder>()
 
   const points = watch('points')
   const codex = watch('codex')
@@ -33,6 +35,39 @@ const TopBar = ({ subtitle, title }: TopBarProps) => {
 
   const unitTypes = useUnitTypes(data ?? [], codex.name)
 
+  const battleSize = watch('battleSize')
+
+  const detachments = watch('detachments')
+
+  const pointCapExceeded = useMemo(() => {
+    if (!battleSize) return false
+    const cap = mapBattleSizePointCap(battleSize)
+    return points > cap
+  }, [battleSize, points])
+
+  const counter = useMemo(() => {
+    const armyPoints = `${points}pts`
+    switch (step) {
+      case 'detachments': {
+        if (battleSize === 'free') {
+          return armyPoints
+        }
+
+        const selectedDetachmentPoints = detachments.reduce(
+          (acc, d) => acc + d.detachmentPoints,
+          0
+        )
+
+        const remainingPoints =
+          mapBattleSizeDp(battleSize) - selectedDetachmentPoints
+
+        return `${remainingPoints}/${mapBattleSizeDp(battleSize)} DP`
+      }
+      case 'units':
+        return armyPoints
+    }
+  }, [battleSize, detachments, points, step])
+
   return (
     <>
       <VStack space='md'>
@@ -40,7 +75,7 @@ const TopBar = ({ subtitle, title }: TopBarProps) => {
         <HStack className='justify-between'>
           <ScreenSubtitle>{subtitle}</ScreenSubtitle>
           <Pressable
-            disabled={unitTypes.length <= 1}
+            disabled={step === 'detachments' || unitTypes.length <= 1}
             onPress={() => ref.current?.present()}
           >
             <HStack
@@ -51,12 +86,15 @@ const TopBar = ({ subtitle, title }: TopBarProps) => {
                 className='uppercase'
                 family='body-bold'
               >
-                {`${points}pts`}
+                {counter}
               </Text>
-              {unitTypes.length > 1 ? (
+              {step !== 'detachments' && unitTypes.length > 1 ? (
                 <Icon
-                  as={Info}
-                  className={clsx(['text-primary-50', !points && 'opacity-60'])}
+                  as={pointCapExceeded ? TriangleAlert : Info}
+                  className={clsx([
+                    pointCapExceeded ? 'text-error-400' : 'text-primary-50',
+                    !points && 'opacity-60'
+                  ])}
                 />
               ) : null}
             </HStack>

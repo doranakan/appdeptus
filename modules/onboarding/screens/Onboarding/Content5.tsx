@@ -42,7 +42,7 @@ const Content5 = () => (
           </Text>
           <ArmyListItem
             codex='Imperial Agents'
-            detachment='Gladius Task Force'
+            battleSize='strike-force'
             name='Tournament'
             points={2000}
             shareBy={{
@@ -78,7 +78,8 @@ const Content5 = () => (
                     id: 1,
                     name: "Emperor's Children"
                   },
-                  detachment: { enhancements: [], id: 1, name: '' },
+                  battleSize: 'strike-force',
+                  detachments: [{ enhancements: [], id: 1, name: '', detachmentPoints: 1 }],
                   id: 1,
                   name: '',
                   points: 1,
@@ -101,7 +102,8 @@ const Content5 = () => (
                     id: 1,
                     name: 'Blood Angels'
                   },
-                  detachment: { enhancements: [], id: 1, name: '' },
+                  battleSize: 'strike-force',
+                  detachments: [{ enhancements: [], id: 1, name: '', detachmentPoints: 1 }],
                   id: 1,
                   name: '',
                   points: 1,

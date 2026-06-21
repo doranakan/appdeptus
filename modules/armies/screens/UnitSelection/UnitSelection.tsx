@@ -100,6 +100,7 @@ const UnitSelectionScreen = () => {
         <TopBar
           subtitle='units'
           title={codex.name}
+          step='units'
         />
 
         {unitTypes && unitTypes.length > 1 ? (

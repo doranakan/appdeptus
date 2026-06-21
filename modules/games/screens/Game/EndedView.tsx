@@ -20,7 +20,7 @@ type EndedViewScreenProps = {
 const EndedViewScreen = ({ game }: EndedViewScreenProps) => {
   const dispatch = useAppDispatch()
 
-  const [selectedPlayer, setSelectedPlayer] = useState<'one' | 'two'>('one')
+  const [selectedPlayer, setSelectedPlayer] = useState<'One' | 'Two'>('One')
 
   useEffect(() => {
     dispatch(
@@ -64,24 +64,19 @@ const EndedViewScreen = ({ game }: EndedViewScreenProps) => {
           status='ended'
         />
         <GameArmyRoster
-          roster={
-            selectedPlayer === 'one'
-              ? game.playerOne.army.roster
-              : game.playerTwo.army.roster
-          }
+          army={game[`player${selectedPlayer}`].army}
           ListHeaderComponent={
             <VStack space='md'>
               <GameDetail {...game} />
               <TabMenu
                 onOptionSelected={(_, index) => {
-                  setSelectedPlayer(index === 0 ? 'one' : 'two')
+                  setSelectedPlayer(index === 0 ? 'One' : 'Two')
                 }}
                 options={[
                   game.playerOne.army.codex.name,
                   game.playerTwo.army.codex.name
                 ]}
               />
-              <VStack />
             </VStack>
           }
         />

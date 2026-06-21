@@ -9,7 +9,7 @@ type GameUpdatesParams = {
 }
 
 const gameUpdates = ({ eventHandler, gameId }: GameUpdatesParams) =>
-  supabase.channel(Table.GAMES).on(
+  supabase.channel(`${Table.GAMES}:${gameId}:${Date.now()}`).on(
     'postgres_changes',
     {
       event: 'UPDATE',

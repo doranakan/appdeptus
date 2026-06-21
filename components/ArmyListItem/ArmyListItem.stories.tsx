@@ -11,7 +11,7 @@ const ArmyListItemMeta: Meta<typeof ArmyListItem> = {
   },
   args: {
     codex: 'Space Marines',
-    detachment: 'Detachment',
+    battleSize: 'free',
     name: 'Combat patrol',
     points: 1500
   }

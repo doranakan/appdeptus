@@ -1,4 +1,5 @@
-import { type CodexName, type UserProfile } from 'appdeptus/models'
+import { type BattleSize, type CodexName, type UserProfile } from 'appdeptus/models'
+import { mapBattleSize } from 'appdeptus/utils'
 
 import { LinearGradient } from 'expo-linear-gradient'
 import { memo, type ComponentProps } from 'react'
@@ -11,7 +12,7 @@ import { HStack, themeColors, VStack } from '../ui'
 
 type ArmyListItemProps = {
   codex: CodexName
-  detachment: string
+  battleSize: BattleSize
   name: string
   points: number
 
@@ -22,7 +23,7 @@ type ArmyListItemProps = {
 
 const ArmyListItem = ({
   codex,
-  detachment,
+  battleSize,
   name,
   points,
 
@@ -97,7 +98,7 @@ const ArmyListItem = ({
           <Text>{name}</Text>
           <Badge
             codex={codex}
-            text={detachment}
+            text={mapBattleSize(battleSize)}
           />
         </HStack>
       </VStack>

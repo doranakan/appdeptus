@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { type SelectableUnit } from 'appdeptus/models'
+import { type Army, type SelectableUnit } from 'appdeptus/models'
 import { z } from 'zod'
 
 const idSchema = z.number()
@@ -74,21 +74,23 @@ const enhancementSchema = z.object({
 
 const baseDetachmentSchema = z.object({
   id: idSchema,
-  name: z.string()
+  name: z.string(),
+  enhancements: z.array(enhancementSchema)
 })
 
-const detachmentListSchema = z.array(
-  baseDetachmentSchema
-    .merge(
-      z.object({
-        detachment_enhancements: z.array(enhancementSchema)
-      })
-    )
-    .transform(({ detachment_enhancements, ...rest }) => ({
-      ...rest,
-      enhancements: detachment_enhancements
-    }))
+const legacyDetachmentSchema = baseDetachmentSchema.and(
+  z.object({
+    detachmentPoints: z.number().nullish().default(1)
+  })
 )
+
+const detachmentSchema = baseDetachmentSchema.and(
+  z.object({
+    detachmentPoints: z.number().default(1)
+  })
+)
+
+const detachmentListSchema = z.array(detachmentSchema)
 
 const armyUnitSchema = baseUnitSchema.merge(
   z.object({
@@ -136,7 +138,9 @@ const characterSchema = armyUnitSchema
 const leaderSchema = armyUnitSchema
   .merge(z.object({ type: baseLeaderSchema }))
   .and(heroOrEnhanceableSchema)
-const squadSchema = armyUnitSchema.merge(z.object({ type: baseSquadSchema }))
+const squadSchema = armyUnitSchema.merge(
+  z.object({ type: baseSquadSchema, battleline: z.boolean().default(false) })
+)
 const transportSchema = armyUnitSchema.merge(
   z.object({ type: baseTransportSchema })
 )
@@ -151,7 +155,7 @@ const gameLeaderSchema = gameArmyUnitSchema
   .merge(z.object({ type: baseLeaderSchema }))
   .and(heroOrEnhanceableSchema)
 const gameSquadSchema = gameArmyUnitSchema.merge(
-  z.object({ type: baseSquadSchema })
+  z.object({ type: baseSquadSchema, battleline: z.boolean().default(false) })
 )
 const gameTransportSchema = gameArmyUnitSchema.merge(
   z.object({ type: baseTransportSchema })
@@ -204,17 +208,49 @@ const gameEmbarkedSchema = z.object({
   type: baseEmbarkedSchema
 })
 
-const baseArmySchema = z.object({
-  codex: codexSchema,
-  detachment: baseDetachmentSchema.merge(
-    z.object({
-      enhancements: z.array(enhancementSchema)
-    })
-  ),
-  id: idSchema,
-  name: z.string(),
-  points: z.number()
-})
+const battleSizeSchema = z.union([
+  z.literal('incursion'),
+  z.literal('strike-force'),
+  z.literal('free')
+])
+
+const baseArmySchema = z
+  .object({
+    codex: codexSchema,
+    battle_size: battleSizeSchema.default('free'),
+    id: idSchema,
+    name: z.string(),
+    points: z.number()
+  })
+  .and(
+    z.union([
+      z.object({ detachment: legacyDetachmentSchema }),
+      z.object({ detachments: z.array(detachmentSchema).nonempty() })
+    ])
+  )
+  .transform(({ battle_size, ...rest }) => {
+    const battleSize = battle_size
+
+    if ('detachment' in rest) {
+      return {
+        ...rest,
+        battleSize,
+        detachments: [rest.detachment] as [
+          Army['detachments'][0],
+          ...Army['detachments'][0][]
+        ]
+      }
+    }
+
+    return {
+      ...rest,
+      detachments: rest.detachments as [
+        Army['detachments'][0],
+        ...Army['detachments'][0][]
+      ],
+      battleSize: battle_size
+    }
+  })
 
 const armySchema = z
   .object({
@@ -261,7 +297,8 @@ const selectableLeaderSchema = z.object({
 })
 
 const selectableSquadSchema = z.object({
-  type: baseSquadSchema
+  type: baseSquadSchema,
+  battleline: z.boolean().default(false)
 })
 const selectableTransportSchema = z.object({
   type: baseTransportSchema

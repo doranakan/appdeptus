@@ -2,7 +2,10 @@ import { skipToken } from '@reduxjs/toolkit/query'
 import {
   ArmyBackground,
   ArmyRoster,
+  Card,
   Error,
+  HStack,
+  IconBadge,
   Loading,
   NavigationHeader,
   ScreenContainer,
@@ -16,7 +19,7 @@ import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { useAppDispatch } from 'appdeptus/store'
 import { LinearGradient } from 'expo-linear-gradient'
 import { useLocalSearchParams } from 'expo-router'
-import { EllipsisVertical } from 'lucide-react-native'
+import { Component, EllipsisVertical } from 'lucide-react-native'
 import { useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { useGetArmyQuery, useGetInvalidUnitsQuery } from '../../api'
@@ -101,6 +104,40 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
                 army={army}
                 isUsersArmy={isUsersArmy}
               />
+              <Text
+                className='uppercase'
+                family='body-bold'
+              >
+                detachments
+              </Text>
+              <VStack space='md'>
+                {army.detachments.map((detachment) => (
+                  <Card key={detachment.id}>
+                    <HStack
+                      className='items-center justify-between p-4'
+                      space='md'
+                    >
+                      <HStack
+                        className='flex-1 items-center'
+                        space='md'
+                      >
+                        <IconBadge Icon={Component} />
+                        <Text
+                          className='line-clamp-1 flex-1'
+                          family='body-bold'
+                        >
+                          {detachment.name}
+                        </Text>
+                      </HStack>
+                      <Text
+                        className='uppercase'
+                        family='body-bold'
+                        size='sm'
+                      >{`${detachment.detachmentPoints}dp`}</Text>
+                    </HStack>
+                  </Card>
+                ))}
+              </VStack>
               <Text
                 className='uppercase'
                 family='body-bold'

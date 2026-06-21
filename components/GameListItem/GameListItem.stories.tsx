@@ -14,7 +14,8 @@ const baseGame = {
         id: 1,
         name: 'Death Guard'
       },
-      detachment: { enhancements: [], id: 1, name: '' },
+      detachments: [{ enhancements: [], id: 1, name: '', detachmentPoints: 1 }],
+      battleSize: 'free',
       id: 1,
       name: '',
       points: 1000,
@@ -37,7 +38,8 @@ const baseGame = {
         id: 1,
         name: 'Grey Knights'
       },
-      detachment: { enhancements: [], id: 1, name: '' },
+      detachments: [{ enhancements: [], id: 1, name: '', detachmentPoints: 1 }],
+      battleSize: 'free',
       id: 1,
       name: '',
       points: 1000,

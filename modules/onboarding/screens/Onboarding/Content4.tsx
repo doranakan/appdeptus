@@ -32,7 +32,8 @@ const Content4 = () => (
                   id: 1,
                   name: 'Death Guard'
                 },
-                detachment: { enhancements: [], id: 1, name: '' },
+                battleSize: 'strike-force',
+                detachments: [{ enhancements: [], id: 1, name: '', detachmentPoints: 1 }],
                 id: 1,
                 name: '',
                 points: 1,
@@ -55,7 +56,8 @@ const Content4 = () => (
                   id: 1,
                   name: 'Grey Knights'
                 },
-                detachment: { enhancements: [], id: 1, name: '' },
+                battleSize: 'strike-force',
+                detachments: [{ enhancements: [], id: 1, name: '', detachmentPoints: 1 }],
                 id: 1,
                 name: '',
                 points: 1,
@@ -91,7 +93,8 @@ const Content4 = () => (
                   id: 1,
                   name: 'Space Marines'
                 },
-                detachment: { enhancements: [], id: 1, name: '' },
+                battleSize: 'strike-force',
+                detachments: [{ enhancements: [], id: 1, name: '', detachmentPoints: 1 }],
                 id: 1,
                 name: '',
                 points: 1,
@@ -114,7 +117,8 @@ const Content4 = () => (
                   id: 1,
                   name: 'Tyranids'
                 },
-                detachment: { enhancements: [], id: 1, name: '' },
+                battleSize: 'strike-force',
+                detachments: [{ enhancements: [], id: 1, name: '', detachmentPoints: 1 }],
                 id: 1,
                 name: '',
                 points: 1,
@@ -150,7 +154,8 @@ const Content4 = () => (
                   id: 1,
                   name: 'Black Templars'
                 },
-                detachment: { enhancements: [], id: 1, name: '' },
+                battleSize: 'strike-force',
+                detachments: [{ enhancements: [], id: 1, name: '', detachmentPoints: 1 }],
                 id: 1,
                 name: '',
                 points: 1,
@@ -173,7 +178,8 @@ const Content4 = () => (
                   id: 1,
                   name: 'Orks'
                 },
-                detachment: { enhancements: [], id: 1, name: '' },
+                battleSize: 'strike-force',
+                detachments: [{ enhancements: [], id: 1, name: '', detachmentPoints: 1 }],
                 id: 1,
                 name: '',
                 points: 1,

@@ -31,6 +31,7 @@ type BaseLeader = CoreUnit &
 
 type BaseSquad = CoreUnit & {
   type: 'squad'
+  battleline: boolean
 }
 
 type BaseTransport = CoreUnit & {
@@ -85,7 +86,7 @@ type Embarked<
   type: 'embarked'
 }
 
-type SelectableUnit = Omit<BaseUnit, 'selectionId' | 'teamId'> & {
+type SelectableUnit = Exclude<BaseUnit, 'selectionId' | 'teamId'> & {
   tiers: [Tier, ...Tier[]]
 }
 

@@ -12,11 +12,8 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
           faction: 'imperium'
         },
         id: 0,
-        detachment: {
-          enhancements: [],
-          id: 0,
-          name: ''
-        },
+        detachments: [{ enhancements: [], id: 0, name: '', detachmentPoints: 1 }],
+        battleSize: 'free',
         name: 'Army One',
         points: 2000,
         roster: []
@@ -39,11 +36,8 @@ const ScoreboardMeta: Meta<typeof Scoreboard> = {
           faction: 'imperium'
         },
         id: 0,
-        detachment: {
-          enhancements: [],
-          id: 0,
-          name: ''
-        },
+        detachments: [{ enhancements: [], id: 0, name: '', detachmentPoints: 1 }],
+        battleSize: 'free',
         name: 'Army Two',
         points: 1990,
         roster: []

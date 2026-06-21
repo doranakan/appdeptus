@@ -62,6 +62,7 @@ export const Squad: Story = {
       selectionId: 'id',
       tier: { id: 0, models: 10, points: 230 },
       type: 'squad',
+        battleline: false,
       upgrades: []
     }
   }
@@ -86,6 +87,7 @@ export const Team: Story = {
         selectionId: 'id',
         tier: { id: 0, models: 1, points: 85 },
         type: 'squad',
+        battleline: false,
         upgrades: []
       }
     }
@@ -115,6 +117,7 @@ export const Embarked: Story = {
             selectionId: 'id',
             tier: { id: 0, models: 10, points: 190 },
             type: 'squad',
+        battleline: false,
             upgrades: []
           }
         },

@@ -12,6 +12,7 @@ import {
   type Enhancement,
   type Leader
 } from 'appdeptus/models'
+import { mapBattleSizeDp } from 'appdeptus/utils'
 import { memo, type PropsWithChildren, useMemo, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { ScrollView } from 'react-native'
@@ -25,11 +26,12 @@ const EnhancementAssignment = ({
 }: EnhancementAssignmentProps) => {
   const { setValue, watch } = useFormContext<ArmyBuilder>()
 
-  const selectedEnhancements = watch('detachment.enhancements')
-
   const [enhancementToAssign, setEnhancementToAssign] = useState<Enhancement>()
 
   const units = watch('units')
+  const battleSize = watch('battleSize')
+
+  const enhancementLimit = mapBattleSizeDp(battleSize)
 
   const charactersAndLeaders = useMemo(
     () =>
@@ -39,6 +41,16 @@ const EnhancementAssignment = ({
       ),
     [units]
   )
+
+  const assignedEnhancementsCount = useMemo(
+    () =>
+      charactersAndLeaders.filter(
+        (unit) => 'enhancement' in unit && unit.enhancement
+      ).length,
+    [charactersAndLeaders]
+  )
+
+  const enhancementLimitReached = assignedEnhancementsCount >= enhancementLimit
 
   return (
     <ScrollView
@@ -57,38 +69,45 @@ const EnhancementAssignment = ({
                 (unit) => 'enhancement' in unit && unit.enhancement?.id === id
               )
           )
-          .map((enhancement) => (
-            <Pressable
-              key={enhancement.id}
-              onPress={() => {
-                switch (true) {
-                  case enhancementToAssign &&
-                    enhancementToAssign.id !== enhancement.id: {
-                    setEnhancementToAssign(enhancement)
-                    return
+          .map((enhancement) => {
+            const isSelected = enhancementToAssign?.id === enhancement.id
+            const isDisabled =
+              !isSelected && !enhancementToAssign && enhancementLimitReached
+
+            return (
+              <Pressable
+                disabled={isDisabled}
+                key={enhancement.id}
+                onPress={() => {
+                  switch (true) {
+                    case enhancementToAssign &&
+                      enhancementToAssign.id !== enhancement.id: {
+                      setEnhancementToAssign(enhancement)
+                      return
+                    }
+                    case !!enhancementToAssign: {
+                      setEnhancementToAssign(undefined)
+                      return
+                    }
+                    default: {
+                      setEnhancementToAssign(enhancement)
+                    }
                   }
-                  case !!enhancementToAssign: {
-                    setEnhancementToAssign(undefined)
-                    return
+                }}
+              >
+                <EnhancementListItem
+                  enhancement={enhancement}
+                  variant={
+                    isSelected
+                      ? 'selected'
+                      : isDisabled || !!enhancementToAssign
+                        ? 'disabled'
+                        : 'selectable'
                   }
-                  default: {
-                    setEnhancementToAssign(enhancement)
-                  }
-                }
-              }}
-            >
-              <EnhancementListItem
-                enhancement={enhancement}
-                variant={
-                  enhancementToAssign?.id === enhancement.id
-                    ? 'selected'
-                    : !enhancementToAssign
-                      ? 'selectable'
-                      : 'disabled'
-                }
-              />
-            </Pressable>
-          ))}
+                />
+              </Pressable>
+            )
+          })}
       </VStack>
       <StickyHeader>characters</StickyHeader>
       <VStack
@@ -110,10 +129,6 @@ const EnhancementAssignment = ({
               if (enhancement) {
                 setEnhancementToAssign(undefined)
                 setValue(
-                  'detachment.enhancements',
-                  selectedEnhancements.filter(({ id }) => id !== enhancement.id)
-                )
-                setValue(
                   'units',
                   units.map((unit) => {
                     if (
@@ -130,10 +145,6 @@ const EnhancementAssignment = ({
               }
 
               if (enhancementToAssign) {
-                setValue('detachment.enhancements', [
-                  ...selectedEnhancements,
-                  enhancementToAssign
-                ])
                 setValue('points', points + enhancementToAssign.points)
                 setValue(
                   'units',
