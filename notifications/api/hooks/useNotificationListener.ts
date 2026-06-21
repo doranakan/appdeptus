@@ -1,3 +1,4 @@
+import { supabase } from 'appdeptus/utils'
 import { useEffect } from 'react'
 import { notificationUpdates } from '../realtime'
 
@@ -9,10 +10,11 @@ const useNotificationUpdateListener = (
       return
     }
 
-    const sub = notificationUpdates(args).subscribe()
+    const channel = notificationUpdates(args)
+    channel.subscribe()
 
     return () => {
-      sub.unsubscribe()
+      supabase.removeChannel(channel)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [args.userId])

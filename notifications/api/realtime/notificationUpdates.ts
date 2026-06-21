@@ -14,7 +14,7 @@ const notificationUpdates = ({
   eventHandler,
   userId
 }: NotificationUpdatesParams) =>
-  supabase.channel(Table.USER_NOTIFICATIONS).on(
+  supabase.channel(`${Table.USER_NOTIFICATIONS}:${userId}:${Date.now()}`).on(
     'postgres_changes',
     {
       event: 'UPDATE',
