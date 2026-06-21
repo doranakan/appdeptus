@@ -27,11 +27,8 @@ const Content3 = () => (
                 faction: 'imperium'
               },
               id: 0,
-              detachment: {
-                enhancements: [],
-                id: 0,
-                name: ''
-              },
+              battleSize: 'strike-force',
+              detachments: [{ enhancements: [], id: 0, name: '', detachmentPoints: 1 }],
               name: 'Army Two',
               points: 1990,
               roster: []
@@ -54,11 +51,8 @@ const Content3 = () => (
                 faction: 'imperium'
               },
               id: 0,
-              detachment: {
-                enhancements: [],
-                id: 0,
-                name: ''
-              },
+              battleSize: 'strike-force',
+              detachments: [{ enhancements: [], id: 0, name: '', detachmentPoints: 1 }],
               name: 'Army One',
               points: 2000,
               roster: []
@@ -139,6 +133,7 @@ const Content3 = () => (
                 wounds: 0
               }
             ],
+            battleline: false,
             warlord: false,
             id: 1
           }}
@@ -176,6 +171,7 @@ const Content3 = () => (
                 wounds: 0
               }
             ],
+            battleline: false,
             warlord: false,
             id: 1
           }}

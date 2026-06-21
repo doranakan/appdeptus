@@ -65,6 +65,7 @@ const Content2 = () => (
                 points: 170
               },
               type: 'squad',
+              battleline: false,
               upgrades: []
             },
             id: '3'
@@ -88,6 +89,7 @@ const Content2 = () => (
                   points: 160
                 },
                 type: 'squad',
+                battleline: false,
                 upgrades: []
               }
             ],
