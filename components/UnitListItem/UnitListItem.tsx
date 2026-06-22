@@ -1,5 +1,5 @@
 import { type Army, type Team, type Unit } from 'appdeptus/models'
-import { CircleFadingPlus, Crown } from 'lucide-react-native'
+import { ChevronsUp, CircleFadingPlus, Crown } from 'lucide-react-native'
 import pluralize from 'pluralize'
 import { type ComponentProps, memo } from 'react'
 import Card from '../Card'
@@ -9,6 +9,9 @@ import Text from '../Text'
 import { HStack, VStack } from '../ui'
 import { unitTypeToIcon } from '../utils'
 import EmbarkedUnit from './EmbarkedUnit'
+import EnhancementRow from './EnhancementRow'
+import useGroupedUpgrades from './useGroupedUpgrades'
+import UpgradeRows from './UpgradeRows'
 import TeamUnit from './TeamUnit'
 
 type UnitListItemProps = {
@@ -76,6 +79,8 @@ type UnitDetailProps = {
 } & Omit<UnitListItemProps, 'item'>
 
 const UnitDetail = ({ unit }: UnitDetailProps) => {
+  const hasUpgrades = useGroupedUpgrades(unit.upgrades).length > 0
+
   return (
     <HStack
       className='items-center'
@@ -86,7 +91,9 @@ const UnitDetail = ({ unit }: UnitDetailProps) => {
         OptionIcon={
           'enhancement' in unit && unit.enhancement
             ? CircleFadingPlus
-            : undefined
+            : hasUpgrades
+              ? ChevronsUp
+              : undefined
         }
       />
       <VStack className='flex-1'>
@@ -96,15 +103,6 @@ const UnitDetail = ({ unit }: UnitDetailProps) => {
         >
           {unit.name}
         </Text>
-        {'enhancement' in unit && unit.enhancement ? (
-          <Text
-            className='line-clamp-1'
-            family='body-bold-italic'
-            size='sm'
-          >
-            {unit.enhancement.name}
-          </Text>
-        ) : null}
         <HStack space='sm'>
           <Text size='sm'>{`${unit.tier.models} ${pluralize('model', unit.tier.models)}`}</Text>
           <Dots />
@@ -112,8 +110,15 @@ const UnitDetail = ({ unit }: UnitDetailProps) => {
             className='uppercase'
             family='body-bold'
             size='sm'
-          >{`${unit.tier.points + ('enhancement' in unit ? (unit.enhancement?.points ?? 0) : 0)}pts`}</Text>
+          >{`${unit.tier.points}pts`}</Text>
         </HStack>
+        {'enhancement' in unit && unit.enhancement ? (
+          <EnhancementRow
+            name={unit.enhancement.name}
+            points={unit.enhancement.points}
+          />
+        ) : null}
+        <UpgradeRows upgrades={unit.upgrades} />
       </VStack>
     </HStack>
   )

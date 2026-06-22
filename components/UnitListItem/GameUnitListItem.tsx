@@ -1,6 +1,6 @@
 import { useModelsLeft, useTotalWounds } from 'appdeptus/hooks'
 import { type GameArmy, type GameTeam, type GameUnit } from 'appdeptus/models'
-import { CircleFadingPlus, Crown, Droplets, Skull } from 'lucide-react-native'
+import { ChevronsUp, CircleFadingPlus, Crown, Droplets, Skull } from 'lucide-react-native'
 import pluralize from 'pluralize'
 import { memo } from 'react'
 import Card from '../Card'
@@ -10,6 +10,9 @@ import Text from '../Text'
 import { HStack, VStack } from '../ui'
 import { unitTypeToIcon } from '../utils'
 import EmbarkedUnit from './EmbarkedUnit'
+import EnhancementRow from './EnhancementRow'
+import useGroupedUpgrades from './useGroupedUpgrades'
+import UpgradeRows from './UpgradeRows'
 import TeamUnit from './TeamUnit'
 
 type GameUnitListItemProps = {
@@ -72,6 +75,7 @@ type UnitDetailProps = {
 const UnitDetail = ({ unit }: UnitDetailProps) => {
   const modelsLeft = useModelsLeft(unit)
   const totalWounds = useTotalWounds(unit)
+  const hasUpgrades = useGroupedUpgrades(unit.upgrades).length > 0
 
   return (
     <HStack
@@ -79,15 +83,15 @@ const UnitDetail = ({ unit }: UnitDetailProps) => {
       space='md'
     >
       <IconBadge
-        Icon={
-          !modelsLeft ? Skull : unit.warlord ? Crown : unitTypeToIcon[unit.type]
-        }
+        Icon={!modelsLeft ? Skull : unit.warlord ? Crown : unitTypeToIcon[unit.type]}
         OptionIcon={
           totalWounds && modelsLeft
             ? Droplets
             : 'enhancement' in unit && unit.enhancement
               ? CircleFadingPlus
-              : undefined
+              : hasUpgrades
+                ? ChevronsUp
+                : undefined
         }
       />
       <VStack className='flex-1'>
@@ -97,15 +101,6 @@ const UnitDetail = ({ unit }: UnitDetailProps) => {
         >
           {unit.name}
         </Text>
-        {'enhancement' in unit && unit.enhancement ? (
-          <Text
-            className='line-clamp-1'
-            family='body-bold-italic'
-            size='sm'
-          >
-            {unit.enhancement.name}
-          </Text>
-        ) : null}
         <HStack space='sm'>
           <Text size='sm'>{`${modelsLeft}/${unit.models.length} ${pluralize('model', unit.models.length)}`}</Text>
           <Dots />
@@ -113,8 +108,15 @@ const UnitDetail = ({ unit }: UnitDetailProps) => {
             className='uppercase'
             family='body-bold'
             size='sm'
-          >{`${unit.points + ('enhancement' in unit ? (unit.enhancement?.points ?? 0) : 0)}pts`}</Text>
+          >{`${unit.points}pts`}</Text>
         </HStack>
+        {'enhancement' in unit && unit.enhancement ? (
+          <EnhancementRow
+            name={unit.enhancement.name}
+            points={unit.enhancement.points}
+          />
+        ) : null}
+        <UpgradeRows upgrades={unit.upgrades} />
       </VStack>
     </HStack>
   )
