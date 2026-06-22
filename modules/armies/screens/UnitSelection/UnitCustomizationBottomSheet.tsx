@@ -15,6 +15,8 @@ import {
   Circle,
   CircleDot,
   CircleFadingPlus,
+  CircleMinus,
+  CirclePlus,
   Square,
   SquareCheck
 } from 'lucide-react-native'
@@ -140,57 +142,111 @@ const UnitCustomizationBottomSheet = ({
                     unit upgrades
                   </Text>
                   <VStack space='md'>
-                    {selectedUnit.upgrades.map(({ id, name, points }) => {
-                      const isUpgradeAlreadySelected = !!unit.upgrades.find(
-                        ({ id: selectedUpgradeId }) => selectedUpgradeId === id
-                      )
+                    {selectedUnit.upgrades.map(({ id, name, points, maxQuantity, quantityMode }) => {
+                      const currentQty = unit.upgrades.filter(({ id: sid }) => sid === id).length
+                      const maxQty = quantityMode === 'per-model'
+                        ? unit.tier.models
+                        : (maxQuantity ?? 1)
+
+                      if (quantityMode === 'per-model') {
+                        const totalCost = currentQty * points
+                        return (
+                          <HStack
+                            className='items-center'
+                            key={id}
+                            space='md'
+                          >
+                            <Pressable
+                              disabled={currentQty === 0}
+                              onPress={() => {
+                                const totalPoints = watch('points')
+                                let removed = false
+                                setValue(
+                                  'units',
+                                  units.map((u) => {
+                                    if (u.selectionId !== unit.selectionId) return u
+                                    const upgrades = [...unit.upgrades]
+                                    const idx = upgrades.findLastIndex(({ id: sid }) => sid === id)
+                                    if (idx !== -1) {
+                                      upgrades.splice(idx, 1)
+                                      removed = true
+                                    }
+                                    return { ...unit, upgrades }
+                                  })
+                                )
+                                if (removed) setValue('points', totalPoints - points)
+                              }}
+                            >
+                              <Icon
+                                as={CircleMinus}
+                                className={clsx(currentQty === 0 ? 'text-primary-300' : 'text-primary-50')}
+                              />
+                            </Pressable>
+                            <Text
+                              className='w-4 text-center'
+                              family='body-bold'
+                            >
+                              {currentQty}
+                            </Text>
+                            <Pressable
+                              disabled={currentQty === maxQty}
+                              onPress={() => {
+                                const totalPoints = watch('points')
+                                setValue(
+                                  'units',
+                                  units.map((u) =>
+                                    u.selectionId === unit.selectionId
+                                      ? { ...unit, upgrades: [...unit.upgrades, { id, name, points, maxQuantity, quantityMode }] }
+                                      : u
+                                  )
+                                )
+                                setValue('points', totalPoints + points)
+                              }}
+                            >
+                              <Icon
+                                as={CirclePlus}
+                                className={clsx(currentQty === maxQty ? 'text-primary-300' : 'text-primary-50')}
+                              />
+                            </Pressable>
+                            <HStack className='flex-1 justify-between'>
+                              <Text>{name}</Text>
+                              <Text
+                                className='uppercase'
+                                family='body-bold'
+                              >{`${totalCost}pts`}</Text>
+                            </HStack>
+                          </HStack>
+                        )
+                      }
+
+                      const isSelected = currentQty > 0
                       return (
                         <Pressable
-                          className={clsx(
-                            !isUpgradeAlreadySelected && 'opacity-60'
-                          )}
+                          className={clsx(!isSelected && 'opacity-60')}
                           key={id}
                           onPress={() => {
                             const totalPoints = watch('points')
-
-                            if (isUpgradeAlreadySelected) {
+                            if (isSelected) {
                               setValue(
                                 'units',
-                                units.map((u) => {
-                                  if (u.selectionId === unit.selectionId) {
-                                    return {
-                                      ...unit,
-                                      upgrades: unit.upgrades.filter(
-                                        ({ id: selectedUpgradeId }) =>
-                                          selectedUpgradeId !== id
-                                      )
-                                    }
-                                  }
-                                  return u
-                                })
+                                units.map((u) =>
+                                  u.selectionId === unit.selectionId
+                                    ? { ...unit, upgrades: unit.upgrades.filter(({ id: sid }) => sid !== id) }
+                                    : u
+                                )
                               )
-
                               setValue('points', totalPoints - points)
-                              return
+                            } else {
+                              setValue(
+                                'units',
+                                units.map((u) =>
+                                  u.selectionId === unit.selectionId
+                                    ? { ...unit, upgrades: [...unit.upgrades, { id, name, points, maxQuantity, quantityMode }] }
+                                    : u
+                                )
+                              )
+                              setValue('points', totalPoints + points)
                             }
-
-                            setValue(
-                              'units',
-                              units.map((u) => {
-                                if (u.selectionId === unit.selectionId) {
-                                  return {
-                                    ...unit,
-                                    upgrades: [
-                                      ...unit.upgrades,
-                                      { id, name, points }
-                                    ]
-                                  }
-                                }
-                                return u
-                              })
-                            )
-
-                            setValue('points', totalPoints + points)
                           }}
                         >
                           <HStack
@@ -198,9 +254,7 @@ const UnitCustomizationBottomSheet = ({
                             space='md'
                           >
                             <Icon
-                              as={
-                                isUpgradeAlreadySelected ? SquareCheck : Square
-                              }
+                              as={isSelected ? SquareCheck : Square}
                               className='text-primary-50'
                             />
                             <HStack className='flex-1 justify-between'>

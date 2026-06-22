@@ -36,6 +36,7 @@ const UnitListItem = ({
       (acc, unit) =>
         (acc +=
           unit.tier.points +
+          unit.upgrades.reduce((sum, upg) => (sum += upg.points), 0) +
           ('enhancement' in unit ? (unit.enhancement?.points ?? 0) : 0)),
       0
     )
