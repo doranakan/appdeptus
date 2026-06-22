@@ -9,7 +9,7 @@ import {
   Text,
   VStack
 } from 'appdeptus/components'
-import { type ArmyBuilder, type SelectableUnit } from 'appdeptus/models'
+import { getCostForPick, type ArmyBuilder, type SelectableUnit } from 'appdeptus/models'
 import clsx from 'clsx'
 import {
   Circle,
@@ -57,7 +57,7 @@ const UnitCustomizationBottomSheet = ({
         >
           {selectedUnit.name}
         </Text>
-        {selectedUnits.map((unit) => (
+        {selectedUnits.map((unit, unitIndex) => (
           <Card key={unit.selectionId}>
             <VStack
               className='p-4'
@@ -81,27 +81,28 @@ const UnitCustomizationBottomSheet = ({
                   unit size
                 </Text>
                 <VStack space='md'>
-                  {selectedUnit.tiers.map(({ id, models, points }) => (
+                  {selectedUnit.tiers.map((newTier) => (
                     <Pressable
-                      disabled={unit.tier.id === id}
-                      className={clsx(unit.tier.id !== id && 'opacity-60')}
-                      key={id}
+                      disabled={unit.tier.id === newTier.id}
+                      className={clsx(unit.tier.id !== newTier.id && 'opacity-60')}
+                      key={newTier.id}
                       onPress={() => {
                         const totalPoints = watch('points')
+                        const adjustedTier = {
+                          ...newTier,
+                          points: getCostForPick(newTier, unitIndex + 1)
+                        }
 
                         setValue(
                           'points',
-                          totalPoints - unit.tier.points + points
+                          totalPoints - unit.tier.points + adjustedTier.points
                         )
 
                         setValue(
                           'units',
                           units.map((u) => {
                             if (u.selectionId === unit.selectionId) {
-                              return {
-                                ...unit,
-                                tier: { id, models, points }
-                              }
+                              return { ...unit, tier: adjustedTier }
                             }
                             return u
                           })
@@ -113,15 +114,15 @@ const UnitCustomizationBottomSheet = ({
                         space='md'
                       >
                         <Icon
-                          as={unit.tier.id === id ? CircleDot : Circle}
+                          as={unit.tier.id === newTier.id ? CircleDot : Circle}
                           className='text-primary-50'
                         />
                         <HStack className='flex-1 justify-between'>
-                          <Text>{`${models} ${pluralize('Model', models)}`}</Text>
+                          <Text>{`${newTier.models} ${pluralize('Model', newTier.models)}`}</Text>
                           <Text
                             className='uppercase'
                             family='body-bold'
-                          >{`${points}pts`}</Text>
+                          >{`${getCostForPick(newTier, unitIndex + 1)}pts`}</Text>
                         </HStack>
                       </HStack>
                     </Pressable>

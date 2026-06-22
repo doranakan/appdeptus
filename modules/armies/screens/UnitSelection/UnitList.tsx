@@ -1,5 +1,6 @@
 import { VStack } from 'appdeptus/components'
 import {
+  getCostForPick,
   type ArmyBuilder,
   type SelectableUnit,
   type Unit
@@ -32,18 +33,22 @@ const UnitList = ({ units }: UnitListProps) => {
       const points = watch('points')
 
       const { tiers: _, ...rest } = unit
+      const pickIndex =
+        selectedUnits.filter((u) => u.name === unit.name).length + 1
+      const tier = unit.tiers[0]
+      const adjustedTier = { ...tier, points: getCostForPick(tier, pickIndex) }
 
       setValue('units', [
         ...selectedUnits,
         {
           ...rest,
-          tier: unit.tiers[0],
+          tier: adjustedTier,
           upgrades: [],
           selectionId: Crypto.randomUUID()
         } as unknown as Unit
       ])
 
-      setValue('points', points + unit.tiers[0].points)
+      setValue('points', points + adjustedTier.points)
     },
     [setValue, watch]
   )

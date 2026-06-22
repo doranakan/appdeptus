@@ -7,7 +7,7 @@ import {
   UnitName,
   VStack
 } from 'appdeptus/components'
-import { isHero, type SelectableUnit, type Unit } from 'appdeptus/models'
+import { getCostForPick, isHero, type SelectableUnit, type Unit } from 'appdeptus/models'
 import { memo, useMemo } from 'react'
 
 type UnitListItemProps = {
@@ -29,7 +29,7 @@ const UnitListItem = ({
 
   const points = useMemo(() => {
     if (!count) {
-      return unit.tiers[0].points
+      return getCostForPick(unit.tiers[0], 1)
     }
 
     return selectedUnits?.reduce(
