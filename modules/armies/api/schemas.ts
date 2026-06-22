@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { type Army, type SelectableUnit } from 'appdeptus/models'
+import { type Army } from 'appdeptus/models'
 import { z } from 'zod'
 
 const idSchema = z.number()
@@ -54,11 +54,19 @@ const baseUnitSchema = z.object({
   warlord: z.boolean().optional()
 })
 
-const tierSchema = z.object({
-  id: idSchema,
-  models: z.number(),
-  points: z.number()
-})
+const tierSchema = z
+  .object({
+    id: idSchema,
+    models: z.number(),
+    points: z.number(),
+    points_surcharges: z.array(z.number()).optional()
+  })
+  .transform(({ points_surcharges, ...rest }) => ({
+    ...rest,
+    ...(points_surcharges?.length
+      ? { pointsSurcharges: points_surcharges }
+      : {})
+  }))
 
 const upgradeSchema = z.object({
   id: idSchema,
@@ -190,15 +198,53 @@ const gameUnitSchema = z.union([
 ])
 
 const teamSchema = z.discriminatedUnion('attachment', [
-  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('leader'), leader: leaderSchema, bodyguard: squadSchema }),
-  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('support'), support: supportSchema, bodyguard: squadSchema }),
-  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('both'), leader: leaderSchema, support: supportSchema, bodyguard: squadSchema })
+  z.object({
+    id: z.string(),
+    type: baseTeamSchema,
+    attachment: z.literal('leader'),
+    leader: leaderSchema,
+    bodyguard: squadSchema
+  }),
+  z.object({
+    id: z.string(),
+    type: baseTeamSchema,
+    attachment: z.literal('support'),
+    support: supportSchema,
+    bodyguard: squadSchema
+  }),
+  z.object({
+    id: z.string(),
+    type: baseTeamSchema,
+    attachment: z.literal('both'),
+    leader: leaderSchema,
+    support: supportSchema,
+    bodyguard: squadSchema
+  })
 ])
 
 const gameTeamSchema = z.discriminatedUnion('attachment', [
-  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('leader'), leader: gameLeaderSchema, bodyguard: gameSquadSchema }),
-  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('support'), support: gameSupportSchema, bodyguard: gameSquadSchema }),
-  z.object({ id: z.string(), type: baseTeamSchema, attachment: z.literal('both'), leader: gameLeaderSchema, support: gameSupportSchema, bodyguard: gameSquadSchema })
+  z.object({
+    id: z.string(),
+    type: baseTeamSchema,
+    attachment: z.literal('leader'),
+    leader: gameLeaderSchema,
+    bodyguard: gameSquadSchema
+  }),
+  z.object({
+    id: z.string(),
+    type: baseTeamSchema,
+    attachment: z.literal('support'),
+    support: gameSupportSchema,
+    bodyguard: gameSquadSchema
+  }),
+  z.object({
+    id: z.string(),
+    type: baseTeamSchema,
+    attachment: z.literal('both'),
+    leader: gameLeaderSchema,
+    support: gameSupportSchema,
+    bodyguard: gameSquadSchema
+  })
 ])
 
 const embarkedSchema = z.object({
@@ -326,9 +372,7 @@ const selectableVehicleSchema = z.object({
 const baseSelectableUnitSchema = baseUnitSchema
   .and(
     z.object({
-      unit_tiers: z.custom<SelectableUnit['tiers']>(
-        (val) => z.array(tierSchema).min(1).safeParse(val).success
-      ),
+      unit_tiers: z.array(tierSchema).min(1),
       unit_upgrades: z.array(upgradeSchema)
     })
   )

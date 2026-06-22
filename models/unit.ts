@@ -101,6 +101,16 @@ type Tier = {
   id: number
   models: number
   points: number
+  pointsSurcharges?: number[]
+}
+
+const getCostForPick = (tier: Tier, pickIndex: number): number => {
+  if (!tier.pointsSurcharges?.length || pickIndex <= 1) return tier.points
+  const surcharge =
+    tier.pointsSurcharges[
+      Math.min(pickIndex - 2, tier.pointsSurcharges.length - 1)
+    ] ?? 0
+  return tier.points + surcharge
 }
 
 type UnitUpgrade = {
@@ -146,7 +156,7 @@ const isHero = (unit: BaseUnit | SelectableUnit): unit is HeroUnit => {
   )
 }
 
-export { getTeamAttachers, isHero }
+export { getCostForPick, getTeamAttachers, isHero }
 
 export type {
   Character,
@@ -160,6 +170,7 @@ export type {
   Squad,
   Support,
   Team,
+  Tier,
   Transport,
   Unit,
   Vehicle
