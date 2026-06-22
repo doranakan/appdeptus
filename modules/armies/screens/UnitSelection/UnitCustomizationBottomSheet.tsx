@@ -274,6 +274,7 @@ const UnitCustomizationBottomSheet = ({
               <Button
                 className='shadow-sm'
                 color='secondary'
+                disabled={unitIndex !== selectedUnits.length - 1}
                 onPress={() => {
                   const totalPoints = watch('points')
 
