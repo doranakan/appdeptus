@@ -28,7 +28,9 @@ const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
               unit_upgrades(
                 id,
                 name,
-                points
+                points,
+                max_quantity,
+                quantity_mode
               )
             `
           )
@@ -61,7 +63,9 @@ const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
               unit_upgrades(
                 id,
                 name,
-                points
+                points,
+                max_quantity,
+                quantity_mode
               )
             `
             )
