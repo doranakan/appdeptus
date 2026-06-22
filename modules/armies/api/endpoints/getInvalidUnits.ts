@@ -50,24 +50,31 @@ const getInvalidUnits = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
           }
 
           const invalidUnits = invalidUnitsSchema.parse(data)
-
-          ids.units = invalidUnits.reduce<number[]>(
-            (acc, { id, hero, type }) => {
-              const u = units.filter((unit) => unit.id === id)
-
-              for (const unit of u) {
-                if (
-                  unit.type !== type ||
-                  ('hero' in unit && unit.hero !== hero)
-                ) {
-                  return [...acc, id]
-                }
-              }
-
-              return acc
-            },
-            []
+          const returnedUnitIds = new Set(invalidUnits.map(({ id }) => id))
+          const deletedUnitIds = ids.units.filter(
+            (id) => !returnedUnitIds.has(id)
           )
+
+          ids.units = [
+            ...deletedUnitIds,
+            ...invalidUnits.reduce<number[]>(
+              (acc, { id, hero, type }) => {
+                const u = units.filter((unit) => unit.id === id)
+
+                for (const unit of u) {
+                  if (
+                    unit.type !== type ||
+                    ('hero' in unit && unit.hero !== hero)
+                  ) {
+                    return [...acc, id]
+                  }
+                }
+
+                return acc
+              },
+              []
+            )
+          ]
         }
 
         if (ids.tiers.length) {
@@ -88,6 +95,10 @@ const getInvalidUnits = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
           }
 
           const invalidTiers = invalidTiersSchema.parse(data)
+          const returnedTierIds = new Set(invalidTiers.map(({ id }) => id))
+          const deletedTierIds = ids.tiers.filter(
+            (id) => !returnedTierIds.has(id)
+          )
 
           const pickCounts: Record<string, number> = {}
           const unitPickIndex = new Map<string, number>()
@@ -98,7 +109,9 @@ const getInvalidUnits = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
             }
           }
 
-          ids.tiers = invalidTiers.reduce<number[]>(
+          ids.tiers = [
+            ...deletedTierIds,
+            ...invalidTiers.reduce<number[]>(
             (acc, { id, models, points, pointsSurcharges }) => {
               const dbTier = { id, models, points, pointsSurcharges }
               const u = units.filter(
@@ -123,7 +136,8 @@ const getInvalidUnits = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
               return acc
             },
             []
-          )
+            )
+          ]
         }
 
         if (ids.enhancements.length) {
@@ -142,26 +156,35 @@ const getInvalidUnits = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
           }
 
           const invalidEnhancements = invalidEnhancementsSchema.parse(data)
-
-          ids.enhancements = invalidEnhancements.reduce<number[]>(
-            (acc, { id, points }) => {
-              const u = units.filter(
-                (unit) =>
-                  unit && 'enhancement' in unit && unit.enhancement?.id === id
-              )
-              for (const unit of u) {
-                if (
-                  'enhancement' in unit &&
-                  unit.enhancement &&
-                  unit.enhancement.points !== points
-                ) {
-                  return [...acc, id]
-                }
-              }
-              return acc
-            },
-            []
+          const returnedEnhancementIds = new Set(
+            invalidEnhancements.map(({ id }) => id)
           )
+          const deletedEnhancementIds = ids.enhancements.filter(
+            (id) => !returnedEnhancementIds.has(id)
+          )
+
+          ids.enhancements = [
+            ...deletedEnhancementIds,
+            ...invalidEnhancements.reduce<number[]>(
+              (acc, { id, points }) => {
+                const u = units.filter(
+                  (unit) =>
+                    unit && 'enhancement' in unit && unit.enhancement?.id === id
+                )
+                for (const unit of u) {
+                  if (
+                    'enhancement' in unit &&
+                    unit.enhancement &&
+                    unit.enhancement.points !== points
+                  ) {
+                    return [...acc, id]
+                  }
+                }
+                return acc
+              },
+              []
+            )
+          ]
         }
 
         const invalidUnits = units.reduce<string[]>((acc, unit) => {
