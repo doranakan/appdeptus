@@ -43,10 +43,7 @@ const codexSchema = z
     ]),
     expansion_of: idSchema.optional()
   })
-  .transform(({ expansion_of, ...rest }) => ({
-    ...rest,
-    expansionOf: expansion_of
-  }))
+  .transform(({ expansion_of: _expansion_of, ...rest }) => rest)
 
 const baseUnitSchema = z.object({
   id: idSchema,

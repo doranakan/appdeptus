@@ -44,45 +44,6 @@ const getUnitList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
           mapNullToUndefined(mainCodexData)
         ) as SelectableUnit[]
 
-        if (codex.expansionOf) {
-          const { data: baseCodexData, error: baseCodexError } = await supabase
-            .from(Table.UNITS)
-            .select(
-              `
-              id,
-              name,
-              type,
-              hero,
-              battleline,
-              unit_tiers(
-                id,
-                models,
-                points,
-                points_surcharges
-              ),
-              unit_upgrades(
-                id,
-                name,
-                points,
-                max_quantity,
-                quantity_mode
-              )
-            `
-            )
-            .eq('codex', codex.expansionOf)
-            .filter('hero', 'not.eq', true)
-
-          if (baseCodexError) {
-            return { error: JSON.stringify(baseCodexError) }
-          }
-
-          const baseUnits = unitListSchema.parse(
-            mapNullToUndefined(baseCodexData)
-          ) as SelectableUnit[]
-
-          units.push(...baseUnits)
-        }
-
         const sortedUnits = sortBy(units, ({ name }) => name)
 
         return { data: sortedUnits }

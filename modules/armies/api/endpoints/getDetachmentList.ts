@@ -32,34 +32,6 @@ const getDetachmentList = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
 
         const detachments = detachmentListSchema.parse(mapNullToUndefined(data))
 
-        if (codex.expansionOf) {
-          const { data: baseCodexData, error: baseCodexError } = await supabase
-            .from(Table.DETACHMENTS)
-            .select(
-              `
-              id,
-              name,
-              detachmentPoints:detachment_points,
-              enhancements:detachment_enhancements(
-                id,
-                name,
-                points
-              )
-            `
-            )
-            .eq('codex', codex.expansionOf)
-
-          if (baseCodexError) {
-            return { error: JSON.stringify(baseCodexError) }
-          }
-
-          const baseDetachments = detachmentListSchema.parse(
-            mapNullToUndefined(baseCodexData)
-          )
-
-          detachments.push(...baseDetachments)
-        }
-
         return { data: sortBy(detachments, ({ name }) => name) }
       } catch (error) {
         return { error: JSON.stringify(error) }
