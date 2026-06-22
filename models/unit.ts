@@ -77,10 +77,33 @@ type Vehicle = BaseVehicle & {
   tier: Tier
 }
 
-type Team<L extends BaseLeader = Leader, S extends BaseSupport = Support, B extends BaseSquad = Squad> =
-  | { id: string; type: 'team'; attachment: 'leader'; leader: L; bodyguard: B }
-  | { id: string; type: 'team'; attachment: 'support'; support: S; bodyguard: B }
-  | { id: string; type: 'team'; attachment: 'both'; leader: L; support: S; bodyguard: B }
+type Team<
+  L extends BaseLeader = Leader,
+  S extends BaseSupport = Support,
+  B extends BaseSquad = Squad
+> =
+  | {
+      id: string
+      type: 'team'
+      attachment: 'leader'
+      leader: L
+      bodyguard: B
+    }
+  | {
+      id: string
+      type: 'team'
+      attachment: 'support'
+      support: S
+      bodyguard: B
+    }
+  | {
+      id: string
+      type: 'team'
+      attachment: 'both'
+      leader: L
+      support: S
+      bodyguard: B
+    }
 
 type Embarked<
   TR extends BaseTransport = Transport,
@@ -117,6 +140,8 @@ type UnitUpgrade = {
   id: number
   name: string
   points: number
+  maxQuantity: number | null
+  quantityMode: 'fixed' | 'per-model'
 }
 
 type GameStats = {
@@ -129,7 +154,11 @@ type GameStats = {
 
 type GameUnit = BaseUnit & GameStats
 
-type GameTeam = Team<BaseLeader & GameStats, BaseSupport & GameStats, BaseSquad & GameStats>
+type GameTeam = Team<
+  BaseLeader & GameStats,
+  BaseSupport & GameStats,
+  BaseSquad & GameStats
+>
 
 type GameTransport = BaseTransport & GameStats
 
@@ -150,7 +179,9 @@ const getTeamAttachers = <
 
 const isHero = (unit: BaseUnit | SelectableUnit): unit is HeroUnit => {
   return (
-    (unit.type === 'character' || unit.type === 'leader' || unit.type === 'support') &&
+    (unit.type === 'character' ||
+      unit.type === 'leader' ||
+      unit.type === 'support') &&
     'hero' in unit &&
     unit.hero
   )
@@ -173,5 +204,6 @@ export type {
   Tier,
   Transport,
   Unit,
+  UnitUpgrade,
   Vehicle
 }

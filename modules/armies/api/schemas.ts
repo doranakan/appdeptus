@@ -68,11 +68,19 @@ const tierSchema = z
       : {})
   }))
 
-const upgradeSchema = z.object({
-  id: idSchema,
-  name: z.string(),
-  points: z.number()
-})
+const upgradeSchema = z
+  .object({
+    id: idSchema,
+    name: z.string(),
+    points: z.number(),
+    max_quantity: z.number().nullable().optional(),
+    quantity_mode: z.enum(['fixed', 'per-model']).default('fixed')
+  })
+  .transform(({ quantity_mode, max_quantity, ...rest }) => ({
+    ...rest,
+    maxQuantity: max_quantity ?? null,
+    quantityMode: quantity_mode
+  }))
 
 const enhancementSchema = z.object({
   id: idSchema,
