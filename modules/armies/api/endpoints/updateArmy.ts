@@ -1,6 +1,6 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
 import { type ArmyBuilder } from 'appdeptus/models'
-import { supabase } from 'appdeptus/utils'
+import { sortArmyUnits, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { type ArmiesApiTags } from '../tags'
 import { insertArmyEntries } from '../utils'
@@ -21,7 +21,7 @@ const updateArmy = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
           .from(Table.ARMIES)
           .update({
             ...rest,
-            roster: units,
+            roster: sortArmyUnits(units),
             detachments,
             battle_size: battleSize,
             valid: true
