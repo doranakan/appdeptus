@@ -59,6 +59,7 @@ const CodexList = () => {
         reset({
           ...getValues(),
           name: '',
+          battleSize: undefined,
           detachments: [],
           units: [],
           points: 0

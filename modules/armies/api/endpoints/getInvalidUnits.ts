@@ -1,5 +1,5 @@
 import { type CoreEndpointBuilder } from 'appdeptus/api'
-import { type Army, type Unit } from 'appdeptus/models'
+import { getCostForPick, type Army, type Unit } from 'appdeptus/models'
 import { mapRosterToUnits, supabase } from 'appdeptus/utils'
 import { Table } from 'appdeptus/utils/supabase'
 import { uniq } from 'lodash'
@@ -77,7 +77,8 @@ const getInvalidUnits = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
               `
               id,
               models,
-              points
+              points,
+              points_surcharges
             `
             )
             .in('id', ids.tiers)
@@ -88,17 +89,33 @@ const getInvalidUnits = (builder: CoreEndpointBuilder<ArmiesApiTags>) =>
 
           const invalidTiers = invalidTiersSchema.parse(data)
 
+          const pickCounts: Record<string, number> = {}
+          const unitPickIndex = new Map<string, number>()
+          for (const unit of units) {
+            pickCounts[unit.name] = (pickCounts[unit.name] ?? 0) + 1
+            if ('selectionId' in unit) {
+              unitPickIndex.set(unit.selectionId, pickCounts[unit.name]!)
+            }
+          }
+
           ids.tiers = invalidTiers.reduce<number[]>(
-            (acc, { id, models, points }) => {
+            (acc, { id, models, points, pointsSurcharges }) => {
+              const dbTier = { id, models, points, pointsSurcharges }
               const u = units.filter(
                 (unit) => 'tier' in unit && unit.tier.id === id
               )
 
               for (const unit of u) {
+                if (!unit || !('tier' in unit)) continue
+                const pickIndex =
+                  'selectionId' in unit
+                    ? (unitPickIndex.get(unit.selectionId) ?? 1)
+                    : 1
+                const expectedPoints = getCostForPick(dbTier, pickIndex)
+
                 if (
-                  unit &&
-                  'tier' in unit &&
-                  (unit.tier.points !== points || unit.tier.models !== models)
+                  unit.tier.points !== expectedPoints ||
+                  unit.tier.models !== models
                 ) {
                   return [...acc, id]
                 }
