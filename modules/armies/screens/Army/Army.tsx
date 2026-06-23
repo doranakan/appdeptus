@@ -94,7 +94,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
   }))
 
   return (
-    <ScreenContainer safeAreaInsets={['bottom', 'top']}>
+    <ScreenContainer safeAreaInsets={['top']}>
       <VStack className='absolute h-full w-full'>
         <Animated.View style={rArtworkStyle}>
           <ArmyBackground codex={army.codex.name} />

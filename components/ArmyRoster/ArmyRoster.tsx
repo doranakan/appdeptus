@@ -20,6 +20,7 @@ import { VStack } from '../ui'
 import { UnitListItem } from '../UnitListItem'
 import { scheduleOnRN } from 'react-native-worklets'
 import * as Haptics from 'expo-haptics'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 type ArmyRosterProps = {
   roster: Army['roster']
@@ -95,6 +96,7 @@ const ArmyRoster = ({
   const rStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translation.value }]
   }))
+  const { bottom } = useSafeAreaInsets()
 
   return (
     <GestureDetector gesture={gesture}>
@@ -104,6 +106,7 @@ const ArmyRoster = ({
         ref={scrollRef}
         data={roster}
         contentContainerClassName='pt-32'
+        contentContainerStyle={{ paddingBottom: bottom }}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={() => <VStack className='h-4' />}
         keyExtractor={(unit) => {
