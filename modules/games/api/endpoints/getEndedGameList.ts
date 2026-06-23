@@ -59,6 +59,8 @@ const getEndedGameList = (builder: CoreEndpointBuilder<GamesApiTags>) =>
           data: games.sort(({ id: id1 }, { id: id2 }) => id2 - id1)
         }
       } catch (error) {
+        console.log({ error })
+
         return { error: JSON.stringify(error) }
       }
     },

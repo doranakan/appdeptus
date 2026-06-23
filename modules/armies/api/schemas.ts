@@ -202,32 +202,45 @@ const gameUnitSchema = z.union([
   gameVehicleSchema
 ])
 
-const teamSchema = z.discriminatedUnion('attachment', [
-  z.object({
-    id: z.string(),
-    type: baseTeamSchema,
-    attachment: z.literal('leader'),
-    leader: leaderSchema,
-    bodyguard: squadSchema
-  }),
-  z.object({
-    id: z.string(),
-    type: baseTeamSchema,
-    attachment: z.literal('support'),
-    support: supportSchema,
-    bodyguard: squadSchema
-  }),
-  z.object({
-    id: z.string(),
-    type: baseTeamSchema,
-    attachment: z.literal('both'),
-    leader: leaderSchema,
-    support: supportSchema,
-    bodyguard: squadSchema
-  })
-])
+const inferAttachment = (val: unknown) => {
+  if (typeof val !== 'object' || val === null || 'attachment' in val) return val
+  const v = val as Record<string, unknown>
+  if ('leader' in v && 'support' in v) return { ...v, attachment: 'both' }
+  if ('support' in v) return { ...v, attachment: 'support' }
+  return { ...v, attachment: 'leader' }
+}
 
-const gameTeamSchema = z.discriminatedUnion('attachment', [
+const teamSchema = z.preprocess(
+  inferAttachment,
+  z.discriminatedUnion('attachment', [
+    z.object({
+      id: z.string(),
+      type: baseTeamSchema,
+      attachment: z.literal('leader'),
+      leader: leaderSchema,
+      bodyguard: squadSchema
+    }),
+    z.object({
+      id: z.string(),
+      type: baseTeamSchema,
+      attachment: z.literal('support'),
+      support: supportSchema,
+      bodyguard: squadSchema
+    }),
+    z.object({
+      id: z.string(),
+      type: baseTeamSchema,
+      attachment: z.literal('both'),
+      leader: leaderSchema,
+      support: supportSchema,
+      bodyguard: squadSchema
+    })
+  ])
+)
+
+const gameTeamSchema = z.preprocess(
+  inferAttachment,
+  z.discriminatedUnion('attachment', [
   z.object({
     id: z.string(),
     type: baseTeamSchema,
@@ -250,7 +263,8 @@ const gameTeamSchema = z.discriminatedUnion('attachment', [
     support: gameSupportSchema,
     bodyguard: gameSquadSchema
   })
-])
+  ])
+)
 
 const embarkedSchema = z.object({
   id: z.string(),
