@@ -28,7 +28,7 @@
     "@react-native-async-storage/async-storage": "2.2.0",
     "@react-native-google-signin/google-signin": "^13.1.0",
     "@reduxjs/toolkit": "^2.9.0",
-    "@shopify/react-native-skia": "2.6.2",
+    "@shopify/react-native-skia": "2.6.7",
     "@supabase/supabase-js": "^2.50.2",
     "ahooks": "^3.7.10",
     "babel-plugin-inline-import": "^3.0.0",
