@@ -15,6 +15,7 @@ import {
   useGetInvalidUnitsQuery,
   useUpdateArmyMutation
 } from 'appdeptus/modules/armies/api'
+import ChangeTheme from 'appdeptus/modules/armies/components/ChangeTheme'
 import { mapBattleSizePointCap } from 'appdeptus/utils'
 import { router, Stack, useGlobalSearchParams, useSegments } from 'expo-router'
 import { Check, ChevronRight } from 'lucide-react-native'
@@ -287,36 +288,38 @@ const ArmyBuilderLayout = () => {
   ])
 
   return (
-    <ScreenContainer
-      safeAreaInsets={['top']}
-      space='md'
-    >
-      <VStack className='px-4'>
-        <NavigationHeader
-          variant='backButton'
-          progress={{
-            currentStep,
-            steps: 12,
-            text
-          }}
-          rightButton={rightButton}
-        />
-      </VStack>
-      <FormProvider {...form}>
-        <Stack
-          initialRouteName='codex-selection'
-          screenOptions={defaultScreenOptions}
-        >
-          <Stack.Screen name='battle-size-selection' />
-          <Stack.Screen name='codex-selection' />
-          <Stack.Screen name='detachment-selection' />
-          <Stack.Screen name='[id]' />
-          <Stack.Screen name='enhancement-selection' />
-          <Stack.Screen name='unit-selection' />
-          <Stack.Screen name='warlord-selection' />
-        </Stack>
-      </FormProvider>
-    </ScreenContainer>
+    <ChangeTheme>
+      <ScreenContainer
+        safeAreaInsets={['top']}
+        space='md'
+      >
+        <VStack className='px-4'>
+          <NavigationHeader
+            variant='backButton'
+            progress={{
+              currentStep,
+              steps: 12,
+              text
+            }}
+            rightButton={rightButton}
+          />
+        </VStack>
+        <FormProvider {...form}>
+          <Stack
+            initialRouteName='codex-selection'
+            screenOptions={defaultScreenOptions}
+          >
+            <Stack.Screen name='battle-size-selection' />
+            <Stack.Screen name='codex-selection' />
+            <Stack.Screen name='detachment-selection' />
+            <Stack.Screen name='[id]' />
+            <Stack.Screen name='enhancement-selection' />
+            <Stack.Screen name='unit-selection' />
+            <Stack.Screen name='warlord-selection' />
+          </Stack>
+        </FormProvider>
+      </ScreenContainer>
+    </ChangeTheme>
   )
 }
 
