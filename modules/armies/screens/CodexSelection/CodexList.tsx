@@ -67,9 +67,8 @@ const CodexList = () => {
         })
       }
 
-      setValue('codex', codex)
-
       changeTheme(() => {
+        setValue('codex', codex)
         dispatch(setTheme(codex.name))
       })
     },

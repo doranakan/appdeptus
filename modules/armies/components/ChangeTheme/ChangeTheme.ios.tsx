@@ -3,14 +3,14 @@ import {
   ChangeThemeContext,
   type ChangeThemeContextType
 } from './ChangeThemeContext'
-import Animated, {
+import {
   Easing,
   useAnimatedRef,
   useDerivedValue,
   useSharedValue,
   withTiming
 } from 'react-native-reanimated'
-import { StyleSheet, type View } from 'react-native'
+import { StyleSheet, View, PixelRatio, useWindowDimensions } from 'react-native'
 import {
   Canvas,
   Fill,
@@ -20,10 +20,15 @@ import {
   Skia,
   type SkImage
 } from '@shopify/react-native-skia'
-import { PixelRatio } from 'react-native'
 import { scheduleOnRN } from 'react-native-worklets'
 
 const pd = PixelRatio.get()
+
+const wait = async (ms: number) => {
+  return await new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
+}
 
 const thanosSnapShaderSource = Skia.RuntimeEffect.Make(`
     uniform shader image;
@@ -88,12 +93,12 @@ const ChangeTheme = ({ children }: PropsWithChildren) => {
   const waveDir = useSharedValue<[number, number]>([1, 0])
 
   const [image, setImage] = useState<SkImage | null>(null)
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions()
 
   const changeTheme = useCallback<ChangeThemeContextType['changeTheme']>(
     async (applyTheme) => {
       const img = await makeImageFromView(wrapperRef)
       if (!img) {
-        applyTheme()
         return
       }
       progress.value = 0
@@ -103,20 +108,15 @@ const ChangeTheme = ({ children }: PropsWithChildren) => {
       const windAngle = Math.random() * Math.PI * 2
       wind.value = [Math.cos(windAngle) * 0.7, Math.sin(windAngle) * 0.7 - 0.6]
       setImage(img)
-
-      // double requestAnimationFrame is put here to avoid setting random timeouts. we give the canvas 2 frames to get ready 🥶
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          applyTheme()
-          progress.value = withTiming(
-            1,
-            { duration: 700, easing: Easing.bezier(0.2, 0.2, 0.8, 0.8) },
-            () => {
-              scheduleOnRN(setImage, null)
-            }
-          )
-        })
-      })
+      await wait(16)
+      applyTheme()
+      progress.value = withTiming(
+        1,
+        { duration: 700, easing: Easing.bezier(0.2, 0.2, 0.8, 0.8) },
+        () => {
+          scheduleOnRN(setImage, null)
+        }
+      )
     },
     [progress, seed, waveDir, wind, setImage, wrapperRef]
   )
@@ -136,46 +136,40 @@ const ChangeTheme = ({ children }: PropsWithChildren) => {
 
   return (
     <ChangeThemeContext.Provider value={value}>
-      {thanosSnapShaderSource !== null && (
-        <Canvas style={[styles.canvas, { zIndex: image ? 10 : -1 }]}>
-          {image && (
-            <Fill>
-              <Shader
-                source={thanosSnapShaderSource}
-                uniforms={uniforms}
-              >
-                <ImageShader
-                  image={image}
-                  fit='cover'
-                  x={0}
-                  y={0}
-                  width={image.width() / pd}
-                  height={image.height() / pd}
-                />
-              </Shader>
-            </Fill>
-          )}
+      {thanosSnapShaderSource !== null && image && (
+        <Canvas
+          style={[styles.canvas, { width: screenWidth, height: screenHeight }]}
+        >
+          <Fill>
+            <Shader
+              source={thanosSnapShaderSource}
+              uniforms={uniforms}
+            >
+              <ImageShader
+                image={image}
+                fit='cover'
+                x={0}
+                y={0}
+                width={image.width() / pd}
+                height={image.height() / pd}
+              />
+            </Shader>
+          </Fill>
         </Canvas>
       )}
-      <Animated.View
+      <View
         className='flex-1'
         collapsable={false}
         ref={wrapperRef}
       >
         {children}
-      </Animated.View>
+      </View>
     </ChangeThemeContext.Provider>
   )
 }
 
 const styles = StyleSheet.create({
-  canvas: {
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0
-  }
+  canvas: { position: 'absolute', top: 0, left: 0, zIndex: 10 }
 })
 
 export default ChangeTheme
