@@ -24,6 +24,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useGetCodexListQuery } from '../../api'
 import CodexListItem from './CodexListItem'
+import { useChangeThemeContext } from '../../components/ChangeTheme/ChangeThemeContext'
 
 const CodexList = () => {
   const disabledArmies = useFeatureFlag('disabled-armies')
@@ -52,7 +53,7 @@ const CodexList = () => {
   const [selectedCodex, detachments] = watch(['codex.name', 'detachments'])
 
   const dispatch = useAppDispatch()
-
+  const { changeTheme } = useChangeThemeContext()
   const handlePress = useCallback(
     (codex: Codex) => {
       if (detachments?.length && selectedCodex !== codex.name) {
@@ -66,11 +67,20 @@ const CodexList = () => {
         })
       }
 
-      setValue('codex', codex)
-
-      dispatch(setTheme(codex.name))
+      changeTheme(() => {
+        setValue('codex', codex)
+        dispatch(setTheme(codex.name))
+      })
     },
-    [detachments, dispatch, getValues, reset, selectedCodex, setValue]
+    [
+      changeTheme,
+      detachments?.length,
+      dispatch,
+      getValues,
+      reset,
+      selectedCodex,
+      setValue
+    ]
   )
 
   return (
