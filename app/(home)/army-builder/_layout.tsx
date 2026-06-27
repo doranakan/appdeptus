@@ -137,8 +137,10 @@ const ArmyBuilderLayout = () => {
 
   const unitSelectionButtonDisabled = useMemo(
     () =>
-      !units?.filter(({ type }) => type === 'leader').length &&
-      !units?.filter(({ type }) => type === 'character').length,
+      !units?.filter(
+        ({ type }) =>
+          type === 'leader' || type === 'character' || type === 'support'
+      ).length,
     [units]
   )
 
@@ -237,7 +239,9 @@ const ArmyBuilderLayout = () => {
         const canUpgradeUnits =
           units.filter(
             (unit) =>
-              (unit.type === 'character' || unit.type === 'leader') &&
+              (unit.type === 'character' ||
+                unit.type === 'leader' ||
+                unit.type === 'support') &&
               !unit.hero
           ).length > 0
 
