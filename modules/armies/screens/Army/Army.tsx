@@ -17,15 +17,22 @@ import {
 import { type Army } from 'appdeptus/models'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { useAppDispatch } from 'appdeptus/store'
-import { LinearGradient } from 'expo-linear-gradient'
+import { LinearGradient, type LinearGradientProps } from 'expo-linear-gradient'
 import { useLocalSearchParams } from 'expo-router'
 import { Component, EllipsisVertical } from 'lucide-react-native'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { useGetArmyQuery, useGetInvalidUnitsQuery } from '../../api'
 import { RosterTopContainer } from '../../components'
 import OptionsBottomSheet from './OptionsBottomSheet'
 import ref from './ref'
+import Animated, {
+  interpolate,
+  interpolateColor,
+  useAnimatedProps,
+  useAnimatedStyle,
+  useSharedValue
+} from 'react-native-reanimated'
 
 const ArmyScreen = () => {
   const { id } = useLocalSearchParams<{ id: string }>()
@@ -54,6 +61,7 @@ const ArmyScreen = () => {
 type ArmyContainerProps = {
   army: Army
 }
+const AnimatedGradient = Animated.createAnimatedComponent(LinearGradient)
 
 const ArmyContainer = ({ army }: ArmyContainerProps) => {
   const { data: invalidUnits } = useGetInvalidUnitsQuery(
@@ -70,19 +78,55 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
     dispatch(setTheme(army.codex.name))
   })
 
+  const scaling = useSharedValue(1)
+  const onOverScroll = useCallback(
+    (num: number) => {
+      'worklet'
+      scaling.value = interpolate(num, [0, 250], [1, 1.1])
+    },
+    [scaling]
+  )
+
+  const rArtworkStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scaling.value }],
+    flex: 1
+  }))
+
+  const animatedProps = useAnimatedProps<LinearGradientProps>(() => {
+    const midColor = interpolateColor(
+      scaling.value,
+      [1, 1.1],
+      [
+        themeColors[army.codex.name].primary[950],
+        `${themeColors[army.codex.name].primary[950]}00`
+      ]
+    )
+    return {
+      colors: [
+        `${themeColors[army.codex.name].primary[950]}00`,
+        midColor,
+        themeColors[army.codex.name].primary[950]
+      ],
+      locations: [0, 0.9, 1]
+    }
+  })
+
   return (
-    <ScreenContainer safeAreaInsets={['bottom', 'top']}>
+    <ScreenContainer safeAreaInsets={['top']}>
       <VStack className='absolute h-full w-full'>
-        <VStack className='flex-1'>
+        <Animated.View style={rArtworkStyle}>
           <ArmyBackground codex={army.codex.name} />
-          <LinearGradient
+          <AnimatedGradient
             colors={[
               `${themeColors[army.codex.name].primary[950]}00`,
+              themeColors[army.codex.name].primary[950],
               themeColors[army.codex.name].primary[950]
             ]}
+            locations={[0, 0.95, 1]}
+            animatedProps={animatedProps}
             style={styles.gradient}
           />
-        </VStack>
+        </Animated.View>
         <VStack className='flex-1' />
       </VStack>
       <VStack
@@ -98,6 +142,7 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
           }}
         />
         <ArmyRoster
+          onOverScroll={onOverScroll}
           ListHeaderComponent={
             <VStack space='md'>
               <RosterTopContainer
