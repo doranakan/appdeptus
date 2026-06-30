@@ -17,7 +17,7 @@ import {
 import { type Army } from 'appdeptus/models'
 import { useGetUserProfileQuery } from 'appdeptus/modules/user/api'
 import { useAppDispatch } from 'appdeptus/store'
-import { LinearGradient } from 'expo-linear-gradient'
+import { LinearGradient, type LinearGradientProps } from 'expo-linear-gradient'
 import { useLocalSearchParams } from 'expo-router'
 import { Component, EllipsisVertical } from 'lucide-react-native'
 import { useCallback, useEffect } from 'react'
@@ -28,6 +28,8 @@ import OptionsBottomSheet from './OptionsBottomSheet'
 import ref from './ref'
 import Animated, {
   interpolate,
+  interpolateColor,
+  useAnimatedProps,
   useAnimatedStyle,
   useSharedValue
 } from 'react-native-reanimated'
@@ -89,9 +91,25 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
     transform: [{ scale: scaling.value }],
     flex: 1
   }))
-  const rGradientStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(scaling.value, [1, 1.1], [1, 0])
-  }))
+
+  const animatedProps = useAnimatedProps<LinearGradientProps>(() => {
+    const midColor = interpolateColor(
+      scaling.value,
+      [1, 1.1],
+      [
+        themeColors[army.codex.name].primary[950],
+        `${themeColors[army.codex.name].primary[950]}00`
+      ]
+    )
+    return {
+      colors: [
+        `${themeColors[army.codex.name].primary[950]}00`,
+        midColor,
+        themeColors[army.codex.name].primary[950]
+      ],
+      locations: [0, 0.9, 1]
+    }
+  })
 
   return (
     <ScreenContainer safeAreaInsets={['top']}>
@@ -101,9 +119,12 @@ const ArmyContainer = ({ army }: ArmyContainerProps) => {
           <AnimatedGradient
             colors={[
               `${themeColors[army.codex.name].primary[950]}00`,
+              themeColors[army.codex.name].primary[950],
               themeColors[army.codex.name].primary[950]
             ]}
-            style={[rGradientStyle, styles.gradient]}
+            locations={[0, 0.95, 1]}
+            animatedProps={animatedProps}
+            style={styles.gradient}
           />
         </Animated.View>
         <VStack className='flex-1' />

@@ -1,5 +1,5 @@
 import { type Army } from 'appdeptus/models'
-import { type ComponentProps, memo } from 'react'
+import { type ComponentProps, memo, useState } from 'react'
 import {
   GestureDetector,
   useNativeGesture,
@@ -21,6 +21,7 @@ import { UnitListItem } from '../UnitListItem'
 import { scheduleOnRN } from 'react-native-worklets'
 import * as Haptics from 'expo-haptics'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useWindowDimensions } from 'react-native'
 
 type ArmyRosterProps = {
   roster: Army['roster']
@@ -32,7 +33,6 @@ type ArmyRosterProps = {
 }
 
 const SNAP_THRESHOLD = 100
-const EXPANDED_TRANSLATION = 250
 
 const ArmyRoster = ({
   roster,
@@ -43,6 +43,7 @@ const ArmyRoster = ({
   const scrollRef = useAnimatedRef<Animated.FlatList>()
   const isOnTop = useSharedValue(true)
   const translation = useSharedValue(0)
+  const { height: screenHeight } = useWindowDimensions()
 
   const onScroll = useAnimatedScrollHandler({
     onScroll: ({ contentOffset: { y } }) => {
@@ -56,6 +57,8 @@ const ArmyRoster = ({
       isOnTop.value = y <= 0
     }
   })
+
+  const [initialY, setInitialY] = useState(0)
 
   const nativeGesture = useNativeGesture()
   const panGesture = usePanGesture({
@@ -71,8 +74,10 @@ const ArmyRoster = ({
       translation.value = Math.max(0, translation.value + changeY)
     },
     onDeactivate: () => {
+      // 128 is the padding applied to the list from the pt-32 class and 16 is the actual gap we want when expanded
+      const requiredTranslation = screenHeight / 2 - initialY + 16 - 128
       translation.value = withSpring(
-        translation.value >= SNAP_THRESHOLD ? EXPANDED_TRANSLATION : 0
+        translation.value >= SNAP_THRESHOLD ? requiredTranslation : 0
       )
     }
   })
@@ -101,6 +106,11 @@ const ArmyRoster = ({
   return (
     <GestureDetector gesture={gesture}>
       <Animated.FlatList
+        onLayout={(event) => {
+          event.target.measureInWindow((_x, y) => {
+            setInitialY(y)
+          })
+        }}
         style={rStyle}
         onScroll={onScroll}
         ref={scrollRef}
